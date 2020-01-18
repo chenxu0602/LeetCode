@@ -60,12 +60,12 @@ class Solution:
                 left_trees = generate_trees(start, i-1)
                 right_trees = generate_trees(i+1, end)
 
-            for l in left_trees:
-                for r in right_trees:
-                    current_tree = TreeNode(i)
-                    current_tree.left = l
-                    current_tree.right = r
-                    all_trees += current_tree,
+                for l in left_trees:
+                    for r in right_trees:
+                        current_tree = TreeNode(i)
+                        current_tree.left = l
+                        current_tree.right = r
+                        all_trees += current_tree,
 
             return all_trees
 

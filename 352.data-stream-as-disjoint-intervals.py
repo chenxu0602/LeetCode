@@ -60,7 +60,7 @@ class SummaryRanges:
             self.intervals.pop(pos+1)
 
         if pos - 1 >= 0 and self.intervals[pos-1][1] == val - 1:
-            self.intervals[pos-1][1] = self.intervals[pos+1][1]
+            self.intervals[pos-1][1] = self.intervals[pos][1]
             self.intervals.pop(pos)
 
 
