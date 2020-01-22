@@ -59,10 +59,17 @@
 #
 class Solution:
     def countArrangement(self, N: int) -> int:
+        """
         self.count = 0
         visited = [False] * (N+1)
         self.calculate(N, 1, visited)
         return self.count
+        """
+
+        def count(i, X):
+            if i == 1: return 1
+            return sum(count(i-1, X-{x}) for x in X if x % i == 0 or i % x == 0)
+        return count(N, set(range(1, N+1)))
 
     def calculate(self, N, pos, visited):
         if pos > N:
