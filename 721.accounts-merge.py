@@ -51,6 +51,7 @@
 # 
 # 
 # Note:
+
 # The length of accounts will be in the range [1, 1000].
 # The length of accounts[i] will be in the range [1, 10].
 # The length of accounts[i][j] will be in the range [1, 30].
@@ -79,6 +80,7 @@ class DSU:
         else:
             self.p[yr] = xr
             self.r[xr] += 1
+        return True
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:

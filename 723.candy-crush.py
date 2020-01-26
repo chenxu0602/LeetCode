@@ -78,7 +78,7 @@ class Solution:
             for c in range(C-2):
                 if abs(board[r][c]) == abs(board[r][c+1]) == abs(board[r][c+2]) != 0:
                     board[r][c] = board[r][c+1] = board[r][c+2] = -abs(board[r][c])
-                    todo =True
+                    todo = True
 
         for r in range(R-2):
             for c in range(C):

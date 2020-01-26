@@ -50,7 +50,6 @@
 # 
 # 
 #
-"""
 # Employee info
 class Employee:
     def __init__(self, id, importance, subordinates):
@@ -61,7 +60,7 @@ class Employee:
         self.importance = importance
         # the id of direct subordinates
         self.subordinates = subordinates
-"""
+
 class Solution:
     def getImportance(self, employees, id):
         """
