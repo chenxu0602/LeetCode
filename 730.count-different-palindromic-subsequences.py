@@ -54,20 +54,18 @@
 # Each character S[i] will be in the set {'a', 'b', 'c', 'd'}.
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def countPalindromicSubsequences(self, S: str) -> int:
-        def cache(start, end):
-            if end <= start + 2:
-                return end - start
 
-            if (start, end) not in check:
-                check[(start, end)] = dfs(start, end)
-
-            return check[(start, end)]
-
+        @lru_cache(None)
         def dfs(start, end):
             count = 0
             segment = S[start:end]
+
+            if end <= start + 2:
+                return end - start
 
             for x in "abcd":
                 try:
@@ -76,11 +74,8 @@ class Solution:
                 except:
                     continue
 
-                count += cache(i+1, j) + 2 if i != j else 1
+                count += dfs(i+1, j) + 2 if i != j else 1
 
-            return count % 1000000007
+            return count % (10**9 + 7)
 
-        check = {}
-        return cache(0, len(S))
-        
-
+        return dfs(0, len(S))
