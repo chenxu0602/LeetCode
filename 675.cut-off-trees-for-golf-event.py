@@ -102,7 +102,7 @@ class Solution:
                         if closer:
                             queue.appendleft((detours, nr, nc))
                         else:
-                            queue.append((detours, nr, nc))
+                            queue.append((detours+1, nr, nc))
         return -1
 
 
