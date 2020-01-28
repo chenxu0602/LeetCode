@@ -54,7 +54,7 @@ class Solution:
         return ''.join(x[:-1])
 
     def calculate(self, s: str) -> int:
-        """
+
         num, stack, sign = 0, [], '+'
         s += ' '
         i = 0
@@ -64,7 +64,7 @@ class Solution:
             elif s[i] == '(':
                 num, skip = self.calculate(s[i+1:])
                 i += skip
-            elif s[i] in '+-*/)' or i== len(s)-1:
+            elif s[i] in '+-*/)' or i == len(s)-1:
                 if sign == '+':
                     stack.append(num)
                 elif sign == '-':
@@ -72,7 +72,11 @@ class Solution:
                 elif sign == '*':
                     stack.append(stack.pop() * num)
                 else:
-                    stack.append(int(stack.pop() // num))
+                    last = stack.pop()
+                    if last > 0:
+                        stack.append(last // num)
+                    else:
+                        stack.append(-(-last // num))
 
                 if s[i] == ')':
                     return sum(stack), i + 1
@@ -80,8 +84,8 @@ class Solution:
                 sign = s[i]
             i += 1
         return sum(stack)
-        """
 
+        """
         s = iter(re.findall('\d+|\S', s))
         operand, sign = 0, 1
         total = 0
@@ -96,6 +100,7 @@ class Solution:
             else:
                 operand = self.calculate(self.getSubExpr(s)) if token == '(' else int(token)
         return total + sign * operand
+        """
             
 
         

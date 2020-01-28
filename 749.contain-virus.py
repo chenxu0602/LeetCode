@@ -93,8 +93,8 @@ class Solution:
     def containVirus(self, grid: List[List[int]]) -> int:
         R, C = len(grid), len(grid[0])
 
-        def neightbors(r, c):
-            for nr, nc in ((r-1, c), (r+1, c), (r, c-1), (r, c+1)):
+        def neighbors(r, c):
+            for nr, nc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
                 if 0 <= nr < R and 0 <= nc < C:
                     yield nr, nc
 
@@ -102,7 +102,7 @@ class Solution:
             if (r, c) not in seen:
                 seen.add((r, c))
                 regions[-1].add((r, c))
-                for nr, nc in neightbors(r, c):
+                for nr, nc in neighbors(r, c):
                     if grid[nr][nc] == 1:
                         dfs(nr, nc)
                     elif grid[nr][nc] == 0:
@@ -131,7 +131,7 @@ class Solution:
                         grid[r][c] = -1
                 else:
                     for r, c in reg:
-                        for nr, nc in neightbors(r, c):
+                        for nr, nc in neighbors(r, c):
                             if grid[nr][nc] == 0:
                                 grid[nr][nc] = 1
 

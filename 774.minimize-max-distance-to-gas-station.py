@@ -43,7 +43,6 @@ import heapq
 
 class Solution:
     def minmaxGasDist(self, stations: List[int], K: int) -> float:
-        """
         def possible(D):
             return sum(((stations[i+1] - stations[i]) // D) for i in range(len(stations) - 1)) <= K
 
@@ -55,7 +54,6 @@ class Solution:
             else:
                 lo = mi
         return lo
-        """
 
         """
         max_heap = []
@@ -71,6 +69,7 @@ class Solution:
         return -max_heap[0][0]
         """
 
+        """
         bound = (stations[-1] - stations[0]) / (K + 1)
         added = 0
         max_heap = []
@@ -87,5 +86,6 @@ class Solution:
             added += 1
 
         return -max_heap[0][0]
+        """
         
 
