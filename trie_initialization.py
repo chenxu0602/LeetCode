@@ -16,3 +16,17 @@ def replace(word):
             break
         cur = cur[letter]
     return cur.get(END, word)
+
+
+
+820:
+
+        words = list(set(words))
+        Trie = lambda: defaultdict(Trie)
+        trie = Trie()
+
+        nodes = [functools.reduce(dict.__getitem__, word[::-1], trie) for word in words]
+
+        return sum(len(word) + 1 
+                   for i, word in enumerate(words)
+                   if len(nodes[i]) == 0)

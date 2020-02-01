@@ -51,6 +51,7 @@ class Solution:
         return ans
         """
 
+        """
         N, t, c = str(N), 0, 1
         L, a, b = len(N) - 1, [1,2,3,3,3,4,5,5,6,7], [1,2,2,2,2,2,2,2,3,3] 
     	
@@ -60,5 +61,24 @@ class Solution:
             if N[i] in '347': return t
             if N[i] not in '18': c = 0
         return t + a[int(N[-1])] - c*b[int(N[-1])]
+        """
+
+        from functools import lru_cache
+
+        A = list(map(int, str(N)))
+
+        def dp(i, equality_flag, involution_flag):
+            if i == len(A):
+                return +(involution_flag)
+
+            ans = 0
+            for d in range(A[i] + 1 if equality_flag else 10):
+                if d in {3, 4, 7}: continue
+                ans += dp(i+1, equality_flag and d == A[i], involution_flag or d in {2, 5, 6, 9})
+
+            return ans
+
+        return dp(0, True, False)
+
 
 

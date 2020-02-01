@@ -67,6 +67,7 @@ class Solution:
        S = str(N)
        K = len(S)
        dp = [0] * K + [1]
+       # dp[i] = total number of valid integers if N was "N[i:]"
 
        for i in range(K-1, -1, -1):
           for d in D:
