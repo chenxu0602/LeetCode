@@ -57,6 +57,7 @@ from collections import Counter
 
 class Solution:
     def minIncrementForUnique(self, A: List[int]) -> int:
+        """
         count = Counter(A)
         taken = []
 
@@ -67,5 +68,12 @@ class Solution:
             elif taken and count[x] == 0:
                 ans += x - taken.pop()
         return ans
+        """
+
+        res = head = 0
+        for i in sorted(A):
+            res += max(need - i, 0)
+            need = max(need + 1, i + 1)
+        return res
         
 

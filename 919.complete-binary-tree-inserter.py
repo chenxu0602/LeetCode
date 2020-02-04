@@ -77,37 +77,30 @@
 #         self.left = None
 #         self.right = None
 
-from collections import deque
 
 class CBTInserter:
 
     def __init__(self, root: TreeNode):
-        self.queue = deque()
-        self.root = root
-        q = deque([root])
-        while q:
-            node = q.popleft()
-            if not node.left or not node.right:
-                self.queue.append(node)
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-        
+        self.tree = [root]
+        for i in self.tree:
+            if i.left:
+                self.tree.append(i.left)
+            if i.right:
+                self.tree.append(i.right)
 
+        
     def insert(self, v: int) -> int:
-        node = self.queue[0]
-        self.queue.append(TreeNode(v))
-        if not node.left:
-            node.left = self.queue[-1]
+        n = len(self.tree)
+        self.tree.append(TreeNode(v))
+        if n % 2:
+            self.tree[(n-1)//2].left = self.tree[-1]
         else:
-            node.right = self.queue[-1]
-            self.queue.popleft()
-        return node.val
+            self.tree[(n-1)//2].right = self.tree[-1]
+        return self.tree[(n-1)//2].val
         
 
     def get_root(self) -> TreeNode:
-        return self.root
+        return self.tree[0]
         
 
 

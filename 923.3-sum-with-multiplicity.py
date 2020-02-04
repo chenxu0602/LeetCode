@@ -56,6 +56,9 @@
 # 0 <= target <= 300
 # 
 #
+from collections import Counter
+from itertools import combinations_with_replacement
+
 class Solution:
     def threeSumMulti(self, A: List[int], target: int) -> int:
        """
@@ -92,6 +95,7 @@ class Solution:
        return ans
        """
 
+      """
        MOD = 10**9 + 7
        count = [0] * 101
        for x in A:
@@ -126,5 +130,19 @@ class Solution:
              ans %= MOD
 
        return ans
-        
+      """
+
+      counts = Counter(A)
+      res = 0
+      for i, j in combinations_with_replacement(counts, 2):
+         k = target - i - j
+         if i == j == k:
+               res += counts[i] * (counts[i] - 1) * (counts[i] - 2) // 6
+         elif i == j != k:
+               res += counts[i] * (counts[i] - 1) // 2 * counts[k]
+         elif k > i and k > j:
+               res += counts[i] * counts[j] * counts[k]
+               
+      return res % (10 ** 9 + 7)
+      
 
