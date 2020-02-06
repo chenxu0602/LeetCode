@@ -100,7 +100,7 @@ class TimeMap:
     def get(self, key: str, timestamp: int) -> str:
         A = self.M.get(key, None)
         if A is None: return ""
-        i = bisect.bisect_left(A, (timestamp, chr(127)))
+        i = bisect.bisect_right(A, (timestamp, chr(127)))
         return A[i-1][1] if i else ""
         
 

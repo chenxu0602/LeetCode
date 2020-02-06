@@ -69,7 +69,25 @@ class Window:
             self.nonzero -= 1
 
 class Solution:
+
+    def atMostK(self, A, K):
+        count = Counter()
+        res = i = 0
+        for j in range(len(A)):
+            if count[A[j]] == 0:
+                K -= 1
+            count[A[j]] += 1
+            while K < 0:
+                count[A[i]] -= 1
+                if count[A[i]] == 0:
+                    K += 1
+                i += 1
+            res += j - i + 1
+        return res
+
     def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
+        # return self.atMostK(A, K) - self.atMost(A, K-1)
+
         window1 = Window()
         window2 = Window()
         ans = left1 = left2 = 0

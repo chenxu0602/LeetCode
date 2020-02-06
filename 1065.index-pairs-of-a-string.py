@@ -48,8 +48,14 @@
 # coordinate in case of ties sort them by their second coordinate).
 # 
 #
+from collections import defaultdict
+from functools import reduce
+
+Trie = lambda: defaultdict(Trie)
+
 class Solution:
     def indexPairs(self, text: str, words: List[str]) -> List[List[int]]:
+        """
         res = []
         for word in words:
             i = text.find(word)
@@ -58,5 +64,24 @@ class Solution:
                 i = text.find(word, i+1)
         res.sort()
         return [[i, j] for i, j in res]
+        """
+
+        trie = Trie()
+        END = True
+
+        for word in words:
+            reduce(dict.__getitem__, word, trie)[END] = word
+
+        output = []
+        for i in range(len(text)):
+            node = trie
+            for j in range(i, len(text)):
+                char = text[j]
+                node = node[char]
+                if node is None:
+                    break
+                if True in node:
+                    output.append([i, j])
+        return output
         
 
