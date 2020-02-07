@@ -60,6 +60,7 @@
 # 
 #
 from random import randint
+import heapq
 
 class Solution:
     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
@@ -68,6 +69,7 @@ class Solution:
         return points[:K]
         """
 
+        """
         dist = lambda i: points[i][0]**2 + points[i][1]**2
 
         def sort(i, j, K):
@@ -99,5 +101,15 @@ class Solution:
 
         sort(0, len(points) - 1, K)
         return points[:K]
+        """
+
+        heap = []
+        for x, y in points:
+            dist = -(x**2 + y**2)
+            if len(heap) == K:
+                heapq.heappushpop(heap, (dist, x, y))
+            else:
+                heapq.heappush(heap, (dist, x, y))
+        return [(x, y) for (dist, x, y) in heap]
         
 

@@ -55,7 +55,7 @@
 class Solution:
     def isNumber(self, s: str) -> bool:
         s = s.strip()
-        met_dot = met_e = met_digit = True
+        met_dot = met_e = met_digit = False
         for i, char in enumerate(s):
             if char in ['+', '-']:
                 if i > 0 and s[i-1] != 'e':
