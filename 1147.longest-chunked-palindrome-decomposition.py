@@ -69,6 +69,7 @@
 # @lc code=start
 class Solution:
     def longestDecomposition(self, text: str, res: int = 0) -> int:
+        """
         n = len(text)
         for l in range(1, n//2+1):
             if text[0] == text[n-l] and text[l-1] == text[n-1]:
@@ -76,6 +77,15 @@ class Solution:
                     return self.longestDecomposition(text[l:n-l], res+2)
 
         return res+1 if text else res
+        """
+
+        S = text
+        res, l, r = 0, "", ""
+        for i, j in zip(S, S[::-1]):
+            l, r = l + i, j + r
+            if l == r:
+                res, l, r = res + 1, "", ""
+        return res
 
 
         

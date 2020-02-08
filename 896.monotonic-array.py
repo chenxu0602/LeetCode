@@ -88,6 +88,7 @@ class Solution:
                 all(A[i] >= A[i+1] for i in range(len(A)-1)))
         """
 
+        """
         def cmp(a, b):
             return (a > b) - (a < b)
 
@@ -99,5 +100,16 @@ class Solution:
                     return False
                 store = c
         return True
+        """
+
+        increasing = decreasing = True
+
+        for i in range(len(A) - 1):
+            if A[i] > A[i+1]:
+                increasing = False
+            if A[i] < A[i+1]:
+                decreasing = False
+
+        return increasing or decreasing
         
 
