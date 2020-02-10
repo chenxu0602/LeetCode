@@ -44,38 +44,15 @@
 #
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
+
         def sink(i, j):
             if 0 <= i < len(grid) and 0 <= j < len(grid[i]) and grid[i][j] == '1':
                 grid[i][j] = '0'
                 list(map(sink, (i+1, i-1, i, i), (j, j, j+1, j-1)))
                 return 1
             return 0
+        
         return sum(sink(i, j) for i in range(len(grid)) for j in range(len(grid[i])))
-        """
-
-        def dfs(grid, r, c, m, n):
-            grid[r][c] = '0'
-            if 0 <= r - 1 and grid[r-1][c] == '1':
-                dfs(grid, r - 1, c, m, n)
-            if r + 1 < m and grid[r+1][c] == '1':
-                dfs(grid, r + 1, c, m, n)
-            if 0 <= c - 1 and grid[r][c-1] == '1':
-                dfs(grid, r, c - 1, m, n)
-            if c + 1 < n and grid[r][c+1] == '1':
-                dfs(grid, r, c + 1, m, n)
-
-        if not grid: return 0
-
-        num_islands = 0
-        m, n = len(grid), len(grid[0])
-        for r in range(m):
-            for c in range(n):
-                if grid[r][c] == '1':
-                    num_islands += 1
-                    dfs(grid, r, c, m, n)
-
-        return num_islands
-        """
 
         
         

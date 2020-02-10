@@ -39,6 +39,7 @@
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+
         carry = 0
         root = n = ListNode(0)
         while l1 or l2 or carry:

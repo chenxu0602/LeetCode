@@ -92,7 +92,7 @@ class TicTacToe:
             self.count[i, x, player] += 1
             if self.count[i, x, player] == self.size:
                 return player
-            return 0
+        return 0
 
     
         

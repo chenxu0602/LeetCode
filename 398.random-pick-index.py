@@ -59,6 +59,8 @@ class Solution:
         return idx
         """
 
+        # Reservoir sampling
+
         total, res = 0, -1
         for i, v in enumerate(self.nums):
             if v == target:

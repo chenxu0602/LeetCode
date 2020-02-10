@@ -34,6 +34,8 @@
 # @lc code=start
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+
+        """
         if not nums:
             return 0
 
@@ -42,6 +44,16 @@ class Solution:
             curSum = max(i, curSum + i)
             maxSum = max(maxSum, curSum)
 
+        return maxSum
+        """
+
+        curSum = 0
+        maxSum = float("-inf")
+        
+        for i in nums:
+            curSum += i
+            maxSum = max(maxSum, curSum)
+            curSum = max(0, curSum)
         return maxSum
         
 # @lc code=end

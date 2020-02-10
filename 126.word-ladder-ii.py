@@ -83,12 +83,11 @@ class Solution:
             newlayer = defaultdict(list)
             for word in layer:
                 if word == endWord:
-                    res.extend(k for k in layer[word])
-                    break
+                    return layer[word]
                 else:
                     for i in range(len(word)):
-                        for c in range(97, 123):
-                            newword = word[:i] + chr(c) + word[i+1:]
+                        for c in string.ascii_lowercase:
+                            newword = word[:i] + c + word[i+1:]
                             if newword in wordList:
                                 newlayer[newword] += [j + [newword] for j in layer[word]]
 
