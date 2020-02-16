@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/divide-two-integers/description/
 #
 # algorithms
-# Medium (16.16%)
-# Likes:    812
-# Dislikes: 3914
-# Total Accepted:    221.8K
-# Total Submissions: 1.4M
+# Medium (16.18%)
+# Likes:    916
+# Dislikes: 4446
+# Total Accepted:    242.7K
+# Total Submissions: 1.5M
 # Testcase Example:  '10\n3'
 #
 # Given two integers dividend and divisor, divide two integers without using
@@ -48,10 +48,12 @@
 # @lc code=start
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
+
         positive = (dividend < 0) is (divisor < 0)
         dividend, divisor = abs(dividend), abs(divisor)
 
         res = 0
+
         while dividend >= divisor:
             temp, i = divisor, 1
             while dividend >= temp:

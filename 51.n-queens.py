@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/n-queens/description/
 #
 # algorithms
-# Hard (40.71%)
-# Likes:    1209
-# Dislikes: 55
-# Total Accepted:    162.4K
-# Total Submissions: 388.1K
+# Hard (43.46%)
+# Likes:    1437
+# Dislikes: 63
+# Total Accepted:    177.9K
+# Total Submissions: 408.2K
 # Testcase Example:  '4'
 #
 # The n-queens puzzle is the problem of placing n queens on an n×n chessboard
@@ -48,19 +48,17 @@
 # @lc code=start
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-
         def dfs(queens, xy_diff, xy_sum):
             p = len(queens)
             if p == n:
                 res.append(queens)
-                return None
             for q in range(n):
                 if q not in queens and p-q not in xy_diff and p+q not in xy_sum:
                     dfs(queens+[q], xy_diff+[p-q], xy_sum+[p+q])
 
         res = []
         dfs([], [], [])
-        return [['.'*i + 'Q' + '.'*(n-i-1) for i in sol] for sol in res]
+        return [['.'*i +'Q' + '.'*(n-i-1) for i in sol] for sol in res]
         
 # @lc code=end
 

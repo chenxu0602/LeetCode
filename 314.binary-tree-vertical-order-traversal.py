@@ -106,6 +106,7 @@ from collections import defaultdict
 
 class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+
         cols = defaultdict(list)
         queue = [(root, 0)]
         for node, i in queue:

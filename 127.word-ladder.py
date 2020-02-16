@@ -96,7 +96,6 @@ class Solution:
                     if word not in visited:
                         visited[word] = True
                         queue.append((word, level+1))
-                all_combo_dict[intermediate_word] = []
         return 0
 
 

@@ -43,33 +43,30 @@ from collections import deque
 
 class Solution:
     def rightSideView(self, root: TreeNode) -> List[int]:
-        """
-        if not root:
-            return []
+        # if not root: return []
 
-        right = self.rightSideView(root.right)
-        left = self.rightSideView(root.left)
-        return [root.val] + right + left[len(right):]
-        """
+        # right = self.rightSideView(root.right)
+        # left = self.rightSideView(root.left)
+        # return [root.val] + right + left[len(right):]
 
-        """
-        rightmost_value_at_depth = dict()
-        max_depth = -1
+        # def collect(node, depth):
+        #     if node:
+        #         if depth == len(view):
+        #             view.append(node.val)
+        #         collect(node.right, depth+1)
+        #         collect(node.left, depth+1)
 
-        stack = [(root, 0)]
-        while stack:
-            node, depth = stack.pop()
+        # view = []
+        # collect(root, 0)
+        # return view
 
-            if node:
-                max_depth = max(max_depth, depth)
-
-                rightmost_value_at_depth.setdefault(depth, node.val)
-
-                stack.append((node.left, depth+1))
-                stack.append((node.right, depth+1))
-
-        return [rightmost_value_at_depth[depth] for depth in range(max_depth+1)]
-        """
+        # view = []
+        # if root:
+        #     level = [root]
+        #     while level:
+        #         view += level[-1].val,
+        #         level = [child for node in level for child in (node.left, node.right) if child]
+        # return view
 
         rightmost_value_at_depth = dict()
         max_depth = -1
@@ -86,7 +83,7 @@ class Solution:
                 queue.append((node.left, depth+1))
                 queue.append((node.right, depth+1))
 
-        return [rightmost_value_at_depth[depth] for depth in range(max_depth+1)]
+        return [rightmost_value_at_depth[depth] for depth in range(max_depth + 1)]
 
         
 # @lc code=end

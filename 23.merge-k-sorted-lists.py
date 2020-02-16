@@ -37,34 +37,28 @@
 #         self.val = x
 #         self.next = None
 
-from heapq import heappush, heappop, heapreplace, heapify
+import heapq
 
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+class ListNodeExtension(ListNode):
+    def __lt__(self, other):
+        return self.val < other.val
 
-    def __eq__(self, x):
-        return self.val == x.val
-
-    def __lt__(self, x):
-        return self.val < x.val
-
-    def __gt__(self, x):
-        return self.val > x.val
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        dummy = node = ListNode(0)
+        ListNode.__lt__ = ListNodeExtension.__lt__
+
+        dummy = head = ListNode(0)
         h = [(n.val, n) for n in lists if n]
-        heapify(h)
+        heapq.heapify(h)
 
         while h:
-            v, n = heappop(h)
-            node.next = n
-            node = node.next
+            _, n = heapq.heappop(h)
+            head.next = n
+            head = head.next
             if n.next:
-                heappush(h, (n.next.val, n.next))
+                heapq.heappush(h, (n.next.val, n.next))
+
         return dummy.next
 
 

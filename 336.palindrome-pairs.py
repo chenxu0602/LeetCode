@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/palindrome-pairs/description/
 #
 # algorithms
-# Hard (31.02%)
-# Likes:    789
-# Dislikes: 105
-# Total Accepted:    70.9K
-# Total Submissions: 228.2K
+# Hard (32.65%)
+# Likes:    1111
+# Dislikes: 142
+# Total Accepted:    89.1K
+# Total Submissions: 272.7K
 # Testcase Example:  '["abcd","dcba","lls","s","sssll"]'
 #
 # Given a list of unique words, find all pairs of distinct indices (i, j) in
@@ -38,28 +38,33 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
-        def is_palindrome(check):
-            return check == check[::-1]
+
+        def is_palindrome(check): return check == check[::-1]
 
         words = {word: i for i, word in enumerate(words)}
-        valid_pals = []
+        val_pals = []
+
         for word, k in words.items():
             n = len(word)
             for j in range(n+1):
                 prefix = word[:j]
                 suffix = word[j:]
+
                 if is_palindrome(prefix):
                     back = suffix[::-1]
                     if back != word and back in words:
-                        valid_pals.append([words[back], k])
-                
+                        val_pals.append([words[back], k])
+
                 if j != n and is_palindrome(suffix):
                     back = prefix[::-1]
                     if back != word and back in words:
-                        valid_pals.append([k, words[back]])
+                        val_pals.append([k, words[back]])
 
-        return valid_pals
+        return val_pals
         
+# @lc code=end
 

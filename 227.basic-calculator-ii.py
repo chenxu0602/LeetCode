@@ -53,6 +53,7 @@ from operator import truediv
 
 class Solution:
     def calculate(self, s: str) -> int:
+
         s += '+0'
         stack, num, preOp = [], 0, '+'
 
@@ -65,7 +66,7 @@ class Solution:
                 elif preOp == '+':
                     stack.append(num)
                 elif preOp == '*':
-                    stack.append(num*stack.pop())
+                    stack.append(stack.pop() * num)
                 else:
                     stack.append(int(truediv(stack.pop(), num)))
 

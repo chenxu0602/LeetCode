@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
 #
 # algorithms
-# Medium (52.74%)
-# Likes:    1453
-# Dislikes: 49
-# Total Accepted:    265.6K
-# Total Submissions: 492.7K
+# Medium (55.60%)
+# Likes:    1765
+# Dislikes: 53
+# Total Accepted:    301.1K
+# Total Submissions: 540.4K
 # Testcase Example:  '[3,1,4,null,2]\n1'
 #
 # Given a binary search tree, write a function kthSmallest to find the kth
@@ -61,13 +61,6 @@
 
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-
-        """
-        def inorder(r):
-            return inorder(r.left) + [r.val] + inorder(r.right) if r else []
-        return inorder(root)[k-1]
-        """
-
         stack = []
         while root or stack:
             while root:

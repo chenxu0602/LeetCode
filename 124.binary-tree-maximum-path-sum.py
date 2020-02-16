@@ -57,42 +57,21 @@
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
 
+        # def maxsums(node):
+        #     if not node:
+        #         return [-2**31] * 2
+        #     left = maxsums(node.left)
+        #     right = maxsums(node.right)
+        #     return [node.val + max(left[0], right[0], 0),
+        #             max(left + right + [node.val + left[0] + right[0]])]
+        # return max(maxsums(root))
+
         def max_gain(node):
             nonlocal max_sum
-            if not node:
-                return 0
+            if not node: return 0
 
             left_gain = max(max_gain(node.left), 0)
             right_gain = max(max_gain(node.right), 0)
-
-            price_newpath = node.val + left_gain + right_gain
-
-            max_sum = max(max_sum, price_newpath)
-
-            return node.val + max(left_gain, right_gain)
-
-        max_sum = float("-inf")
-        max_gain(root)
-        return max_sum
-
-        """
-        def maxsums(node):
-            if not node:
-                return [-2**31] * 2
-            left = maxsums(node.left)
-            right = maxsums(node.right)
-            return [node.val + max(left[0], right[0], 0),
-                    max(left + right + [node.val + left[0] + right[0]])]
-
-        return max(maxsums(root))
-        """
-
-        def max_gain(node):
-            if not node:
-                return 0
-
-            left_gain = max(max_gain(node.left), 0)
-            right_gain = max(max_gain(node.right, 0))
 
             price_newpath = node.val + left_gain + right_gain
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/intersection-of-two-arrays-ii/description/
 #
 # algorithms
-# Easy (47.91%)
-# Likes:    704
-# Dislikes: 250
-# Total Accepted:    207.4K
-# Total Submissions: 431.8K
+# Easy (50.21%)
+# Likes:    1017
+# Dislikes: 341
+# Total Accepted:    285.5K
+# Total Submissions: 568.5K
 # Testcase Example:  '[1,2,2,1]\n[2,2]'
 #
 # Given two arrays, write a function to compute their intersection.
@@ -50,6 +50,8 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
@@ -57,4 +59,5 @@ class Solution:
         c1, c2 = Counter(nums1), Counter(nums2)
         return sum([[num] * min(c1[num], c2[num]) for num in c1 & c2], [])
         
+# @lc code=end
 

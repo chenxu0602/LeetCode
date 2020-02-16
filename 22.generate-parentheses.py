@@ -36,50 +36,43 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
 
-        """
         ans = []
-        def backtrack(S="", left=0, right=0):
-            if len(S) == 2*n:
-                ans.append(S)
+        def dfs(s="", left=0, right=0):
+            if len(s) == 2 * n:
+                ans.append(s)
                 return
             if left < n:
-                backtrack(S+'(', left+1, right)
+                dfs(s+'(', left+1, right)
             if right < left:
-                backtrack(S+')', left, right+1)
+                dfs(s+')', left, right+1)
 
-        backtrack()
+        dfs()
         return ans
-        """
 
-        """
-        if n == 0: return [""]
-        ans = []
-        for c in range(n):
-            for left in self.generateParenthesis(c):
-                for right in self.generateParenthesis(n-1-c):
-                    ans.append("({}){}".format(left, right))
-        return ans
-        """
+        # if n == 0: return [""]
+        # ans = []
+        # for c in range(n):
+        #     for left in self.generateParenthesis(c):
+        #         for right in self.generateParenthesis(n-1-c):
+        #             ans.append("({}){}".format(left, right))
+        # return ans
 
-        """
-        def generate(p, left, right):
-            if right >= left >= 0:
-                if not right:
-                    yield p
-                for q in generate(p + '(', left-1, right):
-                    yield q
-                for q in generate(p + ')', left, right-1):
-                    yield q
-        return list(generate("", n, n))
-        """
+        # def generate(p, left, right):
+        #     if right >= left >= 0:
+        #         if not right:
+        #             yield p
+        #         for q in generate(p + '(', left - 1, right):
+        #             yield q
+        #         for q in generate(p + ')', left, right - 1):
+        #             yield q
+        # return list(generate("", n, n))
+                
 
-        def generateParenthesis2(n, open):
-            if n > 0 <= open:
-                return ['(' + p for p in generateParenthesis2(n-1, open+1)] + \
-                    [')' + p for p in generateParenthesis2(n, open-1)]
-            return [')'*open] * (not n)
-
-        return generateParenthesis2(n, 0)
+        # def generteParenthesis2(n, open):
+        #     if n > 0 <= open:
+        #         return ['(' + p for p in generteParenthesis2(n-1, open+1)] + [')' + p for p in generteParenthesis2(n, open-1)]
+        #     return [')' * open] * (not n)
+        # return generteParenthesis2(n, 0)
         
 # @lc code=end
 

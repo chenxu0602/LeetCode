@@ -99,14 +99,40 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def maxVacationDays(self, flights: List[List[int]], days: List[List[int]]) -> int:
-        n, k = len(days), len(days[0]) 
-        g = [[j for j, dst in enumerate(city) if dst] + [i] for i, city in enumerate(flights)]
-        dp = [[0] * n for _ in range(k+1)]
-        for w in range(k)[::-1]:
-            for c in range(n):
-                dp[w][c] = days[c][w] + max(dp[w+1][dst] for dst in g[c])
-        return max(dp[0][dst] for dst in g[0])
+        # n, k = len(days), len(days[0]) 
+        # g = [[j for j, dst in enumerate(city) if dst] + [i] for i, city in enumerate(flights)]
+        # dp = [[0] * n for _ in range(k+1)]
+        # for w in range(k)[::-1]:
+        #     for c in range(n):
+        #         dp[w][c] = days[c][w] + max(dp[w+1][dst] for dst in g[c])
+        # return max(dp[0][dst] for dst in g[0])
+
+        # N, K = len(days), len(days[0])
+        # flights = [[i for i, can_fly in enumerate(city) if can_fly] for city in flights]
+
+        # @lru_cache(None)
+        # def dfs(week, city):
+        #     if week == K: return 0
+        #     stay = days[city][week] + dfs(week+1, city)
+        #     fly = max([days[other][week] + dfs(week+1, other) for other in flights[city]], default=0)
+        #     return max(stay, fly)
+        # return dfs(0, 0)
+
+        N, K = len(days), len(days[0])
+        flights = [[i for i, can_fly in enumerate(city) if can_fly] for city in flights]
+
+        dp = [[0] * N for _ in range(K+1)]
+        for week in range(K-1, -1, -1):
+            for city in range(N):
+                stay = days[city][week] + dp[week+1][city]
+                fly = max([days[other][week] + dp[week+1][other] for other in flights[city]], default=0)
+                dp[week][city] = max(stay, fly)
+        return dp[0][0]
+
+
 
 

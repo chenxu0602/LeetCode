@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/snapshot-array/description/
 #
 # algorithms
-# Medium (30.31%)
-# Likes:    147
-# Dislikes: 29
-# Total Accepted:    8K
-# Total Submissions: 24.4K
+# Medium (35.58%)
+# Likes:    271
+# Dislikes: 56
+# Total Accepted:    15.9K
+# Total Submissions: 44.7K
 # Testcase Example:  '["SnapshotArray","set","snap","set","get"]\n[[3],[0,5],[],[0,6],[0,0]]'
 #
 # Implement a SnapshotArray that supports the following interface:
@@ -55,48 +55,29 @@
 #
 
 # @lc code=start
+import bisect 
+
 class SnapshotArray:
 
     def __init__(self, length: int):
-        """
-        self.nums = {}
-        self.snaps = []
-        """
-
         self.A = [[[-1, 0]] for _ in range(length)]
         self.snap_id = 0
         self.length = length
         
 
     def set(self, index: int, val: int) -> None:
-        """
-        self.nums[index] = val
-        """
-
         self.A[index].append([self.snap_id, val])
         
 
     def snap(self) -> int:
-        """
-        self.snaps.append(self.nums.copy())
-        return len(self.snaps) - 1
-        """
-
         self.snap_id += 1
         return self.snap_id - 1
         
 
     def get(self, index: int, snap_id: int) -> int:
-        """
-        if index in self.snaps[snap_id]:
-            return self.snap[snap_id][index]
-        else:
-            return 0
-        """
-        
-        import bisect
-        i = bisect.bisect(self.A[index], [snap_id+1]) - 1
+        i = bisect.bisect_right(self.A[index], [snap_id + 1]) - 1
         return self.A[index][i][1]
+        
 
 
 # Your SnapshotArray object will be instantiated and called as such:

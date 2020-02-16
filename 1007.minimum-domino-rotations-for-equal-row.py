@@ -62,21 +62,34 @@
 #
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
-        candidates = set([A[0]] + [B[0]])
+        # candidates = set([A[0]] + [B[0]])
 
-        for i in range(1, len(A)):
-            next_col = set([A[i]] + [B[i]])
-            candidates = candidates.intersection(next_col)
-            if not candidates:
-                return -1
+        # for i in range(1, len(A)):
+        #     next_col = set([A[i]] + [B[i]])
+        #     candidates = candidates.intersection(next_col)
+        #     if not candidates:
+        #         return -1
 
-        res = float("inf")
-        for cand in candidates:
-            top, bottom = 0, 0
-            for i in range(len(A)):
-                top += A[i] == cand
-                bottom += B[i] == cand
-            res = min(res, len(A) - max(top, bottom))
-        return res
+        # res = float("inf")
+        # for cand in candidates:
+        #     top, bottom = 0, 0
+        #     for i in range(len(A)):
+        #         top += A[i] == cand
+        #         bottom += B[i] == cand
+        #     res = min(res, len(A) - max(top, bottom))
+        # return res
+
+
+        # for x in range(1, 7):
+        #     if all(x in d for d in zip(A, B)):
+        #         return len(A) - max(A.count(x), B.count(x))
+        # return -1
+
+
+        from functools import reduce
+        s = reduce(set.__and__, [set(d) for d in zip(A, B)])
+        if not s: return -1
+        x = s.pop()
+        return len(A) - max(A.count(x), B.count(x))
         
 

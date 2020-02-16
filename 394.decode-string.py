@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/decode-string/description/
 #
 # algorithms
-# Medium (45.01%)
-# Likes:    1534
-# Dislikes: 85
-# Total Accepted:    108.3K
-# Total Submissions: 239.6K
+# Medium (47.89%)
+# Likes:    2407
+# Dislikes: 124
+# Total Accepted:    164.5K
+# Total Submissions: 343.4K
 # Testcase Example:  '"3[a]2[bc]"'
 #
 # Given an encoded string, return its decoded string.
@@ -37,11 +37,12 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def decodeString(self, s: str) -> str:
 
         stack, curNum, curString = [], 0, ''
-
         for c in s:
             if c == '[':
                 stack.append(curString)
@@ -57,4 +58,5 @@ class Solution:
 
         return curString
         
+# @lc code=end
 

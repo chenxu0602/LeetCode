@@ -92,8 +92,8 @@ class Solution:
             for nei in (node.left, node.right, node.par):
                 if nei and nei not in seen:
                     seen.add(nei)
-                    queue.append((nei, d+1))
-
+                    queue.append((nei, d + 1))
+        
         return []
         
 

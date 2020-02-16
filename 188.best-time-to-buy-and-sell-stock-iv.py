@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/
 #
 # algorithms
-# Hard (26.73%)
-# Likes:    956
-# Dislikes: 60
-# Total Accepted:    101.6K
-# Total Submissions: 376.3K
+# Hard (27.37%)
+# Likes:    1119
+# Dislikes: 67
+# Total Accepted:    111.3K
+# Total Submissions: 406.5K
 # Testcase Example:  '2\n[2,4,1]'
 #
 # Say you have an array for which the i-th element is the price of a given
@@ -48,31 +48,11 @@
 # @lc code=start
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
-
-        """
-        n = len(prices)
-        if n < 2: return 0
-        if k >= n >> 1:
-            return sum(i - j for i, j in zip(prices[1:], prices[:-1]) if i - j > 0)
-
-        globalMax = [[0] * n for _ in range(k+1)]
-
-        for i in range(1, k+1):
-            localMax = [0] * n
-            for j in range(1, n):
-                profit = prices[j] - prices[j-1]
-                localMax[j] = max(globalMax[i-1][j-1], globalMax[i-1][j-1] + profit, localMax[j-1] + profit)
-                globalMax[i][j] = max(globalMax[i][j-1], localMax[j])
-        
-        return globalMax[k][-1]
-        """
-
         n = len(prices)
         if k >= n >> 1:
             return sum([max(prices[i] - prices[i-1], 0) for i in range(1, n)])
 
         dp = [[0] * n for _ in range(k+1)]
-
         for i in range(1, k+1):
             transaction = 0
             for j in range(1, n):

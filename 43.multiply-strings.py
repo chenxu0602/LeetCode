@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/multiply-strings/description/
 #
 # algorithms
-# Medium (31.32%)
-# Likes:    1233
-# Dislikes: 576
-# Total Accepted:    231.7K
-# Total Submissions: 729K
+# Medium (32.54%)
+# Likes:    1429
+# Dislikes: 658
+# Total Accepted:    254.9K
+# Total Submissions: 783K
 # Testcase Example:  '"2"\n"3"'
 #
 # Given two non-negative integers num1 and num2 represented as strings, return
@@ -43,17 +43,17 @@
 #
 
 # @lc code=start
-from functools import reduce 
+from functools import reduce
 
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
         m, n = len(num1), len(num2)
-        pos = [0 for i in range(m+n)]
+        pos = [0] * (m + n)
 
         for i in range(m-1, -1, -1):
             for j in range(n-1, -1, -1):
                 mul = (ord(num1[i]) - ord('0')) * (ord(num2[j]) - ord('0'))
-                idx_1, idx_2 = i+j, i+j+1
+                idx_1, idx_2 = i + j, i + j + 1
                 mul += pos[idx_2]
 
                 pos[idx_1] += mul // 10

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/custom-sort-string/description/
 #
 # algorithms
-# Medium (62.87%)
-# Likes:    441
-# Dislikes: 139
-# Total Accepted:    39.6K
-# Total Submissions: 62.9K
+# Medium (64.23%)
+# Likes:    561
+# Dislikes: 159
+# Total Accepted:    50.6K
+# Total Submissions: 78.8K
 # Testcase Example:  '"cba"\n"abcd"'
 #
 # S and T are strings composed of lowercase letters. In S, no letter occurs
@@ -47,18 +47,27 @@
 # 
 # 
 #
-from collections import defaultdict
+
+# @lc code=start
+from collections import Counter, defaultdict
 
 class Solution:
     def customSortString(self, S: str, T: str) -> str:
+        # count = Counter(T)
+        # ans = []
 
-        """
-        return "".join(sorted(T, key=S.find))
-        """
+        # for c in S:
+        #     ans.append(c * count[c])
+        #     count[c] = 0
+        # for c in count:
+        #     ans.append(c * count[c])
+
+        # return "".join(ans)
+
+#        return "".join(sorted(T, key=S.find))
 
         ordering = defaultdict(lambda: -1, ((v, k) for (k, v) in enumerate(S)))
         return "".join(sorted(T, key=ordering.__getitem__))
-
-
         
+# @lc code=end
 

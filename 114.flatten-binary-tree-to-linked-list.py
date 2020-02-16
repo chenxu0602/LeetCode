@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/
 #
 # algorithms
-# Medium (43.59%)
-# Likes:    1832
-# Dislikes: 241
-# Total Accepted:    271.6K
-# Total Submissions: 608.4K
+# Medium (46.13%)
+# Likes:    2128
+# Dislikes: 273
+# Total Accepted:    297.2K
+# Total Submissions: 643.4K
 # Testcase Example:  '[1,2,5,3,4,null,6]'
 #
 # Given a binary tree, flatten it to a linked list in-place.
@@ -59,17 +59,15 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        if not root:
-            return None
 
-        self.flatten(root.right)
-        self.flatten(root.left)
+        # if not root: return None
+        # self.flatten(root.right)
+        # self.flatten(root.left)
 
-        root.right = self.prev
-        root.left = None
-        self.prev = root
+        # root.right = self.prev
+        # root.left = None
+        # self.prev = root
 
-        """
         last = TreeNode(-1)
         stack = [root,]
 
@@ -77,7 +75,7 @@ class Solution:
             node = stack.pop()
             last.right = node
             last.left = None
-
+            
             if node and node.right:
                 stack.append(node.right)
 
@@ -85,7 +83,6 @@ class Solution:
                 stack.append(node.left)
 
             last = node
-        """
         
 # @lc code=end
 

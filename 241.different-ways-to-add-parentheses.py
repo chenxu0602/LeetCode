@@ -3,62 +3,51 @@
 #
 # [241] Different Ways to Add Parentheses
 #
-import operator 
+# https://leetcode.com/problems/different-ways-to-add-parentheses/description/
+#
+# algorithms
+# Medium (53.05%)
+# Likes:    1335
+# Dislikes: 66
+# Total Accepted:    90.5K
+# Total Submissions: 170.4K
+# Testcase Example:  '"2-1-1"'
+#
+# Given a string of numbers and operators, return all possible results from
+# computing all the different possible ways to group numbers and operators. The
+# valid operators are +, - and *.
+# 
+# Example 1:
+# 
+# 
+# Input: "2-1-1"
+# Output: [0, 2]
+# Explanation: 
+# ((2-1)-1) = 0 
+# (2-(1-1)) = 2
+# 
+# Example 2:
+# 
+# 
+# Input: "2*3-4*5"
+# Output: [-34, -14, -10, -10, 10]
+# Explanation: 
+# (2*(3-(4*5))) = -34 
+# ((2*3)-(4*5)) = -14 
+# ((2*(3-4))*5) = -10 
+# (2*((3-4)*5)) = -10 
+# (((2*3)-4)*5) = 10
+# 
+#
 
+# @lc code=start
 class Solution:
-    def search(self, expr):
-        return expr if len(expr) == 1 else sum([[expr[i](p, q) for p in self.search(expr[:i]) for q in self.search(expr[i+1:])] for i in range(1, len(expr), 2)], [])
-
     def diffWaysToCompute(self, input: str) -> List[int]:
 
-        """
-        maps = {'+': operator.add, '-':operator.sub, '*':operator.mul}
-
-        expr, digits, i, genNum = [], [], 0, lambda ds: int(''.join(ds))
-
-        for c in input:
-            if c.isdigit():
-                digits.append(c)
-            else:
-                expr, digits = expr + [genNum(digits), maps[c]], []
-
-        expr += [genNum(digits)]                
-        return sorted(self.search(expr))
-        """
-
-        """
-        return [eval(`a`+c+`b`)
-                for i, c in enumerate(input) if c in '+-*'
-                for a in self.diffWaysToCompute(input[:i])
-                for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
-        """
-
-        """
         return [a+b if c == '+' else a-b if c == '-' else a*b
-                for i, c in enumerate(input) if c in '+-*'
-                for a in self.diffWaysToCompute(input[:i])
-                for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
-        """
-
-        if input.isdigit():
-            return [int(input)]
-
-        res = []
-
-        for i, c in enumerate(input):
-            if c in '+-*':
-                left = self.diffWaysToCompute(input[:i])
-                right = self.diffWaysToCompute(input[i+1:])
-                for j in left:
-                    for k in right:
-                        if c == '+':
-                            res.append(j+k)
-                        elif c == '-':
-                            res.append(j-k)
-                        elif c == '*':
-                            res.append(j*k)
-
-        return res
-
-
+            for i, c in enumerate(input) if c in '+-*'
+            for a in self.diffWaysToCompute(input[:i])
+            for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
+        
+# @lc code=end
 

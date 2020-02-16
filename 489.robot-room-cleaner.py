@@ -123,11 +123,11 @@ class Solution:
             robot.clean()
             cleaned.add((i, j))
             left = True
-            for nd in ((d+k) % 4 for k in (3, 0, 1, 2)):
-                robot.turnLeft() if left else  robot.turnRight()
+            for nd in ((d + k) % 4 for k in (3, 0, 1, 2)):
+                robot.turnLeft() if left else robot.turnRight()
                 di, dj = ((-1, 0), (0, -1), (1, 0), (0, 1))[nd]
-                if (i+di, j+dj) not in cleaned and robot.move():
-                    dfs(robot, i+di, j+dj, nd, cleaned)
+                if (i + di, j + dj) not in cleaned and robot.move():
+                    dfs(robot, i + di, j + dj, nd, cleaned)
                     robot.move()
                     left = True
                 else:

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/target-sum/description/
 #
 # algorithms
-# Medium (45.44%)
-# Likes:    1461
-# Dislikes: 68
-# Total Accepted:    102K
-# Total Submissions: 224.5K
+# Medium (46.24%)
+# Likes:    1932
+# Dislikes: 89
+# Total Accepted:    131.5K
+# Total Submissions: 284.3K
 # Testcase Example:  '[1,1,1,1,1]\n3'
 #
 # 
@@ -47,11 +47,14 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
         if len(nums) == 0: return 0
+
         prev = defaultdict(int)
         prev[nums[0]] += 1
         prev[-nums[0]] += 1
@@ -65,6 +68,12 @@ class Solution:
 
         return prev[S]
 
+        # def dfs(cur, i, d={}):
+        #     if i < len(nums) and (i, cur) not in d:
+        #         d[i, cur] = dfs(cur + nums[i], i + 1) + dfs(cur - nums[i], i + 1)
+        #     return d.get((i, cur), int(cur == S))
 
+        # return dfs(0, 0)
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/search-a-2d-matrix/description/
 #
 # algorithms
-# Medium (35.11%)
-# Likes:    1065
-# Dislikes: 124
-# Total Accepted:    255.4K
-# Total Submissions: 721.9K
+# Medium (35.81%)
+# Likes:    1297
+# Dislikes: 139
+# Total Accepted:    283.9K
+# Total Submissions: 792.1K
 # Testcase Example:  '[[1,3,5,7],[10,11,16,20],[23,30,34,50]]\n3'
 #
 # Write an efficient algorithm that searches for a value in an m x n matrix.
@@ -56,19 +56,19 @@ class Solution:
         if not matrix or target is None:
             return False
 
-        rows, cols = len(matrix), len(matrix[0])
-        low, high = 0, rows * cols - 1
+        m, n = len(matrix), len(matrix[0])
+        lo, hi = 0, m * n - 1
 
-        while low <= high:
-            mid = (low + high) // 2
-            num = matrix[mid // cols][mid % cols]
+        while lo <= hi:
+            mi = (lo + hi) // 2
+            num = matrix[mi // n][mi % n]
 
             if num == target:
                 return True
             elif num < target:
-                low = mid + 1
+                lo = mi + 1
             else:
-                high = mid - 1
+                hi = mi - 1
 
         return False
         

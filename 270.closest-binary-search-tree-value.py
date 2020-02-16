@@ -49,47 +49,39 @@
 class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
 
-        """
-        ret = root.val        
+        # def inorder(node):
+        #     return inorder(node.left) + [node.val] + inorder(node.right) if node else []
 
-        while root:
-            if abs(root.val - target) < abs(target - ret):
-                ret = root.val
+        # return min(inorder(root), key=lambda x: abs(target - x))
 
-            root = root.left if target < root.val else root.right
+        # stack, pred = [], float("-inf")
 
-        return ret
-        """
+        # while stack or root:
+        #     while root:
+        #         stack.append(root)
+        #         root = root.left 
+        #     root = stack.pop()
 
-        """
-        def inorder(r: TreeNode):
-            return inorder(r.left) + [r.val] + inorder(r.right) if r else []
+        #     if pred <= target < root.val:
+        #         return min(pred, root.val, key=lambda x: abs(target-x))
 
-        return min(inorder(root), key=lambda x: abs(target-x))
-        """
+        #     pred = root.val
+        #     root = root.right
 
-        """
-        stack, pred = [], float("-inf")
+        # return pred
 
-        while stack or root:
-            while root:
-                stack.append(root)
-                root = root.left
+        # res = root.val
+        # while root:
+        #     if abs(root.val - target) < abs(target - res):
+        #         res = root.val
 
-            root = stack.pop()
-
-            if pred <= target < root.val:
-                return min(pred, root.val, key=lambda x: abs(target-x))
-
-            pred = root.val
-            root = root.right
-
-        return pred
-        """
+        #     root = root.left if target < root.val else root.right
+        # return res
 
         closest = root.val
         while root:
             closest = min(root.val, closest, key=lambda x: abs(target-x))
             root = root.left if target < root.val else root.right
         return closest
+
 

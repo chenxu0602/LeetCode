@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-palindrome/description/
 #
 # algorithms
-# Hard (28.02%)
-# Likes:    781
-# Dislikes: 93
-# Total Accepted:    82.6K
-# Total Submissions: 291.6K
+# Hard (28.86%)
+# Likes:    902
+# Dislikes: 103
+# Total Accepted:    88.4K
+# Total Submissions: 306K
 # Testcase Example:  '"aacecaaa"'
 #
 # Given a string s, you are allowed to convert it to a palindrome by adding
@@ -34,13 +34,10 @@
 # @lc code=start
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-
-        """
-        r = s[::-1]
-        for i in range(len(s)+1):
-            if s.startswith(r[i:]):
-                return r[:i] + s
-        """
+        # r = s[::-1]
+        # for i in range(len(s) + 1):
+        #     if s.startswith(r[i:]):
+        #         return r[:i] + s
 
         i = 0
         for j in range(len(s)-1, -1, -1):

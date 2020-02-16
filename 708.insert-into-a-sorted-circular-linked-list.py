@@ -95,7 +95,6 @@ class Solution:
             cur = cur.next
 
         return head
-
         
 # @lc code=end
 

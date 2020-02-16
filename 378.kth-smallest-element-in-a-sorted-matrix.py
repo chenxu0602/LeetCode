@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/
 #
 # algorithms
-# Medium (50.35%)
-# Likes:    1529
-# Dislikes: 95
-# Total Accepted:    135.2K
-# Total Submissions: 264.3K
+# Medium (52.03%)
+# Likes:    1765
+# Dislikes: 106
+# Total Accepted:    152K
+# Total Submissions: 291.9K
 # Testcase Example:  '[[1,5,9],[10,11,13],[12,13,15]]\n8'
 #
 # Given a n x n matrix where each of the rows and columns are sorted in
@@ -39,12 +39,13 @@
 #
 
 # @lc code=start
-from heapq import merge
-from itertools import islice
+import heapq
+import itertools
 
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        return next(islice(merge(*matrix), k-1, k))
+
+        return next(itertools.islice(heapq.merge(*matrix), k-1, k))
         
 # @lc code=end
 

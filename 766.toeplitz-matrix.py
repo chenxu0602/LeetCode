@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/toeplitz-matrix/description/
 #
 # algorithms
-# Easy (62.33%)
-# Likes:    673
-# Dislikes: 67
-# Total Accepted:    66.9K
-# Total Submissions: 107.3K
+# Easy (63.43%)
+# Likes:    809
+# Dislikes: 73
+# Total Accepted:    80.5K
+# Total Submissions: 126.9K
 # Testcase Example:  '[[1,2,3,4],[5,1,2,3],[9,5,1,2]]'
 #
 # A matrix is Toeplitz if every diagonal from top-left to bottom-right has the
@@ -69,21 +69,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
-        """
-        groups = {}
-        for r, row in enumerate(matrix):
-            for c, val in enumerate(row):
-                if r-c not in groups:
-                    groups[r-c] = val
-                elif groups[r-c] != val:
-                    return False
-        return True
-        """
+        # groups = {}
+        # for r, row in enumerate(matrix):
+        #     for c, val in enumerate(row):
+        #         if r-c not in groups:
+        #             groups[r-c] = val
+        #         elif groups[r-c] != val:
+        #             return False
+        # return True
 
         return all(r == 0 or c == 0 or matrix[r-1][c-1] == val
-                   for r, row in enumerate(matrix)
-                   for c, val in enumerate(row))
+                    for r, row in enumerate(matrix)
+                    for c, val in enumerate(row))
         
+# @lc code=end
 

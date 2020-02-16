@@ -46,23 +46,61 @@
 # size for non-empty array.
 #
 import bisect
+import heapq
 
 class Solution:
     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
-        medians, window = [], []
-        for i in range(len(nums)):
-            if i >= k:
-                window.pop(bisect.bisect(window, nums[i-k]) - 1)
-            bisect.insort(window, nums[i])
 
-            if i >= k - 1:
-                mid = window[k//2]
-                if k & 1 == 0:
-                    mid = (window[k//2-1] + window[k//2]) / 2
+        # medians, window = [], []
+        # for i in range(len(nums)):
+        #     if i >= k:
+        #         window.pop(bisect.bisect_right(window, nums[i-k]) - 1)
+        #     bisect.insort(window, nums[i])
 
-                medians.append(mid)
+        #     if i >= k - 1:
+        #         medians.append(float(window[k//2]) if k & 1 > 0 else 0.5 * (window[k//2-1] + window[k//2]))
+        # return medians
+        
+        def calc_median(max_heap: List[int], min_heap: List[int]) -> float:
+            return min_heap[0] if len(min_heap) > len(max_heap) \
+                else 0.5 * (min_heap[0] - max_heap[0])
 
-        return medians
+        def add_to_heaps(max_heap: List[int], min_heap: List[int], num: float) -> None:
+            heapq.heappush(max_heap, -heapq.heappushpop(min_heap, num))
+            if len(min_heap) < len(max_heap):
+                heapq.heappush(min_heap, -heapq.heappop(max_heap))
+
+        def remove_from_heap(heap: List[int], num: float) -> None:
+            index = heap.index(num)
+            heap[index] = heap[-1]
+            heap.pop()
+
+            if index < len(heap):
+                heapq._siftup(heap, index)
+                heapq._siftdown(heap, 0, index)
+
+        def remove_from_heaps(max_heap: List[int], min_heap: List[int], num: float) -> None:
+            if min_heap[0] <= num:
+                remove_from_heap(min_heap, num)
+                return
+            remove_from_heap(max_heap, -num)
+
+        
+        max_heap: List[int] = []
+        min_heap: List[int] = []
+        result: List[int] = []
+
+        for i in range(k-1):
+            add_to_heaps(max_heap, min_heap, nums[i])
+
+        for i in range(k-1, len(nums)):
+            add_to_heaps(max_heap, min_heap, nums[i])
+            median = calc_median(max_heap, min_heap)
+            result.append(median)
+            remove_from_heaps(max_heap, min_heap, nums[i-k+1])
+
+        return result
+
 
         
 

@@ -64,15 +64,15 @@
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
 
-        def dfs(root, preSum):
-            if not root:
-                return 0
-            preSum = 10 * preSum + root.val
-            if not root.left and not root.right:
+        def dfs(node, preSum=0):
+            if not node: return 0
+            preSum = 10 * preSum + node.val
+            if not node.left and not node.right:
                 return preSum
-            return dfs(root.left, preSum) + dfs(root.right, preSum)
+            return dfs(node.left, preSum) + dfs(node.right, preSum)
 
-        return dfs(root, 0)
+        return dfs(root)
+
         
 # @lc code=end
 

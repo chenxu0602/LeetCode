@@ -52,59 +52,22 @@ import heapq
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
 
-        """
-        if n == 0:
-            return len(tasks)
+        # task_counts = Counter(tasks).values()
+        # M = max(task_counts)
+        # Mct = list(task_counts).count(M)
+        # return max(len(tasks), (M-1) * (n+1) + Mct)
 
-        hs = defaultdict(int)
-        for task in tasks:
-            hs[task] += 1
-
-        count = 0
-        cycle = n + 1
-
-        heap = []
-
-        for k, i in hs.items():
-            if i > 0:
-                heapq.heappush(heap, (-i))
-
-        while heap:
-            worktime = 0
-            tmp = []
-            for i in range(cycle):
-                if heap:
-                    tmp.append(heapq.heappop(heap))
-                    worktime += 1
-            for cnt in tmp:
-                cnt *= -1
-                cnt -= 1
-                if cnt > 0:
-                    heapq.heappush(heap, -cnt)
-
-            count += cycle if len(heap) > 0 else worktime
-
-        return count
-        """
-
-        """
         hs = [0] * 26
         for c in tasks:
             hs[ord(c) - ord('A')] += 1
         hs.sort()
 
-        max_val = hs[25] - 1
+        max_val = hs.pop() - 1
         idle_slots = max_val * n
-        for i in range(24, -1, -1):
-            idle_slots -= min(hs[i], max_val)
+        for i in reversed(hs):
+            idle_slots -= min(i, max_val)
 
-        return idle_slots + len(tasks) if idle_slots > 0 else len(tasks)
-        """
-
-        task_counts = Counter(tasks).values()
-        M = max(task_counts)
-        Mct = list(task_counts).count(M)
-        return max(len(tasks), (M-1) * (n+1) + Mct)
+        return max(0, idle_slots) + len(tasks)
 
         
         

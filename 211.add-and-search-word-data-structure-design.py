@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/add-and-search-word-data-structure-design/description/
 #
 # algorithms
-# Medium (31.34%)
-# Likes:    1071
-# Dislikes: 61
-# Total Accepted:    134.1K
-# Total Submissions: 414.4K
-# Testcase Example:  '["WordDictionary","addWord","addWord","addWord","search","search","search","search"]\n' +
+# Medium (33.79%)
+# Likes:    1270
+# Dislikes: 70
+# Total Accepted:    150K
+# Total Submissions: 443.6K
+# Testcase Example:  '["WordDictionary","addWord","addWord","addWord","search","search","search","search"]\n' + '[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]'
 #
 # Design a data structure that supports the following two operations:
 # 
@@ -42,11 +42,10 @@
 
 # @lc code=start
 from collections import defaultdict
+from functools import reduce
 
-class TrieNode:
-    def __init__(self):
-        self.children = defaultdict(TrieNode)
-        self.isWord = False
+Trie = lambda: defaultdict(Trie)
+END = '#'
 
 class WordDictionary:
 
@@ -54,47 +53,40 @@ class WordDictionary:
         """
         Initialize your data structure here.
         """
-        self.root = TrieNode()
+        self.trie = Trie()
         
 
     def addWord(self, word: str) -> None:
         """
         Adds a word into the data structure.
         """
-        node = self.root
-        for w in word:
-            node = node.children[w]
-        node.isWord = True
+        reduce(dict.__getitem__, word, self.trie)[END] = ""
         
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
         """
-
-        node = self.root
         self.res = False
-        self.dfs(node, word)
+        self.dfs(self.trie, word)
         return self.res
 
-    def dfs(self, node, word):
+    def dfs(self, node: Trie, word: str) -> None:
         if not word:
-            if node.isWord:
+            if END in node:
                 self.res = True
             return
 
         if word[0] == '.':
-            for c in node.children:
-                self.dfs(node.children[c], word[1:])
+            for c in node:
+                self.dfs(node[c], word[1:])
         else:
-            node = node.children[word[0]]
-            if not node:
-                return
-            self.dfs(node, word[1:])
-
-
-
-
+            if node:
+                node = node[word[0]]
+                if not node:
+                    return
+                self.dfs(node, word[1:])
+        
 
 
 # Your WordDictionary object will be instantiated and called as such:

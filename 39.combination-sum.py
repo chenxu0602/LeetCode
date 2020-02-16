@@ -55,18 +55,21 @@
 # @lc code=start
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+
         def dfs(candidates, target, start, path):
             if target == 0:
-                return res.append(path)
+                res.append(path)
+                return
             for i in range(start, len(candidates)):
                 if target < candidates[i]:
                     return
-                dfs(candidates, target-candidates[i], i, path+[candidates[i]])
-
+                dfs(candidates, target - candidates[i], i, path + [candidates[i]])
+                
         res = []
         candidates.sort()
         dfs(candidates, target, 0, [])
         return res
+            
         
 # @lc code=end
 

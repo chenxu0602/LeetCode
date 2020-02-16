@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-distinct-islands/description/
 #
 # algorithms
-# Medium (51.69%)
-# Likes:    431
-# Dislikes: 26
-# Total Accepted:    29.8K
-# Total Submissions: 57.4K
+# Medium (54.15%)
+# Likes:    588
+# Dislikes: 40
+# Total Accepted:    42.6K
+# Total Submissions: 78.5K
 # Testcase Example:  '[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]'
 #
 # Given a non-empty 2D array grid of 0's and 1's, an island is a group of 1's
@@ -55,39 +55,21 @@
 # The length of each dimension in the given grid does not exceed 50.
 # 
 #
+
+# @lc code=start
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
-        """
-        islands = set()
-        for i in range(len(grid)):
-            for j in range(len(grid[i])):
-                island = []
-                front = [(i, j)]
-
-                while front:
-                    nxt = []
-                    for x, y in front:
-                        if 0 <= x < len(grid) and 0 <= y < len(grid[x]) and grid[x][y] == 1:
-                            grid[x][y] = 0
-                            island.append((x-i, y-j))
-                            for m, n in (x+1, y), (x-1, y), (x, y-1), (x, y+1):
-                                nxt.append((m, n))
-                    front = nxt
-
-                if island and str(island) not in islands:
-                    islands.add(str(island))
-        return len(islands)
-        """
 
         seen = set()
+
         def explore(r, c, r0, c0):
             if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] and (r, c) not in seen:
                 seen.add((r, c))
                 shape.add((r - r0, c - c0))
-                explore(r + 1, c, r0, c0)
-                explore(r - 1, c, r0, c0)
-                explore(r, c + 1, r0, c0)
-                explore(r, c - 1, r0, c0)
+                explore(r+1, c, r0, c0)
+                explore(r-1, c, r0, c0)
+                explore(r, c+1, r0, c0)
+                explore(r, c-1, r0, c0)
 
         shapes = set()
         for r in range(len(grid)):
@@ -98,4 +80,5 @@ class Solution:
                     shapes.add(frozenset(shape))
         return len(shapes)
         
+# @lc code=end
 

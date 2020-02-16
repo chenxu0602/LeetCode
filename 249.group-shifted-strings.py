@@ -43,6 +43,7 @@ from itertools import groupby
 
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
+
         key = lambda s: [(ord(c) - ord(s[0])) % 26 for c in s]
         return [list(g) for _, g in groupby(sorted(strings, key=key), key)]
         

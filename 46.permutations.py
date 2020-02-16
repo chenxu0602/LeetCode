@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/permutations/description/
 #
 # algorithms
-# Medium (56.71%)
-# Likes:    2544
-# Dislikes: 82
-# Total Accepted:    449.8K
-# Total Submissions: 776.3K
+# Medium (59.92%)
+# Likes:    3017
+# Dislikes: 92
+# Total Accepted:    509.8K
+# Total Submissions: 849K
 # Testcase Example:  '[1,2,3]'
 #
 # Given a collection of distinct integers, return all possible permutations.
@@ -35,30 +35,18 @@
 # @lc code=start
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        def dfs(first=0):
+            if first == n:
+                output.append(nums[:])
+            for i in range(first, n):
+                nums[first], nums[i] = nums[i], nums[first]
+                dfs(first+1)
+                nums[first], nums[i] = nums[i], nums[first]
 
-        def dfs(nums, path, res):
-            if not nums:
-                res.append(path)
-            for i in range(len(nums)):
-                dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
-
-        res = []
-        dfs(nums, [], res)
-        return res
-
-        """
-        if len(nums) == 0:
-            return []
-
-        if len(nums) == 1:
-            return [nums]
-
-        res = []
-        for i in range(len(nums)):
-            for j in self.permute(nums[:i] + nums[i+1:]):
-                res.append([nums[i]] + j)
-        return res
-        """
-
+        n = len(nums)
+        output = []
+        dfs()
+        return output
+        
 # @lc code=end
 

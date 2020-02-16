@@ -61,11 +61,11 @@ class Node:
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
 
-        def helper(node):
-            nonlocal last, first
+        def dfs(node):
+            nonlocal first, last
 
             if node:
-                helper(node.left)
+                dfs(node.left)
 
                 if last:
                     last.right = node
@@ -74,16 +74,11 @@ class Solution:
                     first = node
 
                 last = node
+                dfs(node.right)
 
-                helper(node.right)
-
-
-
-        if not root:
-            return None
-
+        if not root: return None
         last, first = None, None
-        helper(root)
+        dfs(root)
 
         last.right = first
         first.left = last

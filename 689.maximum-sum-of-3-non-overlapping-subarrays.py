@@ -48,47 +48,7 @@
 # 
 #
 class Solution:
-    def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
-        """
-        bestSeq = 0
-        bestTwoSeq = [0, k]
-        bestThreeSeq = [0, k, k*2]
-
-        seqSum = sum(nums[0:k])
-        seqTwoSum = sum(nums[k:k*2])
-        seqThreeSum = sum(nums[k*2:k*3])
-
-        bestSeqSum = seqSum
-        bestTwoSum = seqSum + seqTwoSum
-        bestThreeSum = seqSum + seqTwoSum + seqThreeSum
-
-        seqIndex = 1
-        twoSeqIndex = k + 1
-        threeSeqIndex = k*2 + 1
-
-        while threeSeqIndex <= len(nums) - k:
-            seqSum = seqSum - nums[seqIndex - 1] + nums[seqIndex + k - 1]
-            seqTwoSum = seqTwoSum - nums[twoSeqIndex - 1] + nums[twoSeqIndex + k - 1]
-            seqThreeSum = seqThreeSum - nums[threeSeqIndex - 1] + nums[threeSeqIndex + k - 1]
-
-            if seqSum > bestSeqSum:
-                bestSeq = seqIndex
-                bestSeqSum = seqSum
-
-            if seqTwoSum + bestSeqSum > bestTwoSum:
-                bestTwoSeq = [bestSeq, twoSeqIndex]
-                bestTwoSum = seqTwoSum + bestSeqSum
-
-            if seqThreeSum + bestTwoSum > bestThreeSum:
-                bestThreeSeq = bestTwoSeq + [threeSeqIndex]
-                bestThreeSum = seqThreeSum + bestTwoSum
-
-            seqIndex += 1
-            twoSeqIndex += 1
-            threeSeqIndex += 1
-
-        return bestThreeSeq
-        """
+    def maxSumOfThreeSubarrays(self, nums: List[int], K: int) -> List[int]:
 
         W = []
         sum_ = 0
@@ -96,27 +56,27 @@ class Solution:
             sum_ += x
             if i >= K: sum_ -= nums[i-K]
             if i >= K-1: W.append(sum_)
-                
+
         left = [0] * len(W)
         best = 0
         for i in range(len(W)):
             if W[i] > W[best]:
                 best = i
             left[i] = best
-            
+
         right = [0] * len(W)
-        best = len(W)-1
+        best = len(W) - 1
         for i in range(len(W)-1, -1, -1):
             if W[i] >= W[best]:
                 best = i
             right[i] = best
-            
+
         ans = None
-        for j in range(K, len(W)-K):
+        for j in range(K, len(W) - K):
             i, k = left[j-K], right[j+K]
-            if ans is None or (W[i] + W[j] + W[k] >
-                               W[ans[0]] + W[ans[1]] + W[ans[2]]):
+            if ans is None or (W[i] + W[j] + W[k] > W[ans[0]] + W[ans[1]] + W[ans[2]]):
                 ans = i, j, k
+
         return ans
 
 

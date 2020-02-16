@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/powx-n/description/
 #
 # algorithms
-# Medium (28.39%)
-# Likes:    989
-# Dislikes: 2411
-# Total Accepted:    368.2K
-# Total Submissions: 1.3M
+# Medium (29.03%)
+# Likes:    1146
+# Dislikes: 2604
+# Total Accepted:    402.6K
+# Total Submissions: 1.4M
 # Testcase Example:  '2.00000\n10'
 #
 # Implement pow(x, n), which calculates x raised to the power n (x^n).
@@ -49,38 +49,22 @@
 # @lc code=start
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-
-        """
-        if not n:
-            return 1
-
-        if n < 0:
-            return 1 / self.myPow(x, -n)
-
-        if n % 2:
-            return x * self.myPow(x, n-1)
-
-        return self.myPow(x*x, n//2)
-        """
+        # if not n: return 1
+        # if n < 0: return 1 / self.myPow(x, -n)
+        # if n % 2: return x * self.myPow(x, n - 1)
+        # return self.myPow(x*x, n // 2)
 
         if n < 0:
             x = 1.0 / x
             n = -n
-
-        ans, cp, i = 1, x, n
-        while True:
-            if i % 2 == 1:
-                ans = ans * cp
-
-            i //= 2
-
-            cp = cp * cp
-
-            if i == 0:
-                break
-
-        return ans
-
+        pow = 1
+        while n:
+            if n & 1:
+                pow *= x
+            x *= x
+            n >>= 1
+        return pow
+        
         
 # @lc code=end
 

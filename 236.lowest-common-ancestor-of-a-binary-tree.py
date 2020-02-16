@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
 #
 # algorithms
-# Medium (38.85%)
-# Likes:    2467
-# Dislikes: 145
-# Total Accepted:    338.8K
-# Total Submissions: 840.2K
+# Medium (42.19%)
+# Likes:    2873
+# Dislikes: 157
+# Total Accepted:    385.6K
+# Total Submissions: 912.4K
 # Testcase Example:  '[3,5,1,6,2,0,8,null,null,7,4]\n5\n1'
 #
 # Given a binary tree, find the lowest common ancestor (LCA) of two given nodes
@@ -63,25 +63,23 @@
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
 
-        """
-        def dfs(node):
-            if not node:
-                return False
-            left = dfs(node.left)
-            right = dfs(node.right)
+        # if root in (None, p, q):
+        #     return root
 
-            mid = node == p or node == q
+        # left, right = (self.lowestCommonAncestor(child, p, q) for child in (root.left, root.right))
+        # return root if left and right else left or right
 
-            if mid + left + right >= 2:
-                self.ans = node
+        # def dfs(node):
+        #     if not node: return False
+        #     left, right = dfs(node.left), dfs(node.right)
+        #     mid = node == p or node == q
+        #     if mid + left + right >= 2:
+        #         self.ans = node
+        #     return mid or left or right
 
-            return mid or left or right
+        # dfs(root)
+        # return self.ans
 
-        dfs(root)
-        return self.ans
-        """
-
-        """
         stack = [root,]
         parent = {root: None}
 
@@ -104,29 +102,7 @@ class Solution:
             q = parent[q]
 
         return q
-        """
-
-        if root in (None, p, q):
-            return root
-
-        left, right = (self.lowestCommonAncestor(child, p, q) for child in (root.left, root.right))
-        return root if left and right else left or right
-
-        """
-        if root == p or root == q:
-            return root
-
-        left = right = None
-        if root.left:
-            left = self.lowestCommonAncestor(root.left, p, q)
-        if root.right:
-            right = self.lowestCommonAncestor(root.right, p, q)
-
-        if left and right:
-            return root
-        else:
-            return left or right
-        """
+            
 
         
 # @lc code=end

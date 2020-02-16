@@ -65,38 +65,21 @@
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
 
-        """
-        def dfs(node, lower=float("-inf"), upper=float("inf")):
-            if not node:
-                return True
+        # def dfs(node, lower=float("-inf"), upper=float("inf")):
+        #     if not node: return True
 
-            if node.val <= lower or node.val >= upper:
-                return False
+        #     if node.val <= lower or node.val >= upper:
+        #         return False
 
-            if not dfs(node.left, lower, node.val):
-                return False
+        #     if not dfs(node.left, lower, node.val):
+        #         return False
 
-            if not dfs(node.right, node.val, upper):
-                return False
+        #     if not dfs(node.right, node.val, upper):
+        #         return False
 
-            return True
+        #     return True
 
-        return dfs(root)
-        """
-
-        """
-        stack = [(root, float("-inf"), float("inf")),]
-        while stack:
-            root, lower, upper = stack.pop()
-            if not root:
-                continue
-            val = root.val
-            if val <= lower or val >= upper:
-                return False
-            stack.append((root.right, val, upper))
-            stack.append((root.left, lower, val))
-        return True
-        """
+        # return dfs(root)
 
         stack, inorder = [], float("-inf")
         while stack or root:
@@ -109,6 +92,7 @@ class Solution:
             inorder = root.val
             root = root.right
         return True
+
 
         
 # @lc code=end

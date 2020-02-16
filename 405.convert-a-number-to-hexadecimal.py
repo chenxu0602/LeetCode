@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/convert-a-number-to-hexadecimal/description/
 #
 # algorithms
-# Easy (41.95%)
-# Likes:    269
-# Dislikes: 72
-# Total Accepted:    48.6K
-# Total Submissions: 115.6K
+# Easy (43.11%)
+# Likes:    359
+# Dislikes: 92
+# Total Accepted:    58.3K
+# Total Submissions: 135.1K
 # Testcase Example:  '26'
 #
 # 
@@ -51,9 +51,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def toHex(self, num: int) -> str:
-
         if num < 0:
             num += 2 ** 32
 
@@ -67,8 +68,8 @@ class Solution:
         if not stack:
             return "0"
 
-        stack.reverse()
+        return "".join(reversed(stack))
 
-        return "".join(stack)
         
+# @lc code=end
 

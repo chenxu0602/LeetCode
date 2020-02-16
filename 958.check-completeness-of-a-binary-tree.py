@@ -67,8 +67,8 @@ from collections import deque
 
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
-        if not root:
-            return True
+
+        if not root: return True
 
         res = []
         queue = deque([(root, 1)])

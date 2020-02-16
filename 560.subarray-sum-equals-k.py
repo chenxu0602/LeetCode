@@ -35,27 +35,12 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
 
-        """
-        count, n = 0, len(nums)
-        for start in range(n):
-            sums = 0
-            for end in range(start, n):
-                sums += nums[end]
-
-                if sums == k:
-                    count += 1
-
-        return count
-        """
-
         count, p, d = 0, 0, {0: 1}
         for i in nums:
             p += i
             if p - k in d:
                 count += d[p-k]
             d[p] = d.get(p, 0) + 1
-
         return count
-
         
 

@@ -30,32 +30,18 @@
 # @lc code=start
 class Solution:
     def findStrobogrammatic(self, n: int) -> List[str]:
-        """
-        even = ["11", "69", "88", "96", "00"]
-        odd = ["0", "1", "8"]
-
-        if n == 1:
-            return odd
-        if n == 2:
-            return even[:-1]
-        if n % 2:
-            pre, mid = self.findStrobogrammatic(n-1), odd
-        else:
-            pre, mid = self.findStrobogrammatic(n-2), even
-
-        premid = (n-1) // 2
-        return [p[:premid] + c + p[premid:] for c in mid for p in pre]
-        """
 
         res = [""]
 
-        if n % 2 == 1:
+        if n % 2:
             res = list("018")
 
         while n > 1:
             n -= 2
             res = [a + num + b for a, b in "00 11 88 69 96".split()[n<2:] for num in res]
+
         return res
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/nested-list-weight-sum/description/
 #
 # algorithms
-# Easy (68.35%)
-# Likes:    298
-# Dislikes: 68
-# Total Accepted:    57.7K
-# Total Submissions: 84.3K
+# Easy (71.44%)
+# Likes:    426
+# Dislikes: 95
+# Total Accepted:    75.3K
+# Total Submissions: 105.3K
 # Testcase Example:  '[[1,1],2,[1,1]]'
 #
 # Given a nested list of integers, return the sum of all integers in the list
@@ -39,6 +39,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
@@ -83,28 +85,26 @@
 #        """
 
 class Solution:
-    def dfs(self, nestedList: List[NestedInteger], depth: int) -> int:
-        sum = 0
-
-        for item in nestedList:
-            if item.isInteger():
-                sum += item.getInteger() * depth
-            else:
-                sum += self.dfs(item.getList(), depth + 1)
-
-        return sum
-
-
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
-        """
-        return self.dfs(nestedList, 1)
-        """
 
-        depth, ret = 1, 0
-        while nestedList:
-            ret += depth * sum([x.getInteger() for x in nestedList if x.isInteger()])
-            nestedList = sum([x.getList() for x in nestedList if not x.isInteger()], [])
-            depth += 1
-        return ret
+        # depth, res = 1, 0
+        # while nestedList:
+        #     res += depth * sum((x.getInteger() for x in nestedList if x.isInteger()))
+        #     nestedList = sum((x.getList() for x in nestedList if not x.isInteger()), [])
+        #     depth += 1
+        # return res
+
+        def dfs(nestedList: List[NestedInteger], depth: int) -> int:
+            sum_ = 0
+            for x in nestedList:
+                if x.isInteger():
+                    sum_ += x.getInteger() * depth
+                else:
+                    sum_ += dfs(x.getList(), depth + 1)
+            return sum_
+
+        return dfs(nestedList, 1)
+
         
+# @lc code=end
 

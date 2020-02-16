@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/burst-balloons/description/
 #
 # algorithms
-# Hard (47.34%)
-# Likes:    1344
-# Dislikes: 39
-# Total Accepted:    64.4K
-# Total Submissions: 135.9K
+# Hard (49.82%)
+# Likes:    1900
+# Dislikes: 53
+# Total Accepted:    83K
+# Total Submissions: 166.5K
 # Testcase Example:  '[3,1,5,8]'
 #
 # Given n balloons, indexed from 0 to n-1. Each balloon is painted with a
@@ -39,33 +39,30 @@
 # coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
-        """
-        nums = [1] + nums + [1]
-        n = len(nums)
-        dp = [[0] * n for _ in range(n)]
+        # nums = [1] + nums + [1]
+        # n = len(nums)
+        # dp = [[0] * n for _ in range(n)]
+        
+        # for gap in range(2, n):
+        #     for i in range(n - gap):
+        #         j = i + gap
+        #         for k in range(i+1, j):
+        #             dp[i][j] = max(dp[i][j], nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j])
+                    
+        # return dp[0][n-1]
 
-        for gap in range(2, n):
-            for i in range(n - gap):
-                j = i + gap
-                for k in range(i+1, j):
-                    dp[i][j] = max(dp[i][j], nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j])
-
-        return dp[0][n-1]
-        """
-
-        """
-        nums = [1] + nums + [1]
-
-        @lru_cache(None)
-        def dp(left, right):
-            if left + 1 == right: return 0
-            return max(nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left+1, right))
-        return dp(0, len(nums)-1)
-        """
+        # nums = [1] + nums + [1]
+        # @lru_cache(None)
+        # def dp(left, right):
+        #     if left + 1 == right: return 0
+        #     return max(nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left+1, right))
+        # return dp(0, len(nums)-1)
 
         nums = [1] + nums + [1]
         n = len(nums)
@@ -76,5 +73,7 @@ class Solution:
                 dp[left][right] = max(nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right] for i in range(left+1, right))
         return dp[0][n-1]
 
+
         
+# @lc code=end
 

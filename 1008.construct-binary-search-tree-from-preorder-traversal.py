@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/description/
 #
 # algorithms
-# Medium (73.25%)
-# Likes:    367
-# Dislikes: 14
-# Total Accepted:    24.8K
-# Total Submissions: 33.6K
+# Medium (74.99%)
+# Likes:    535
+# Dislikes: 20
+# Total Accepted:    36.2K
+# Total Submissions: 48.2K
 # Testcase Example:  '[8,5,1,7,10,12]'
 #
 # Return the root node of a binary search tree that matches the given preorder
@@ -42,6 +42,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -51,84 +53,22 @@
 
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
-        """
+
         root = TreeNode(preorder[0])
-        stack = [root]
-        for value in preorder[1:]:
-            if value < stack[-1].val:
-                stack[-1].left = TreeNode(value)
+        stack = [root,]
+        for val in preorder[1:]:
+            if val < stack[-1].val:
+                stack[-1].left = TreeNode(val)
                 stack.append(stack[-1].left)
             else:
-                while stack and stack[-1].val < value:
+                while stack and stack[-1].val < val:
                     last = stack.pop()
-                last.right = TreeNode(value)
+                last.right = TreeNode(val)
                 stack.append(last.right)
-        return root
-        """
 
-        """
-        def helper(in_left=0, in_right=len(preorder)):
-            nonlocal pre_idx
-            if in_left == in_right:
-                return None
-            
-            root_val = preorder[pre_idx]
-            root = TreeNode(root_val)
-
-            index = idx_map[root_val]
-
-            pre_idx += 1
-            root.left = helper(in_left, index)
-            root.right = helper(index+1, in_right)
-            return root
-
-        inorder = sorted(preorder)
-        pre_idx = 0
-        idx_map = {val: idx for idx, val in enumerate(inorder)}
-        return helper()
-        """
-
-        """
-        def helper(lower=float("-inf"), upper=float("inf")):
-            nonlocal idx
-            if idx == n:
-                return None
-            val = preorder[idx]
-            if val < lower or val > upper:
-                return None
-            
-            idx += 1
-            root = TreeNode(val)
-            root.left = helper(lower, val)
-            root.right = helper(val, upper)
-            return root
-
-        idx = 0
-        n = len(preorder)
-        return helper()
-        """
-
-        n = len(preorder)
-        if not n:
-            return None
-
-        root = TreeNode(preorder[0])
-        stack = [root, ]
-
-        for i in range(1, n):
-            node, child = stack[-1], TreeNode(preorder[i])
-
-            while stack and stack[-1].val < child.val:
-                node = stack.pop()
-
-            if node.val < child.val:
-                node.right = child
-            else:
-                node.left = child
-
-            stack.append(child)
         return root
 
-            
+
         
+# @lc code=end
 

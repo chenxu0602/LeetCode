@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/description/
 #
 # algorithms
-# Hard (41.06%)
-# Likes:    1498
-# Dislikes: 70
-# Total Accepted:    186.9K
-# Total Submissions: 454.6K
+# Hard (44.87%)
+# Likes:    2372
+# Dislikes: 118
+# Total Accepted:    264.3K
+# Total Submissions: 588.6K
 # Testcase Example:  '[1,2,3,null,null,4,5]'
 #
 # Serialization is the process of converting a data structure or object into a
@@ -45,6 +45,8 @@
 # serialize and deserialize algorithms should be stateless.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -62,17 +64,16 @@ class Codec:
         """
         self.s = []
 
-        def dfs(root):
-            if not root:
-                self.s.append("#")
+        def dfs(node):
+            if not node:
+                self.s.append('#')
             else:
-                self.s.append(str(root.val))
-                dfs(root.left)
-                dfs(root.right)
-
+                self.s.append(str(node.val))
+                dfs(node.left)
+                dfs(node.right)
+            
         dfs(root)
         return ','.join(self.s)
-
         
 
     def deserialize(self, data):
@@ -80,23 +81,6 @@ class Codec:
         
         :type data: str
         :rtype: TreeNode
-        """
-        """
-        def dfs(lst):
-            if lst[0] == '#':
-                lst.pop(0)
-                return None
-
-            x = lst.pop(0)
-            root = TreeNode(int(x))
-
-            root.left = dfs(lst)
-            root.right = dfs(lst)
-            return root
-
-        s = data.split(',')
-        root = dfs(s)
-        return root
         """
 
         def dfs():
@@ -116,4 +100,5 @@ class Codec:
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
+# @lc code=end
 

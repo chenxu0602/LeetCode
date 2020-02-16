@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/random-pick-index/description/
 #
 # algorithms
-# Medium (50.06%)
-# Likes:    269
-# Dislikes: 469
-# Total Accepted:    56.7K
-# Total Submissions: 112.8K
+# Medium (52.87%)
+# Likes:    346
+# Dislikes: 556
+# Total Accepted:    69.4K
+# Total Submissions: 131.3K
 # Testcase Example:  '["Solution","pick"]\n[[[1,2,3,3,3]],[3]]'
 #
 # Given an array of integers with possible duplicates, randomly output the
@@ -36,30 +36,26 @@
 # 
 # 
 #
+
+# @lc code=start
 import heapq
 from random import randint, random
 
 class Solution:
 
     def __init__(self, nums: List[int]):
-
         self.nums = nums
         
 
     def pick(self, target: int) -> int:
+        # heap = []
+        # for i, v in enumerate(self.nums):
+        #     if v == target:
+        #         heapq.heappush(heap, (random(), i))
 
-        """
-        heap = []
-        for i, v in enumerate(self.nums):
-            if v == target:
-                heapq.heappush(heap, (random(), i))
-            
-        r, idx = heapq.heappop(heap)
-
-        return idx
-        """
-
-        # Reservoir sampling
+        # _, idx = heapq.heappop(heap)
+        
+        # return idx
 
         total, res = 0, -1
         for i, v in enumerate(self.nums):
@@ -69,10 +65,10 @@ class Solution:
                     res = i
                 total += 1
         return res
-        
 
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
 # param_1 = obj.pick(target)
+# @lc code=end
 

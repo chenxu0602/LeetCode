@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/description/
 #
 # algorithms
-# Medium (57.02%)
-# Likes:    446
-# Dislikes: 135
-# Total Accepted:    23.3K
-# Total Submissions: 40.4K
+# Medium (59.26%)
+# Likes:    543
+# Dislikes: 168
+# Total Accepted:    29.6K
+# Total Submissions: 49.9K
 # Testcase Example:  '[3,5,1,6,2,0,8,null,null,7,4]'
 #
 # Given a binary tree rooted at root, the depth of each node is the shortest
@@ -55,6 +55,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -62,47 +64,53 @@
 #         self.left = None
 #         self.right = None
 
-from collections import namedtuple
-
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
 
-        """
-        depth = {None: -1}
+        # def deepestDepth(node, depth=0):
+        #     if not node:
+        #         return node, depth
 
-        def dfs(node, par=None):
-            if node:
-                depth[node] = depth[par] + 1
-                dfs(node.left, node)
-                dfs(node.right, node)
+        #     left, leftDepth = deepestDepth(node.left, depth+1)
+        #     right, rightDepth = deepestDepth(node.right, depth+1)
 
-        dfs(root)
+        #     if leftDepth > rightDepth:
+        #         return left, leftDepth
 
-        max_depth = max(depth.values())
+        #     if rightDepth > leftDepth:
+        #         return right, rightDepth
 
-        def answer(node):
-            if not node or depth.get(node, None) == max_depth:
-                return node
-            L, R = answer(node.left), answer(node.right)
-            return node if L and R else L or R
+        #     return node, leftDepth
 
-        return answer(root)
-        """
+        # return deepestDepth(root)[0]
 
-        result = namedtuple("result", ("node", "dist"))
+        # depth = {None: -1}
+        # def dfs(node, parent=None):
+        #     if node:
+        #         depth[node] = depth[parent] + 1
+        #         dfs(node.left, node)
+        #         dfs(node.right, node)
+        # dfs(root)
 
+        # max_depth = max(depth.values())
+
+        # def answer(node):
+        #     if not node or depth.get(node, None) == max_depth:
+        #         return node
+        #     L, R = answer(node.left), answer(node.right)
+        #     return node if L and R else L or R
+
+        # return answer(root)
+
+        from collections import namedtuple
+        Result = namedtuple("Result", ("node", "dist"))
         def dfs(node):
-            if not node:
-                return result(None, 0)
-
+            if not node: return Result(None, 0)
             L, R = dfs(node.left), dfs(node.right)
-            if L.dist > R.dist:
-                return result(L.node, L.dist + 1)
-            if L.dist < R.dist:
-                return result(R.node, R.dist + 1)
-            return result(node, L.dist + 1)
-
+            if L.dist > R.dist: return Result(L.node, L.dist + 1)
+            if L.dist < R.dist: return Result(R.node, R.dist + 1)
+            return Result(node, L.dist + 1)
         return dfs(root).node
-
         
+# @lc code=end
 

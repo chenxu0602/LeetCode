@@ -57,22 +57,26 @@ class Node:
 """
 class Solution:
     def __init__(self):
-        self.visitedHash = {}
+        self.visited = {}
 
     def copyRandomList(self, head: 'Node') -> 'Node':
-        if head == None:
+        if head is None:
             return None
 
-        if head in self.visitedHash:
-            return self.visitedHash[head]
+        if head in self.visited:
+            return self.visited[head]
 
         node = Node(head.val, None, None)
-        self.visitedHash[head] = node
+        self.visited[head] = node
 
         node.next = self.copyRandomList(head.next)
         node.random = self.copyRandomList(head.random)
 
         return node
+
+
+        
+
         
 # @lc code=end
 

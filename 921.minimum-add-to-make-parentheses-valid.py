@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/
 #
 # algorithms
-# Medium (70.45%)
-# Likes:    360
-# Dislikes: 27
-# Total Accepted:    34.9K
-# Total Submissions: 49.4K
+# Medium (71.62%)
+# Likes:    478
+# Dislikes: 36
+# Total Accepted:    47.1K
+# Total Submissions: 65.8K
 # Testcase Example:  '"())"'
 #
 # Given a string S of '(' and ')' parentheses, we add the minimum number of
@@ -81,8 +81,23 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minAddToMakeValid(self, S: str) -> int:
+
+        # l = list(S)
+        # if len(l) == 0: return 0
+        # temp = [l[0]]
+        # for i in range(1, len(l)):
+        #     if l[i] == '(':
+        #         temp.append(l[i])
+        #     elif l[i] == ')' and len(temp) > 0 and temp[-1] == '(':
+        #         temp.pop()
+        #     else:
+        #         temp.append(l[i])
+        # return len(temp)
+
         ans = bal = 0
         for symbol in S:
             bal += 1 if symbol == '(' else -1
@@ -91,4 +106,5 @@ class Solution:
                 bal += 1
         return ans + bal
         
+# @lc code=end
 

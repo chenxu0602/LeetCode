@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/description/
 #
 # algorithms
-# Medium (44.71%)
-# Likes:    594
-# Dislikes: 23
-# Total Accepted:    80.1K
-# Total Submissions: 178.9K
+# Medium (46.11%)
+# Likes:    769
+# Dislikes: 28
+# Total Accepted:    92.5K
+# Total Submissions: 200.5K
 # Testcase Example:  '[1,-1,5,-2,3]\n3'
 #
 # Given an array nums and a target value k, find the maximum length of a
@@ -39,45 +39,24 @@
 # Can you do it in O(n) time?
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxSubArrayLen(self, nums: List[int], k: int) -> int:
-
-        """ 
-        seen_sum = {0: 0}
-        total_sum, largest_len = 0, 0
-
-        for i in range(len(nums)):
-            total_sum += nums[i]
-            if total_sum == k:
-                largest_len = i + 1
-            else:
-                required = total_sum - k
-                if required in seen_sum:
-                    largest_len = max(largest_len, i - seen_sum[required])
-
-            if total_sum not in seen_sum:
-                seen_sum[total_sum] = i
-
-        return largest_len
-        """
-
-        record, sum, r = {}, 0, 0
+        record, sum_, r = {}, 0, 0
 
         for i, num in enumerate(nums):
-            sum += num
+            sum_ += num
 
-            if sum == k:
+            if sum_ == k:
                 r = i + 1
-            elif sum - k in record:
-                r = max(i - record[sum-k], r)
+            elif sum_ - k in record:
+                r = max(r, i - record[sum_-k])
 
-            if sum not in record:
-                record[sum] = i
+            if sum_ not in record:
+                record[sum_] = i
 
         return r
-
         
-        
-
-        
+# @lc code=end
 

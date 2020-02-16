@@ -3,8 +3,48 @@
 #
 # [37] Sudoku Solver
 #
+# https://leetcode.com/problems/sudoku-solver/description/
+#
+# algorithms
+# Hard (40.61%)
+# Likes:    1356
+# Dislikes: 81
+# Total Accepted:    162.9K
+# Total Submissions: 400.1K
+# Testcase Example:  '[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]'
+#
+# Write a program to solve a Sudoku puzzle by filling the empty cells.
+# 
+# A sudoku solution must satisfy all of the following rules:
+# 
+# 
+# Each of the digits 1-9 must occur exactly once in each row.
+# Each of the digits 1-9 must occur exactly once in each column.
+# Each of the the digits 1-9 must occur exactly once in each of the 9 3x3
+# sub-boxes of the grid.
+# 
+# 
+# Empty cells are indicated by the character '.'.
+# 
+# 
+# A sudoku puzzle...
+# 
+# 
+# ...and its solution numbers marked in red.
+# 
+# Note:
+# 
+# 
+# The given board contain only digits 1-9 and the character '.'.
+# You may assume that the given Sudoku puzzle will have a single unique
+# solution.
+# The given board size is always 9x9.
+# 
+# 
+#
 
-from collections import defaultdict, deque
+# @lc code=start
+from collections import deque, defaultdict
 
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
@@ -12,67 +52,9 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
 
-        """
-        def could_place(d, row, col):
-            return not (d in rows[row] or d in cols[col] or d in boxes[box_index(row, col)])
-
-        def place_number(d, row, col):
-            rows[row][d] += 1
-            cols[col][d] += 1
-            boxes[box_index(row, col)][d] += 1
-            board[row][col] = str(d)
-
-        def remove_number(d, row, col):
-            del rows[row][d]
-            del cols[col][d]
-            del boxes[box_index(row, col)][d]
-            board[row][col] = '.'
-
-        def place_next_numbers(row, col):
-            if col == N - 1 and row == N - 1:
-                nonlocal sudoku_solved
-                sudoku_solved = True
-            else:
-                if col == N - 1:
-                    backtrack(row + 1, 0)
-                else:
-                    backtrack(row, col + 1)
-
-        def backtrack(row=0, col=0):
-            if board[row][col] == '.':
-                for d in range(1, 10):
-                    if could_place(d, row, col):
-                        place_number(d, row, col)
-                        place_next_numbers(row, col)
-
-                        if not sudoku_solved:
-                            remove_number(d, row, col)
-            else:
-                place_next_numbers(row, col)
-            
-
-        n = 3
-        N = n * n
-        box_index = lambda i, j: (i // n) * n + j // n
-
-        rows  = [defaultdict(int) for i in range(N)]
-        cols  = [defaultdict(int) for i in range(N)]
-        boxes = [defaultdict(int) for i in range(N)]
-
-        for i in range(N):
-            for j in range(N):
-                num = board[i][j]
-                if num != '.':
-                    d = int(board[i][j])
-                    place_number(d, i, j)
-
-        sudoku_solved = False
-        backtrack()
-        """
-
-        rows = defaultdict(set)    
-        cols = defaultdict(set)    
-        triples = defaultdict(set)    
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        triples = defaultdict(set)
         to_be_visited = deque([])
 
         for r in range(9):
@@ -89,6 +71,7 @@ class Solution:
                 return True
             r, c = to_be_visited[0]
             t = (r // 3, c // 3)
+
             for i in range(1, 10):
                 if str(i) not in rows[r] and str(i) not in cols[c] and str(i) not in triples[t]:
                     board[r][c] = str(i)
@@ -96,6 +79,7 @@ class Solution:
                     cols[c].add(str(i))
                     triples[t].add(str(i))
                     to_be_visited.popleft()
+
                     if dfs():
                         return True
                     else:
@@ -104,11 +88,10 @@ class Solution:
                         cols[c].discard(str(i))
                         triples[t].discard(str(i))
                         to_be_visited.appendleft((r, c))
+
             return False
+
         dfs()
-
         
+# @lc code=end
 
-
-    
-   

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/continuous-subarray-sum/description/
 #
 # algorithms
-# Medium (24.19%)
-# Likes:    722
-# Dislikes: 928
-# Total Accepted:    70.1K
-# Total Submissions: 289.8K
+# Medium (24.43%)
+# Likes:    980
+# Dislikes: 1362
+# Total Accepted:    98.3K
+# Total Submissions: 402.6K
 # Testcase Example:  '[23,2,4,6,7]\n6'
 #
 # Given a list of non-negative numbers and a target integer k, write a function
@@ -49,26 +49,30 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        d = dict()
+
+        d = {}
         d[0] = -1
-        sums = 0
+        sum_ = 0
 
         for i, v in enumerate(nums):
-            sums += v
+            sum_ += v
 
             if k != 0:
-                sums = sums % k
+                sum_ %= k
 
-            if sums in d:
-                if i - d[sums] > 1:
+            if sum_ in d:
+                if i - d[sum_] > 1:
                     return True
             else:
-                d[sums] = i
+                d[sum_] = i
 
         return False
             
 
         
+# @lc code=end
 

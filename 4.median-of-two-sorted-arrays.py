@@ -52,9 +52,15 @@ class Solution:
             ma, mb = a[ia], b[ib]
 
             if ia + ib < k:
-                pass
+                if ma > mb:
+                    return kth(a, b[ib+1:], k-ib-1)
+                else:
+                    return kth(a[ia+1:], b, k-ia-1)
             else:
-                pass
+                if ma > mb:
+                    return kth(a[:ia], b, k)
+                else:
+                    return kth(a, b[:ib], k)
 
         l = len(nums1) + len(nums2)
         if l % 2:

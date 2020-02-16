@@ -40,18 +40,17 @@ from collections import OrderedDict
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
 
-        d = {}
-        ret, low = 0, 0
-        for i, c in enumerate(s):
-            d[c] = i
-            if len(d) > k:
-                low = min(d.values())
-                del d[s[low]]
-                low += 1
-            ret = max(ret, i - low + 1)
-        return ret
+        # d = {}
+        # res, low = 0, 0
+        # for i, c in enumerate(s):
+        #     d[c] = i
+        #     if len(d) > k:
+        #         low = min(d.values())
+        #         del d[s[low]]
+        #         low += 1
+        #     res = max(res, i - low + 1)
+        # return res
 
-        """
         n = len(s)
         if k == 0 or n == 0:
             return 0
@@ -77,7 +76,6 @@ class Solution:
             max_len = max(max_len, right - left)
 
         return max_len
-        """
 
 
 

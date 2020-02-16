@@ -79,13 +79,29 @@ from collections import defaultdict
 
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        """
-        scores = {letter : 0 for word in words for letter in word}
+        # scores = {letter : 0 for word in words for letter in word}
+        # changed = True
+
+        # while changed:
+        #     changed = False
+
+        #     for pair in zip(words, words[1:]):
+        #         for a, b in zip(*pair):
+        #             if not a == b:
+        #                 if scores[b] <= scores[a]:
+        #                     if scores[a] >= 26:
+        #                         return ""
+        #                     scores[b] = scores[a] + 1
+        #                     changed = True
+        #                 break
+
+        # return "".join(k for k, v in sorted(scores.items(), key=itemgetter(1)))
+
+        scores = {ch: 0 for word in words for ch in word}
         changed = True
 
         while changed:
             changed = False
-
             for pair in zip(words, words[1:]):
                 for a, b in zip(*pair):
                     if not a == b:
@@ -95,31 +111,31 @@ class Solution:
                             scores[b] = scores[a] + 1
                             changed = True
                         break
-
+        
         return "".join(k for k, v in sorted(scores.items(), key=itemgetter(1)))
-        """
 
-        pre, suc = defaultdict(set), defaultdict(set)
-        for pair in zip(words, words[1:]):
-            for a, b in zip(*pair):
-                if a != b:
-                    suc[a].add(b)
-                    pre[b].add(a)
-                    break
+        # pre, suc = defaultdict(set), defaultdict(set)
+        # for pair in zip(words, words[1:]):
+        #     for a, b in zip(*pair):
+        #         if a != b:
+        #             suc[a].add(b)
+        #             pre[b].add(a)
+        #             break
 
-        chars = set("".join(words))
-        free = chars - set(pre)
-        order = ""
+        # chars = set("".join(words))
+        # free = chars - set(pre)
+        # order = ""
 
-        while free:
-            a = free.pop()
-            order += a
-            for b in suc[a]:
-                pre[b].discard(a)
-                if not pre[b]:
-                    free.add(b)
+        # while free:
+        #     a = free.pop()
+        #     order += a
+        #     for b in suc[a]:
+        #         pre[b].discard(a)
+        #         if not pre[b]:
+        #             free.add(b)
 
-        return order * (set(order) == chars)
+        # return order * (set(order) == chars)
+
 
         
 

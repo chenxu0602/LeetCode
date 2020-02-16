@@ -73,38 +73,34 @@
 
 class Solution:
     def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
-        """
-        def dfs(root):
-            if not root:
-                return 0, None
 
-            h1, lca1 = dfs(root.left)
-            h2, lca2 = dfs(root.right)
+        # self.lca, self.deepest = None, 0
+        # def dfs(node, depth=0):
+        #     self.deepest = max(self.deepest, depth)
+        #     if not node:
+        #         return depth
+        #     left, right = dfs(node.left, depth+1), dfs(node.right, depth+1)
+        #     if left == right == self.deepest:
+        #         self.lca = node
+        #     return max(left, right)
+
+        # dfs(root)
+        # return self.lca
+
+        def dfs(node):
+            if not node: return 0, None
+
+            h1, lca1 = dfs(node.left)
+            h2, lca2 = dfs(node.right)
 
             if h1 > h2:
                 return h1 + 1, lca1
-
-            if h1 < h2:
+            elif h1 < h2:
                 return h2 + 1, lca2
-
-            return h1 + 1, root
+            else:
+                return h1 + 1, node
 
         return dfs(root)[1]
-        """
-
-        self.lca, self.deepest = None, 0
-        def dfs(node, depth):
-            self.deepest = max(self.deepest, depth)
-            if not node:
-                return depth
-            left = dfs(node.left, depth+1)
-            right = dfs(node.right, depth+1)
-            if left == right == self.deepest:
-                self.lca = node
-            return max(left, right)
-
-        dfs(root, 0)
-        return self.lca
         
 # @lc code=end
 

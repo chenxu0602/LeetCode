@@ -90,6 +90,26 @@ from collections import deque
 
 class Solution:
     def predictPartyVictory(self, senate: str) -> str:
+
+        queue = deque()
+        people, bans = [0, 0], [0, 0]
+
+        for person in senate:
+            x = person == 'R'
+            people[x] += 1
+            queue.append(x)
+
+        while all(people):
+            x = queue.popleft()
+            if bans[x]:
+                bans[x] -= 1
+                people[x] -= 1
+            else:
+                bans[x^1] += 1
+                queue.append(x)
+            
+        return "Radiant" if people[1] else "Dire"
+
         """
         queue = deque()
         people, bans = [0, 0], [0, 0]
@@ -128,28 +148,28 @@ class Solution:
         return 'Dire' if len(D) != 0 else 'Radiant'
         """
 
-        s = list(senate)
-        i = j = 0
-        while True:
-            while i < len(s) and s[i] != 'R':
-                i += 1
-            if i == len(s):
-                return 'Dire'
+        # s = list(senate)
+        # i = j = 0
+        # while True:
+        #     while i < len(s) and s[i] != 'R':
+        #         i += 1
+        #     if i == len(s):
+        #         return 'Dire'
             
-            while j < len(s) and s[j] != 'D':
-                j += 1
-            if j == len(s):
-                return 'Radiant'
+        #     while j < len(s) and s[j] != 'D':
+        #         j += 1
+        #     if j == len(s):
+        #         return 'Radiant'
 
-            if i < j:
-                s[j] = 'X'
-                s.append('R')
-            else:
-                s[i] = 'X'
-                s.append('D')
+        #     if i < j:
+        #         s[j] = 'X'
+        #         s.append('R')
+        #     else:
+        #         s[i] = 'X'
+        #         s.append('D')
 
-            i += 1
-            j += 1
+        #     i += 1
+        #     j += 1
             
 
         

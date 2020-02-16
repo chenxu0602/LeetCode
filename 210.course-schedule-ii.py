@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/course-schedule-ii/description/
 #
 # algorithms
-# Medium (35.83%)
-# Likes:    1292
-# Dislikes: 92
-# Total Accepted:    181.5K
-# Total Submissions: 494.5K
+# Medium (37.87%)
+# Likes:    1551
+# Dislikes: 104
+# Total Accepted:    208.8K
+# Total Submissions: 550.7K
 # Testcase Example:  '2\n[[1,0]]'
 #
 # There are a total of n courses you have to take, labeled from 0 to n-1.
@@ -60,7 +60,6 @@ from collections import defaultdict, deque
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-
         graph = defaultdict(list)
         v = [0] * numCourses
 
@@ -78,10 +77,13 @@ class Solution:
                 v[node] -= 1
                 if not v[node]:
                     stack.append(node)
+                    
             del graph[top]
             res.append(top)
 
         return res if not bool(graph) else []
+
+
         
 # @lc code=end
 

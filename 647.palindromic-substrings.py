@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/palindromic-substrings/description/
 #
 # algorithms
-# Medium (57.37%)
-# Likes:    1511
-# Dislikes: 77
-# Total Accepted:    109.8K
-# Total Submissions: 190.6K
+# Medium (59.07%)
+# Likes:    1971
+# Dislikes: 96
+# Total Accepted:    147.3K
+# Total Submissions: 249.2K
 # Testcase Example:  '"abc"'
 #
 # Given a string, your task is to count how many palindromic substrings in this
@@ -46,38 +46,19 @@
 # 
 # 
 # 
-# 
 #
+
+# @lc code=start
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        """
-        ans, n = 0, len(s)
-        for center in range(2*n-1):
-            left = center // 2
-            right = left + center % 2
-            while left >= 0 and right < n and s[left] == s[right]:
-                ans += 1
-                left -= 1
-                right += 1
-        return ans
-        """
 
-        def manachers(s):
-            A = '@#' + '#'.join(s) + '#$'
-            Z = [0] * len(A)
-            center = right = 0
-
-            for i in range(1, len(A) - 1):
-                if i < right:
-                    Z[i] = min(right - i, Z[2 * center - i])
-                while A[i + Z[i] + 1] == A[i - Z[i] - 1]:
-                    Z[i] += 1
-                if i + Z[i] > right:
-                    center, right = i, i + Z[i]
-            return Z
-        return sum((v+1) // 2 for v in manachers(s))
-
-
-
+        L, r = len(s), 0
+        for i in range(L):
+            for a, b in [(i, i), (i, i+1)]:
+                while a >= 0 and b < L and s[a] == s[b]:
+                    a -= 1; b += 1
+                r += (b - a) // 2
+        return r
         
+# @lc code=end
 

@@ -61,11 +61,28 @@ class Solution:
         return res
         """
 
-        m, n, r = len(matrix), len(matrix) and len(matrix[0]), []
-        for l in range(m + n - 1):
-            temp = [matrix[i][l - i] for i in range(max(0, l+1 - n), min(l+1, m))]
-            r += temp if l % 2 else temp[::-1]
-        return r
+        # m, n, r = len(matrix), len(matrix) and len(matrix[0]), []
+        # for l in range(m + n - 1):
+        #     temp = [matrix[i][l - i] for i in range(max(0, l+1 - n), min(l+1, m))]
+        #     r += temp if l % 2 else temp[::-1]
+        # return r
+
+        if not matrix: return []
+        res = []
+        lines = defaultdict(list)
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                lines[i+j].append(matrix[i][j])
+
+        for k in range(len(matrix) + len(matrix[0]) - 1):
+            if k % 2 == 0:
+                res += lines[k][::-1]
+            else:
+                res += lines[k]
+        return res
+
+        
 
         
 

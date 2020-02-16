@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
 #
 # algorithms
-# Easy (37.57%)
-# Likes:    1652
-# Dislikes: 129
-# Total Accepted:    130.5K
-# Total Submissions: 347.2K
+# Medium (40.11%)
+# Likes:    2163
+# Dislikes: 156
+# Total Accepted:    176.7K
+# Total Submissions: 440.2K
 # Testcase Example:  '"cbaebabacd"\n"abc"'
 #
 # Given a string s and a non-empty string p, find all the start indices of p's
@@ -50,32 +50,35 @@
 # 
 # 
 #
-class Solution:
-    def countarr(self, w):
-        out = [0] * 26
-        for c in w:
-            out[ord(c) - ord('a')] += 1
-        return out
 
+# @lc code=start
+class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        m = len(p)
-        ps = self.countarr(p)
-        ans = []
-        ss =self.countarr(s[:m])
+        def countarr(w):
+            out = [0] * 26
+            for c in w:
+                out[ord(c) - ord('a')] += 1
+            return out
+
+        ps = countarr(p)
+        res = []
+        ss = countarr(s[:len(p)])
 
         if ss == ps:
-            ans = [0]
+            res = [0]
 
-        for i in range(1, len(s)-m+1):
+        for i in range(1, len(s) - len(p) + 1):
             left = ord(s[i-1]) - ord('a')
-            right = ord(s[i+m-1]) - ord('a')
+            right = ord(s[i+len(p)-1]) - ord('a')
 
             ss[left] -= 1
             ss[right] += 1
 
             if ss == ps:
-                ans.append(i)
+                res.append(i)
 
-        return ans
+        return res
+
         
+# @lc code=end
 

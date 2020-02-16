@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-islands-ii/description/
 #
 # algorithms
-# Hard (41.84%)
-# Likes:    548
-# Dislikes: 9
-# Total Accepted:    57.1K
-# Total Submissions: 136.6K
+# Hard (40.57%)
+# Likes:    705
+# Dislikes: 15
+# Total Accepted:    67.8K
+# Total Submissions: 167.2K
 # Testcase Example:  '3\n3\n[[0,0],[0,1],[1,2],[2,1]]'
 #
 # A 2d grid map of m rows and n columns is initially filled with water. We may
@@ -76,23 +76,9 @@
 # positions?
 # 
 #
-class Solution:
-    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
-        ans, islands = [], Union()
-        for p in map(tuple, positions):
-            if p in islands.id: 
-                ans += [ans[-1]]
-                continue
-            islands.add(p)
-            for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
-                q = (p[0] + dp[0], p[1] + dp[1])
-                if q in islands.id:
-                    islands.unite(p, q)
-            ans += [islands.count]
-        return ans
+# @lc code=start
 
-
-class Union(object):
+class Union:
     def __init__(self):
         self.id = {}
         self.sz = {}
@@ -110,15 +96,29 @@ class Union(object):
 
     def unite(self, p, q):
         i, j = map(self.root, (p, q))
-        if i == j:
-            return
+        if i == j: return
         if self.sz[i] > self.sz[j]:
             i, j = j, i
         self.id[i] = j
         self.sz[j] += self.sz[i]
         self.count -= 1
-        
-        
+
+class Solution:
+    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
+        ans, islands = [], Union()
+        for p in map(tuple, positions):
+            if p in islands.id:
+                ans += [ans[-1]]
+                continue
+            islands.add(p)
+            for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
+                q = (p[0] + dp[0], p[1] + dp[1])
+                if q in islands.id:
+                    islands.unite(p, q)
+            ans += [islands.count]
+        return ans
 
 
+        
+# @lc code=end
 

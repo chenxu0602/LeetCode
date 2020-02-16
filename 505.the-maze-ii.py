@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/the-maze-ii/description/
 #
 # algorithms
-# Medium (44.43%)
-# Likes:    352
-# Dislikes: 14
-# Total Accepted:    29.4K
-# Total Submissions: 66.2K
+# Medium (46.38%)
+# Likes:    493
+# Dislikes: 23
+# Total Accepted:    40.8K
+# Total Submissions: 87.9K
 # Testcase Example:  '[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]]\n[0,4]\n[4,4]'
 #
 # There is a ball in a maze with empty spaces and walls. The ball can go
@@ -88,7 +88,9 @@
 # 
 # 
 #
-import heapq 
+
+# @lc code=start
+import heapq
 
 class Solution:
     def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
@@ -96,15 +98,14 @@ class Solution:
         R, C = len(maze), len(maze[0])
 
         def neighbors(r, c):
-            for dr, dc, di in [(-1, 0, 'u'), (0, 1, 'r'), (0, -1, 'l'), (1, 0, 'd')]:
+            for dr, dc, di in (-1, 0, 'u'), (0, 1, 'r'), (0, -1, 'l'), (1, 0, 'd'):
                 cr, cc, dist = r, c, 0
-                while 0 <= cr + dr < R and 0 <= cc + dc < C and not maze[cr+dr][cc+dc]:
-                    cr += dr
-                    cc += dc
+                while 0 <= cr+dr < R and 0 <= cc+dc < C and not maze[cr+dr][cc+dc]:
+                    cr, cc = cr + dr, cc + dc
                     dist += 1
                 yield (cr, cc), di, dist
 
-        pq = [(0, '', ball)]
+        pq = [(0, "", ball)]
         seen = set()
         while pq:
             dist, path, node = heapq.heappop(pq)
@@ -112,8 +113,9 @@ class Solution:
             if node == hole: return dist
             seen.add(node)
             for nei, di, nei_dist in neighbors(*node):
-                heapq.heappush(pq, (dist+nei_dist, path+di, nei))
+                heapq.heappush(pq, (dist + nei_dist, path + di, nei))
 
         return -1
         
+# @lc code=end
 

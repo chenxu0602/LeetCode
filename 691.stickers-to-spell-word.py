@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/stickers-to-spell-word/description/
 #
 # algorithms
-# Hard (38.60%)
-# Likes:    262
-# Dislikes: 26
-# Total Accepted:    9.1K
-# Total Submissions: 23.4K
+# Hard (41.24%)
+# Likes:    327
+# Dislikes: 34
+# Total Accepted:    12.8K
+# Total Submissions: 30.9K
 # Testcase Example:  '["with","example","science"]\n"thehat"'
 #
 # 
@@ -70,45 +70,12 @@
 # sticker test case can be solved within 35ms on average.
 # 
 #
-from collections import Counter 
+
+# @lc code=start
+from collections import Counter
 
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-        """
-        m = len(stickers)
-        mp = [[0]*26 for y in range(m)]
-
-        for i in range(m):
-            for c in stickers[i]:
-                mp[i][ord(c) - ord('a')] += 1
-
-        dp = {}
-        dp[""] = 0
-
-        def dfs(dp, mp, target):
-            if target in dp:
-                return dp[target]
-            n = len(mp)
-            tar = [0]*26
-            for c in target:
-                tar[ord(c) - ord('a')] += 1
-            ans = float("inf")
-            for i in range(n):
-                if mp[i][ord(target[0]) - ord('a')] == 0:
-                    continue
-                s = ""
-                for j in range(26):
-                    if tar[j] > mp[i][j]:
-                        s += chr(ord('a') + j) * (tar[j] - mp[i][j])
-                tmp = dfs(dp, mp, s)
-                if tmp != -1:
-                    ans = min(ans, 1+tmp)
-            dp[target] = -1 if ans == float("inf") else ans
-            return dp[target]
-
-        return dfs(dp, mp, target)
-        """
-
         t_count = Counter(target)
         A = [Counter(sticker) & t_count for sticker in stickers]
 
@@ -127,16 +94,14 @@ class Solution:
                 now = state
                 for letter in sticker:
                     for i, c in enumerate(target):
-                        if (now >> i) & 1:
-                            continue
+                        if (now >> i) & 1: continue
                         if c == letter:
                             now |= 1 << i
                             break
                 if dp[now] == -1 or dp[now] > dp[state] + 1:
                     dp[now] = dp[state] + 1
+
         return dp[-1]
-
-
-
         
+# @lc code=end
 

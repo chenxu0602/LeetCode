@@ -49,8 +49,7 @@ class Solution:
             fast = slow = head
             while fast and fast.next:
                 slow = slow.next
-                fast = fast.next
-                fast = fast.next
+                fast = fast.next.next
 
             mid = slow.next
             slow.next = None
@@ -58,19 +57,18 @@ class Solution:
 
         def _reverseList(head):
             last = None
-            currentNode = head
-            while currentNode:
-                nextNode = currentNode.next
-                currentNode.next = last
-                last = currentNode
-                currentNode = nextNode
+            current = head
+            while current:
+                next = current.next 
+                current.next = last
+                last = current
+                current = next
             return last
 
-        def _mergeLists(a, b):
-            tail = a
-            head = a
-
+        def _mergeList(a, b):
+            tail = head = a
             a = a.next
+
             while b:
                 tail.next = b
                 tail = tail.next
@@ -78,13 +76,12 @@ class Solution:
                 if a:
                     a, b = b, a
 
-
         if not head or not head.next:
-            return
+            return 
 
         a, b = _splitList(head)
         b = _reverseList(b)
-        head = _mergeLists(a, b)
+        head = _mergeList(a, b)
         
 # @lc code=end
 

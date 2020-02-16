@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/basic-calculator/description/
 #
 # algorithms
-# Hard (33.59%)
-# Likes:    960
-# Dislikes: 105
-# Total Accepted:    126.8K
-# Total Submissions: 369.2K
+# Hard (35.31%)
+# Likes:    1121
+# Dislikes: 116
+# Total Accepted:    139.6K
+# Total Submissions: 395.5K
 # Testcase Example:  '"1 + 1"'
 #
 # Implement a basic calculator to evaluate a simple expression string.
@@ -48,56 +48,17 @@
 # @lc code=start
 class Solution:
     def calculate(self, s: str) -> int:
-
-
-        """
-        def evaluate_expr(stack):
-            res = stack.pop() if stack else 0
-            while stack and stack[-1] != ')':
-                sign = stack.pop()
-                if sign == '+':
-                    res += stack.pop()
-                else:
-                    res -= stack.pop()
-            return res
-
-        stack = []
-        n, operand = 0, 0
-
-        for i in range(len(s)-1, -1, -1):
-            ch = s[i]
-
-            if ch.isdigit():
-                operand = (10**n * int(ch)) + operand
-                n += 1
-            elif ch != " ":
-                if n:
-                    stack.append(operand)
-                    n, operand = 0, 0
-                if ch == '(':
-                    res = evaluate_expr(stack)
-                    stack.pop()
-                    stack.append(res)
-                else:
-                    stack.append(ch)
-            
-        if n:
-            stack.append(operand)
-
-        return evaluate_expr(stack)
-        """
-
         stack, operand, res, sign = [], 0, 0, 1
 
         for ch in s:
             if ch.isdigit():
-                operand = operand * 10 + int(ch)
+                operand = 10 * operand + int(ch)
             elif ch == '+':
                 res += sign * operand
                 sign = 1
                 operand = 0
             elif ch == '-':
-                res += sign * operand
+                res += sign * operand                
                 sign = -1
                 operand = 0
             elif ch == '(':
@@ -114,8 +75,6 @@ class Solution:
         return res + sign * operand
 
 
-
-            
         
 # @lc code=end
 

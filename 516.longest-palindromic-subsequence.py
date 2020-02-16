@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-palindromic-subsequence/description/
 #
 # algorithms
-# Medium (47.35%)
-# Likes:    949
-# Dislikes: 132
-# Total Accepted:    65K
-# Total Submissions: 137.1K
+# Medium (50.24%)
+# Likes:    1410
+# Dislikes: 161
+# Total Accepted:    92.1K
+# Total Submissions: 182.9K
 # Testcase Example:  '"bbbab"'
 #
 # 
@@ -42,13 +42,15 @@
 # One possible longest palindromic subsequence is "bb".
 # 
 #
+
+# @lc code=start
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
         if s == s[::-1]:
             return len(s)
 
         n = len(s)
-        dp = [[0 for j in range(n)] for i in range(n)]
+        dp = [[0] * n for _ in range(n)]
 
         for i in range(n-1, -1, -1):
             dp[i][i] = 1
@@ -59,7 +61,6 @@ class Solution:
                     dp[i][j] = max(dp[i+1][j], dp[i][j-1])
 
         return dp[0][n-1]
-
-
         
+# @lc code=end
 

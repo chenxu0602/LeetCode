@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/partition-equal-subset-sum/description/
 #
 # algorithms
-# Medium (40.86%)
-# Likes:    1280
-# Dislikes: 36
-# Total Accepted:    91.3K
-# Total Submissions: 223.4K
+# Medium (42.21%)
+# Likes:    1886
+# Dislikes: 54
+# Total Accepted:    134.7K
+# Total Submissions: 319.2K
 # Testcase Example:  '[1,5,11,5]'
 #
 # Given a non-empty array containing only positive integers, find if the array
@@ -52,40 +52,25 @@
 # 
 #
 
+# @lc code=start
+from functools import lru_cache 
+
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
 
-        """
-        possible_sums = {0}
+        possible = {0}
         for n in nums:
-            possible_sums.update({(v + n) for v in possible_sums})
+            possible.update({v + n for v in possible})
+        return sum(nums) / 2. in possible
 
-        return sum(nums) / 2. in possible_sums 
-        """
-
-        """
-        target, n = sum(nums), len(nums)
-        if target & 1: return False
-        target >>= 1
-        dp = [True] + [False] * target
-        for n in nums:
-            dp = [dp[s] or (s >= n and dp[s-n]) for s in range(target+1)]
-        return dp[target]
-        """
-
-        if sum(nums) & 1 == 1: return False
-        memo = {0: True}
-        nums.sort(reverse=True)
-        def dfs(i, x):
-            if x not in memo:
-                memo[x] = False
-                if x > 0:
-                    for j in range(i, len(nums)):
-                        if dfs(j+1, x-nums[j]):
-                            memo[x] = True
-                            break
-            return memo[x]
-        return dfs(0, sum(nums) >> 1)
-
+        # target, n = sum(nums), len(nums)
+        # if target & 1: return False
+        # target >>= 1
+        # dp = [True] + [False] * target
+        # for n in nums:
+        #     dp = [dp[s] or (s >= n and dp[s-n]) for s in range(target+1)]
+        # return dp[target]
         
+        
+# @lc code=end
 

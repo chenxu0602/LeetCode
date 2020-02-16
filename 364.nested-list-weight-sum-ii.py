@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/nested-list-weight-sum-ii/description/
 #
 # algorithms
-# Medium (57.81%)
-# Likes:    303
-# Dislikes: 73
-# Total Accepted:    38.3K
-# Total Submissions: 66.2K
+# Medium (61.02%)
+# Likes:    452
+# Dislikes: 114
+# Total Accepted:    53.1K
+# Total Submissions: 87K
 # Testcase Example:  '[[1,1],2,[1,1]]'
 #
 # Given a nested list of integers, return the sum of all integers in the list
@@ -45,6 +45,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
@@ -89,47 +91,22 @@
 #        """
 
 class Solution:
-    def dfs(self, nestedList, prev=0):
-        isum = prev
-        ilist = []
-        for i in nestedList:
-            if i.isInteger():
-                isum += i.getInteger()
-            else:
-                ilist.extend(i.getList())
-        lsum = 0 if not ilist else self.dfs(ilist, isum)
-        return isum + lsum
-
-
     def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
-        """
-        self.max_h = 0
-        res = []
 
-        def dfs(node, depth):
-            if not node:
-                return
+        def dfs(nestedL, prev=0):
+            isum = prev
+            ilist = []
 
-            self.max_h = max(self.max_h, depth)
-            if not node.isInteger():
-                n_d = depth + 1
-                for n_i in node.getList():
-                    dfs(n_i, n_d)
-            else:
-                res.append((depth, node.getInteger()))
+            for i in nestedL:
+                if i.isInteger():
+                    isum += i.getInteger()
+                else:
+                    ilist.extend(i.getList())
 
+            lsum = 0 if not ilist else dfs(ilist, isum)
+            return isum + lsum
 
-
-        for node in nestedList:
-            dfs(node, 0)
-
-        w = 0
-        for dep, val in res:
-            w += (self.max_h - dep + 1) * val
-
-        return w
-        """
-
-        return self.dfs(nestedList, 0)
+        return dfs(nestedList)
         
+# @lc code=end
 

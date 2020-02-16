@@ -42,8 +42,11 @@
 # @lc code=start
 class Solution:
     def isValidPalindrome(self, s: str, k: int) -> bool:
+
+        # Longest palindromic subsequence
+
         n = len(s)
-        dp = [[0] * (n+1) for _ in range(n+1)]
+        dp =[[0] * (n+1) for _ in range(n+1)]
 
         for i in range(n+1):
             for j in range(n+1):
@@ -55,6 +58,7 @@ class Solution:
                     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
         return n - dp[n][n] <= k
+
         
 # @lc code=end
 

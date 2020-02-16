@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/range-sum-of-bst/description/
 #
 # algorithms
-# Easy (78.12%)
-# Likes:    526
-# Dislikes: 100
-# Total Accepted:    101.4K
-# Total Submissions: 129.9K
+# Easy (79.11%)
+# Likes:    774
+# Dislikes: 153
+# Total Accepted:    146.8K
+# Total Submissions: 185.5K
 # Testcase Example:  '[10,5,15,3,7,null,18]\n7\n15'
 #
 # Given the root node of a binary search tree, return the sum of values of all
@@ -47,6 +47,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -57,49 +59,10 @@
 class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
 
-        """
-        def dfs(node):
-            if node:
-                if L <= node.val <= R:
-                    self.ans += node.val
-                if L < node.val:
-                    dfs(node.left)
-                if node.val < R:
-                    dfs(node.right)
-
-        self.ans = 0
-        dfs(root)
-        return self.ans
-        """
-
-        """
-        ans = 0
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            if node:
-                if L <= node.val <= R:
-                    ans += node.val
-                if L < node.val:
-                    stack.append(node.left)
-                if node.val < R:
-                    stack.append(node.right)
-        return ans
-        """
-
-        def sum_tree(node, L, R, total):
-            if node.left:
-                sum_tree(node.left, L, R, total)
-
-            if L <= node.val <= R:
-                total.append(node.val)
-
-            if node.right:
-                sum_tree(node.right, L, R, total)
-
-            return total
-
-        total = []
-        return sum(sum_tree(root, L, R, total))
+        if root is None: return 0
+        if root.val > R: return self.rangeSumBST(root.left, L, R)
+        if root.val < L: return self.rangeSumBST(root.right, L, R)
+        return root.val + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
 #
 # algorithms
-# Medium (42.52%)
-# Likes:    2150
-# Dislikes: 60
-# Total Accepted:    264K
-# Total Submissions: 604.9K
+# Medium (45.40%)
+# Likes:    2551
+# Dislikes: 75
+# Total Accepted:    298.9K
+# Total Submissions: 657K
 # Testcase Example:  '[3,9,20,15,7]\n[9,3,15,20,7]'
 #
 # Given preorder and inorder traversal of a tree, construct the binary tree.
@@ -45,21 +45,18 @@
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        # if inorder:
+        #     idx = inorder.index(preorder.pop(0))
+        #     root = TreeNode(inorder[idx])
+        #     root.left = self.buildTree(preorder, inorder[0:idx])
+        #     root.right = self.buildTree(preorder, inorder[idx+1:])
+        #     return root
+        # return None
 
-        """
-        if inorder:
-            ind = inorder.index(preorder.pop(0))
-            root = TreeNode(inorder[ind])
-            root.left = self.buildTree(preorder, inorder[0:ind])
-            root.right = self.buildTree(preorder, inorder[ind+1:])
-
-            return root
-        """
-
-        def dfs(in_left, in_right):
+        def dfs(left, right):
             nonlocal pre_idx
 
-            if in_left == in_right:
+            if left == right:
                 return None
 
             root_val = preorder[pre_idx]
@@ -68,16 +65,14 @@ class Solution:
             index = idx_map[root_val]
 
             pre_idx += 1
-            root.left = dfs(in_left, index)
-            root.right = dfs(index+1, in_right)
+            root.left = dfs(left, index)
+            root.right = dfs(index+1, right)
+
             return root
 
-        pre_idx = 0 
+        pre_idx = 0
         idx_map = {val: idx for idx, val in enumerate(inorder)}
         return dfs(0, len(inorder))
-
-
-
         
 # @lc code=end
 

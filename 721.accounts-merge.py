@@ -84,6 +84,7 @@ class DSU:
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+
         dsu = DSU()
         em_to_name, em_to_id = {}, {}
 
@@ -102,6 +103,7 @@ class Solution:
             ans[dsu.find(em_to_id[email])].append(email)
 
         return [[em_to_name[v[0]]] + sorted(v) for v in ans.values()]
+
         
         
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
 #
 # algorithms
-# Hard (40.09%)
-# Likes:    997
-# Dislikes: 18
-# Total Accepted:    89.3K
-# Total Submissions: 222.3K
+# Hard (42.02%)
+# Likes:    1474
+# Dislikes: 26
+# Total Accepted:    120.9K
+# Total Submissions: 287.5K
 # Testcase Example:  '[[9,9,4],[6,6,8],[2,1,1]]'
 #
 # Given an integer matrix, find the length of the longest increasing path.
@@ -47,52 +47,36 @@
 # 
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        """
-        def dfs(i, j):
-            if not dp[i][j]:
-                val = matrix[i][j]
-                dp[i][j] = 1 + max(
-                    dfs(i-1, j) if i and val > matrix[i-1][j] else 0,
-                    dfs(i+1, j) if i < m - 1 and val > matrix[i+1][j] else 0,
-                    dfs(i, j-1) if j and val > matrix[i][j-1] else 0,
-                    dfs(i, j+1) if j < n - 1 and val > matrix[i][j+1] else 0
-                )
-            return dp[i][j]
+        # @lru_cache(None)
+        # def dfs(i, j):
+        #     val = matrix[i][j]
+        #     return 1 + max(
+        #         dfs(i-1, j) if i and val > matrix[i-1][j] else 0,
+        #         dfs(i+1, j) if i < m-1 and val > matrix[i+1][j] else 0,
+        #         dfs(i, j-1) if j and val > matrix[i][j-1] else 0,
+        #         dfs(i, j+1) if j < n-1 and val > matrix[i][j+1] else 0)
 
-        if not matrix or not matrix[0]:
-            return 0
+        # if not matrix or not matrix[0]:
+        #     return 0
 
-        m, n = len(matrix), len(matrix[0])
+        # m, n = len(matrix), len(matrix[0])
 
-        dp = [[0] * n for _ in range(m)]
+        # return max(dfs(x, y) for x in range(m) for y in range(n))
 
-        return max(dfs(x, y) for x in range(m) for y in range(n))
-        """
+        
+        # @lru_cache(None)
+        # def length(z):
+        #     return 1 + max([length(Z) for Z in (z+1, z-1, z+1j, z-1j)
+        #             if Z in matrix and matrix[z] > matrix[Z]] or [0])
+        # matrix = {i+j*1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)} 
+        # return max(map(length, matrix), default=0)
 
-        """ 
-        @lru_cache(None)
-        def dfs(i, j):
-            if not dp[i][j]:
-                val = matrix[i][j]
-                dp[i][j] = 1 + max(
-                    dfs(i-1, j) if i and val > matrix[i-1][j] else 0,
-                    dfs(i+1, j) if i < m-1 and val > matrix[i+1][j] else 0,
-                    dfs(i, j-1) if j and val > matrix[i][j-1] else 0,
-                    dfs(i, j+1) if j < n-1 and val > matrix[i][j+1] else 0
-                )
-            return dp[i][j]
-
-        if not matrix or not matrix[0]: return 0
-        m, n = len(matrix), len(matrix[0])
-        dp = [[0] * n for _ in range(m)]
-        return max(dfs(x, y) for x in range(m) for y in range(n))
-        """ 
-
-        """
         matrix = {i+j*1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)}
         length = {}
         for z in sorted(matrix, key=matrix.get):
@@ -100,16 +84,5 @@ class Solution:
                                 for Z in (z+1, z-1, z+1j, z-1j)
                                 if Z in matrix and matrix[z] > matrix[Z]] or [0])
         return max(length.values(), default=0)
-        """
-
-        @lru_cache(None)
-        def length(z):
-            return 1 + max([length(Z) for Z in (z+1, z-1, z+1j, z-1j)
-                            if Z in matrix and matrix[z] > matrix[Z]] or [0])
-
-        matrix = {i+j*1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)}
-        return max(map(length, matrix), default=0)
-
-
-        
+# @lc code=end
 

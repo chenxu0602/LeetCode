@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/pancake-sorting/description/
 #
 # algorithms
-# Medium (62.41%)
-# Likes:    189
-# Dislikes: 228
-# Total Accepted:    14.8K
-# Total Submissions: 23.8K
+# Medium (64.64%)
+# Likes:    275
+# Dislikes: 345
+# Total Accepted:    21.2K
+# Total Submissions: 32.8K
 # Testcase Example:  '[3,2,4,1]'
 #
 # Given an array A, we can perform a pancake flip: We choose some positive
@@ -60,20 +60,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def pancakeSort(self, A: List[int]) -> List[int]:
-        """
-        ans = []
-        N = len(A)
-        B = sorted(range(1, N+1), key=lambda i: -A[i-1])
-        for i in B:
-            for f in ans:
-                if i <= f:
-                    i = f + 1 - i
-            ans.extend([i, N])
-            N -= 1
-        return ans
-        """
 
         n = len(A)
         res = []
@@ -82,12 +72,11 @@ class Solution:
             j = 0
             while A[j] != cur_max:
                 j += 1
-            # should reverse j+1 elements
             A[:j+1] = reversed(A[:j+1])
             res.append(j+1)
-            # reverse all
             A[:n-i] = reversed(A[:n-i])
             res.append(n-i)
         return res
         
+# @lc code=end
 

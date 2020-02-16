@@ -60,5 +60,4 @@ class Solution:
                 if 0 <= I < len(rooms) and 0 <= J < len(rooms[0]) and rooms[I][J] > 2**30:
                     rooms[I][J] = rooms[i][j] + 1
                     q += (I, J),
-        
 

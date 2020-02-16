@@ -63,7 +63,9 @@ class Solution:
             else:
                 maxLength = max(maxLength, i - start + 1)
             usedChar[s[i]] = i
+
         return maxLength
+
         
 # @lc code=end
 

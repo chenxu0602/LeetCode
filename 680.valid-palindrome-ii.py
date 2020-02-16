@@ -42,20 +42,10 @@
 #
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        """
-        def is_pali_reange(i, j):
-            return all(s[k] == s[j-k+i] for k in range(i, j))
 
         for i in range(len(s) // 2):
             if s[i] != s[~i]:
-                j = len(s) - 1 - i
-                return is_pali_reange(i+1, j) or is_pali_reange(i, j-1)
-        return True
-        """
-
-        for i in range(len(s) // 2):
-            if s[i] != s[~i]:
-                t, u = s[:i] + s[i+1:], s[:-1-i]+s[len(s)-i:]
+                t, u = s[:i] + s[i+1:], s[:-1-i] + s[len(s)-i:]
                 return t == t[::-1] or u == u[::-1]
         return True
         

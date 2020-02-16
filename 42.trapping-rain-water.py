@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/trapping-rain-water/description/
 #
 # algorithms
-# Hard (44.18%)
-# Likes:    4614
-# Dislikes: 82
-# Total Accepted:    361.8K
-# Total Submissions: 801K
+# Hard (46.61%)
+# Likes:    5517
+# Dislikes: 104
+# Total Accepted:    423.2K
+# Total Submissions: 907.4K
 # Testcase Example:  '[0,1,0,2,1,0,1,3,2,1,2,1]'
 #
 # Given n non-negative integers representing an elevation map where the width
@@ -32,6 +32,9 @@
 # @lc code=start
 class Solution:
     def trap(self, height: List[int]) -> int:
+        if not height or len(height) < 3:
+            return 0
+
         volume = 0
         left, right = 0, len(height) - 1
         l_max, r_max = height[left], height[right]
@@ -47,10 +50,6 @@ class Solution:
                 right -= 1
 
         return volume
-
-
-
-
         
 # @lc code=end
 

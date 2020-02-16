@@ -48,18 +48,19 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
 
-        p0, curr, p2 = 0, 0, len(nums)-1
+        red, white, blue = 0, 0, len(nums)-1
 
-        while curr <= p2:
-            if nums[curr] == 0:
-                nums[p0], nums[curr] = nums[curr], nums[p0]
-                p0 += 1
-                curr += 1
-            elif nums[curr] == 2:
-                nums[curr], nums[p2] = nums[p2], nums[curr]
-                p2 -= 1
+        while white <= blue:
+            if nums[white] == 0:
+                nums[red], nums[white] = nums[white], nums[red]
+                white += 1
+                red += 1
+            elif nums[white] == 2:
+                nums[white], nums[blue] = nums[blue], nums[white]
+                blue -= 1
             else:
-                curr += 1
+                white += 1
+
         
 # @lc code=end
 

@@ -51,6 +51,7 @@
 # @lc code=start
 
 from collections import defaultdict
+from functools import reduce
 
 class Solution:
 
@@ -58,11 +59,10 @@ class Solution:
 
         Trie = lambda: defaultdict(Trie)
         trie = Trie()
+        END = '$'
+
         for word in words:
-            node = trie
-            for l in word:
-                node = node[l]
-            node['$'] = word
+            reduce(dict.__getitem__, word, trie)[END] = word
 
         m, n = len(board), len(board[0])
 
@@ -70,23 +70,23 @@ class Solution:
 
         def dfs(r, c, parent):
             letter = board[r][c]
-            child = parent[letter]
+            children = parent[letter]
 
-            word_match = child.pop('$', False)
+            word_match = children.pop('$', False)
             if word_match:
                 res.append(word_match)
 
             board[r][c] = '#'
-
-            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            for dr, dc in (-1, 0), (1, 0), (0, -1), (0, 1):
                 nr, nc = r + dr, c + dc
-                if 0 <= nr < m and 0 <= nc < n and board[nr][nc] in child:
-                    dfs(nr, nc, child)
+                if 0 <= nr < m and 0 <= nc < n and board[nr][nc] in children:
+                    dfs(nr, nc, children)
 
             board[r][c] = letter
 
-            if not child:
+            if not children:
                 parent.pop(letter)
+
 
         for r in range(m):
             for c in range(n):

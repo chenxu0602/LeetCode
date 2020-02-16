@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-circular-queue/description/
 #
 # algorithms
-# Medium (40.00%)
-# Likes:    271
-# Dislikes: 52
-# Total Accepted:    30.4K
-# Total Submissions: 75.7K
-# Testcase Example:  '["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"]\n' +
+# Medium (42.01%)
+# Likes:    417
+# Dislikes: 66
+# Total Accepted:    47.1K
+# Total Submissions: 112.1K
+# Testcase Example:  '["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"]\n' + '[[3],[1],[2],[3],[4],[],[],[],[4],[]]'
 #
 # Design your implementation of the circular queue. The circular queue is a
 # linear data structure in which the operations are performed based on FIFO
@@ -67,6 +67,8 @@
 # 
 # 
 #
+
+# @lc code=start
 from threading import Lock
 
 class MyCircularQueue:
@@ -75,69 +77,65 @@ class MyCircularQueue:
         """
         Initialize your data structure here. Set the size of the queue to be k.
         """
-        self._queue = [None] * k
-        self._capacity = k
-        self._len = 0
-        self._front = 0
-        self._queueLock = Lock()
+        self.queue = [0] * k
+        self.headIndex = 0
+        self.count = 0
+        self.capacity = k
+        self.queueLock = Lock()
         
 
     def enQueue(self, value: int) -> bool:
         """
         Insert an element into the circular queue. Return true if the operation is successful.
         """
-        with self._queueLock:
-            if self.isFull(): return False
-            avail = (self._front + self._len) % (self._capacity)
-            self._queue[avail] = value
-            self._len += 1
-        return True
-        
+        with self.queueLock:
+            if self.count == self.capacity:
+                return False
+            self.queue[(self.headIndex + self.count) % self.capacity] = value
+            self.count += 1
+        return True 
 
     def deQueue(self) -> bool:
         """
         Delete an element from the circular queue. Return true if the operation is successful.
         """
-        if self.isEmpty(): return False
-        self._queue[self._front] = None
-        self._front = (self._front+1) % self._capacity
-        self._len -= 1
+        if self.count == 0: return False
+        self.headIndex = (self.headIndex + 1) % self.capacity
+        self.count -= 1
         return True
-
+        
 
     def Front(self) -> int:
         """
         Get the front item from the queue.
         """
-        if not self.isEmpty():
-            return self._queue[self._front]
-        else:
+        if self.count == 0:
             return -1
+        return self.queue[self.headIndex]
         
 
     def Rear(self) -> int:
         """
         Get the last item from the queue.
         """
-        if not self.isEmpty():
-            _rear = (self._front + self._len - 1) % self._capacity
-            return self._queue[_rear]
-        else:
+        if self.count == 0:
             return -1
+        return self.queue[(self.headIndex + self.count - 1) % self.capacity]
+        
         
 
     def isEmpty(self) -> bool:
         """
         Checks whether the circular queue is empty or not.
         """
-        return self._len == 0
+        return self.count == 0
         
 
     def isFull(self) -> bool:
         """
         Checks whether the circular queue is full or not.
         """
-        return self._len == self._capacity
+        return self.count == self.capacity
         
 
 
@@ -149,4 +147,5 @@ class MyCircularQueue:
 # param_4 = obj.Rear()
 # param_5 = obj.isEmpty()
 # param_6 = obj.isFull()
+# @lc code=end
 

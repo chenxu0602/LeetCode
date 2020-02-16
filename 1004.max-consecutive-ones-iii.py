@@ -58,12 +58,13 @@
 #
 class Solution:
     def longestOnes(self, A: List[int], K: int) -> int:
-        
-        i = 0
-        for j in range(len(A)):
-            K -= 1 - A[j]
+
+        left = 0
+        for right in range(len(A)):
+            K -= 1 - A[right]
             if K < 0:
-                K += 1 - A[i]
-                i += 1
-        return j - i + 1
+                K += 1 - A[left]
+                left += 1
+        return right - left + 1
+        
 
