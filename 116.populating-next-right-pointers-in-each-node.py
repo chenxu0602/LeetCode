@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
 #
 # algorithms
-# Medium (38.90%)
-# Likes:    1244
-# Dislikes: 118
-# Total Accepted:    278K
-# Total Submissions: 697.8K
-# Testcase Example:  '{"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":{"$id":"6","left":null,"next":null,"right":null,"val":6},"next":null,"right":{"$id":"7","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}'
+# Medium (41.61%)
+# Likes:    1517
+# Dislikes: 133
+# Total Accepted:    309.3K
+# Total Submissions: 740.7K
+# Testcase Example:  '[1,2,3,4,5,6,7]'
 #
 # You are given a perfect binary tree where all leaves are on the same level,
 # and every parent has two children. The binary tree has the following
@@ -33,30 +33,34 @@
 # 
 # 
 # 
-# Example:
-# 
-# 
-# 
-# 
-# Input:
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":{"$id":"6","left":null,"next":null,"right":null,"val":6},"next":null,"right":{"$id":"7","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}
-# 
-# Output:
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":{"$id":"4","left":null,"next":{"$id":"5","left":null,"next":{"$id":"6","left":null,"next":null,"right":null,"val":7},"right":null,"val":6},"right":null,"val":5},"right":null,"val":4},"next":{"$id":"7","left":{"$ref":"5"},"next":null,"right":{"$ref":"6"},"val":3},"right":{"$ref":"4"},"val":2},"next":null,"right":{"$ref":"7"},"val":1}
-# 
-# Explanation: Given the above perfect binary tree (Figure A), your function
-# should populate each next pointer to point to its next right node, just like
-# in Figure B.
-# 
-# 
-# 
-# 
-# Note:
+# Follow up:
 # 
 # 
 # You may only use constant extra space.
-# Recursive approach is fine, implicit stack space does not count as extra
-# space for this problem.
+# Recursive approach is fine, you may assume implicit stack space does not
+# count as extra space for this problem.
+# 
+# 
+# 
+# Example 1:
+# 
+# 
+# 
+# 
+# Input: root = [1,2,3,4,5,6,7]
+# Output: [1,#,2,3,#,4,5,6,7,#]
+# Explanation: Given the above perfect binary tree (Figure A), your function
+# should populate each next pointer to point to its next right node, just like
+# in Figure B. The serialized output is in level order as connected by the next
+# pointers, with '#' signifying the end of each level.
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# The number of nodes in the given tree is less than 4096.
+# -1000 <= node.val <= 1000
 # 
 # 
 #
@@ -65,7 +69,7 @@
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, left, right, next):
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
         self.val = val
         self.left = left
         self.right = right
@@ -73,21 +77,33 @@ class Node:
 """
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        if not root:
-            return None
+        # if not root: return None
 
-        cur, nxt = root, root.left
+        # cur, nxt = root, root.left
 
-        while cur.left:
-            cur.left.next = cur.right
-            if cur.next:
-                cur.right.next = cur.next.left
-                cur = cur.next
-            else:
-                cur, nxt = nxt, nxt.left
+        # while cur.left:
+        #     cur.left.next = cur.right
+        #     if cur.next:
+        #         cur.right.next = cur.next.left
+        #         cur = cur.next
+        #     else:
+        #         cur, nxt = nxt, nxt.left
 
+        # return root
+
+        if not root: return root
+
+        leftmost = root
+
+        while leftmost.left:
+            head = leftmost
+            while head:
+                head.left.next = head.right
+                if head.next:
+                    head.right.next = head.next.left
+                head = head.next
+            leftmost = leftmost.left
         return root
-
 
         
 # @lc code=end

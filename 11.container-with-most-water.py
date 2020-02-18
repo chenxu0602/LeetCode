@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/container-with-most-water/description/
 #
 # algorithms
-# Medium (46.04%)
-# Likes:    4077
-# Dislikes: 479
-# Total Accepted:    464.7K
-# Total Submissions: 986.2K
+# Medium (48.68%)
+# Likes:    4852
+# Dislikes: 517
+# Total Accepted:    546.7K
+# Total Submissions: 1.1M
 # Testcase Example:  '[1,8,6,2,5,4,8,3,7]'
 #
 # Given n non-negative integers a1, a2, ..., an , where each represents a point
@@ -35,14 +35,12 @@
 # 
 # Input: [1,8,6,2,5,4,8,3,7]
 # Output: 49
-# 
 #
 
 # @lc code=start
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-
-        area, l, r = 0, 0, len(height)-1
+        area, l, r = 0, 0, len(height) - 1
         while l < r:
             area = max(area, min(height[l], height[r]) * (r - l))
             if height[l] < height[r]:

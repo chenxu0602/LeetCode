@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/odd-even-linked-list/description/
 #
 # algorithms
-# Medium (49.29%)
-# Likes:    762
-# Dislikes: 222
-# Total Accepted:    150.3K
-# Total Submissions: 304.2K
+# Medium (51.87%)
+# Likes:    1192
+# Dislikes: 265
+# Total Accepted:    196.5K
+# Total Submissions: 378K
 # Testcase Example:  '[1,2,3,4,5]'
 #
 # Given a singly linked list, group all odd nodes together followed by the even
@@ -43,6 +43,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -51,35 +53,6 @@
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
-        """
-        dummy1 = odd = ListNode(0)
-        dummy2 = even = ListNode(0)
-
-        while head:
-            odd.next = head
-            even.next = head.next
-            odd = odd.next
-            even = even.next
-            head = head.next.next if even else None
-
-        odd.next = dummy2.next
-        return dummy1.next
-        """
-
-        """
-        if not head: return None
-        odd, even = head, head.next
-        evenHead = even
-
-        while even and even.next:
-            odd.next = even.next
-            odd = odd.next
-            even.next = odd.next
-            even = even.next
-
-        odd.next = evenHead
-        return head
-        """
 
         if not head: return None
         odd, even = head, head.next
@@ -92,10 +65,7 @@ class Solution:
             even = even.next
 
         odd.next = evenHead
-
         return head
-
-
-
         
+# @lc code=end
 

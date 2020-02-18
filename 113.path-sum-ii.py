@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/path-sum-ii/description/
 #
 # algorithms
-# Medium (41.73%)
-# Likes:    1120
-# Dislikes: 41
-# Total Accepted:    263.5K
-# Total Submissions: 618.4K
+# Medium (44.05%)
+# Likes:    1325
+# Dislikes: 44
+# Total Accepted:    290.6K
+# Total Submissions: 658.1K
 # Testcase Example:  '[5,4,8,11,null,13,4,7,2,null,null,5,1]\n22'
 #
 # Given a binary tree and a sum, find all root-to-leaf paths where each path's
@@ -53,50 +53,41 @@
 
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
-        """
-        def dfs(root, sum, l, res):
-            if not root.left and not root.right and sum == root.val:
-                l.append(root.val)
-                res.append(l)
-            
-            if root.left:
-                dfs(root.left, sum-root.val, l+[root.val], res)
+        # def dfs(node, sum_, l, res):
+        #     if node.left is node.right and sum_ == node.val:
+        #         l.append(node.val)
+        #         res.append(l)
+        #     if node.left:
+        #         dfs(node.left, sum_-node.val, l+[node.val], res)
+        #     if node.right:
+        #         dfs(node.right, sum_-node.val, l+[node.val], res)
 
-            if root.right:
-                dfs(root.right, sum-root.val, l+[root.val], res)
+        # if not root: return []
+        # res = []
+        # dfs(root, sum, [], res)
+        # return res
 
-        if not root:
-            return []
-        res = []
-        dfs(root, sum, [], res)
-        return res
-        """
-
-        if not root:
-            return []
-        if not root.left and not root.right and sum == root.val:
+        if not root: return []
+        if root.left is root.right and sum == root.val:
             return [[root.val]]
         tmp = self.pathSum(root.left, sum-root.val) + self.pathSum(root.right, sum-root.val)
         return [[root.val] + i for i in tmp]
 
-        """
-        if not root:
-            return []
-        res = []
-        stack = [(root, [root.val])]
-        while stack:
-            curr, path = stack.pop()
-            if not curr.left and not curr.right and sum(path) == sum:
-                res.append(path)
+        # if not root: return []
+        # res = []
+        # stack = [(root, [root.val])]
+        # while stack:
+        #     curr, path = stack.pop()
+        #     if curr.left is curr.right and sum(path) == sum_:
+        #         res.append(path)
 
-            if curr.right:
-                stack.append((curr.right, path+[curr.right.val]))
+        #     if curr.right:
+        #         stack.append((curr.right, path + [curr.right.val]))
 
-            if curr.left:
-                stack.append((curr.left, path+[curr.left.val]))
+        #     if curr.left:
+        #         stack.append((curr.left, path + [curr.left.val]))
 
-        return res
-        """
+        # return res
         
 # @lc code=end
 

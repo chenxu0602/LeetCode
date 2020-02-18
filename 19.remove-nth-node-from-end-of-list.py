@@ -44,27 +44,26 @@
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        """
-        fast = slow = head
+        slow = fast = head
         for _ in range(n):
             fast = fast.next
         if not fast:
             return head.next
         while fast.next:
-            fast = fast.next
-            slow = slow.next
+            slow, fast = slow.next, fast.next
 
         slow.next = slow.next.next
         return head
-        """
 
-        def remove(head):
-            if not head:
-                return 0, head
-            i, head.next = remove(head.next)
-            return i+1, (head, head.next)[i+1 == n]
+        # def remove(head):
+        #     if not head:
+        #         return 0, head
 
-        return remove(head)[1]
+        #     i, head.next = remove(head.next)
+        #     return i + 1, (head, head.next)[i + 1 == n]
+
+        # return remove(head)[1]
+
         
 # @lc code=end
 

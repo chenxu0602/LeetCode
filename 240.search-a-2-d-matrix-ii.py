@@ -11,28 +11,27 @@ class Solution:
         :rtype: bool
         """
        
-        m, n = len(matrix), len(matrix[0]) if matrix else 0       
+        # m, n = len(matrix), len(matrix[0]) if matrix else 0       
 
-        i, j = 0, n - 1
-        while i < m and j >= 0:
-            val = matrix[i][j]
-            if val == target:
-                return True
-            elif val < target:
-                i += 1
-            else:
-                j -= 1
+        # i, j = 0, n - 1
+        # while i < m and j >= 0:
+        #     val = matrix[i][j]
+        #     if val == target:
+        #         return True
+        #     elif val < target:
+        #         i += 1
+        #     else:
+        #         j -= 1
 
-        return False
+        # return False
 
-        """
         j = -1
         for row in matrix:
+            if not row: continue
             while j + len(row) and row[j] > target:
                 j -= 1
             if row[j] == target:
                 return True
         return False
-        """
         
 

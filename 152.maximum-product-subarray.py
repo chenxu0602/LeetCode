@@ -37,27 +37,23 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
 
-        """
-        imin = imax = r = nums[0]
-        for i in range(1, len(nums)):
-            if nums[i] < 0:
-                imin, imax = imax, imin
+        # imin = imax = r = nums[0]
+        # for i in range(1, len(nums)):
+        #     if nums[i] < 0:
+        #         imin, imax = imax, imin
+            
+        #     imin = min(nums[i], imin*nums[i])
+        #     imax = max(nums[i], imax*nums[i])
 
-            imin = min(nums[i], imin*nums[i])
-            imax = max(nums[i], imax*nums[i])
-
-            r = max(r, imax)
-
-        return r
-        """
+        #     r = max(r, imax)
+        # return r
 
         A = nums[:]
-        B = A[::-1]
+        B = nums[::-1]
         for i in range(1, len(A)):
             A[i] *= A[i-1] or 1
             B[i] *= B[i-1] or 1
         return max(A+B)
-
 
         
 # @lc code=end

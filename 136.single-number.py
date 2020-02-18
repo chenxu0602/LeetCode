@@ -43,16 +43,12 @@ from functools import reduce
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        """
-        return 2 * sum(set(nums)) - sum(nums)
-        """
+        # return 2 * sum(set(nums)) - sum(nums)
 
-        """
-        a = 0
-        for i in nums:
-            a ^= i
-        return a
-        """
+        # a = 0
+        # for i in nums:
+        #     a ^= i
+        # return a
 
         return reduce(lambda x, y: x ^ y, nums)
         

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-size-subarray-sum/description/
 #
 # algorithms
-# Medium (35.41%)
-# Likes:    1425
-# Dislikes: 83
-# Total Accepted:    202.5K
-# Total Submissions: 565.3K
+# Medium (36.56%)
+# Likes:    1695
+# Dislikes: 93
+# Total Accepted:    225.7K
+# Total Submissions: 616.5K
 # Testcase Example:  '7\n[2,3,1,2,4,3]'
 #
 # Given an array of n positive integers and a positive integer s, find the
@@ -36,14 +36,12 @@
 class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
         n, ans, left, ss = len(nums), float("inf"), 0, 0
-
         for i in range(n):
             ss += nums[i]
             while ss >= s:
                 ans = min(ans, i - left + 1)
                 ss -= nums[left]
                 left += 1
-
         return ans if ans < float("inf") else 0
         
 # @lc code=end

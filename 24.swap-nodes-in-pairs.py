@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/swap-nodes-in-pairs/description/
 #
 # algorithms
-# Medium (45.86%)
-# Likes:    1451
-# Dislikes: 129
-# Total Accepted:    365K
-# Total Submissions: 781.4K
+# Medium (48.07%)
+# Likes:    1744
+# Dislikes: 152
+# Total Accepted:    407.7K
+# Total Submissions: 846.3K
 # Testcase Example:  '[1,2,3,4]'
 #
 # Given a linked list, swap every two adjacent nodes and return its head.
@@ -37,6 +37,18 @@
 
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
+
+        # if not head or not head.next:
+        #     return head
+
+        # first_node = head
+        # second_node = head.next
+
+        # first_node.next = self.swapPairs(second_node.next)
+        # second_node.next = first_node
+
+        # return second_node
+
         pre, pre.next = self, head
         while pre.next and pre.next.next:
             a = pre.next
@@ -44,7 +56,6 @@ class Solution:
             pre.next, b.next, a.next = b, a, b.next
             pre = a
         return self.next
-
         
 # @lc code=end
 
