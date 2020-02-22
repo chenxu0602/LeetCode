@@ -46,27 +46,25 @@ class Solution:
         """
 
         def _splitList(head):
-            fast = slow = head
+            slow = fast = head
             while fast and fast.next:
-                slow = slow.next
-                fast = fast.next.next
+                slow, fast = slow.next, fast.next.next
 
             mid = slow.next
             slow.next = None
             return head, mid
 
         def _reverseList(head):
-            last = None
-            current = head
+            last, current = None, head
             while current:
-                next = current.next 
+                next = current.next
                 current.next = last
                 last = current
                 current = next
             return last
 
         def _mergeList(a, b):
-            tail = head = a
+            tail = head = a 
             a = a.next
 
             while b:
@@ -82,6 +80,6 @@ class Solution:
         a, b = _splitList(head)
         b = _reverseList(b)
         head = _mergeList(a, b)
-        
+
 # @lc code=end
 

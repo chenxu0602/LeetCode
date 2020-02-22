@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reverse-linked-list/description/
 #
 # algorithms
-# Easy (56.20%)
-# Likes:    2940
-# Dislikes: 73
-# Total Accepted:    715.1K
-# Total Submissions: 1.2M
+# Easy (59.32%)
+# Likes:    3500
+# Dislikes: 78
+# Total Accepted:    817.2K
+# Total Submissions: 1.4M
 # Testcase Example:  '[1,2,3,4,5]'
 #
 # Reverse a singly linked list.
@@ -39,24 +39,22 @@
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
 
-        # if not head or not head.next:
-        #     return head
+        # prev, curr = None, head
+        # while curr:
+        #     next = curr.next
+        #     curr.next = prev
+        #     prev = curr
+        #     curr = next
+        # return prev
 
-        # p = self.reverseList(head.next)
-        # head.next.next = head
-        # head.next = None
+        if not head or not head.next:
+            return head
 
-        # return p
+        p = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
 
-
-        prev, curr = None, head
-        while curr:
-            next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
-        return prev
-
+        return p
         
 # @lc code=end
 

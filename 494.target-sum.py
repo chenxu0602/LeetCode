@@ -53,27 +53,29 @@ from collections import defaultdict
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
-        if len(nums) == 0: return 0
 
-        prev = defaultdict(int)
-        prev[nums[0]] += 1
-        prev[-nums[0]] += 1
+        def dfs(cur, i, d={}):
+            if i < len(nums) and (i, cur) not in d:
+                d[i, cur] = dfs(cur + nums[i], i + 1) + dfs(cur - nums[i], i + 1)
+            return d.get((i, cur), int(cur == S))
 
-        for i in range(1, len(nums)):
-            temp = defaultdict(int)
-            for k, v in prev.items():
-                temp[k-nums[i]] += v
-                temp[k+nums[i]] += v
-            prev = temp
+        return dfs(0, 0)
 
-        return prev[S]
 
-        # def dfs(cur, i, d={}):
-        #     if i < len(nums) and (i, cur) not in d:
-        #         d[i, cur] = dfs(cur + nums[i], i + 1) + dfs(cur - nums[i], i + 1)
-        #     return d.get((i, cur), int(cur == S))
+        # if len(nums) == 0: return 0
 
-        # return dfs(0, 0)
+        # prev = defaultdict(int)
+        # prev[nums[0]] += 1
+        # prev[-nums[0]] += 1
+
+        # for i in range(1, len(nums)):
+        #     temp = defaultdict(int)
+        #     for k, v in prev.items():
+        #         temp[k-nums[i]] += v
+        #         temp[k+nums[i]] += v
+        #     prev = temp
+
+        # return prev[S]
         
 # @lc code=end
 

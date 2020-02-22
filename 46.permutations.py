@@ -35,18 +35,26 @@
 # @lc code=start
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def dfs(first=0):
-            if first == n:
-                output.append(nums[:])
-            for i in range(first, n):
-                nums[first], nums[i] = nums[i], nums[first]
-                dfs(first+1)
-                nums[first], nums[i] = nums[i], nums[first]
 
-        n = len(nums)
-        output = []
-        dfs()
-        return output
+        # def dfs(nums, path, res):
+        #     if not nums:
+        #         res.append(path)
+        #     for i in range(len(nums)):
+        #         dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+
+        # res = []
+        # dfs(nums, [], res)
+        # return res
+
+        if len(nums) == 0: return []
+        if len(nums) == 1: return [nums]
+
+        res = []
+        for i in range(len(nums)):
+            for j in self.permute(nums[:i] + nums[i+1:]):
+                res.append([nums[i]] + j)
+
+        return res
         
 # @lc code=end
 

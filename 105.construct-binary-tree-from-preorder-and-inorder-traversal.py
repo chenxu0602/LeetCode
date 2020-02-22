@@ -48,7 +48,7 @@ class Solution:
         # if inorder:
         #     idx = inorder.index(preorder.pop(0))
         #     root = TreeNode(inorder[idx])
-        #     root.left = self.buildTree(preorder, inorder[0:idx])
+        #     root.left = self.buildTree(preorder, inorder[:idx])
         #     root.right = self.buildTree(preorder, inorder[idx+1:])
         #     return root
         # return None
@@ -62,12 +62,11 @@ class Solution:
             root_val = preorder[pre_idx]
             root = TreeNode(root_val)
 
-            index = idx_map[root_val]
+            idx = idx_map[root_val]
 
             pre_idx += 1
-            root.left = dfs(left, index)
-            root.right = dfs(index+1, right)
-
+            root.left = dfs(left, idx)
+            root.right = dfs(idx+1, right)
             return root
 
         pre_idx = 0

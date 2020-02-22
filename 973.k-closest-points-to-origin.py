@@ -69,40 +69,6 @@ class Solution:
         return points[:K]
         """
 
-        """
-        dist = lambda i: points[i][0]**2 + points[i][1]**2
-
-        def sort(i, j, K):
-            if i >= j: return
-            k = randint(i, j)
-            points[i], points[k] = points[k], points[i]
-
-            mid = partition(i, j)
-            if K < mid - i + 1:
-                sort(i, mid-1, K)
-            elif K > mid - i + 1:
-                sort(mid+1, j, K - (mid - i + 1))
-
-        def partition(i, j):
-            oi = i
-            pivot = dist(i)
-            i += 1
-
-            while True:
-                while i < j and dist(i) < pivot:
-                    i += 1
-                while i <= j and dist(j) >= pivot:
-                    j -= 1
-                if i >= j: break
-                points[i], points[j] = points[j], points[i]
-
-            points[oi], points[j] = points[j], points[oi]
-            return j
-
-        sort(0, len(points) - 1, K)
-        return points[:K]
-        """
-
         # heap = []
         # for x, y in points:
         #     dist = -(x**2 + y**2)
@@ -112,13 +78,30 @@ class Solution:
         #         heapq.heappush(heap, (dist, x, y))
         # return [(x, y) for (dist, x, y) in heap]
 
-        heap = []
-        for x, y in points:
-            dist = -(x**2 + y**2)
-            if len(heap) == K:
-                heapq.heappushpop(heap, (dist, x, y))
-            else:
-                heapq.heappush(heap, (dist, x, y))
-        return [(x, y) for (dist, x, y) in heap]
+
+        dist = lambda i: points[i][0] ** 2 + points[i][1] ** 2
+
+        def quickSort(i, j, K):
+            pi = partition(i, j)
+            if K < pi - i + 1:
+                quickSort(i, pi - 1, K)
+            elif K > pi - i + 1:
+                quickSort(pi + 1, j, K - (pi - i + 1))
+
+        def partition(i, j):
+            l = i
+            pivot = dist(j)
+
+            for k in range(i, j):
+                if dist(k) < pivot:
+                    points[l], points[k] = points[k], points[l]
+                    l += 1
+
+            points[l], points[j] = points[j], points[l]
+            return l
+
+
+        quickSort(0, len(points)-1, K)
+        return points[:K]
         
 

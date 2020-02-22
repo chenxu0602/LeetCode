@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-bottom-left-tree-value/description/
 #
 # algorithms
-# Medium (58.80%)
-# Likes:    591
-# Dislikes: 103
-# Total Accepted:    75.4K
-# Total Submissions: 128.1K
+# Medium (60.24%)
+# Likes:    715
+# Dislikes: 120
+# Total Accepted:    90.8K
+# Total Submissions: 150.6K
 # Testcase Example:  '[2,1,3]'
 #
 # 
@@ -51,6 +51,8 @@
 # You may assume the tree (i.e., the given root node) is not NULL.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -58,33 +60,13 @@
 #         self.left = None
 #         self.right = None
 
-from collections import deque
-
 class Solution:
     def findBottomLeftValue(self, root: TreeNode) -> int:
-        """
-        deq = deque([root])
 
-        while deq:
-            nodes = []
-            for _ in range(len(deq)):
-                node = deq.popleft()
-                if node.left:
-                    deq.append(node.left)
-                else:
-                    nodes.append(node)
-
-                if node.right:
-                    deq.append(node.right)
-                else:
-                    nodes.append(node)
-
-        return nodes[0].val
-        """
-        queue = [root]
+        queue = [root,]
         for node in queue:
             queue += filter(None, (node.right, node.left))
         return node.val
-#        return queue[-1].val
         
+# @lc code=end
 

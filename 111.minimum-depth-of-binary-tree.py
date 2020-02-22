@@ -63,17 +63,16 @@ class Solution:
         # return 1 + min_depth
 
         if not root: return 0
-
         node_deque = deque([(1, root),])
 
         while node_deque:
             depth, root = node_deque.popleft()
             children = [root.left, root.right]
             if not any(children):
-                return depth
+                return depth 
             for c in children:
                 if c:
-                    node_deque.append((depth+1, c))
+                    node_deque.append((depth+1, c)) 
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/inorder-successor-in-bst/description/
 #
 # algorithms
-# Medium (34.85%)
-# Likes:    708
-# Dislikes: 50
-# Total Accepted:    106.9K
-# Total Submissions: 306.8K
+# Medium (37.89%)
+# Likes:    928
+# Dislikes: 61
+# Total Accepted:    131.9K
+# Total Submissions: 348K
 # Testcase Example:  '[2,1,3]\n1'
 #
 # Given a binary search tree and a node in it, find the in-order successor of
@@ -49,6 +49,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -59,7 +61,6 @@
 class Solution:
     def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
 
-        """
         succ = None
         while root:
             if p.val < root.val:
@@ -69,27 +70,6 @@ class Solution:
                 root = root.right
 
         return succ
-        """
-
-        if p.right:
-            p = p.right
-            while p.left:
-                p = p.left
-            return p
-
-        stack, inorder = [], float("-inf")
-        while stack or root:
-            while root:
-                stack.append(root)
-                root = root.left
-
-            root = stack.pop()
-            if inorder == p.val:
-                return root
-
-            inorder = root.val
-            root = root.right
-
-        return None
         
+# @lc code=end
 

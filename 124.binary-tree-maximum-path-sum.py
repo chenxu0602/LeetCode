@@ -57,9 +57,13 @@
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
 
+        # max_sum = float("-inf")
+        # max_gain(root)
+        # return max_sum
+
         # def maxsums(node):
         #     if not node:
-        #         return [-2**31] * 2
+        #         return [float("-inf")] * 2
         #     left = maxsums(node.left)
         #     right = maxsums(node.right)
         #     return [node.val + max(left[0], right[0], 0),
@@ -69,7 +73,7 @@ class Solution:
         def max_gain(node):
             nonlocal max_sum
             if not node: return 0
-
+            
             left_gain = max(max_gain(node.left), 0)
             right_gain = max(max_gain(node.right), 0)
 
@@ -82,5 +86,6 @@ class Solution:
         max_sum = float("-inf")
         max_gain(root)
         return max_sum
+
         
 

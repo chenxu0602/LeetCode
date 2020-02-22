@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/add-two-numbers/description/
 #
 # algorithms
-# Medium (31.59%)
-# Likes:    6142
-# Dislikes: 1596
-# Total Accepted:    1.1M
-# Total Submissions: 3.3M
+# Medium (32.70%)
+# Likes:    6992
+# Dislikes: 1804
+# Total Accepted:    1.2M
+# Total Submissions: 3.7M
 # Testcase Example:  '[2,4,3]\n[5,6,4]'
 #
 # You are given two non-empty linked lists representing two non-negative

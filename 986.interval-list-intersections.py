@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/interval-list-intersections/description/
 #
 # algorithms
-# Medium (63.76%)
-# Likes:    478
-# Dislikes: 18
-# Total Accepted:    34K
-# Total Submissions: 53.1K
+# Medium (65.22%)
+# Likes:    731
+# Dislikes: 28
+# Total Accepted:    54K
+# Total Submissions: 82.7K
 # Testcase Example:  '[[0,2],[5,10],[13,23],[24,25]]\n[[1,5],[8,12],[15,24],[25,26]]'
 #
 # Given two lists of closed intervals, each list of intervals is pairwise
@@ -53,14 +53,13 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
-        
         ans = []
         i = j = 0
-
         while i < len(A) and j < len(B):
-
             lo = max(A[i][0], B[j][0])
             hi = min(A[i][1], B[j][1])
 
@@ -73,42 +72,6 @@ class Solution:
                 j += 1
 
         return ans
-
-        """
-
-        if not A or not B:
-            return []
-
-        a, b, s, ret = [], [], [], []
-        A.reverse()
-        B.reverse()
-
-        while (A or a) and (B or b):
-            if not a:
-                a = A.pop()
-                a = [a[1], a[0]]
-
-            if not b:
-                b = B.pop()
-                b = [b[1], b[0]]
-
-            c = a
-            if a[-1] < b[-1]:
-                c = a
-            elif a[-1] > b[-1]:
-                c = b
-            else:
-                c = a if len(a) == 2 else b
-
-            if len(c) == 2:
-                s.append(c.pop())
-            else:
-                num = s.pop()
-                num_end = c.pop()
-                if len(s):
-                    ret.append([num, num_end])
-                else:
-                    pass
-        return ret
-        """
+        
+# @lc code=end
 

@@ -77,34 +77,29 @@ class Node:
 """
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        # if not root: return None
+        # if not root: return root
 
-        # cur, nxt = root, root.left
+        # leftmost = root
 
-        # while cur.left:
-        #     cur.left.next = cur.right
-        #     if cur.next:
-        #         cur.right.next = cur.next.left
-        #         cur = cur.next
-        #     else:
-        #         cur, nxt = nxt, nxt.left
-
+        # while leftmost.left:
+        #     head = leftmost
+        #     while head:
+        #         head.left.next = head.right
+        #         head.right.next = head.next and head.next.left
+        #         head = head.next
+        #     leftmost = leftmost.left
         # return root
 
-        if not root: return root
-
-        leftmost = root
-
-        while leftmost.left:
-            head = leftmost
-            while head:
-                head.left.next = head.right
-                if head.next:
-                    head.right.next = head.next.left
-                head = head.next
-            leftmost = leftmost.left
+        if not root: return None
+        cur, nxt = root, root.left
+        while cur.left:
+            cur.left.next = cur.right
+            if cur.next:
+                cur.right.next = cur.next.left
+                cur = cur.next
+            else:
+                cur, nxt = nxt, nxt.left
         return root
-
         
 # @lc code=end
 

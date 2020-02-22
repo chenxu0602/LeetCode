@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/construct-binary-tree-from-string/description/
 #
 # algorithms
-# Medium (45.38%)
-# Likes:    273
-# Dislikes: 69
-# Total Accepted:    19.6K
-# Total Submissions: 43.1K
+# Medium (47.07%)
+# Likes:    339
+# Dislikes: 82
+# Total Accepted:    24.2K
+# Total Submissions: 51.4K
 # Testcase Example:  '"4(2(3)(1))(6(5))"'
 #
 # You need to construct a binary tree from a string consisting of parenthesis
@@ -44,6 +44,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -53,14 +55,6 @@
 
 class Solution:
     def str2tree(self, s: str) -> TreeNode:
-
-        """
-        def t(val, left=None, right=None):
-            node, node.left, node.right = TreeNode(val), left, right
-            return node
-
-        return eval("t(" + s.replace("(", ",t(") + ")") if s else None
-        """
 
         def dfs(s, i):
             start = i
@@ -81,8 +75,6 @@ class Solution:
         if not s or len(s) == 0: return None
         root, _ = dfs(s, 0)
         return root
-
         
-
-
+# @lc code=end
 

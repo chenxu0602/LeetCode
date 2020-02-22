@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/binary-search-tree-iterator/description/
 #
 # algorithms
-# Medium (49.87%)
-# Likes:    1700
-# Dislikes: 255
-# Total Accepted:    236.6K
-# Total Submissions: 462.5K
-# Testcase Example:  '["BSTIterator","next","next","hasNext","next","hasNext","next","hasNext","next","hasNext"]\n' +
+# Medium (52.89%)
+# Likes:    1980
+# Dislikes: 260
+# Total Accepted:    261K
+# Total Submissions: 492.9K
+# Testcase Example:  '["BSTIterator","next","next","hasNext","next","hasNext","next","hasNext","next","hasNext"]\n' + '[[[7,3,15,null,null,9,20]],[null],[null],[null],[null],[null],[null],[null],[null],[null]]'
 #
 # Implement an iterator over a binary search tree (BST). Your iterator will be
 # initialized with the root node of a BST.
@@ -64,36 +64,29 @@
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
-
         self.stack = []
         self._leftmost_inorder(root)
 
-    def _leftmost_inorder(self, root):
-
-        while root:
-            self.stack.append(root)
-            root = root.left
+    def _leftmost_inorder(self, node: TreeNode):
+        while node:
+            self.stack.append(node)
+            node = node.left
         
-
     def next(self) -> int:
         """
         @return the next smallest number
         """
-
         topmost_node = self.stack.pop()
-
         if topmost_node.right:
             self._leftmost_inorder(topmost_node.right)
-
         return topmost_node.val
         
-
     def hasNext(self) -> bool:
         """
         @return whether we have a next smallest number
         """
-        
         return len(self.stack) > 0
+        
 
 
 # Your BSTIterator object will be instantiated and called as such:

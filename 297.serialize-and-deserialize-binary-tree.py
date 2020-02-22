@@ -62,6 +62,7 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
+
         self.s = []
 
         def dfs(node):
@@ -71,7 +72,7 @@ class Codec:
                 self.s.append(str(node.val))
                 dfs(node.left)
                 dfs(node.right)
-            
+
         dfs(root)
         return ','.join(self.s)
         
@@ -95,6 +96,7 @@ class Codec:
 
         vals = iter(data.split(','))
         return dfs()
+
         
 
 # Your Codec object will be instantiated and called as such:

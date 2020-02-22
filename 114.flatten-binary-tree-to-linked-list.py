@@ -52,15 +52,14 @@
 #         self.right = None
 
 class Solution:
-    def __init__(self):
-        self.prev = None
+    prev = None
 
     def flatten(self, root: TreeNode) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
-
         # if not root: return None
+
         # self.flatten(root.right)
         # self.flatten(root.left)
 
@@ -75,7 +74,7 @@ class Solution:
             node = stack.pop()
             last.right = node
             last.left = None
-            
+
             if node and node.right:
                 stack.append(node.right)
 

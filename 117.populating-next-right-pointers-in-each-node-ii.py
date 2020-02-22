@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/
 #
 # algorithms
-# Medium (35.15%)
-# Likes:    1076
-# Dislikes: 158
-# Total Accepted:    205.7K
-# Total Submissions: 573.7K
-# Testcase Example:  '{"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":null,"next":null,"right":{"$id":"6","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}'
+# Medium (37.01%)
+# Likes:    1258
+# Dislikes: 167
+# Total Accepted:    224K
+# Total Submissions: 605.1K
+# Testcase Example:  '[1,2,3,4,5,null,7]'
 #
 # Given a binary tree
 # 
@@ -31,30 +31,35 @@
 # 
 # 
 # 
-# Example:
-# 
-# 
-# 
-# 
-# Input:
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":null,"next":null,"right":{"$id":"6","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}
-# 
-# Output:
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":{"$id":"4","left":null,"next":{"$id":"5","left":null,"next":null,"right":null,"val":7},"right":null,"val":5},"right":null,"val":4},"next":{"$id":"6","left":null,"next":null,"right":{"$ref":"5"},"val":3},"right":{"$ref":"4"},"val":2},"next":null,"right":{"$ref":"6"},"val":1}
-# 
-# Explanation: Given the above binary tree (Figure A), your function should
-# populate each next pointer to point to its next right node, just like in
-# Figure B.
-# 
-# 
-# 
-# 
-# Note:
+# Follow up:
 # 
 # 
 # You may only use constant extra space.
-# Recursive approach is fine, implicit stack space does not count as extra
-# space for this problem.
+# Recursive approach is fine, you may assume implicit stack space does not
+# count as extra space for this problem.
+# 
+# 
+# 
+# Example 1:
+# 
+# 
+# 
+# 
+# Input: root = [1,2,3,4,5,null,7]
+# Output: [1,#,2,3,#,4,5,7,#]
+# Explanation: Given the above binary tree (Figure A), your function should
+# populate each next pointer to point to its next right node, just like in
+# Figure B. The serialized output is in level order as connected by the next
+# pointers, with '#' signifying the end of each level.
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# The number of nodes in the given tree is less than 6000.
+# -100 <= node.val <= 100
+# 
 # 
 #
 
@@ -62,23 +67,34 @@
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, left, right, next):
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
         self.val = val
         self.left = left
         self.right = right
         self.next = next
 """
+from collections import deque
+
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        prekid = kid = TreeLinkNode(0)
-        while root:
-            while root:
-                kid.next = root.left
-                kid = kid.next or kid
-                kid.next = root.right
-                kid = kid.next or kid
-                root = root.next
-            root, kid = prekid.next, prekid
+        if not root: return root
+        queue = deque([root,])
+
+        while queue:
+            size = len(queue)
+            for i in range(size):
+                node = queue.popleft()
+                if i < size - 1:
+                    node.next = queue[0]
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
+        return root
+
         
 # @lc code=end
 

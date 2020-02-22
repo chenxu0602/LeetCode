@@ -51,21 +51,45 @@
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
 
-        dummy = jump = ListNode(0)
-        dummy.next = l = r = head
+        # dummy = jump = ListNode(0)
+        # dummy.next = l = r = head
 
-        while True:
-            count = 0
-            while r and count < k:
-                r = r.next
-                count += 1
-            if count == k:
-                pre, cur = r, l
-                for _ in range(k):
-                    cur.next, cur, pre = pre, cur.next, cur
-                jump.next, jump, l = pre, l, r
-            else:
-                return dummy.next
+        # while True:
+        #     count = 0
+        #     while r and count < k:
+        #         r = r.next
+        #         count += 1
+        #     if count == k:
+        #         pre, cur = r, l
+        #         for _ in range(k):
+        #             cur.next, cur, pre = pre, cur.next, cur
+        #         jump.next, jump, l = pre, l, r
+        #     else:
+        #         return dummy.next
+
+        def reverse(head, count):
+            pre, cur, nxt = None, head, head
+            while count > 0:
+                nxt = cur.next
+                cur.next = pre
+                pre = cur
+                cur = nxt
+                count -= 1
+            return cur, pre
+
+        count, node = 0, head
+        while node and count < k:
+            node = node.next
+            count += 1
+
+        if count < k: return head
+        new_head, pre = reverse(head, count)
+        head.next = self.reverseKGroup(new_head, k)
+        return pre
+
+
+
+
         
 # @lc code=end
 

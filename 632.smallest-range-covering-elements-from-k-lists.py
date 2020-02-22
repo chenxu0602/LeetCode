@@ -45,8 +45,7 @@
 #
 
 # @lc code=start
-
-import heapq
+import heapq 
 
 class Solution:
     def smallestRange(self, nums: List[List[int]]) -> List[int]:

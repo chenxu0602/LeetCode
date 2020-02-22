@@ -41,8 +41,8 @@
 # @lc code=start
 class Solution:
     def decodeString(self, s: str) -> str:
+        stack, curNum, curString = [], 0, ""
 
-        stack, curNum, curString = [], 0, ''
         for c in s:
             if c == '[':
                 stack.append(curString)

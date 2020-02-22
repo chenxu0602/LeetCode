@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/word-search-ii/description/
 #
 # algorithms
-# Hard (29.59%)
-# Likes:    1486
-# Dislikes: 82
-# Total Accepted:    138.6K
-# Total Submissions: 453.9K
-# Testcase Example:  '[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]\n' +
+# Hard (31.83%)
+# Likes:    1780
+# Dislikes: 89
+# Total Accepted:    161.8K
+# Total Submissions: 507.4K
+# Testcase Example:  '[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]\n' + '["oath","pea","eat","rain"]'
 #
 # Given a 2D board and a list of words from the dictionary, find all words in
 # the board.
@@ -49,20 +49,17 @@
 #
 
 # @lc code=start
-
 from collections import defaultdict
 from functools import reduce
 
 class Solution:
-
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
 
         Trie = lambda: defaultdict(Trie)
         trie = Trie()
-        END = '$'
 
         for word in words:
-            reduce(dict.__getitem__, word, trie)[END] = word
+            reduce(dict.__getitem__, word, trie)['$'] = word
 
         m, n = len(board), len(board[0])
 
@@ -77,23 +74,22 @@ class Solution:
                 res.append(word_match)
 
             board[r][c] = '#'
+
             for dr, dc in (-1, 0), (1, 0), (0, -1), (0, 1):
                 nr, nc = r + dr, c + dc
                 if 0 <= nr < m and 0 <= nc < n and board[nr][nc] in children:
                     dfs(nr, nc, children)
-
+                    
             board[r][c] = letter
 
             if not children:
                 parent.pop(letter)
 
-
-        for r in range(m):
-            for c in range(n):
-                if board[r][c] in trie:
-                    dfs(r, c, trie)
+        [dfs(r, c, trie) for r in range(m) for c in range(n) if board[r][c] in trie]
 
         return res
+
+
         
 # @lc code=end
 

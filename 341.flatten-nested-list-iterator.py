@@ -87,7 +87,7 @@ class NestedIterator:
             if r.isInteger():
                 self.nextInteger = r.getInteger()
                 return True
-
+            
             self.stack.append(self.iter)
             self.iter = iter(r.getList())
 

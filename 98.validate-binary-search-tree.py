@@ -91,6 +91,7 @@ class Solution:
                 return False
             inorder = root.val
             root = root.right
+
         return True
 
 

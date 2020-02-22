@@ -61,6 +61,20 @@ class Node:
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
 
+        # if not root: return
+        # dummy = prev = Node(0, None, None)
+        # stack, node = [], root
+        # while stack or node:
+        #     while node:
+        #         stack.append(node)
+        #         node = node.left
+        #     node = stack.pop()
+        #     node.left, prev.right, prev = prev, node, node
+        #     node = node.right
+
+        # dummy.right.left, prev.right = prev, dummy.right
+        # return dummy.right
+                
         def dfs(node):
             nonlocal first, last
 
@@ -74,14 +88,17 @@ class Solution:
                     first = node
 
                 last = node
+
                 dfs(node.right)
 
         if not root: return None
+
         last, first = None, None
         dfs(root)
 
         last.right = first
         first.left = last
+
         return first
 
 

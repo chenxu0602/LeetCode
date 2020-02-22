@@ -12,6 +12,7 @@ class Solution:
         queue, r = deque([]), []
 
         for i, num in enumerate(nums):
+
             while queue and queue[0][1] <= i - k:
                 queue.popleft()
 
@@ -20,9 +21,10 @@ class Solution:
 
             queue.append([num, i])
 
-            if i >= k-1:
+            if i >= k - 1:
                 r.append(queue[0][0])
 
         return r
+
 
 

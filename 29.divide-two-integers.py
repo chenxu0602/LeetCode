@@ -53,7 +53,6 @@ class Solution:
         dividend, divisor = abs(dividend), abs(divisor)
 
         res = 0
-
         while dividend >= divisor:
             temp, i = divisor, 1
             while dividend >= temp:

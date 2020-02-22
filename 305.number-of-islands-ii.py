@@ -76,7 +76,23 @@
 # positions?
 # 
 #
+
 # @lc code=start
+class Solution:
+    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
+        ans, islands = [], Union()
+        for p in map(tuple, positions):
+            if p in islands.id:
+                ans += [ans[-1]]
+                continue
+            islands.add(p)
+            for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
+                q = (p[0] + dp[0], p[1] + dp[1])
+                if q in islands.id:
+                    islands.unite(p, q)
+            ans += [islands.count]
+        return ans
+
 
 class Union:
     def __init__(self):
@@ -102,23 +118,6 @@ class Union:
         self.id[i] = j
         self.sz[j] += self.sz[i]
         self.count -= 1
-
-class Solution:
-    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
-        ans, islands = [], Union()
-        for p in map(tuple, positions):
-            if p in islands.id:
-                ans += [ans[-1]]
-                continue
-            islands.add(p)
-            for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
-                q = (p[0] + dp[0], p[1] + dp[1])
-                if q in islands.id:
-                    islands.unite(p, q)
-            ans += [islands.count]
-        return ans
-
-
         
 # @lc code=end
 

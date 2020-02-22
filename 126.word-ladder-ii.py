@@ -75,8 +75,7 @@ class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
 
         wordList = set(wordList)
-        res = []
-        layer = {}
+        res, layer = [], {}
         layer[beginWord] = [[beginWord]]
 
         while layer:
@@ -87,14 +86,16 @@ class Solution:
                 else:
                     for i in range(len(word)):
                         for c in string.ascii_lowercase:
-                            newword = word[:i] + c + word[i+1:]
-                            if newword in wordList:
-                                newlayer[newword] += [j + [newword] for j in layer[word]]
+                            newWord = word[:i] + c + word[i+1:]
+                            if newWord in wordList:
+                                newlayer[newWord] += [j + [newWord] for j in layer[word]]
 
             wordList -= set(newlayer.keys())
             layer = newlayer
 
         return res
+
+
 
 
         

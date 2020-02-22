@@ -48,17 +48,18 @@
 # @lc code=start
 class Solution:
     def calculate(self, s: str) -> int:
+
         stack, operand, res, sign = [], 0, 0, 1
 
         for ch in s:
             if ch.isdigit():
-                operand = 10 * operand + int(ch)
+                operand = operand * 10 + int(ch)
             elif ch == '+':
                 res += sign * operand
                 sign = 1
                 operand = 0
             elif ch == '-':
-                res += sign * operand                
+                res += sign * operand
                 sign = -1
                 operand = 0
             elif ch == '(':

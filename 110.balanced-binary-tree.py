@@ -66,12 +66,27 @@
 class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
 
-        def height(root):
-            if root is None:
+        # def height(root):
+        #     if root is None:
+        #         return 0
+        #     left = height(root.left)
+        #     if left == -1: return -1
+        #     right = height(root.right)
+        #     if right == -1: return -1
+
+        #     if abs(left - right) > 1:
+        #         return -1
+
+        #     return 1 + max(left, right)
+
+        # return height(root) != -1
+
+        def height(node):
+            if node is None:
                 return 0
-            left = height(root.left)
+
+            left, right = height(node.left), height(node.right)
             if left == -1: return -1
-            right = height(root.right)
             if right == -1: return -1
 
             if abs(left - right) > 1:
@@ -81,26 +96,6 @@ class Solution:
 
         return height(root) != -1
 
-        """
-        stack, node, last, depths = [], root, None, {}
-        while stack or node:
-            if node:
-                stack.append(node)
-                node = node.left
-            else:
-                ndoe = stack[-1]
-                if not node.right or last == node.right:
-                    node = stack.pop()
-                    left, right = depths.get(node.left, 0), depths.get(node.right, 0)
-                    if abs(left - right) > 1:
-                        return False
-                    depths[node] = 1 + max(left, right)
-                    last = node
-                    node = None
-                else:
-                    node = node.right
-        return True
-        """
         
 # @lc code=end
 

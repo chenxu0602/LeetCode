@@ -55,9 +55,8 @@ import heapq
 class Solution:
     def rearrangeString(self, s: str, k: int) -> str:
         if k == 0: return s
-        counter, ans = Counter(s), []
-        heap, q = [(-cnt, c) for c, cnt in counter.most_common()], deque()
-        heapq.heapify(heap)
+        count, ans = Counter(s), []
+        heap, q = [(-cnt, c) for c, cnt in count.most_common()], deque()
 
         while heap:
             cnt, c = heapq.heappop(heap)
@@ -69,6 +68,5 @@ class Solution:
                     heapq.heappush(heap, t)
 
         return "".join(ans) if len(ans) == len(s) else ""
-
         
 

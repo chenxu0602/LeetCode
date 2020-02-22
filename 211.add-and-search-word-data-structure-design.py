@@ -53,22 +53,21 @@ class WordDictionary:
         """
         Initialize your data structure here.
         """
-        self.trie = Trie()
-        
+        self.root = Trie() 
 
     def addWord(self, word: str) -> None:
         """
         Adds a word into the data structure.
         """
-        reduce(dict.__getitem__, word, self.trie)[END] = ""
-        
+        reduce(dict.__getitem__, word, self.root)[END] = ""
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
         """
+        node = self.root
         self.res = False
-        self.dfs(self.trie, word)
+        self.dfs(node, word)
         return self.res
 
     def dfs(self, node: Trie, word: str) -> None:

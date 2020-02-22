@@ -6,47 +6,90 @@
 # https://leetcode.com/problems/clone-graph/description/
 #
 # algorithms
-# Medium (27.77%)
-# Likes:    1018
-# Dislikes: 1065
-# Total Accepted:    252.9K
-# Total Submissions: 868.3K
-# Testcase Example:  '{"$id":"1","neighbors":[{"$id":"2","neighbors":[{"$ref":"1"},{"$id":"3","neighbors":[{"$ref":"2"},{"$id":"4","neighbors":[{"$ref":"3"},{"$ref":"1"}],"val":4}],"val":3}],"val":2},{"$ref":"4"}],"val":1}'
+# Medium (31.35%)
+# Likes:    1308
+# Dislikes: 1193
+# Total Accepted:    286.3K
+# Total Submissions: 913.2K
+# Testcase Example:  '[[2,4],[1,3],[2,4],[1,3]]\r'
 #
-# Given a reference of a node in a connected undirected graph, return a deep
-# copy (clone) of the graph. Each node in the graph contains a val (int) and a
-# list (List[Node]) of its neighbors.
+# Given a reference of a node in a connected undirected graph.
+# 
+# Return a deep copy (clone) of the graph.
+# 
+# Each node in the graph contains a val (int) and a list (List[Node]) of its
+# neighbors.
 # 
 # 
-# 
-# Example:
-# 
-# 
-# 
-# 
-# Input:
-# 
-# {"$id":"1","neighbors":[{"$id":"2","neighbors":[{"$ref":"1"},{"$id":"3","neighbors":[{"$ref":"2"},{"$id":"4","neighbors":[{"$ref":"3"},{"$ref":"1"}],"val":4}],"val":3}],"val":2},{"$ref":"4"}],"val":1}
-# 
-# Explanation:
-# Node 1's value is 1, and it has two neighbors: Node 2 and 4.
-# Node 2's value is 2, and it has two neighbors: Node 1 and 3.
-# Node 3's value is 3, and it has two neighbors: Node 2 and 4.
-# Node 4's value is 4, and it has two neighbors: Node 1 and 3.
+# class Node {
+# ⁠   public int val;
+# ⁠   public List<Node> neighbors;
+# }
 # 
 # 
 # 
 # 
-# Note:
+# Test case format:
+# 
+# For simplicity sake, each node's value is the same as the node's index
+# (1-indexed). For example, the first node with val = 1, the second node with
+# val = 2, and so on. The graph is represented in the test case using an
+# adjacency list.
+# 
+# Adjacency list is a collection of unordered lists used to represent a finite
+# graph. Each list describes the set of neighbors of a node in the graph.
+# 
+# The given node will always be the first node with val = 1. You must return
+# the copy of the given node as a reference to the cloned graph.
 # 
 # 
-# The number of nodes will be between 1 and 100.
-# The undirected graph is a simple graph, which means no repeated edges and no
-# self-loops in the graph.
-# Since the graph is undirected, if node p has node q as neighbor, then node q
-# must have node p as neighbor too.
-# You must return the copy of the given node as a reference to the cloned
-# graph.
+# Example 1:
+# 
+# 
+# Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+# Output: [[2,4],[1,3],[2,4],[1,3]]
+# Explanation: There are 4 nodes in the graph.
+# 1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+# 2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+# 3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+# 4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val =
+# 3).
+# 
+# 
+# Example 2:
+# 
+# 
+# Input: adjList = [[]]
+# Output: [[]]
+# Explanation: Note that the input contains one empty list. The graph consists
+# of only one node with val = 1 and it does not have any neighbors.
+# 
+# 
+# Example 3:
+# 
+# 
+# Input: adjList = []
+# Output: []
+# Explanation: This an empty graph, it does not have any nodes.
+# 
+# 
+# Example 4:
+# 
+# 
+# Input: adjList = [[2],[1]]
+# Output: [[2],[1]]
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# 1 <= Node.val <= 100
+# Node.val is unique for each node.
+# Number of Nodes will not exceed 100.
+# There is no repeated edges and no self-loops in the graph.
+# The Graph is connected and all nodes can be visited starting from the given
+# node.
 # 
 # 
 #
@@ -55,15 +98,12 @@
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, neighbors):
+    def __init__(self, val = 0, neighbors = []):
         self.val = val
         self.neighbors = neighbors
 """
-from collections import defaultdict, deque
-
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-
         visited = {}
 
         def dfs(node):
@@ -74,7 +114,6 @@ class Solution:
                 return newNode
 
         return dfs(node)
-
         
         
 # @lc code=end

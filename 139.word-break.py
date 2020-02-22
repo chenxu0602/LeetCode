@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/word-break/description/
 #
 # algorithms
-# Medium (36.15%)
-# Likes:    2794
-# Dislikes: 152
-# Total Accepted:    399.6K
-# Total Submissions: 1.1M
+# Medium (38.17%)
+# Likes:    3414
+# Dislikes: 183
+# Total Accepted:    461.1K
+# Total Submissions: 1.2M
 # Testcase Example:  '"leetcode"\n["leet","code"]'
 #
 # Given a non-empty string s and a dictionary wordDict containing a list of
@@ -56,23 +56,19 @@
 # @lc code=start
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-
-        """
-        dp = [False] * (len(s)+1)
-        dp[0] = True
-
-        for i in range(1, len(s)+1):
-            for k in range(i):
-                if dp[k] and s[k:i] in wordDict:
-                    dp[i] = True
-
-        return dp[-1]
-        """
-
         ok = [True]
         for i in range(1, len(s)+1):
             ok += any(ok[j] and s[j:i] in wordDict for j in range(i)),
         return ok[-1]
+
+        # dp = [False] * (len(s) + 1)
+        # dp[0] = True
+
+        # for i in range(1, len(s)+1):
+        #     for j in range(i):
+        #         if dp[j] and s[j:i] in wordDict:
+        #             dp[i] = True
+        # return dp[-1]
         
 # @lc code=end
 

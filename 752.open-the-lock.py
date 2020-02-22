@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/open-the-lock/description/
 #
 # algorithms
-# Medium (47.01%)
-# Likes:    441
-# Dislikes: 25
-# Total Accepted:    26.1K
-# Total Submissions: 55.6K
+# Medium (49.13%)
+# Likes:    638
+# Dislikes: 34
+# Total Accepted:    38.8K
+# Total Submissions: 78.9K
 # Testcase Example:  '["0201","0101","0102","1212","2002"]\n"0202"'
 #
 # 
@@ -80,12 +80,15 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
+
         def neighbors(node):
-            for i in range(4):
+            for i in range(len(node)):
                 x = int(node[i])
                 for d in (-1, 1):
                     y = (x + d) % 10
@@ -98,12 +101,16 @@ class Solution:
         while queue:
             node, depth = queue.popleft()
             if node == target: return depth
-            if node in dead: continue
+            if node in dead:
+                continue
             for nei in neighbors(node):
                 if nei not in seen:
                     seen.add(nei)
-                    queue.append((nei, depth+1))
+                    queue.append((nei, depth + 1))
+        
         return -1
 
+
         
+# @lc code=end
 

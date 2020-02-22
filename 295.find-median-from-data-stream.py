@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/find-median-from-data-stream/description/
 #
 # algorithms
-# Hard (36.76%)
-# Likes:    1152
-# Dislikes: 23
-# Total Accepted:    109.7K
-# Total Submissions: 298.2K
-# Testcase Example:  '["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"]\n' +
+# Hard (40.94%)
+# Likes:    1891
+# Dislikes: 36
+# Total Accepted:    160.1K
+# Total Submissions: 390.1K
+# Testcase Example:  '["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"]\n' + '[[],[1],[2],[],[3],[]]'
 #
 # Median is the middle value in an ordered integer list. If the size of the
 # list is even, there is no middle value. So the median is the mean of the two
@@ -54,6 +54,8 @@
 # 
 # 
 #
+
+# @lc code=start
 import heapq
 
 class MedianFinder:
@@ -62,8 +64,7 @@ class MedianFinder:
         """
         initialize your data structure here.
         """
-        self.maxHeap = []
-        self.minHeap = []
+        self.minHeap, self.maxHeap = [], []
         
 
     def addNum(self, num: int) -> None:
@@ -73,12 +74,14 @@ class MedianFinder:
         
 
     def findMedian(self) -> float:
-       return self.minHeap[0] if len(self.minHeap) > len(self.maxHeap) \
-           else 0.5 * (self.minHeap[0] - self.maxHeap[0])
+        return self.minHeap[0] if len(self.minHeap) > len(self.maxHeap) else \
+            0.5 * (self.minHeap[0] - self.maxHeap[0])
+        
 
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
 # obj.addNum(num)
 # param_2 = obj.findMedian()
+# @lc code=end
 

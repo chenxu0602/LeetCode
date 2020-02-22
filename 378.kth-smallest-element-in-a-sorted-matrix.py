@@ -46,6 +46,7 @@ class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
 
         return next(itertools.islice(heapq.merge(*matrix), k-1, k))
+
         
 # @lc code=end
 
