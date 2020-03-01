@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/group-shifted-strings/description/
 #
 # algorithms
-# Medium (49.57%)
-# Likes:    315
-# Dislikes: 54
-# Total Accepted:    54.6K
-# Total Submissions: 108.6K
+# Medium (51.18%)
+# Likes:    358
+# Dislikes: 61
+# Total Accepted:    58.3K
+# Total Submissions: 113.9K
 # Testcase Example:  '["abc","bcd","acef","xyz","az","ba","a","z"]'
 #
 # Given a string, we can "shift" each of its letter to its successive letter,
@@ -39,13 +39,13 @@
 #
 
 # @lc code=start
-from itertools import groupby
+import itertools
 
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
 
         key = lambda s: [(ord(c) - ord(s[0])) % 26 for c in s]
-        return [list(g) for _, g in groupby(sorted(strings, key=key), key)]
+        return [list(g) for _, g in itertools.groupby(sorted(strings, key=key), key)]
         
 # @lc code=end
 

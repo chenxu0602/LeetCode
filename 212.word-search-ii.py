@@ -54,7 +54,6 @@ from functools import reduce
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-
         Trie = lambda: defaultdict(Trie)
         trie = Trie()
 
@@ -69,7 +68,7 @@ class Solution:
             letter = board[r][c]
             children = parent[letter]
 
-            word_match = children.pop('$', False)
+            word_match = children.pop("$", False)
             if word_match:
                 res.append(word_match)
 
@@ -79,17 +78,18 @@ class Solution:
                 nr, nc = r + dr, c + dc
                 if 0 <= nr < m and 0 <= nc < n and board[nr][nc] in children:
                     dfs(nr, nc, children)
-                    
+
             board[r][c] = letter
 
             if not children:
                 parent.pop(letter)
 
-        [dfs(r, c, trie) for r in range(m) for c in range(n) if board[r][c] in trie]
+        for r in range(m):
+            for c in range(n):
+                if board[r][c] in trie:
+                    dfs(r, c, trie)
 
         return res
-
-
         
 # @lc code=end
 

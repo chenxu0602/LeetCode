@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/description/
 #
 # algorithms
-# Hard (31.98%)
-# Likes:    431
-# Dislikes: 44
-# Total Accepted:    43.1K
-# Total Submissions: 134.1K
-# Testcase Example:  '["RandomizedCollection","insert","insert","insert","getRandom","remove","getRandom"]\n' +
+# Hard (33.31%)
+# Likes:    624
+# Dislikes: 55
+# Total Accepted:    56.3K
+# Total Submissions: 168.5K
+# Testcase Example:  '["RandomizedCollection","insert","insert","insert","getRandom","remove","getRandom"]\n' + '[[],[1],[1],[2],[],[1],[]]'
 #
 # Design a data structure that supports all following operations in average
 # O(1) time.
@@ -56,8 +56,10 @@
 # 
 # 
 #
+
+# @lc code=start
+import random
 from collections import defaultdict
-from random import choice
 
 class RandomizedCollection:
 
@@ -65,16 +67,15 @@ class RandomizedCollection:
         """
         Initialize your data structure here.
         """
-
         self.vals, self.ids = [], defaultdict(set)
         
+
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
         """
-
         self.vals.append(val)
-        self.ids[val].add(len(self.vals) - 1)
+        self.ids[val].add(len(self.vals)-1)
         return len(self.ids[val]) == 1
         
 
@@ -82,14 +83,13 @@ class RandomizedCollection:
         """
         Removes a value from the collection. Returns true if the collection contained the specified element.
         """
-
         if val not in self.ids:
             return False
 
         idx, last = self.ids[val].pop(), self.vals[-1]
         len(self.ids[val]) > 0 or self.ids.pop(val, None)
         if last in self.ids:
-            self.ids[last] = (self.ids[last] | {idx}) - {len(self.vals)-1}
+            self.ids[last] = (self.ids[last] | {idx}) - {len(self.vals) - 1}
         self.vals[idx] = last
         self.vals.pop()
 
@@ -100,8 +100,7 @@ class RandomizedCollection:
         """
         Get a random element from the collection.
         """
-
-        return choice(self.vals)
+        return random.choice(self.vals)
         
 
 
@@ -110,4 +109,5 @@ class RandomizedCollection:
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+# @lc code=end
 

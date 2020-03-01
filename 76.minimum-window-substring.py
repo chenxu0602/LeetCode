@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-window-substring/description/
 #
 # algorithms
-# Hard (31.61%)
-# Likes:    2904
-# Dislikes: 206
-# Total Accepted:    285.7K
-# Total Submissions: 887.7K
+# Hard (33.19%)
+# Likes:    3450
+# Dislikes: 247
+# Total Accepted:    328.2K
+# Total Submissions: 987.9K
 # Testcase Example:  '"ADOBECODEBANC"\n"ABC"'
 #
 # Given a string S and a string T, find the minimum window in S which will
@@ -39,7 +39,6 @@ from collections import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-
         need, missing = Counter(t), len(t)
         i = I = J = 0
         for j, c in enumerate(s, 1):
@@ -52,8 +51,6 @@ class Solution:
                 if not J or j - i <= J - I:
                     I, J = i, j
         return s[I:J]
-
-
         
 # @lc code=end
 

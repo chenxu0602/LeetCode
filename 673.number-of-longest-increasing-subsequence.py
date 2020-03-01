@@ -52,7 +52,7 @@ class Solution:
             for i in range(j):
                 if nums[i] < nums[j]:
                     if lengths[i] >= lengths[j]:
-                        lengths[j] = 1 + lengths[j]
+                        lengths[j] = 1 + lengths[i]
                         counts[j] = counts[i]
                     elif lengths[i] + 1 == lengths[j]:
                         counts[j] += counts[i]

@@ -64,20 +64,19 @@
 # 
 # 
 #
-from collections import defaultdict
-
 class Solution:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
+
         total = 0
-        dp = [defaultdict(int) for item in A]
+        dp = [{} for _ in A]
         for i in range(len(A)):
             for j in range(i):
                 d = A[i] - A[j]
-                dp[i][d] += 1
+                dp[i][d] = dp[i].get(d, 0) + 1
                 if d in dp[j]:
                     dp[i][d] += dp[j][d]
                     total += dp[j][d]
-
         return total
+
 
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/counting-bits/description/
 #
 # algorithms
-# Medium (64.77%)
-# Likes:    1405
-# Dislikes: 109
-# Total Accepted:    171.3K
-# Total Submissions: 264.1K
+# Medium (66.75%)
+# Likes:    1968
+# Dislikes: 131
+# Total Accepted:    219.5K
+# Total Submissions: 328.7K
 # Testcase Example:  '2'
 #
 # Given a non negative integer number num. For every numbers i in the range 0 ≤
@@ -41,29 +41,20 @@
 # __builtin_popcount in c++ or in any other language.
 # 
 #
+
+# @lc code=start
 class Solution:
     def countBits(self, num: int) -> List[int]:
-        """
-        iniArr = [0]
-        if num > 0:
-            while len(iniArr) < num + 1:
-                iniArr.extend([x+1 for x in iniArr])
 
-        return iniArr[:num+1]
-        """
-
-        """
-        ans = [0] * (num + 1)
-        for i in range(1, num+1):
-            ans[i] = ans[i>>1] + (i & 1)
-        return ans
-        """
+        # ans = [0] * (num + 1)
+        # for i in range(1, num+1):
+        #     ans[i] = ans[i >> 1] + (i & 1)
+        # return ans
 
         ans = [0] * (num + 1)
-        for i in range(1, num+1):
+        for i in range(1, num + 1):
             ans[i] = ans[i & (i-1)] + 1
         return ans
-
-
         
+# @lc code=end
 

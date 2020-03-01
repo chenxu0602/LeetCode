@@ -102,6 +102,7 @@ class Solution:
                     dp[now] = dp[state] + 1
 
         return dp[-1]
+
         
 # @lc code=end
 

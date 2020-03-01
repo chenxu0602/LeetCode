@@ -46,14 +46,14 @@ class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         ListNode.__lt__ = ListNodeExtension.__lt__
 
-        dummy = head = ListNode(0)
+        dummy = node = ListNode(0)
         h = [(n.val, n) for n in lists if n]
         heapq.heapify(h)
 
         while h:
             v, n = heapq.heappop(h)
-            head.next = n
-            head = head.next
+            node.next = n
+            node = node.next
             if n.next:
                 heapq.heappush(h, (n.next.val, n.next))
 

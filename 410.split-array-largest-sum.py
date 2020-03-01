@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/split-array-largest-sum/description/
 #
 # algorithms
-# Hard (42.48%)
-# Likes:    757
-# Dislikes: 43
-# Total Accepted:    44.2K
-# Total Submissions: 103.8K
+# Hard (43.55%)
+# Likes:    1345
+# Dislikes: 75
+# Total Accepted:    73.6K
+# Total Submissions: 168.8K
 # Testcase Example:  '[7,2,5,10,8]\n2'
 #
 # Given an array which consists of non-negative integers and an integer m, you
@@ -42,26 +42,24 @@
 # 
 # 
 #
-import os, sys
 
+# @lc code=start
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
 
-        """
-        n = len(nums)
-        sums = [0] * (n + 1)
-        for i, v in enumerate(nums):
-            sums[i+1] = sums[i] + nums[i]
+        # n = len(nums)
+        # sums = [0] * (n + 1)
+        # for i, v in enumerate(nums):
+        #     sums[i+1] = sums[i] + nums[i]
 
-        dp = [[float("inf")] * (m + 1) for _ in range(n + 1)]
-        dp[0][0] = 0
+        # dp = [[float("inf")] * (m + 1) for _ in range(n + 1)]
+        # dp[0][0] = 0
 
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                dp[i][j] = min([max(dp[k][j-1], sums[i] - sums[k]) for k in range(i)])
+        # for i in range(1, n+1):
+        #     for j in range(1, m+1):
+        #         dp[i][j] = min([max(dp[k][j-1], sums[i] - sums[k]) for k in range(i)])
 
-        return dp[n][m]
-        """
+        # return dp[n][m]
 
         n = len(nums)
         l, r = 0, 0
@@ -75,13 +73,14 @@ class Solution:
         while l <= r:
             mid = (l + r) >> 1
             s, cnt = 0, 1
+
             for i in range(n):
                 if s + nums[i] > mid:
                     cnt += 1
                     s = nums[i]
                 else:
                     s += nums[i]
-            
+
             if cnt <= m:
                 ans = min(ans, mid)
                 r = mid - 1
@@ -89,7 +88,6 @@ class Solution:
                 l = mid + 1
 
         return ans
-
-
-
+        
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sudoku-solver/description/
 #
 # algorithms
-# Hard (40.61%)
-# Likes:    1356
-# Dislikes: 81
-# Total Accepted:    162.9K
-# Total Submissions: 400.1K
+# Hard (40.80%)
+# Likes:    1372
+# Dislikes: 82
+# Total Accepted:    164.2K
+# Total Submissions: 401.8K
 # Testcase Example:  '[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]'
 #
 # Write a program to solve a Sudoku puzzle by filling the empty cells.
@@ -44,7 +44,7 @@
 #
 
 # @lc code=start
-from collections import deque, defaultdict
+from collections import defaultdict, deque 
 
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
@@ -59,18 +59,18 @@ class Solution:
 
         for r in range(9):
             for c in range(9):
-                if board[r][c] != '.':
+                if board[r][c] == '.':
+                    to_be_visited.append((r, c))
+                else:
                     rows[r].add(board[r][c])
                     cols[c].add(board[r][c])
                     triples[(r//3, c//3)].add(board[r][c])
-                else:
-                    to_be_visited.append((r, c))
 
         def dfs():
-            if not to_be_visited:
-                return True
+            if not to_be_visited: return True
+
             r, c = to_be_visited[0]
-            t = (r // 3, c // 3)
+            t = (r//3, c//3)
 
             for i in range(1, 10):
                 if str(i) not in rows[r] and str(i) not in cols[c] and str(i) not in triples[t]:

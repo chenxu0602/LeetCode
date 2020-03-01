@@ -67,23 +67,6 @@
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
 
-        # def deepestDepth(node, depth=0):
-        #     if not node:
-        #         return node, depth
-
-        #     left, leftDepth = deepestDepth(node.left, depth+1)
-        #     right, rightDepth = deepestDepth(node.right, depth+1)
-
-        #     if leftDepth > rightDepth:
-        #         return left, leftDepth
-
-        #     if rightDepth > leftDepth:
-        #         return right, rightDepth
-
-        #     return node, leftDepth
-
-        # return deepestDepth(root)[0]
-
         # depth = {None: -1}
         # def dfs(node, parent=None):
         #     if node:
@@ -102,15 +85,32 @@ class Solution:
 
         # return answer(root)
 
-        from collections import namedtuple
-        Result = namedtuple("Result", ("node", "dist"))
-        def dfs(node):
-            if not node: return Result(None, 0)
-            L, R = dfs(node.left), dfs(node.right)
-            if L.dist > R.dist: return Result(L.node, L.dist + 1)
-            if L.dist < R.dist: return Result(R.node, R.dist + 1)
-            return Result(node, L.dist + 1)
-        return dfs(root).node
+        # from collections import namedtuple
+        # Result = namedtuple("Result", ("node", "dist"))
+        # def dfs(node):
+        #     if not node: return Result(None, 0)
+        #     L, R = dfs(node.left), dfs(node.right)
+        #     if L.dist > R.dist: return Result(L.node, L.dist + 1)
+        #     if L.dist < R.dist: return Result(R.node, R.dist + 1)
+        #     return Result(node, L.dist + 1)
+        # return dfs(root).node
+
+        def deepestDepth(node, depth=0):
+            if not node:
+                return node, depth
+
+            left, leftDepth = deepestDepth(node.left, depth + 1)
+            right, rightDepth = deepestDepth(node.right, depth + 1)
+
+            if leftDepth > rightDepth:
+                return left, leftDepth
+
+            if rightDepth > leftDepth:
+                return right, rightDepth
+
+            return node, leftDepth
+
+        return deepestDepth(root)[0]
         
 # @lc code=end
 

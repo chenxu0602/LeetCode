@@ -59,10 +59,36 @@
 class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
 
-        if root is None: return 0
-        if root.val > R: return self.rangeSumBST(root.left, L, R)
-        if root.val < L: return self.rangeSumBST(root.right, L, R)
-        return root.val + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
+        # if root is None: return 0
+        # if root.val > R: return self.rangeSumBST(root.left, L, R)
+        # if root.val < L: return self.rangeSumBST(root.right, L, R)
+        # return root.val + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
+
+        # def dfs(node):
+        #     if node:
+        #         if L <= node.val <= R:
+        #             self.ans += node.val
+        #         if L < node.val:
+        #             dfs(node.left)
+        #         if R > node.val:
+        #             dfs(node.right)
+
+        # self.ans = 0
+        # dfs(root)
+        # return self.ans
+
+        ans = 0
+        stack = [root,]
+        while stack:
+            node = stack.pop()
+            if node:
+                if L <= node.val <= R:
+                    ans += node.val
+                if L < node.val:
+                    stack.append(node.left)
+                if R > node.val:
+                    stack.append(node.right)
+        return ans
         
 # @lc code=end
 

@@ -54,7 +54,6 @@ class Solution:
     def thirdMax(self, nums: List[int]) -> int:
         nums = set(nums)
         for i in range((2, 0)[len(nums) < 3]):
-            print(f"{i}####")
             nums.remove(max(nums))
         return max(nums)
         

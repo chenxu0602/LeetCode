@@ -63,35 +63,21 @@
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
 
-        """
-        if q.val < p.val:
-            p, q = q, p
+        # node = root
+        # while node:
+        #     if node.val < p.val and node.val < q.val:
+        #         node = node.right
+        #     elif node.val > p.val and node.val > q.val:
+        #         node = node.left
+        #     else:
+        #         return node
 
-        if p.val <= root.val <= q.val:
-            return root
-        elif q.val < root.val:
-            return self.lowestCommonAncestor(root.left, p, q)
-        else:
-            return self.lowestCommonAncestor(root.right, p, q)
-        """
-
-        """
         if root.val < p.val and root.val < q.val:
             return self.lowestCommonAncestor(root.right, p, q)
         elif root.val > p.val and root.val > q.val:
             return self.lowestCommonAncestor(root.left, p, q)
         else:
             return root
-        """
-
-        node = root
-        while node:
-            if node.val < p.val and node.val < q.val:
-                node = node.right
-            elif node.val > p.val and node.val > q.val:
-                node = node.left
-            else:
-                return node
 
         
 # @lc code=end

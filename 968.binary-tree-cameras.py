@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-cameras/description/
 #
 # algorithms
-# Hard (35.66%)
-# Likes:    356
-# Dislikes: 11
-# Total Accepted:    9.9K
-# Total Submissions: 27.6K
+# Hard (36.63%)
+# Likes:    512
+# Dislikes: 12
+# Total Accepted:    14.3K
+# Total Submissions: 39.1K
 # Testcase Example:  '[0,0,null,0,0]'
 #
 # Given a binary tree, we install cameras on the nodes of the tree. 
@@ -54,6 +54,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -63,18 +65,27 @@
 
 class Solution:
     def minCameraCover(self, root: TreeNode) -> int:
+        # self.ans = 0
+        # covered = {None}
 
-        # 0: Strict ST; All nodes below this are covered, but not this one
-        # 1: Normal ST; All nodes below and incl this are covered - no camera
-        # 2: Placed camera; All nodes below this are covered, plus camera here
+        # def dfs(node, par=None):
+        #     if node:
+        #         dfs(node.left, node)
+        #         dfs(node.right, node)
 
-        """
+        #         if (par is None and node not in covered or
+        #             node.left not in covered or node.right not in covered):
+        #             self.ans += 1
+        #             covered.update({node, par, node.left, node.right})
+
+        # dfs(root)
+        # return self.ans
+
         def solve(node):
             if not node:
                 return 0, 0, float("inf")
 
-            L = solve(node.left)
-            R = solve(node.right)
+            L, R = map(solve, (node.left, node.right))
 
             dp0 = L[1] + R[1]
             dp1 = min(L[2] + min(R[1:]), R[2] + min(L[1:]))
@@ -83,22 +94,8 @@ class Solution:
             return dp0, dp1, dp2
 
         return min(solve(root)[1:])
-        """
 
-        self.ans = 0
-        covered = {None}
 
-        def dfs(node, par=None):
-            if node:
-                dfs(node.left, node)
-                dfs(node.right, node)
-
-                if (par is None and node not in covered or
-                    node.left not in covered or node.right not in covered):
-                    self.ans += 1
-                    covered.update({node, par, node.left, node.right})
-
-        dfs(root)
-        return self.ans
         
+# @lc code=end
 

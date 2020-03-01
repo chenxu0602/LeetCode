@@ -58,8 +58,8 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        # if not root: return None
 
+        # if not root: return None
         # self.flatten(root.right)
         # self.flatten(root.left)
 
@@ -82,6 +82,7 @@ class Solution:
                 stack.append(node.left)
 
             last = node
+
         
 # @lc code=end
 

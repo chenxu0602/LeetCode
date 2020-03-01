@@ -43,6 +43,7 @@
 # @lc code=start
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
+
         stack = [-1]
         heights.append(0)
         ans = 0
@@ -53,8 +54,10 @@ class Solution:
                 w = i - stack[-1] - 1
                 ans = max(ans, h * w)
             stack.append(i)
+
         heights.pop()
         return ans
+
 
         
 # @lc code=end

@@ -80,6 +80,7 @@ class Solution:
                 res += [L, -heap[0][0]],
 
         return res[1:]
+
         
 # @lc code=end
 

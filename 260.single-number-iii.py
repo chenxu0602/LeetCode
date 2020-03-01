@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/single-number-iii/description/
 #
 # algorithms
-# Medium (57.07%)
-# Likes:    845
-# Dislikes: 76
-# Total Accepted:    107.3K
-# Total Submissions: 188K
+# Medium (59.44%)
+# Likes:    1162
+# Dislikes: 90
+# Total Accepted:    125.3K
+# Total Submissions: 210.8K
 # Testcase Example:  '[1,2,1,3,2,5]'
 #
 # Given an array of numbers nums, in which exactly two elements appear only
@@ -32,43 +32,27 @@
 # it using only constant space complexity?
 # 
 #
-from functools import reduce 
 
+# @lc code=start
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        """
-        xor = reduce(lambda x, y: x ^ y, nums, 0)
 
-        mask = 1
-        while not xor & 1:
-            xor >>= 1
-            mask <<= 1
-
-        zero = one = 0
-        for num in nums:
-            if num & mask:
-                one ^= num
-            else:
-                zero ^= num
-
-        if zero > one:
-            zero, one = one, zero
-
-        return zero, one
-        """
+        # difference between two numbers (x and y) which were seen only once
 
         bitmask = 0
         for num in nums:
             bitmask ^= num
 
+        # rightmost 1-bit diff between x and y
         diff = bitmask & (-bitmask)
 
         x = 0
         for num in nums:
+            # bitmask which will contain only x
             if num & diff:
                 x ^= num
 
         return [x, bitmask ^ x]
-
         
+# @lc code=end
 

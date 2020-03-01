@@ -46,17 +46,16 @@
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
 
-        if not points:
-            return 0
+        if not points: return 0
 
         points.sort(key=lambda x: x[1])
+        res, end = 0, float("-inf")
 
-        res, end = 0, -float("inf")
         for interval in points:
             if interval[0] > end:
                 res += 1
                 end = interval[1]
-
         return res
+
         
 

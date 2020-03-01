@@ -82,7 +82,9 @@ class Solution:
 
             monoq.append(y)
 
-        return ans if ans < N+1 else -1
+        return ans if ans < N + 1 else -1
+
+
 
 
         

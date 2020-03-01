@@ -48,12 +48,13 @@ class Solution:
         #     r = max(r, imax)
         # return r
 
+
         A = nums[:]
         B = nums[::-1]
         for i in range(1, len(A)):
             A[i] *= A[i-1] or 1
             B[i] *= B[i-1] or 1
-        return max(A+B)
+        return max(A + B)
 
         
 # @lc code=end

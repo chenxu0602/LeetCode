@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reverse-nodes-in-k-group/description/
 #
 # algorithms
-# Hard (37.47%)
-# Likes:    1443
-# Dislikes: 290
-# Total Accepted:    211.1K
-# Total Submissions: 552.7K
+# Hard (39.52%)
+# Likes:    1724
+# Dislikes: 337
+# Total Accepted:    235.9K
+# Total Submissions: 595.4K
 # Testcase Example:  '[1,2,3,4,5]\n2'
 #
 # Given a linked list, reverse the nodes of a linked list k at a time and
@@ -76,7 +76,7 @@ class Solution:
                 cur = nxt
                 count -= 1
             return cur, pre
-
+        
         count, node = 0, head
         while node and count < k:
             node = node.next
@@ -87,9 +87,5 @@ class Solution:
         head.next = self.reverseKGroup(new_head, k)
         return pre
 
-
-
-
-        
 # @lc code=end
 

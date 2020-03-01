@@ -36,25 +36,25 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
 
+        if n == 0: return [""]
         ans = []
-        def dfs(s="", left=0, right=0):
-            if len(s) == 2 * n:
-                ans.append(s)
-                return
-            if left < n:
-                dfs(s+'(', left+1, right)
-            if right < left:
-                dfs(s+')', left, right+1)
-
-        dfs()
+        for c in range(n):
+            for left in self.generateParenthesis(c):
+                for right in self.generateParenthesis(n-c-1):
+                    ans.append("({}){}".format(left, right))
         return ans
 
-        # if n == 0: return [""]
         # ans = []
-        # for c in range(n):
-        #     for left in self.generateParenthesis(c):
-        #         for right in self.generateParenthesis(n-1-c):
-        #             ans.append("({}){}".format(left, right))
+        # def dfs(s="", left=0, right=0):
+        #     if len(s) == 2 * n:
+        #         ans.append(s)
+        #         return
+        #     if left < n:
+        #         dfs(s+'(', left+1, right)
+        #     if right < left:
+        #         dfs(s+')', left, right+1)
+
+        # dfs()
         # return ans
 
         # def generate(p, left, right):

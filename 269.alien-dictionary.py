@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/alien-dictionary/description/
 #
 # algorithms
-# Hard (31.04%)
-# Likes:    851
-# Dislikes: 174
-# Total Accepted:    77.7K
-# Total Submissions: 250.4K
+# Hard (33.86%)
+# Likes:    1336
+# Dislikes: 258
+# Total Accepted:    114.5K
+# Total Submissions: 337.9K
 # Testcase Example:  '["wrt","wrf","er","ett","rftt"]'
 #
 # There is a new alien language which uses the latin alphabet. However, the
@@ -73,29 +73,11 @@
 # 
 #
 
-from operator import itemgetter
-
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        # scores = {ch: 0 for word in words for ch in word}
-        # changed = True
-
-        # while changed:
-        #     changed = False
-        #     for pair in zip(words, words[1:]):
-        #         for a, b in zip(*pair):
-        #             if not a == b:
-        #                 if scores[b] <= scores[a]:
-        #                     if scores[a] >= 26:
-        #                         return ""
-        #                     scores[b] = scores[a] + 1
-        #                     changed = True
-        #                 break
-        
-        # return "".join(k for k, v in sorted(scores.items(), key=itemgetter(1)))
-
         pre, suc = defaultdict(set), defaultdict(set)
         for pair in zip(words, words[1:]):
             for a, b in zip(*pair):
@@ -117,7 +99,6 @@ class Solution:
                     free.add(b)
 
         return order * (set(order) == chars)
-
-
         
+# @lc code=end
 

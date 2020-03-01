@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/subsets-ii/description/
 #
 # algorithms
-# Medium (43.29%)
-# Likes:    1120
-# Dislikes: 54
-# Total Accepted:    228.7K
-# Total Submissions: 519.7K
+# Medium (45.19%)
+# Likes:    1331
+# Dislikes: 58
+# Total Accepted:    249.4K
+# Total Submissions: 551.5K
 # Testcase Example:  '[1,2,2]'
 #
 # Given a collection of integers that might contain duplicates, nums, return
@@ -38,6 +38,19 @@
 # @lc code=start
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        # def dfs(depth, start, L):
+        #     if L not in res:
+        #         res.append(L)
+        #     if depth == len(nums):
+        #         return
+        #     for i in range(start, len(nums)):
+        #         dfs(depth + 1, i + 1, L + [nums[i]])
+
+        # nums.sort()
+        # res = []
+        # dfs(0, 0, [])
+        # return res
+
         res = [[]]
         nums.sort()
         for i in range(len(nums)):
@@ -45,22 +58,8 @@ class Solution:
                 l = len(res)
             for j in range(len(res) - l, len(res)):
                 res.append(res[j] + [nums[i]])
-        return res 
-
-        """
-        def dfs(depth, start, L):
-            if L not in res:
-                res.append(L)
-            if depth == len(nums):
-                return
-            for i in range(start, len(nums)):
-                dfs(depth+1, i+1, L+[nums[i]])
-
-        nums.sort()
-        res = []
-        dfs(0, 0, [])
         return res
-        """
+
         
 # @lc code=end
 

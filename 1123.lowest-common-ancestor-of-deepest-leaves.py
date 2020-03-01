@@ -77,19 +77,31 @@ class Solution:
         # self.lca, self.deepest = None, 0
         # def dfs(node, depth=0):
         #     self.deepest = max(self.deepest, depth)
-        #     if not node:
-        #         return depth
-        #     left, right = dfs(node.left, depth+1), dfs(node.right, depth+1)
-        #     if left == right == self.deepest:
-        #         self.lca = node
+        #     if not node: return depth
+        #     left, right = map(dfs, (node.left, node.right), (depth+1, depth+1))
+        #     if left == right == self.deepest: self.lca = node
         #     return max(left, right)
 
         # dfs(root)
         # return self.lca
 
+        # def dfs(node):
+        #     if not node: return 0, None
+
+        #     h1, lca1 = dfs(node.left)
+        #     h2, lca2 = dfs(node.right)
+
+        #     if h1 > h2:
+        #         return h1 + 1, lca1
+        #     elif h1 < h2:
+        #         return h2 + 1, lca2
+        #     else:
+        #         return h1 + 1, node
+
+        # return dfs(root)[1]
+
         def dfs(node):
             if not node: return 0, None
-
             h1, lca1 = dfs(node.left)
             h2, lca2 = dfs(node.right)
 
@@ -101,6 +113,7 @@ class Solution:
                 return h1 + 1, node
 
         return dfs(root)[1]
+            
         
 # @lc code=end
 

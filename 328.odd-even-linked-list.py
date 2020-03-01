@@ -66,6 +66,7 @@ class Solution:
 
         odd.next = evenHead
         return head
+
         
 # @lc code=end
 

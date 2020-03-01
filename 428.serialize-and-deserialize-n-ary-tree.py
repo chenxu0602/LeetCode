@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/description/
 #
 # algorithms
-# Hard (57.32%)
-# Likes:    324
+# Hard (57.41%)
+# Likes:    333
 # Dislikes: 16
-# Total Accepted:    23.5K
-# Total Submissions: 41K
+# Total Accepted:    23.9K
+# Total Submissions: 41.6K
 # Testcase Example:  '[1,null,3,2,4,null,5,6]'
 #
 # Serialization is the process of converting a data structure or object into a
@@ -77,11 +77,11 @@ class Codec:
         serial = []
 
         def preorder(node):
-            if not node: return
+            if not node: return 
             serial.append(str(node.val))
             for child in node.children:
                 preorder(child)
-            serial.append('#')
+            serial.append("#")
 
         preorder(root)
         return " ".join(serial)
@@ -95,7 +95,6 @@ class Codec:
         """
 
         if not data: return None
-
         tokens = deque(data.split())
         root = Node(int(tokens.popleft()), [])
 

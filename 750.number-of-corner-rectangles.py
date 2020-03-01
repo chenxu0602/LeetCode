@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-corner-rectangles/description/
 #
 # algorithms
-# Medium (65.04%)
-# Likes:    327
-# Dislikes: 43
-# Total Accepted:    20.4K
-# Total Submissions: 31.3K
+# Medium (66.16%)
+# Likes:    378
+# Dislikes: 53
+# Total Accepted:    24.1K
+# Total Submissions: 36.3K
 # Testcase Example:  '[[0,1,0],[1,0,1],[1,0,1],[0,1,0]]'
 #
 # Given a grid where each entry is only 0 or 1, find the number of corner
@@ -74,8 +74,9 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
-import itertools
 
 class Solution:
     def countCornerRectangles(self, grid: List[List[int]]) -> int:
@@ -89,32 +90,7 @@ class Solution:
                         if row[c2]:
                             ans += count[c1, c2]
                             count[c1, c2] += 1
-
         return ans
-        """
-
-        rows = [[c for c, val in enumerate(row) if val] for row in grid]
-        N= sum(len(row) for row in grid)
-        SQRTN = int(N**.5)
-
-        ans = 0
-        count = Counter()
-
-        for r, row in enumerate(rows):
-            if len(row) >= SQRTN:
-                target = set(row)
-                for r2, row2 in enumerate(rows):
-                    if r2 <= r and len(row2) >= SQRTN:
-                        continue
-                    found = sum(1 for c2 in row2 if c2 in target)
-                    ans += found * (found - 1) * 2
-            else:
-                for pair in itertools.combinations(row, 2):
-                    ans += count[pair]
-                    count[pair] += 1
-
-        return ans
-
-        """
-           
+        
+# @lc code=end
 

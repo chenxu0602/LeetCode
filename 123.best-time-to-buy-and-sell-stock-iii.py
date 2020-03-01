@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/
 #
 # algorithms
-# Hard (34.49%)
-# Likes:    1402
-# Dislikes: 58
-# Total Accepted:    171.2K
-# Total Submissions: 487.9K
+# Hard (35.96%)
+# Likes:    1645
+# Dislikes: 64
+# Total Accepted:    187.2K
+# Total Submissions: 520.3K
 # Testcase Example:  '[3,3,5,0,0,3,1,4]'
 #
 # Say you have an array for which the i^th element is the price of a given
@@ -57,22 +57,23 @@
 # @lc code=start
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if not prices:
-            return 0
 
-        profits, max_profit, current_min = [], 0, prices[0]
+        if len(prices) < 2: return 0
+
+        profits, max_profit, current_min = [], float("-inf"), float("inf")
         for p in prices:
             current_min = min(current_min, p)
             max_profit = max(max_profit, p - current_min)
             profits.append(max_profit)
 
-        total_max, max_profit, current_max = 0, 0, prices[-1]
+        total_max, max_profit, current_max = float("-inf"), float("-inf"), float("-inf")
         for i in range(len(prices)-1, -1, -1):
             current_max = max(current_max, prices[i])
             max_profit = max(max_profit, current_max - prices[i])
-            total_max = max(total_max, max_profit + profits[i])
+            total_max = max(total_max, profits[i] + max_profit)
 
         return total_max
+
         
 # @lc code=end
 

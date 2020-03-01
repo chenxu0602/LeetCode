@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/
 #
 # algorithms
-# Medium (44.08%)
-# Likes:    1347
-# Dislikes: 48
-# Total Accepted:    92.5K
-# Total Submissions: 209.7K
+# Medium (45.52%)
+# Likes:    1885
+# Dislikes: 73
+# Total Accepted:    119.3K
+# Total Submissions: 262K
 # Testcase Example:  '[1,2,3,0,2]'
 #
 # Say you have an array for which the i^th element is the price of a given
@@ -35,24 +35,17 @@
 # Explanation: transactions = [buy, sell, cooldown, buy, sell]
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        """
-        free, have, cool = 0, float("-inf"), float("-inf")
-        for p in prices:
-            free, have, cool = max(free, cool), max(have, free - p), have + p
-
-        return max(free, cool)
-        """
 
         p1, p2 = 0, 0
         for i in range(1, len(prices)):
             temp = p1
             p1 = max(p1 + prices[i] - prices[i-1], p2)
             p2 = max(temp, p2)
-
         return max(p1, p2)
-
-
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/basic-calculator-iii/description/
 #
 # algorithms
-# Hard (42.15%)
-# Likes:    263
-# Dislikes: 82
-# Total Accepted:    19.6K
-# Total Submissions: 46.7K
+# Hard (40.78%)
+# Likes:    374
+# Dislikes: 144
+# Total Accepted:    29.8K
+# Total Submissions: 73.2K
 # Testcase Example:  '"1 + 1"'
 #
 # Implement a basic calculator to evaluate a simple expression string.
@@ -39,20 +39,9 @@
 # Note: Do not use the eval built-in library function.
 # 
 #
-import re
 
+# @lc code=start
 class Solution:
-    def getSubExpr(self, s):
-        left = 1
-        x = []
-        while left != 0:
-            x.append(next(s))
-            if x[-1] == '(':
-                left += 1
-            elif x[-1] == ')':
-                left -= 1
-        return ''.join(x[:-1])
-
     def calculate(self, s: str) -> int:
 
         num, stack, sign = 0, [], '+'
@@ -64,7 +53,7 @@ class Solution:
             elif s[i] == '(':
                 num, skip = self.calculate(s[i+1:])
                 i += skip
-            elif s[i] in '+-*/)' or i == len(s)-1:
+            elif s[i] in '+-*/)' or i == len(s) - 1:
                 if sign == '+':
                     stack.append(num)
                 elif sign == '-':
@@ -73,34 +62,17 @@ class Solution:
                     stack.append(stack.pop() * num)
                 else:
                     last = stack.pop()
-                    if last > 0:
-                        stack.append(last // num)
-                    else:
-                        stack.append(-(-last // num))
+                    stack.append(last // num if last > 0 else -(-last // num))
 
                 if s[i] == ')':
                     return sum(stack), i + 1
+
                 num = 0
                 sign = s[i]
+
             i += 1
+
         return sum(stack)
-
-        """
-        s = iter(re.findall('\d+|\S', s))
-        operand, sign = 0, 1
-        total = 0
-        for token in s:
-            if token in '+-':
-                total += sign * operand
-                sign = [1, -1][token == '-']
-            elif token in '/*':
-                n = next(s)
-                n = self.calculate(self.getSubExpr(s)) if n == '(' else int(n)
-                operand = operand * n if token == '*' else operand // n
-            else:
-                operand = self.calculate(self.getSubExpr(s)) if token == '(' else int(token)
-        return total + sign * operand
-        """
-            
-
         
+# @lc code=end
+

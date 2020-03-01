@@ -65,7 +65,6 @@ class Solution:
                     last = stack.pop()
                 last.right = TreeNode(val)
                 stack.append(last.right)
-
         return root
 
 

@@ -67,20 +67,20 @@
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
 
-        color = {}
-        for node in range(len(graph)):
-            if node not in color:
-                stack = [node]
-                color[node] = 0
-                while stack:
-                    node = stack.pop()
-                    for nei in graph[node]:
-                        if nei not in color:
-                            stack.append(nei)
-                            color[nei] = color[node] ^ 1
-                        elif color[nei] == color[node]:
-                            return False
-        return True
+        # color = {}
+        # for node in range(len(graph)):
+        #     if node not in color:
+        #         stack = [node]
+        #         color[node] = 0
+        #         while stack:
+        #             node = stack.pop()
+        #             for nei in graph[node]:
+        #                 if nei not in color:
+        #                     stack.append(nei)
+        #                     color[nei] = color[node] ^ 1
+        #                 elif color[nei] == color[node]:
+        #                     return False
+        # return True
 
         # color = {}
         # def dfs(pos):
@@ -101,13 +101,12 @@ class Solution:
         #             return False
         # return True
 
-        # color = {}
-        # def dfs(x, c):
-        #     if x in color:
-        #         return c == color[x]
-        #     color[x] = c
-        #     return all(dfs(y, 1-c) for y in graph[x])
-        # return all(dfs(x, 0) for x in range(len(graph)) if x not in color)
-
+        color = {}
+        def dfs(x, c):
+            if x in color:
+                return c == color[x]
+            color[x] = c
+            return all(dfs(y, 1 - c) for y in graph[x])
+        return all(dfs(x, 0) for x in range(len(graph)) if x not in color)
         
 

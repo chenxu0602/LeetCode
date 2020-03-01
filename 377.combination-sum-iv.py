@@ -51,19 +51,12 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
 
-        """
-        dp = [1] + [0] * target
-        for x in range(target+1):
-            for y in nums:
-                if x + y <= target:
-                    dp[x+y] += dp[x]
-        return dp[target]
-        """
-
         dp = [1] + [0] * target
         for x in range(1, target+1):
             for y in nums:
                 if x >= y:
                     dp[x] += dp[x-y]
         return dp[target]
+
+
 

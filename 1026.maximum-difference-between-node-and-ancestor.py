@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/
 #
 # algorithms
-# Medium (60.92%)
-# Likes:    220
-# Dislikes: 13
-# Total Accepted:    15K
-# Total Submissions: 24.4K
+# Medium (62.73%)
+# Likes:    317
+# Dislikes: 17
+# Total Accepted:    21.1K
+# Total Submissions: 33.6K
 # Testcase Example:  '[8,3,10,1,6,null,14,null,null,4,7,13]'
 #
 # Given the root of a binary tree, find the maximum value V for which there
@@ -49,6 +49,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -59,34 +61,13 @@
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
 
-        """
         def dfs(node, low, high):
             if not node:
                 return high - low
-
             low, high = min(low, node.val), max(high, node.val)
             return max(dfs(node.left, low, high), dfs(node.right, low, high))
-
+        
         return dfs(root, float("inf"), float("-inf"))
-        """
-
-        mx = 0
-        stack = [[root, root.val, root.val]]
-        while stack:
-            tmp, cur_mx, cur_mn = stack.pop()
-            if tmp.val > cur_mx:
-                cur_mx = tmp.val
-            if tmp.val < cur_mn:
-                cur_mn = tmp.val
-            if cur_mx - cur_mn > mx:
-                mx = cur_mx - cur_mn
-
-            if tmp.left:
-                stack.append([tmp.left, cur_mx, cur_mn])
-            if tmp.right:
-                stack.append([tmp.right, cur_mx, cur_mn])
-
-        return mx
-
-
+        
+# @lc code=end
 

@@ -72,9 +72,8 @@ class Solution:
             '*7': 1, '*8': 1, '*9': 1, '1*': 9, '2*': 6, '**': 15}
 
         dp0, dp1 = 1, one.get(s[:1], 0)
-
         for i in range(1, len(s)):
-            dp0, dp1 = dp1, (one.get(s[i], 0) * dp1 + two.get(s[i-1:i+1], 0) * dp0) % (10**9 + 7)
+            dp0, dp1 = dp1, (one.get(s[i], 0)  * dp1 + two.get(s[i-1:i+1], 0) * dp0) % (10**9 + 7)
 
         return dp1
 

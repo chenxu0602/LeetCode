@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/frog-jump/description/
 #
 # algorithms
-# Hard (36.19%)
-# Likes:    525
-# Dislikes: 60
-# Total Accepted:    53K
-# Total Submissions: 145.7K
+# Hard (38.25%)
+# Likes:    750
+# Dislikes: 85
+# Total Accepted:    71K
+# Total Submissions: 185.6K
 # Testcase Example:  '[0,1,3,4,5,7,9,10,12]'
 #
 # A frog is crossing a river. The river is divided into x units and at each
@@ -60,61 +60,31 @@
 # 
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 
 class Solution:
-    """
     def canCross(self, stones: List[int]) -> bool:
-        map = {val: idx for idx, val in enumerate(stones)}
-        visited = {}
-        return self.jump(1, 1, stones[-1], map, visited)
+        # d = {x: set() for x in stones}
+        # if not stones[1] == 1: return False
+        # d[1].add(1)
 
-    def jump(self, current, last_step, goal, map, visited):
-        if current not in map:
-            return False
+        # for i in range(1, len(stones)):
+        #     for j in d[stones[i]]:
+        #         for k in range(j-1, j+2):
+        #             if k > 0 and stones[i] + k in d:
+        #                 d[stones[i] + k].add(k)
 
-        if current == goal:
-            return True
-
-        if (current, last_step) in visited:
-            return visited[(current, last_step)]
-
-        can_go_forward = False
-        for next_step in [last_step - 1, last_step, last_step + 1]:
-            if next_step > 0:
-                can_go_forward = can_go_forward or self.jump(current + next_step, next_step, goal, map, visited)
-        visited[(current, last_step)] = can_go_forward            
-
-        return can_go_forward
-    """
-
-
-    def canCross(self, stones: List[int]) -> bool:
-
-        """
-        d = {x: set() for x in stones}
-
-        if not stones[1] == 1: return False
-
-        d[1].add(1)
-
-        for i in range(1, len(stones)):
-            for j in d[stones[i]]:
-                for k in range(j-1, j+2):
-                    if k > 0 and stones[i] + k in d:
-                        d[stones[i]+k].add(k)
-
-        return not d[stones[-1]] == set()
-        """
+        # return not d[stones[-1]] == set()
 
         @lru_cache(None)
         def jump(stone, k):
-            return stone == stones[-1] or any(jump(stone+leap, leap)
-                for leap in range(max(1, k-1), k+2)[::-1] if (stone+leap) in stoneSet)
+            return stone == stones[-1] or any(jump(stone + leap, leap)
+                for leap in range(max(1, k-1), k+2)[::-1] if (stone + leap) in StoneSet)
 
-        stoneSet = set(stones)
+        StoneSet = set(stones)
         return jump(0, 0)
-
-
         
+# @lc code=end
 

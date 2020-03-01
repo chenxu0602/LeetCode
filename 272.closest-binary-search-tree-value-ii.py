@@ -54,7 +54,8 @@ from collections import deque
 
 class Solution:
     def closestKValues(self, root: TreeNode, target: float, k: int) -> List[int]:
-        stack, deq = [], deque()
+
+        stack, queue = [], deque([])
 
         while stack or root:
             if root:
@@ -63,17 +64,17 @@ class Solution:
             else:
                 root = stack.pop()
 
-                if len(deq) < k:
-                    deq.append(root.val)
-                elif abs(deq[0] - target) > abs(root.val - target):
-                    deq.popleft()
-                    deq.append(root.val)
+                if len(queue) < k:
+                    queue.append(root.val)
+                elif abs(queue[0] - target) > abs(root.val - target):
+                    queue.popleft()
+                    queue.append(root.val)
                 else:
                     break
 
                 root = root.right
 
-        return list(deq)
+        return list(queue)
 
                 
         

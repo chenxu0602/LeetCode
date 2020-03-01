@@ -54,6 +54,7 @@ import heapq
 
 class Solution:
     def rearrangeString(self, s: str, k: int) -> str:
+
         if k == 0: return s
         count, ans = Counter(s), []
         heap, q = [(-cnt, c) for c, cnt in count.most_common()], deque()

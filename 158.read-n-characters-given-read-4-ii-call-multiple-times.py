@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/description/
 #
 # algorithms
-# Hard (27.31%)
-# Likes:    349
-# Dislikes: 851
-# Total Accepted:    76.8K
-# Total Submissions: 268.1K
+# Hard (30.34%)
+# Likes:    414
+# Dislikes: 929
+# Total Accepted:    85.7K
+# Total Submissions: 282.2K
 # Testcase Example:  '"abc"\n[1,2,1]'
 #
 # Given a file and assume that you can only read the file using a given method
@@ -133,7 +133,6 @@ read4(buf) # read4 returns 4. Now buf = ['a','b','c','d'], fp points to 'e'
 read4(buf) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
 read4(buf) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
 """
-
 from collections import deque
 
 class Solution:

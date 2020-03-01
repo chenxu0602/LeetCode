@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/arithmetic-slices/description/
 #
 # algorithms
-# Medium (55.97%)
-# Likes:    607
-# Dislikes: 118
-# Total Accepted:    64.2K
-# Total Submissions: 114.8K
+# Medium (56.98%)
+# Likes:    786
+# Dislikes: 148
+# Total Accepted:    76.8K
+# Total Submissions: 134.8K
 # Testcase Example:  '[1,2,3,4]'
 #
 # A sequence of number is called arithmetic if it consists of at least three
@@ -43,12 +43,29 @@
 # 4] itself.
 # 
 #
+
+# @lc code=start
 class Solution:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
 
-        """
-        dp = 0
-        s = 0
+        # count, s = 0, 0
+        # for i in range(2, len(A)):
+        #     if A[i] - A[i-1] == A[i-1] - A[i-2]:
+        #         count += 1
+        #     else:
+        #         s += (count + 1) * count // 2
+        #         count = 0
+        # s += (count + 1) * count // 2
+        # return s
+
+        # dp = [0] * len(A)
+        # s = 0
+        # for i in range(2, len(A)):
+        #     if A[i] - A[i-1] == A[i-1] - A[i-2]:
+        #         dp[i] = 1 + dp[i-1]
+        # return sum(dp)
+
+        dp, s = 0, 0
         for i in range(2, len(A)):
             if A[i] - A[i-1] == A[i-1] - A[i-2]:
                 dp += 1
@@ -56,37 +73,7 @@ class Solution:
             else:
                 dp = 0
         return s
-        """
-
-        """
-        count = 0
-        for s in range(len(A)-2):
-            d = A[s+1] - A[s]
-            for e in range(s+2, len(A)):
-                if A[e] - A[e-1] == d:
-                    count += 1
-                else:
-                    break
-        return count
-        """
-
-        """
-        dp = [0] * len(A)
-        s = 0
-        for i in range(2, len(A)):
-            if A[i] - A[i-1] == A[i-1] - A[i-2]:
-                dp[i] = 1 + dp[i-1]
-                s += dp[i]
-        return s
-        """
-
-        count, s = 0, 0
-        for i in range(2, len(A)):
-            if A[i] - A[i-1] == A[i-1] - A[i-2]:
-                count += 1
-            else:
-                s += (count + 1) * count // 2
-                count = 0
-        s += (count + 1) * count // 2
-        return s
+        
+        
+# @lc code=end
 

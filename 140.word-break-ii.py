@@ -68,8 +68,27 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
 
-        # dp = [[""] for _ in range(len(s)+1)]
+        def check(s, words):
+            ok = [True]
+            for i in range(1, len(s) + 1):
+                ok += any(ok[j] and s[j:i] in wordDict for j in range(i)),
+            return ok[-1]
+        
+        def dfs(s, words, L):
+            if check(s, words):
+                if len(s) == 0:
+                    res.append(L[1:])
+                for i in range(1, len(s)+1):
+                    if s[:i] in words:
+                        dfs(s[i:], words, L+' '+s[:i])
+                        
+        res = []
+        dfs(s, wordDict, "")
+        return res
 
+
+        # dp = [[""] for _ in range(len(s)+1)]
+        
         # for i in range(1, len(s)+1):
         #     lst = []
         #     for j in range(i):
@@ -77,26 +96,10 @@ class Solution:
         #             for l in dp[j]:
         #                 new_elem = l + ' ' + s[j:i]
         #                 lst.append(new_elem.strip())
+                        
         #     dp[i] = lst
         # return dp[-1]
 
-        def check(s, words):
-            ok = [True]
-            for i in range(1, len(s)+1):
-                ok += any(ok[j] and s[j:i] in wordDict for j in range(i)),
-            return ok[-1]
-
-        def dfs(s, words, L):
-            if check(s, words):
-                if len(s) == 0:
-                    res.append(L[1:])
-                for i in range(1, len(s)+1):
-                    if s[:i] in words:
-                        dfs(s[i:], words, L + ' ' + s[:i])
-
-        res = []
-        dfs(s, wordDict, "")
-        return res
         
 # @lc code=end
 
