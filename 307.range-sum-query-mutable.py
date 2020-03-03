@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/range-sum-query-mutable/description/
 #
 # algorithms
-# Medium (28.78%)
-# Likes:    701
-# Dislikes: 59
-# Total Accepted:    72.7K
-# Total Submissions: 251.9K
+# Medium (32.10%)
+# Likes:    1031
+# Dislikes: 71
+# Total Accepted:    92.8K
+# Total Submissions: 288.5K
 # Testcase Example:  '["NumArray","sumRange","update","sumRange"]\n[[[1,3,5]],[0,2],[1,2],[0,2]]'
 #
 # Given an integer array nums, find the sum of the elements between indices i
@@ -38,11 +38,11 @@
 # 
 # 
 #
-class NumArray(object):
+
+# @lc code=start
+class NumArray:
 
     def __init__(self, nums: List[int]):
-#        self.update = nums.__setitem__
-#        self.sumRange = lambda i, j: sum(nums[i:j+1])
         self.n = len(nums)
         self.tree = [0] * (2 * self.n)
         self.buildTree(nums)
@@ -53,7 +53,7 @@ class NumArray(object):
             self.tree[i] = nums[j]
             i += 1
             j += 1
-        
+
         for i in range(self.n-1, 0, -1):
             self.tree[i] = self.tree[i*2] + self.tree[i*2+1]
 
@@ -69,7 +69,6 @@ class NumArray(object):
             self.tree[i // 2] = self.tree[left] + self.tree[right]
             i //= 2
         
-
     def sumRange(self, i: int, j: int) -> int:
         l, r, s = i + self.n, j + self.n, 0
         while l <= r:
@@ -79,15 +78,16 @@ class NumArray(object):
             if r % 2 == 0:
                 s += self.tree[r]
                 r -= 1
-
             l //= 2
             r //= 2
 
         return s
+        
 
 
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
 # obj.update(i,val)
 # param_2 = obj.sumRange(i,j)
+# @lc code=end
 

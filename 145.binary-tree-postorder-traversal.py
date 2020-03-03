@@ -42,32 +42,28 @@
 
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
-        # traversal, stack = [], [(root, False)]
+        # if not root: return []
+        # stack, output = [root,], []
         # while stack:
-        #     node, visited = stack.pop()
+        #     node = stack.pop()
         #     if node:
-        #         if visited:
-        #             traversal.append(node.val)
-        #         else:
-        #             stack.append((node, True))
-        #             stack.append((node.right, False))
-        #             stack.append((node.left, False))
+        #         output.append(node.val)
+        #         stack.append(node.left)
+        #         stack.append(node.right)
+        # return output[::-1]
 
-        # return traversal
-
-        if root is None:
-            return []
-
-        stack, output = [root,], []
+        output, stack = [], [(root, False)]
         while stack:
-            root = stack.pop()
-            output.append(root.val)
-            if root.left:
-                stack.append(root.left)
-            if root.right:
-                stack.append(root.right)
+            node, visited = stack.pop()
+            if node:
+                if visited:
+                    output.append(node.val)
+                else:
+                    stack.append((node, True))
+                    stack.append((node.right, False))
+                    stack.append((node.left, False))
 
-        return output[::-1]
+        return output
         
 # @lc code=end
 

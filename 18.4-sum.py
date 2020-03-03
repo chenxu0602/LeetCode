@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/4sum/description/
 #
 # algorithms
-# Medium (31.24%)
-# Likes:    1288
-# Dislikes: 259
-# Total Accepted:    268.2K
-# Total Submissions: 847.2K
+# Medium (32.47%)
+# Likes:    1536
+# Dislikes: 290
+# Total Accepted:    298.1K
+# Total Submissions: 915.8K
 # Testcase Example:  '[1,0,-1,0,-2,2]\n0'
 #
 # Given an array nums of n integers and an integer target, are there elements
@@ -38,7 +38,6 @@
 
 # @lc code=start
 class Solution:
-        
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         def findNSum(l, r, target, N, result, results):
             if r-l+1 < N or N < 2 or target < nums[l]*N or target > nums[r]*N:
@@ -59,17 +58,12 @@ class Solution:
             else:
                 for i in range(l, r+1):
                     if i == l or (i > l and nums[i-1] != nums[i]):
-                        findNSum(i+1, r, target-nums[i], N-1, result+[nums[i]], results)
-
+                        findNSum(i+1, r, target - nums[i], N - 1, result + [nums[i]], results)
 
         nums.sort()
         results = []
         findNSum(0, len(nums)-1, target, 4, [], results)
         return results
-
-
-
-
         
 # @lc code=end
 

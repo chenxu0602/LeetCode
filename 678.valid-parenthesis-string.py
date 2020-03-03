@@ -56,6 +56,7 @@
 #
 class Solution:
     def checkValidString(self, s: str) -> bool:
+
         lo = hi = 0
         for c in s:
             lo += 1 if c == '(' else -1

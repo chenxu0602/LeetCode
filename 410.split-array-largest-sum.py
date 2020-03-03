@@ -46,7 +46,6 @@
 # @lc code=start
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
-
         # n = len(nums)
         # sums = [0] * (n + 1)
         # for i, v in enumerate(nums):
@@ -55,8 +54,8 @@ class Solution:
         # dp = [[float("inf")] * (m + 1) for _ in range(n + 1)]
         # dp[0][0] = 0
 
-        # for i in range(1, n+1):
-        #     for j in range(1, m+1):
+        # for i in range(1, n + 1):
+        #     for j in range(1, m + 1):
         #         dp[i][j] = min([max(dp[k][j-1], sums[i] - sums[k]) for k in range(i)])
 
         # return dp[n][m]
@@ -73,7 +72,6 @@ class Solution:
         while l <= r:
             mid = (l + r) >> 1
             s, cnt = 0, 1
-
             for i in range(n):
                 if s + nums[i] > mid:
                     cnt += 1

@@ -57,24 +57,26 @@ class Solution:
 
         stack, queue = [], deque([])
 
-        while stack or root:
-            if root:
+        while root or stack:
+            while root:
                 stack.append(root)
                 root = root.left
+            root = stack.pop()
+
+            if len(queue) < k:
+                queue.append(root.val)
+            elif abs(queue[0] - target) > abs(root.val - target):
+                queue.popleft()
+                queue.append(root.val)
             else:
-                root = stack.pop()
+                break
 
-                if len(queue) < k:
-                    queue.append(root.val)
-                elif abs(queue[0] - target) > abs(root.val - target):
-                    queue.popleft()
-                    queue.append(root.val)
-                else:
-                    break
-
-                root = root.right
+            root = root.right
 
         return list(queue)
+
+            
+
 
                 
         

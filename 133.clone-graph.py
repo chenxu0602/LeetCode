@@ -102,17 +102,51 @@ class Node:
         self.val = val
         self.neighbors = neighbors
 """
+from collections import deque
+
 class Solution:
+    def __init__(self):
+        self.visited2 = {}
+
     def cloneGraph(self, node: 'Node') -> 'Node':
 
+        # if not node: return None
+        # if node in self.visited2: return self.visited2[node]
+
+        # clone_node = Node(node.val, [])
+        # self.visited2[node] = clone_node
+
+        # if node.neighbors:
+        #     clone_node.neighbors = [self.cloneGraph(n) for n in node.neighbors]
+
+        # return clone_node
+
+
+        # visited = {}
+        # def dfs(node):
+        #     if node and node not in visited:
+        #         newNode = Node(node.val, [])
+        #         visited[node] = newNode
+        #         newNode.neighbors = [visited.get(n) or dfs(n) for n in node.neighbors]
+        #         return newNode
+        # return dfs(node)
+
+
+        if not node: return node
         visited = {}
-        def dfs(node):
-            if node and node not in visited:
-                newNode = Node(node.val, [])
-                visited[newNode.val] = newNode
-                newNode.neighbors = [visited.get(n.val) or dfs(n) for n in node.neighbors]
-                return newNode
-        return dfs(node)
+        queue = deque([node])
+        visited[node] = Node(node.val, [])
+
+        while queue:
+            n = queue.popleft()
+            for neighbor in n.neighbors:
+                if neighbor not in visited:
+                    visited[neighbor] = Node(neighbor.val, [])
+                    queue.append(neighbor)
+                visited[n].neighbors.append(visited[neighbor])
+
+        return visited[node]
+        
         
         
 # @lc code=end

@@ -76,6 +76,7 @@ from collections import Counter
 
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
+
         t_count = Counter(target)
         A = [Counter(sticker) & t_count for sticker in stickers]
 
@@ -102,6 +103,7 @@ class Solution:
                     dp[now] = dp[state] + 1
 
         return dp[-1]
+
 
         
 # @lc code=end

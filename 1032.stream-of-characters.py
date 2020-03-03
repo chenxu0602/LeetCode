@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/stream-of-characters/description/
 #
 # algorithms
-# Hard (42.37%)
-# Likes:    137
-# Dislikes: 35
-# Total Accepted:    8.1K
-# Total Submissions: 18.4K
-# Testcase Example:  '["StreamChecker","query","query","query","query","query","query","query","query","query","query","query","query"]\n' +
+# Hard (46.21%)
+# Likes:    242
+# Dislikes: 51
+# Total Accepted:    14.4K
+# Total Submissions: 31.2K
+# Testcase Example:  '["StreamChecker","query","query","query","query","query","query","query","query","query","query","query","query"]\n' + '[[["cd","f","kl"]],["a"],["b"],["c"],["d"],["e"],["f"],["g"],["h"],["i"],["j"],["k"],["l"]]'
 #
 # Implement the StreamChecker class as follows:
 # 
@@ -60,31 +60,22 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 from functools import reduce
 
 class StreamChecker:
 
     def __init__(self, words: List[str]):
-        """
-        self.s = ""
-        self.dic = defaultdict(set)
-        for w in words:
-            self.dic[w[-1]].add(w)
-        """
-
         Trie = lambda: defaultdict(Trie)
-        self.trie = Trie()
-        for w in words:
-            reduce(dict.__getitem__, w, self.trie)['#'] = True
         self.waiting = []
+        self.trie = Trie()
+        for word in words:
+            reduce(dict.__getitem__, word, self.trie)['#'] = True
         
 
     def query(self, letter: str) -> bool:
-        """
-        self.s += letter
-        return any(self.s.endswith(w) for w in self.dic[letter])
-        """
 
         self.waiting = [node[letter] for node in self.waiting + [self.trie] if letter in node]
         return any('#' in node for node in self.waiting)
@@ -94,4 +85,5 @@ class StreamChecker:
 # Your StreamChecker object will be instantiated and called as such:
 # obj = StreamChecker(words)
 # param_1 = obj.query(letter)
+# @lc code=end
 

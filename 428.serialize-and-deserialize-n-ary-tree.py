@@ -7,10 +7,10 @@
 #
 # algorithms
 # Hard (57.41%)
-# Likes:    333
+# Likes:    336
 # Dislikes: 16
-# Total Accepted:    23.9K
-# Total Submissions: 41.6K
+# Total Accepted:    24.1K
+# Total Submissions: 41.9K
 # Testcase Example:  '[1,null,3,2,4,null,5,6]'
 #
 # Serialization is the process of converting a data structure or object into a
@@ -73,15 +73,17 @@ class Codec:
         :type root: Node
         :rtype: str
         """
+        # if not root: return []
+        # return [root.val, [self.serialize(c) for c in root.children]]
 
         serial = []
 
         def preorder(node):
-            if not node: return 
+            if not node: return
             serial.append(str(node.val))
             for child in node.children:
                 preorder(child)
-            serial.append("#")
+            serial.append('#')
 
         preorder(root)
         return " ".join(serial)
@@ -93,17 +95,19 @@ class Codec:
         :type data: str
         :rtype: Node
         """
+        # if not data: return None
+        # return Node(data[0], [self.deserialize(c) for c in data[1]])
 
         if not data: return None
         tokens = deque(data.split())
         root = Node(int(tokens.popleft()), [])
 
         def dfs(node):
-            if not tokens: return
+            if not tokens: return None
 
             while tokens[0] != '#':
-                value = tokens.popleft()
-                child = Node(int(value), [])
+                val = tokens.popleft()
+                child = Node(int(val), [])
                 node.children.append(child)
                 dfs(child)
 

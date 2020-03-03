@@ -51,8 +51,8 @@ class Solution:
 
         for cost in costs:
             colors = [cost[i] + min(colors[:i] + colors[i+1:], default=0) for i in range(k)]
-
         return min(colors) if colors else 0
+
         
 # @lc code=end
 

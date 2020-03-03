@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-height-trees/description/
 #
 # algorithms
-# Medium (30.18%)
-# Likes:    982
-# Dislikes: 60
-# Total Accepted:    65.4K
-# Total Submissions: 216.4K
+# Medium (31.43%)
+# Likes:    1480
+# Dislikes: 86
+# Total Accepted:    83.3K
+# Total Submissions: 264.7K
 # Testcase Example:  '4\n[[1,0],[1,2],[1,3]]'
 #
 # For an undirected graph with tree characteristics, we can choose any node as
@@ -68,85 +68,34 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
 
-        """
         if not edges or n == 1:
             return [0]
 
-        neighbors = defaultdict(dict)
-
-        for x, y in edges:
-            neighbors[x][y] = 1
-            neighbors[y][x] = 1
-
-        while len(neighbors) > 2:
-            leaves = [node for node in neighbors if len(neighbors[node]) == 1]
-
-            for node in leaves:
-                other = list(neighbors[node].keys())[0]
-                del neighbors[node]
-                del neighbors[other][node]
-
-        return list(neighbors.keys())
-        """
-
-        """
-        if not edges or n == 1:
-            return [0]
-
-        adj = [set() for _ in range(n)]
+        graph = defaultdict(set)
         for i, j in edges:
-            adj[i].add(j)
-            adj[j].add(i)
+            graph[i].add(j)
+            graph[j].add(i)
 
-        leaves = [i for i in range(n) if len(adj[i]) == 1]
+        leaves = [i for i in range(n) if len(graph[i]) == 1]
 
         while n > 2:
             n -= len(leaves)
             newLeaves = []
             for i in leaves:
-                j = adj[i].pop()
-                adj[j].remove(i)
-                if len(adj[j]) == 1:
+                j = graph[i].pop()
+                graph[j].remove(i)
+                if len(graph[j]) == 1:
                     newLeaves.append(j)
             leaves = newLeaves
-        return leaves
-        """
-
-        if not edges or n == 1:
-            return [0]
-
-        neighbors = [[0] * n for _ in range(n)]
-        for x, y in edges:
-            neighbors[x][y] = 1
-            neighbors[y][x] = 1
-
-        leaves = [i for i in range(n) if sum(neighbors[i]) == 1]
-        while n > 2:
-            n -= len(leaves)
-            newLeaves = []
-            for node in leaves:
-                other = neighbors[node].index(1)
-                neighbors[node][other] = 0
-                neighbors[other][node] = 0
-                if sum(neighbors[other]) == 1:
-                    newLeaves.append(other)
-            leaves = newLeaves
-
+        
         return leaves
         
-
-            
-
-
-
-
-        
-
-
-        
+# @lc code=end
 

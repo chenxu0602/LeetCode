@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/robot-room-cleaner/description/
 #
 # algorithms
-# Hard (65.15%)
-# Likes:    544
-# Dislikes: 31
-# Total Accepted:    26.6K
-# Total Submissions: 40.8K
-# Testcase Example:  '[[1,1,1,1,1,0,1,1],[1,1,1,1,1,0,1,1],[1,0,1,1,1,1,1,1],[0,0,0,1,0,0,0,0],[1,1,1,1,1,1,1,1]]\n' +
+# Hard (67.48%)
+# Likes:    782
+# Dislikes: 44
+# Total Accepted:    39.6K
+# Total Submissions: 58.7K
+# Testcase Example:  '[[1,1,1,1,1,0,1,1],[1,1,1,1,1,0,1,1],[1,0,1,1,1,1,1,1],[0,0,0,1,0,0,0,0],[1,1,1,1,1,1,1,1]]\n' + '1\n3'
 #
 # Given a robot cleaner in a room modeled as a grid.
 # 
@@ -80,6 +80,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # """
 # This is the robot's control interface.
 # You should not implement it, or speculate about its implementation
@@ -119,23 +121,6 @@ class Solution:
         :rtype: None
         """
 
-        # def dfs(robot, i, j, d, cleaned):
-        #     robot.clean()
-        #     cleaned.add((i, j))
-        #     left = True
-        #     for nd in ((d + k) % 4 for k in (3, 0, 1, 2)):
-        #         robot.turnLeft() if left else robot.turnRight()
-        #         di, dj = ((-1, 0), (0, -1), (1, 0), (0, 1))[nd]
-        #         if (i + di, j + dj) not in cleaned and robot.move():
-        #             dfs(robot, i + di, j + dj, nd, cleaned)
-        #             robot.move()
-        #             left = True
-        #         else:
-        #             left = False
-
-        # dfs(robot, 0, 0, 0, set())
-
-
         def go_back():
             robot.turnRight()
             robot.turnRight()
@@ -148,7 +133,7 @@ class Solution:
             robot.clean()
             for i in range(4):
                 new_d = (d + i) % 4
-                new_cell = (cell[0] + directions[new_d][0],
+                new_cell = (cell[0] + directions[new_d][0], \
                             cell[1] + directions[new_d][1])
                 if not new_cell in visited and robot.move():
                     dfs(new_cell, new_d)
@@ -159,6 +144,6 @@ class Solution:
         directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
         visited = set()
         dfs()
-                    
         
+# @lc code=end
 

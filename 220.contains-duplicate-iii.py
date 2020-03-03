@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/contains-duplicate-iii/description/
 #
 # algorithms
-# Medium (20.00%)
-# Likes:    791
-# Dislikes: 795
-# Total Accepted:    103.4K
-# Total Submissions: 511.7K
+# Medium (20.48%)
+# Likes:    904
+# Dislikes: 936
+# Total Accepted:    112K
+# Total Submissions: 546.7K
 # Testcase Example:  '[1,2,3,1]\n3\n0'
 #
 # Given an array of integers, find out whether there are two distinct indices i
@@ -56,16 +56,20 @@ class Solution:
 
         for i in range(n):
             m = nums[i] // w
-            if m in d:
-                return True
+
+            if m in d: return True
+
             if m - 1 in d and abs(nums[i] - d[m-1]) < w:
                 return True
+
             if m + 1 in d and abs(nums[i] - d[m+1]) < w:
                 return True
+            
             d[m] = nums[i]
 
             if i >= k:
-                del d[nums[i-k]//w]
+                del d[nums[i-k] // w]
+
         return False
         
 # @lc code=end

@@ -58,6 +58,7 @@ class Solution:
                     y += 1
                 best = max(best, y - x)
         return best
+
         
 # @lc code=end
 

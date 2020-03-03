@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/description/
 #
 # algorithms
-# Medium (32.07%)
-# Likes:    195
-# Dislikes: 460
-# Total Accepted:    17.8K
-# Total Submissions: 54.5K
+# Medium (34.14%)
+# Likes:    286
+# Dislikes: 708
+# Total Accepted:    29.4K
+# Total Submissions: 86.1K
 # Testcase Example:  '[3,9,20,null,null,15,7]'
 #
 # Given a binary tree, return the vertical order traversal of its nodes
@@ -79,13 +79,14 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
 from collections import defaultdict
 
 class Solution:
@@ -109,4 +110,5 @@ class Solution:
 
         return ans
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/description/
 #
 # algorithms
-# Hard (44.27%)
-# Likes:    613
-# Dislikes: 34
-# Total Accepted:    27.2K
-# Total Submissions: 61.6K
+# Hard (44.91%)
+# Likes:    744
+# Dislikes: 39
+# Total Accepted:    33K
+# Total Submissions: 73.4K
 # Testcase Example:  '[1,2,1,2,6,7,5,1]\n2'
 #
 # In a given array nums of positive integers, find three non-overlapping
@@ -47,15 +47,16 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], K: int) -> List[int]:
-
         W = []
         sum_ = 0
         for i, x in enumerate(nums):
             sum_ += x
             if i >= K: sum_ -= nums[i-K]
-            if i >= K-1: W.append(sum_)
+            if i >= K - 1: W.append(sum_)
 
         left = [0] * len(W)
         best = 0
@@ -72,15 +73,12 @@ class Solution:
             right[i] = best
 
         ans = None
-        for j in range(K, len(W) - K):
+        for j in range(K, len(W)-K):
             i, k = left[j-K], right[j+K]
             if ans is None or (W[i] + W[j] + W[k] > W[ans[0]] + W[ans[1]] + W[ans[2]]):
                 ans = i, j, k
 
         return ans
-
-
-
-
         
+# @lc code=end
 

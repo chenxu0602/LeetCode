@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/data-stream-as-disjoint-intervals/description/
 #
 # algorithms
-# Hard (43.53%)
-# Likes:    185
-# Dislikes: 57
-# Total Accepted:    24.4K
-# Total Submissions: 56K
-# Testcase Example:  '["SummaryRanges","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals"]\n' +
+# Hard (45.22%)
+# Likes:    275
+# Dislikes: 80
+# Total Accepted:    30.3K
+# Total Submissions: 66.9K
+# Testcase Example:  '["SummaryRanges","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals"]\n' + '[[],[1],[],[3],[],[7],[],[2],[],[6],[]]'
 #
 # Given a data stream input of non-negative integers a1, a2, ..., an, ...,
 # summarize the numbers seen so far as a list of disjoint intervals.
@@ -27,16 +27,17 @@
 # [1, 3], [6, 7]
 # 
 # 
+# 
+# 
 # Follow up:
+# 
 # What if there are lots of merges and the number of disjoint intervals are
 # small compared to the data stream's size?
 # 
-# NOTE: input types have been changed on April 15, 2019. Please reset to
-# default code definition to get new method signature.
-# 
 #
-import bisect
 
+# @lc code=start
+import bisect
 
 class SummaryRanges:
 
@@ -44,8 +45,8 @@ class SummaryRanges:
         """
         Initialize your data structure here.
         """
-
         self.intervals = []
+        
 
     def addNum(self, val: int) -> None:
         pos = bisect.bisect_right([i[0] for i in self.intervals], val) - 1
@@ -57,20 +58,21 @@ class SummaryRanges:
 
         if pos + 1 < len(self.intervals) and self.intervals[pos+1][0] == val + 1:
             self.intervals[pos][1] = self.intervals[pos+1][1]
-            self.intervals.pop(pos+1)
+            self.intervals.pop(pos + 1)
 
         if pos - 1 >= 0 and self.intervals[pos-1][1] == val - 1:
             self.intervals[pos-1][1] = self.intervals[pos][1]
             self.intervals.pop(pos)
+        
 
-
-    def getIntervals(self):
-
+    def getIntervals(self) -> List[List[int]]:
         return self.intervals
+        
 
 
 # Your SummaryRanges object will be instantiated and called as such:
 # obj = SummaryRanges()
 # obj.addNum(val)
 # param_2 = obj.getIntervals()
+# @lc code=end
 

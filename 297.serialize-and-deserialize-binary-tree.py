@@ -53,6 +53,7 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+from collections import deque
 
 class Codec:
 
@@ -63,18 +64,29 @@ class Codec:
         :rtype: str
         """
 
-        self.s = []
+        # self.s = []
 
-        def dfs(node):
-            if not node:
-                self.s.append('#')
-            else:
-                self.s.append(str(node.val))
-                dfs(node.left)
-                dfs(node.right)
+        # def dfs(node):
+        #     if not node:
+        #         self.s.append('#')
+        #     else:
+        #         self.s.append(str(node.val))
+        #         dfs(node.left)
+        #         dfs(node.right)
 
-        dfs(root)
-        return ','.join(self.s)
+        # dfs(root)
+        # return ','.join(self.s)
+
+        if not root: return ""
+        queue = deque([root,])
+        res = []
+        while queue:
+            node = queue.popleft()
+            if node:
+                queue.append(node.left)
+                queue.append(node.right)
+            res.append(str(node.val) if node else '#')
+        return ','.join(res)
         
 
     def deserialize(self, data):
@@ -84,18 +96,38 @@ class Codec:
         :rtype: TreeNode
         """
 
-        def dfs():
-            val = next(vals)
-            if val == '#':
-                return None
+        # def dfs():
+        #     val = next(vals)
+        #     if val == '#':
+        #         return None
 
-            node = TreeNode(int(val))
-            node.left = dfs()
-            node.right = dfs()
-            return node
+        #     node = TreeNode(int(val))
+        #     node.left = dfs()
+        #     node.right = dfs()
+        #     return node
 
+        # vals = iter(data.split(','))
+        # return dfs()
+
+        if not data: return None
         vals = iter(data.split(','))
-        return dfs()
+        root = TreeNode(next(vals))
+        queue = deque([root,])
+
+        while queue:
+            node = queue.popleft()
+            val = next(vals)
+            if val != '#':
+                node.left = TreeNode(int(val))
+                queue.append(node.left)
+
+            val = next(vals)
+            if val != '#':
+                node.right = TreeNode(int(val))
+                queue.append(node.right)
+
+        return root
+
 
         
 

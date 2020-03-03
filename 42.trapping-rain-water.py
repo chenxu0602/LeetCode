@@ -32,7 +32,7 @@
 # @lc code=start
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if not height or len(height) < 3:
+        if not height or len(height) < 3: 
             return 0
 
         volume = 0
@@ -50,6 +50,7 @@ class Solution:
                 right -= 1
 
         return volume
+
         
 # @lc code=end
 

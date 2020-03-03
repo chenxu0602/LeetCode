@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/3sum/description/
 #
 # algorithms
-# Medium (24.54%)
-# Likes:    4673
-# Dislikes: 550
-# Total Accepted:    668.6K
-# Total Submissions: 2.7M
+# Medium (25.63%)
+# Likes:    5516
+# Dislikes: 667
+# Total Accepted:    768K
+# Total Submissions: 3M
 # Testcase Example:  '[-1,0,1,2,-1,-4]'
 #
 # Given an array nums of n integers, are there elements a, b, c in nums such
@@ -31,7 +31,6 @@
 # ⁠ [-1, 0, 1],
 # ⁠ [-1, -1, 2]
 # ]
-# 
 # 
 #
 
@@ -58,7 +57,9 @@ class Solution:
                         l += 1
                     while l < r and nums[r] == nums[r-1]:
                         r -= 1
-                    l += 1; r -= 1
+
+                    l += 1
+                    r -= 1
 
         return res
         

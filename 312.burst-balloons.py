@@ -48,19 +48,21 @@ class Solution:
         # nums = [1] + nums + [1]
         # n = len(nums)
         # dp = [[0] * n for _ in range(n)]
-        
+
         # for gap in range(2, n):
         #     for i in range(n - gap):
         #         j = i + gap
         #         for k in range(i+1, j):
-        #             dp[i][j] = max(dp[i][j], nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j])
-                    
+        #             dp[i][j] = max(dp[i][j], nums[i]*nums[k]*nums[j] + dp[i][k] + dp[k][j])
+
         # return dp[0][n-1]
+
 
         # nums = [1] + nums + [1]
         # @lru_cache(None)
         # def dp(left, right):
-        #     if left + 1 == right: return 0
+        #     if left + 1 == right:
+        #         return 0
         #     return max(nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left+1, right))
         # return dp(0, len(nums)-1)
 
@@ -70,10 +72,9 @@ class Solution:
         dp = [[0] * n for _ in range(n)]
         for left in range(n-2, -1, -1):
             for right in range(left+2, n):
-                dp[left][right] = max(nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right] for i in range(left+1, right))
+                dp[left][right] = max(nums[left]*nums[i]*nums[right] + dp[left][i] + dp[i][right] for i in range(left+1, right))
+
         return dp[0][n-1]
-
-
         
 # @lc code=end
 

@@ -57,13 +57,21 @@ class Solution:
         if n < 0:
             x = 1.0 / x
             n = -n
-        pow = 1
-        while n:
-            if n & 1:
-                pow *= x
-            x *= x
-            n >>= 1
-        return pow
+
+        ans, cp, i = 1, x, n
+        while True:
+            if i % 2:
+                ans *= cp
+
+            i //= 2
+            cp *= cp
+
+            if i == 0:
+                break
+
+        return ans
+
+
         
         
 # @lc code=end

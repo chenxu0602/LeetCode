@@ -6,42 +6,66 @@
 # https://leetcode.com/problems/copy-list-with-random-pointer/description/
 #
 # algorithms
-# Medium (28.26%)
-# Likes:    1994
-# Dislikes: 505
-# Total Accepted:    292.4K
-# Total Submissions: 986.8K
-# Testcase Example:  '{"$id":"1","next":{"$id":"2","next":null,"random":{"$ref":"2"},"val":2},"random":{"$ref":"2"},"val":1}'
+# Medium (32.17%)
+# Likes:    2473
+# Dislikes: 570
+# Total Accepted:    341.4K
+# Total Submissions: 1.1M
+# Testcase Example:  '[[7,null],[13,0],[11,4],[10,2],[1,0]]\r'
 #
 # A linked list is given such that each node contains an additional random
 # pointer which could point to any node in the list or null.
 # 
 # Return a deep copy of the list.
 # 
+# The Linked List is represented in the input/output as a list of n nodes. Each
+# node is represented as a pair of [val, random_index] where:
+# 
+# 
+# val: an integer representing Node.val
+# random_index: the index of the node (range from 0 to n-1) where random
+# pointer points to, or null if it does not point to any node.
+# 
 # 
 # 
 # Example 1:
 # 
 # 
+# Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+# Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]
 # 
 # 
-# Input:
-# 
-# {"$id":"1","next":{"$id":"2","next":null,"random":{"$ref":"2"},"val":2},"random":{"$ref":"2"},"val":1}
-# 
-# Explanation:
-# Node 1's value is 1, both of its next and random pointer points to Node 2.
-# Node 2's value is 2, its next pointer points to null and its random pointer
-# points to itself.
+# Example 2:
 # 
 # 
+# Input: head = [[1,1],[2,1]]
+# Output: [[1,1],[2,1]]
 # 
 # 
-# Note:
+# Example 3:
 # 
 # 
-# You must return the copy of the given head as a reference to the cloned
-# list.
+# 
+# 
+# Input: head = [[3,null],[3,0],[3,null]]
+# Output: [[3,null],[3,0],[3,null]]
+# 
+# 
+# Example 4:
+# 
+# 
+# Input: head = []
+# Output: []
+# Explanation: Given linked list is empty (null pointer), so return null.
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# -10000 <= Node.val <= 10000
+# Node.random is null or pointing to a node in the linked list.
+# Number of Nodes will not exceed 1000.
 # 
 # 
 #
@@ -50,8 +74,8 @@
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, next, random):
-        self.val = val
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
         self.next = next
         self.random = random
 """
@@ -60,22 +84,41 @@ class Solution:
         self.visited = {}
 
     def copyRandomList(self, head: 'Node') -> 'Node':
-        if head is None:
+        # if head is None: return None
+        # if head in self.visited: return self.visited[head]
+
+        # node = Node(head.val, None, None)
+        # self.visited[head] = node
+
+        # node.next = self.copyRandomList(head.next)
+        # node.random = self.copyRandomList(head.random)
+
+        # return node
+
+
+        def getClonedNode(node):
+            if node:
+                if node in self.visited:
+                    return self.visited[node]
+                else:
+                    self.visited[node] = Node(node.val, None, Node)
+                    return self.visited[node]
             return None
 
-        if head in self.visited:
-            return self.visited[head]
+        if not head: return head
+        old_node = head
+        new_node = Node(old_node.val, None, None)
+        self.visited[old_node] = new_node
 
-        node = Node(head.val, None, None)
-        self.visited[head] = node
+        while old_node:
+            new_node.random = getClonedNode(old_node.random)
+            new_node.next = getClonedNode(old_node.next)
 
-        node.next = self.copyRandomList(head.next)
-        node.random = self.copyRandomList(head.random)
+            old_node = old_node.next
+            new_node = new_node.next
 
-        return node
+        return self.visited[head]
 
-
-        
 
         
 # @lc code=end

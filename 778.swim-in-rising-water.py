@@ -68,38 +68,46 @@ import heapq
 
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
+
+        # N = len(grid)
+        # seen = {(0, 0)}
+        # pq = [(grid[0][0], 0, 0)]
+        # ans = 0
+
+        # while pq:
+        #     d, r, c = heapq.heappop(pq)
+        #     ans = max(ans, d)
+        #     if r == c == N - 1: 
+        #         return ans
+        #     for cr, cc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
+        #         if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
+        #             heapq.heappush(pq, (grid[cr][cc], cr, cc))
+        #             seen.add((cr, cc))
+
         N = len(grid)
-        seen = {(0, 0)}
-        pq = [(grid[0][0], 0, 0)]
-        ans = 0
+        l, r = grid[0][0], N * N - 1
 
-        while pq:
-            d, r, c = heapq.heappop(pq)
-            ans = max(ans, d)
-            if r == c == N-1: return ans
-            for cr, cc in ((r-1, c), (r+1, c), (r, c-1), (r, c+1)):
-                if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
-                    heapq.heappush(pq, (grid[cr][cc], cr, cc))
-                    seen.add((cr, cc))
+        def reachable(T):
+            bfs = [(0, 0)]
+            seen = set((0, 0))
+            for r, c in bfs:
+                if grid[r][c] <= T:
+                    if r == c == N - 1:
+                        return True
+                    for cr, cc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
+                        if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
+                            seen.add((cr, cc))
+                            bfs.append((cr, cc))
 
-        """
-        N = len(grid)
-        l, r = 2*N-2, N*N
+        while l < r:
+            m = (l + r) // 2
+            if reachable(m):
+                r = m
+            else:
+                l = m + 1
 
-        def search(i, j):
-            if ele[i][j]:
-                return False
-            ele[i][j] = 1
-            if grid[i][j] <= ans:
-                if i == j == N - 1:
-                    return True
-                return any([search(a, b) for a, b in [(i-1, j), (i+1, j), (i, j-1), (i, j+1)] if 0 <= a < N and 0 <= b < N])
+        return r
 
-        for ans in range(max(l, grid[-1][-1]), r):
-            ele = [[0] * N for _ in range(N)]
-            if search(0, 0):
-                return ans
-        """
 
         
 

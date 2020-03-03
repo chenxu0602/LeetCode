@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/
 #
 # algorithms
-# Hard (39.80%)
-# Likes:    546
-# Dislikes: 18
-# Total Accepted:    76.5K
-# Total Submissions: 191.6K
+# Hard (42.48%)
+# Likes:    812
+# Dislikes: 26
+# Total Accepted:    107.1K
+# Total Submissions: 251.8K
 # Testcase Example:  '"eceba"\n2'
 #
 # Given a string, find the length of the longest substring T that contains at
@@ -35,8 +35,8 @@
 # 
 # 
 #
-from collections import OrderedDict
 
+# @lc code=start
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
 
@@ -51,21 +51,20 @@ class Solution:
         #     res = max(res, i - low + 1)
         # return res
 
+        from collections import OrderedDict
+
         n = len(s)
         if k == 0 or n == 0:
             return 0
 
         left, right = 0, 0
         hashmap = OrderedDict()
-
         max_len = 1
 
         while right < n:
             character = s[right]
-
             if character in hashmap:
                 del hashmap[character]
-
             hashmap[character] = right
             right += 1
 
@@ -76,10 +75,6 @@ class Solution:
             max_len = max(max_len, right - left)
 
         return max_len
-
-
-
-
-
         
+# @lc code=end
 
