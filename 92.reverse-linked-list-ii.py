@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reverse-linked-list-ii/description/
 #
 # algorithms
-# Medium (35.73%)
-# Likes:    1515
-# Dislikes: 105
-# Total Accepted:    219.9K
-# Total Submissions: 605.9K
+# Medium (37.21%)
+# Likes:    1842
+# Dislikes: 121
+# Total Accepted:    243K
+# Total Submissions: 651.3K
 # Testcase Example:  '[1,2,3,4,5]\n2\n4'
 #
 # Reverse a linked list from position m to n. Do it in one-pass.
@@ -36,64 +36,26 @@
 class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
 
-        """
-        if not head:
-            return None
-
-        left, right = head, head
-        stop = False
-
-        def recurseAndReverse(right, m, n):
-            nonlocal left, stop
-
-            if n == 1:
-                return 
-
-            right = right.next
-
-            if m > 1:
-                left = left.next
-
-            recurseAndReverse(right, m-1, n-1)
-
-            if left == right or right.next == left:
-                stop = True
-
-            if not stop:
-                left.val, right.val = right.val, left.val
-                left = left.next
-
-        recurseAndReverse(right, m, n)
-        return head
-        """
-
-        if not head:
-            return None
-
-        curr, prev = head, None
+        if not head: return None
+        cur, pre = head, None
         while m > 1:
-            prev = curr
-            curr = curr.next
-            m, n = m - 1, n - 1
+            pre, cur = cur, cur.next
+            m, n = m-1, n-1
 
-        tail, con = curr, prev
-
+        tail, con = cur, pre
         while n:
-            third = curr.next
-            curr.next = prev
-            prev = curr
-            curr = third
+            next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = next
             n -= 1
 
         if con:
-            con.next = prev
+            con.next = pre
         else:
-            head = prev
-
-        tail.next = curr
-
+            head = pre
+        tail.next = cur
         return head
-
         
 # @lc code=end
 

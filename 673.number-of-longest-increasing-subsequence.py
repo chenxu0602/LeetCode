@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-longest-increasing-subsequence/description/
 #
 # algorithms
-# Medium (33.84%)
-# Likes:    861
-# Dislikes: 60
-# Total Accepted:    33.2K
-# Total Submissions: 97.9K
+# Medium (34.87%)
+# Likes:    1096
+# Dislikes: 71
+# Total Accepted:    41.6K
+# Total Submissions: 119.2K
 # Testcase Example:  '[1,3,5,4,7]'
 #
 # 
@@ -41,12 +41,14 @@
 # guaranteed to be fit in 32-bit signed int.
 # 
 #
+
+# @lc code=start
 class Solution:
     def findNumberOfLIS(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n <= 1: return n
-        lengths = [0] * n
-        counts = [1] * n
+        N = len(nums)
+        if N <= 1: return N
+        lengths = [0] * N
+        counts = [1] * N
 
         for j, num in enumerate(nums):
             for i in range(j):
@@ -59,5 +61,7 @@ class Solution:
 
         longest = max(lengths)
         return sum(c for i, c in enumerate(counts) if lengths[i] == longest)
+
         
+# @lc code=end
 

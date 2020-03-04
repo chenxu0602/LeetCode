@@ -79,13 +79,15 @@
 # @lc code=start
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        start = rest = overall = 0
+
+        start = rest = overrall = 0
         for i in range(len(gas)):
             rest += gas[i] - cost[i]
-            overall += gas[i] - cost[i]
+            overrall += gas[i] - cost[i]
             if rest < 0:
                 rest, start = 0, i + 1
-        return start if overall >= 0 else -1
+
+        return start if overrall >= 0 else -1
         
 # @lc code=end
 

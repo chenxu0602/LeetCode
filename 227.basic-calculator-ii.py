@@ -75,5 +75,10 @@ class Solution:
         return int(sum(stack))
 
         
+                
+
+
+
+        
 # @lc code=end
 

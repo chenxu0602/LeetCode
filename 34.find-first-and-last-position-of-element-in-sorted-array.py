@@ -39,10 +39,27 @@ from bisect import bisect_left, bisect_right
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
 
-        i, j = bisect_left(nums, target), bisect_right(nums, target)
-        if i == j:
+        # i, j = bisect_left(nums, target), bisect_right(nums, target)
+        # if i == j:
+        #     return [-1, -1]
+        # return [i, j-1]
+
+        def extrem_insertion_index(nums, target, left):
+            lo, hi = 0, len(nums)
+            while lo < hi:
+                mi = lo + (hi - lo) // 2
+                if nums[mi] > target or (left and target == nums[mi]):
+                    hi = mi
+                else:
+                    lo = mi + 1
+            return lo
+
+        left_idx = extrem_insertion_index(nums, target, True)
+        if left_idx == len(nums) or nums[left_idx] != target:
             return [-1, -1]
-        return [i, j-1]
+
+        return [left_idx, extrem_insertion_index(nums, target, False)-1]
+
 
         
 # @lc code=end

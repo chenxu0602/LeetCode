@@ -55,7 +55,7 @@
 #
 
 # @lc code=start
-import bisect 
+import bisect
 
 class SnapshotArray:
 
@@ -64,18 +64,15 @@ class SnapshotArray:
         self.snap_id = 0
         self.length = length
         
-
     def set(self, index: int, val: int) -> None:
         self.A[index].append([self.snap_id, val])
-        
 
     def snap(self) -> int:
         self.snap_id += 1
         return self.snap_id - 1
-        
 
     def get(self, index: int, snap_id: int) -> int:
-        i = bisect.bisect_right(self.A[index], [snap_id + 1]) - 1
+        i = bisect.bisect_right(self.A[index], [snap_id+1]) - 1
         return self.A[index][i][1]
         
 

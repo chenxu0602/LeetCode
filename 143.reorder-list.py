@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reorder-list/description/
 #
 # algorithms
-# Medium (31.85%)
-# Likes:    1146
-# Dislikes: 81
-# Total Accepted:    177.2K
-# Total Submissions: 541.3K
+# Medium (34.11%)
+# Likes:    1370
+# Dislikes: 97
+# Total Accepted:    195.6K
+# Total Submissions: 572.8K
 # Testcase Example:  '[1,2,3,4]'
 #
 # Given a singly linked list L: L0→L1→…→Ln-1→Ln,
@@ -46,10 +46,10 @@ class Solution:
         """
 
         def _splitList(head):
-            slow = fast = head
+            fast = slow = head
             while fast and fast.next:
-                slow, fast = slow.next, fast.next.next
-
+                slow = slow.next
+                fast = fast.next.next
             mid = slow.next
             slow.next = None
             return head, mid
@@ -64,9 +64,8 @@ class Solution:
             return last
 
         def _mergeList(a, b):
-            tail = head = a 
+            tail = head = a
             a = a.next
-
             while b:
                 tail.next = b
                 tail = tail.next
@@ -80,6 +79,6 @@ class Solution:
         a, b = _splitList(head)
         b = _reverseList(b)
         head = _mergeList(a, b)
-
+        
 # @lc code=end
 

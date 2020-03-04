@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-k-pairs-with-smallest-sums/description/
 #
 # algorithms
-# Medium (33.86%)
-# Likes:    704
-# Dislikes: 57
-# Total Accepted:    68.2K
-# Total Submissions: 200.7K
+# Medium (35.36%)
+# Likes:    1027
+# Dislikes: 86
+# Total Accepted:    87.1K
+# Total Submissions: 245.6K
 # Testcase Example:  '[1,7,11]\n[2,4,6]\n3'
 #
 # You are given two integer arrays nums1 and nums2 sorted in ascending order
@@ -48,19 +48,15 @@
 #
 
 # @lc code=start
-from itertools import product, islice
-from heapq import nsmallest, merge
+import heapq, itertools
 
 class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        # return heapq.nsmallest(k, itertools.product(nums1, nums2), key=sum)
 
-        """
-        return nsmallest(k, product(nums1, nums2), key=sum)
-        """
-
-        streams = map(lambda u: ([u+v, u, v] for v in nums2), nums1)
-        stream = merge(*streams)
-        return [suv[1:] for suv in islice(stream, k)]
+        streams = map(lambda u: ([u + v, u, v] for v in nums2), nums1)
+        stream = heapq.merge(*streams)
+        return [suv[1:] for suv in itertools.islice(stream, k)]
         
 # @lc code=end
 
