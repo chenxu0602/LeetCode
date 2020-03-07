@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/description/
 #
 # algorithms
-# Medium (42.65%)
-# Likes:    366
-# Dislikes: 62
-# Total Accepted:    24.7K
-# Total Submissions: 58K
-# Testcase Example:  '{"$id":"1","child":null,"next":{"$id":"2","child":null,"next":{"$id":"3","child":{"$id":"7","child":null,"next":{"$id":"8","child":{"$id":"11","child":null,"next":{"$id":"12","child":null,"next":null,"prev":{"$ref":"11"},"val":12},"prev":null,"val":11},"next":{"$id":"9","child":null,"next":{"$id":"10","child":null,"next":null,"prev":{"$ref":"9"},"val":10},"prev":{"$ref":"8"},"val":9},"prev":{"$ref":"7"},"val":8},"prev":null,"val":7},"next":{"$id":"4","child":null,"next":{"$id":"5","child":null,"next":{"$id":"6","child":null,"next":null,"prev":{"$ref":"5"},"val":6},"prev":{"$ref":"4"},"val":5},"prev":{"$ref":"3"},"val":4},"prev":{"$ref":"2"},"val":3},"prev":{"$ref":"1"},"val":2},"prev":null,"val":1}'
+# Medium (48.84%)
+# Likes:    818
+# Dislikes: 127
+# Total Accepted:    59.2K
+# Total Submissions: 120.1K
+# Testcase Example:  '[1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]\r'
 #
 # You are given a doubly linked list which in addition to the next and previous
 # pointers, it could have a child pointer, which may or may not point to a
@@ -23,38 +23,91 @@
 # linked list. You are given the head of the first level of the list.
 # 
 # 
+# Example 1:
 # 
-# Example:
+# 
+# Input: head = [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+# Output: [1,2,3,7,8,11,12,9,10,4,5,6]
+# Explanation:
+# 
+# The multilevel linked list in the input is as follows:
 # 
 # 
-# Input:
+# 
+# After flattening the multilevel linked list it becomes:
+# 
+# 
+# 
+# 
+# Example 2:
+# 
+# 
+# Input: head = [1,2,null,3]
+# Output: [1,3,2]
+# Explanation:
+# 
+# The input multilevel linked list is as follows:
+# 
+# ⁠ 1---2---NULL
+# ⁠ |
+# ⁠ 3---NULL
+# 
+# 
+# Example 3:
+# 
+# 
+# Input: head = []
+# Output: []
+# 
+# 
+# 
+# 
+# How multilevel linked list is represented in test case:
+# 
+# We use the multilevel linked list from Example 1 above:
+# 
+# 
 # ⁠1---2---3---4---5---6--NULL
 # ⁠        |
 # ⁠        7---8---9---10--NULL
 # ⁠            |
 # ⁠            11--12--NULL
 # 
-# Output:
-# 1-2-3-7-8-11-12-9-10-4-5-6-NULL
+# The serialization of each level is as follows:
 # 
 # 
+# [1,2,3,4,5,6,null]
+# [7,8,9,10,null]
+# [11,12,null]
 # 
 # 
-# Explanation for the above example:
-# 
-# Given the following multilevel doubly linked list:
-# 
-# 
+# To serialize all levels together we will add nulls in each level to signify
+# no node connects to the upper node of the previous level. The serialization
+# becomes:
 # 
 # 
+# [1,2,3,4,5,6,null]
+# [null,null,7,8,9,10,null]
+# [null,11,12,null]
 # 
 # 
-# We should return the following flattened doubly linked list:
+# Merging the serialization of each level and removing trailing nulls we
+# obtain:
 # 
 # 
+# [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+# 
+# 
+# Constraints:
+# 
+# 
+# Number of Nodes will not exceed 1000.
+# 1 <= Node.val <= 10^5
 # 
 # 
 #
+
+# @lc code=start
 """
 # Definition for a Node.
 class Node:
@@ -66,30 +119,9 @@ class Node:
 """
 class Solution:
     def flatten(self, head: 'Node') -> 'Node':
-
-        """
         if not head: return None
-        def dfs(node):
-            while node:
-                q = node.next
-                if not q: tail = node
-                if node.child:
-                    node.next = node.child
-                    node.child.prev = node
-                    t = dfs(node.child)
-                    if q:
-                        q.prev = t
-                    t.next = q
-                    node.child = None
-                node = node.next
-            return tail
+        stack, p = [head], None
 
-        dfs(head)
-        return head
-        """
-
-        if not head: return None
-        stack = [head]; p = None
         while stack:
             r = stack.pop()
             if p:
@@ -100,9 +132,7 @@ class Solution:
             if r.child:
                 stack.append(r.child)
                 r.child = None
-
         return head
-
-
         
+# @lc code=end
 

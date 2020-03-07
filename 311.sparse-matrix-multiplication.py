@@ -57,10 +57,13 @@ class Solution:
         r = [[0] * n for _ in range(m)]
 
         A, B = map(compress, (A, B))
-        [r[rowA].__setitem__(colB, r[rowA][colB] + numA * numB)
+
+        [
+            r[rowA].__setitem__(colB, r[rowA][colB] + numA * numB)
             for rowA, colA, numA in A
             for rowB, colB, numB in B if colA == rowB
         ]
+
 
         return r
         

@@ -41,6 +41,7 @@ class Solution:
                 res[cur] = i - cur
             stack.append(i)
         return res
+
         
 # @lc code=end
 

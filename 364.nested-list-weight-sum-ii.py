@@ -96,7 +96,6 @@ class Solution:
         def dfs(nestedL, prev=0):
             isum = prev
             ilist = []
-
             for i in nestedL:
                 if i.isInteger():
                     isum += i.getInteger()
@@ -107,6 +106,7 @@ class Solution:
             return isum + lsum
 
         return dfs(nestedList)
+
         
 # @lc code=end
 

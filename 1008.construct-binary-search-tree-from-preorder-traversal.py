@@ -54,20 +54,35 @@
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
 
-        root = TreeNode(preorder[0])
-        stack = [root,]
-        for val in preorder[1:]:
-            if val < stack[-1].val:
-                stack[-1].left = TreeNode(val)
-                stack.append(stack[-1].left)
-            else:
-                while stack and stack[-1].val < val:
-                    last = stack.pop()
-                last.right = TreeNode(val)
-                stack.append(last.right)
-        return root
+        # root = TreeNode(preorder[0])
+        # stack = [root,]
+        # for val in preorder[1:]:
+        #     if val < stack[-1].val:
+        #         stack[-1].left = TreeNode(val)
+        #         stack.append(stack[-1].left)
+        #     else:
+        #         while stack and stack[-1].val < val:
+        #             last = stack.pop()
+        #         last.right = TreeNode(val)
+        #         stack.append(last.right)
+        # return root
 
+        def dfs(lower=float("-inf"), upper=float("inf")):
+            nonlocal idx
+            if idx == n: return None
 
+            val = preorder[idx]
+            if val < lower or val > upper:
+                return None
+
+            idx += 1
+            root = TreeNode(val)
+            root.left = dfs(lower, val)
+            root.right = dfs(val, upper) 
+            return root
+
+        idx, n = 0, len(preorder)
+        return dfs()
         
 # @lc code=end
 

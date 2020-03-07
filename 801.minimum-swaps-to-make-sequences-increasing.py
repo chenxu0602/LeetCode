@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/description/
 #
 # algorithms
-# Medium (35.50%)
-# Likes:    560
-# Dislikes: 32
-# Total Accepted:    15.9K
-# Total Submissions: 44.7K
+# Medium (37.91%)
+# Likes:    818
+# Dislikes: 60
+# Total Accepted:    25.2K
+# Total Submissions: 66.4K
 # Testcase Example:  '[1,3,5,4]\n[1,2,3,7]'
 #
 # We have two integer sequences A and B of the same non-zero length.
@@ -45,20 +45,23 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minSwap(self, A: List[int], B: List[int]) -> int:
         n1, s1 = 0, 1
+
         for i in range(1, len(A)):
             n2 = s2 = float("inf")
             if A[i-1] < A[i] and B[i-1] < B[i]:
-                n2 = min(n2, n1)
-                s2 = min(s2, s1 + 1)
+                n2 = n1
+                s2 = s1 + 1
             if A[i-1] < B[i] and B[i-1] < A[i]:
                 n2 = min(n2, s1)
                 s2 = min(s2, n1 + 1)
 
             n1, s1 = n2, s2
-
         return min(n1, s1)
         
+# @lc code=end
 

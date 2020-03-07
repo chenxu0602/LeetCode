@@ -47,31 +47,29 @@
 # @lc code=start
 class Solution:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
-
-        # count, s = 0, 0
+        # dp, s = 0, 0
         # for i in range(2, len(A)):
         #     if A[i] - A[i-1] == A[i-1] - A[i-2]:
-        #         count += 1
+        #         dp += 1
+        #         s += dp
         #     else:
-        #         s += (count + 1) * count // 2
-        #         count = 0
-        # s += (count + 1) * count // 2
+        #         dp = 0
         # return s
 
         # dp = [0] * len(A)
-        # s = 0
         # for i in range(2, len(A)):
         #     if A[i] - A[i-1] == A[i-1] - A[i-2]:
         #         dp[i] = 1 + dp[i-1]
         # return sum(dp)
 
-        dp, s = 0, 0
+        count, s = 0, 0
         for i in range(2, len(A)):
             if A[i] - A[i-1] == A[i-1] - A[i-2]:
-                dp += 1
-                s += dp
+                count += 1
             else:
-                dp = 0
+                s += (count + 1) * count // 2
+                count = 0
+        s += (count + 1) * count // 2
         return s
         
         

@@ -111,5 +111,5 @@ class Solution:
                     if nei not in seen:
                         seen.add(nei)
                         queue.append(nei)
-        
+
 

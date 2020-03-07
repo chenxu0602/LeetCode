@@ -70,20 +70,16 @@ class Solution:
         stack = deque(i for i, val in enumerate(v) if not val)
 
         res = []
-
         while stack:
             top = stack.pop()
             for node in graph[top]:
                 v[node] -= 1
                 if not v[node]:
                     stack.append(node)
-                    
             del graph[top]
             res.append(top)
 
         return res if not bool(graph) else []
-
-
         
 # @lc code=end
 

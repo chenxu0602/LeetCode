@@ -80,18 +80,17 @@
 #
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
-        """
-        n, plans, days = max(days) + 1, [1, 7, 30], set(days)
-        dp = [0] * n
-        for i in range(1, n):
-            dp[i] = min((dp[max(0, i-p)]+c for p, c in zip(plans, costs))) if i in days else dp[i-1]
-        return dp[n-1]
-        """
+
+        # n, plans, days = max(days) + 1, [1, 7, 30], set(days)
+        # dp = [0] * n
+        # for i in range(1, n):
+        #     dp[i] = min((dp[max(0, i-p)] + c for p, c in zip(plans, costs))) if i in days else dp[i-1]
+        # return dp[-1]
 
         dp, prev, plans = [0] * (max(days) + 1), 0, [1, 7, 30]
         for curr in days:
             dp[prev:curr] = [dp[prev]] * (curr - prev)
-            dp[curr], prev = min(dp[max(curr-p, 0)] + c for p, c in zip(plans, costs)), curr
+            dp[curr], prev = min(dp[max(curr - p, 0)] + c for p, c in zip(plans, costs)), curr
         return dp[-1]
         
 

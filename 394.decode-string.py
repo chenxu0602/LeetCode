@@ -41,7 +41,8 @@
 # @lc code=start
 class Solution:
     def decodeString(self, s: str) -> str:
-        stack, curNum, curString = [], 0, ""
+
+        stack, curNum, curString = [], 0, ''
 
         for c in s:
             if c == '[':
@@ -49,8 +50,8 @@ class Solution:
                 stack.append(curNum)
                 curString, curNum = "", 0
             elif c == ']':
-                num, prevString = stack.pop(), stack.pop()
-                curString = prevString + num * curString
+                num, preString = stack.pop(), stack.pop()
+                curString = preString + num * curString
             elif c.isdigit():
                 curNum = curNum * 10 + int(c)
             else:

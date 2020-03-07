@@ -56,6 +56,12 @@
 class Solution:
     def str2tree(self, s: str) -> TreeNode:
 
+        # def t(val, left=None, right=None):
+        #     node, node.left, node.right = TreeNode(val), left, right
+        #     return node
+        # return eval("t(" + s.replace("(", ",t(") + ")") if s else None
+
+
         def dfs(s, i):
             start = i
             while i < len(s) and (s[i] == '-' or s[i].isdigit()):
@@ -72,9 +78,11 @@ class Solution:
                 i += 1
             return node, i
 
-        if not s or len(s) == 0: return None
+        if not s or len(s) == 0: 
+            return None
         root, _ = dfs(s, 0)
         return root
+
         
 # @lc code=end
 

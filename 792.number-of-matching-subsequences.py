@@ -55,5 +55,6 @@ class Solution:
                 waiting[next(it, None)].append(it)
 
         return len(waiting[None])
+
         
 

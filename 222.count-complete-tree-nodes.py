@@ -48,30 +48,24 @@ class Solution:
     def countNodes(self, root: TreeNode) -> int:
 #        return 1 + self.countNodes(root.left) + self.countNodes(root.right) if root else 0
 
-        """
-        def getDepth(root):
-            if not root:
-                return 0
+        # def getDepth(root):
+        #     if not root: return 0
+        #     return 1 + getDepth(root.left)
 
-            return 1 + getDepth(root.left)
+        # if not root:
+        #     return 0
 
-        if not root:
-            return 0
+        # leftDepth, rightDepth = map(getDepth, (root.left, root.right))
+        # if leftDepth == rightDepth:
+        #     return pow(2, leftDepth) + self.countNodes(root.right)
+        # else:
+        #     return pow(2, rightDepth) + self.countNodes(root.left)
 
-        leftDepth = getDepth(root.left)
-        rightDepth = getDepth(root.right)
-
-        if leftDepth == rightDepth:
-            return pow(2, leftDepth) + self.countNodes(root.right)
-        else:
-            return pow(2, rightDepth) + self.countNodes(root.left)
-        """
-
-        def getHeight(root):
+        def getHeight(node):
             height = 0
-            while root:
+            while node:
                 height += 1
-                root = root.left
+                node = node.left
             return height
 
         count = 0
@@ -85,6 +79,8 @@ class Solution:
                 root = root.left
 
         return count
+            
+
 
         
 # @lc code=end

@@ -59,15 +59,14 @@
 class Solution:
     def missingElement(self, nums: List[int], k: int) -> int:
 
-        # low, high = 0, len(nums) - 1
-        # while low < high:
-        #     mid = (low + high + 1) // 2
-        #     if nums[mid] - nums[0] - mid < k:
-        #         low = mid
-        #     else:
-        #         high = mid - 1
-
-        # return nums[0] + low + k
+        low, high = 0, len(nums) - 1
+        while low < high:
+            mid = (low + high + 1) // 2
+            if nums[mid] - nums[0] - mid < k:
+                low = mid
+            else:
+                high = mid - 1
+        return nums[0] + low + k
 
         # missing = lambda idx: nums[idx] - nums[0] - idx
         # n = len(nums)
@@ -80,20 +79,20 @@ class Solution:
 
         # return nums[idx-1] + k - missing(idx-1)
 
-        missing = lambda idx: nums[idx] - nums[0] - idx
-        n = len(nums)
-        if k > missing(n-1):
-            return nums[-1] + k - missing(n-1)
+        # missing = lambda idx: nums[idx] - nums[0] - idx
+        # n = len(nums)
+        # if k > missing(n-1):
+        #     return nums[-1] + k - missing(n-1)
 
-        left, right = 0, n-1
-        while left < right:
-            pivot = left + (right - left) // 2
-            if missing(pivot) < k:
-                left = pivot + 1
-            else:
-                right = pivot
+        # left, right = 0, n-1
+        # while left < right:
+        #     pivot = left + (right - left) // 2
+        #     if missing(pivot) < k:
+        #         left = pivot + 1
+        #     else:
+        #         right = pivot
 
-        return nums[left-1] + k - missing(left-1)
+        # return nums[left-1] + k - missing(left-1)
 
 
 

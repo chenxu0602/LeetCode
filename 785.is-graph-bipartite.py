@@ -106,7 +106,8 @@ class Solution:
             if x in color:
                 return c == color[x]
             color[x] = c
-            return all(dfs(y, 1 - c) for y in graph[x])
+            return all(dfs(y, 1-c) for y in graph[x])
         return all(dfs(x, 0) for x in range(len(graph)) if x not in color)
+
         
 

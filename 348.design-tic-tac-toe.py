@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-tic-tac-toe/description/
 #
 # algorithms
-# Medium (49.83%)
-# Likes:    382
-# Dislikes: 31
-# Total Accepted:    48.2K
-# Total Submissions: 96.4K
-# Testcase Example:  '["TicTacToe","move","move","move","move","move","move","move"]\n' +
+# Medium (52.59%)
+# Likes:    605
+# Dislikes: 41
+# Total Accepted:    73.5K
+# Total Submissions: 139.7K
+# Testcase Example:  '["TicTacToe","move","move","move","move","move","move","move"]\n' + '[[3],[0,0,1],[0,2,2],[2,2,1],[1,1,2],[2,0,1],[1,0,2],[2,1,1]]'
 #
 # Design a Tic-tac-toe game that is played between two players on a n x n
 # grid.
@@ -73,6 +73,8 @@
 # Could you do better than O(n^2) per move() operation?
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class TicTacToe:
@@ -81,24 +83,32 @@ class TicTacToe:
         """
         Initialize your data structure here.
         """
-
         self.size = n
         self.count = Counter()
         
 
     def move(self, row: int, col: int, player: int) -> int:
+        """
+        Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins.
+        """
 
         for i, x in enumerate((row, col, row+col, row-col)):
             self.count[i, x, player] += 1
             if self.count[i, x, player] == self.size:
                 return player
         return 0
-
-    
         
 
 
 # Your TicTacToe object will be instantiated and called as such:
 # obj = TicTacToe(n)
 # param_1 = obj.move(row,col,player)
+# @lc code=end
 

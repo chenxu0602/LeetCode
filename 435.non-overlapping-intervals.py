@@ -75,12 +75,12 @@ class Solution:
 
         if not len(intervals) > 0: return 0
         intervals.sort(key=lambda x: x[1])
-        end, count = float("-inf"), 0
+        end = float("-inf")
+        count = 0
         for i in range(len(intervals)):
             if intervals[i][0] >= end:
                 end = intervals[i][1]
                 count += 1
-
         return len(intervals) - count
 
         

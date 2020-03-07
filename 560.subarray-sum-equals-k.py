@@ -39,8 +39,9 @@ class Solution:
         for i in nums:
             p += i
             if p - k in d:
-                count += d[p-k]
+                count += d[p - k]
             d[p] = d.get(p, 0) + 1
         return count
+
         
 

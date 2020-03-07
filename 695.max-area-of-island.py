@@ -48,6 +48,7 @@
 # @lc code=start
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
         seen = set()
         def area(r, c):
             if not (0 <= r < len(grid) and 0 <= c < len(grid[0]) and (r, c) not in seen and grid[r][c]):

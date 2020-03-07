@@ -90,7 +90,9 @@ class Solution:
                         if row[c2]:
                             ans += count[c1, c2]
                             count[c1, c2] += 1
+
         return ans
+
         
 # @lc code=end
 

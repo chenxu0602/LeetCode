@@ -76,6 +76,7 @@
 
 class Solution:
     def checkEqualTree(self, root: TreeNode) -> bool:
+
         seen = []
 
         def sum_(node):
@@ -84,7 +85,7 @@ class Solution:
             return seen[-1]
 
         total = sum_(root)
-        seen.pop()
+        seen.pop()   # in case of zero
         return total / 2.0 in seen
         
 

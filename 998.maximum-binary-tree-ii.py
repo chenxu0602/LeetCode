@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-binary-tree-ii/description/
 #
 # algorithms
-# Medium (61.63%)
-# Likes:    96
-# Dislikes: 245
-# Total Accepted:    10.4K
-# Total Submissions: 16.9K
+# Medium (62.01%)
+# Likes:    135
+# Dislikes: 302
+# Total Accepted:    13.1K
+# Total Submissions: 21K
 # Testcase Example:  '[4,1,3,null,null,2]\n5'
 #
 # We are given the root node of a maximum tree: a tree where every node has a
@@ -80,6 +80,8 @@
 # 1 <= B.length <= 100
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -90,16 +92,24 @@
 class Solution:
     def insertIntoMaxTree(self, root: TreeNode, val: int) -> TreeNode:
 
-        """
+        # if not root: return TreeNode(val)
+
+        # if val > root.val:
+        #     node = TreeNode(val)
+        #     node.left = root
+        #     return node
+        # else:
+        #     root.right = self.insertIntoMaxTree(root.right, val)
+        #     return root
+
         if root.val < val:
             node = TreeNode(val)
             node.left = root
             return node
 
-        curr = root
+        prev, curr = None, root
         while curr and curr.val > val:
-            prev = curr
-            curr = curr.right
+            prev, curr = curr, curr.right
 
         if not curr:
             prev.right = TreeNode(val)
@@ -109,17 +119,7 @@ class Solution:
             node.left = curr
 
         return root
-        """
-
-        if not root:
-            return TreeNode(val)
-
-        if val > root.val:
-            node = TreeNode(val)
-            node.left = root
-            return node
-        else:
-            root.right = self.insertIntoMaxTree(root.right, val)
-            return root
         
+        
+# @lc code=end
 

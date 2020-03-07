@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-width-of-binary-tree/description/
 #
 # algorithms
-# Medium (39.50%)
-# Likes:    691
-# Dislikes: 134
-# Total Accepted:    36.6K
-# Total Submissions: 92.7K
+# Medium (39.55%)
+# Likes:    916
+# Dislikes: 203
+# Total Accepted:    48.1K
+# Total Submissions: 121.5K
 # Testcase Example:  '[1,3,2,5,3,null,9]'
 #
 # Given a binary tree, write a function to get the maximum width of the given
@@ -91,6 +91,8 @@
 # Note: Answer will in the range of 32-bit signed integer.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -100,33 +102,19 @@
 
 class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
-        """
-        queue = [(root, 0, 0),]
-        cur_depth = left = ans = 0
-
-        for node, depth, pos in queue:
-            if node:
-                queue.append((node.left, depth+1, pos*2))
-                queue.append((node.right, depth+1, pos*2+1))
-                if cur_depth != depth:
-                    cur_depth = depth
-                    left = pos
-                ans = max(ans, pos-left+1)
-
-        return ans
-        """
 
         self.ans = 0
         left = {}
+
         def dfs(node, depth=0, pos=0):
             if node:
                 left.setdefault(depth, pos)
                 self.ans = max(self.ans, pos - left[depth] + 1)
-                dfs(node.left, depth+1, pos*2)
-                dfs(node.right, depth+1, pos*2+1)
+                dfs(node.left, depth + 1, pos * 2)
+                dfs(node.right, depth + 1, pos * 2 + 1)
 
         dfs(root)
         return self.ans
-
         
+# @lc code=end
 

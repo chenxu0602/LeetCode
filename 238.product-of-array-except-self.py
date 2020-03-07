@@ -23,18 +23,19 @@ class Solution:
         # return answer
 
         n = len(nums)
-        answers = [0] * n
-        answers[0] = 1
+        answer = [0] * n
+        answer[0] = 1
 
         for i in range(1, n):
-            answers[i] = nums[i-1] * answers[i-1]
+            answer[i] = nums[i-1] * answer[i-1]
 
         R = 1
         for i in range(n-1, -1, -1):
-            answers[i] *= R
+            answer[i] *= R
             R *= nums[i]
 
-        return answers
+        return answer
+
 
         
 

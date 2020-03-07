@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/insert-into-a-binary-search-tree/description/
 #
 # algorithms
-# Medium (76.28%)
-# Likes:    390
-# Dislikes: 47
-# Total Accepted:    53.9K
-# Total Submissions: 70.3K
+# Medium (78.68%)
+# Likes:    636
+# Dislikes: 64
+# Total Accepted:    86.1K
+# Total Submissions: 109.1K
 # Testcase Example:  '[4,2,7,1,3]\n5'
 #
 # Given the root node of a binary search tree (BST) and a value to be inserted
@@ -56,6 +56,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -65,17 +67,12 @@
 
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
-        """
-        if not root:
-            return TreeNode(val)
-
-        if val > root.val:
-            root.right = self.insertIntoBST(root.right, val)
-        else:
-            root.left = self.insertIntoBST(root.left, val)
-
-        return root
-        """
+        # if not root: return TreeNode(val)
+        # if val > root.val:
+        #     root.right = self.insertIntoBST(root.right, val)
+        # else:
+        #     root.left = self.insertIntoBST(root.left, val)
+        # return root
 
         node = root
         while node:
@@ -91,8 +88,8 @@ class Solution:
                     return root
                 else:
                     node = node.left
+
         return TreeNode(val)
-
-
         
+# @lc code=end
 

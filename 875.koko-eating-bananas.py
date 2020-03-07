@@ -72,6 +72,7 @@
 #
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
+
         def possible(K):
             return sum((p-1) // K + 1 for p in piles) <= H
 
@@ -83,5 +84,6 @@ class Solution:
             else:
                 hi = mi
         return lo
+
         
 

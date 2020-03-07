@@ -66,8 +66,9 @@ class Solution:
 
 #        return "".join(sorted(T, key=S.find))
 
-        ordering = defaultdict(lambda: -1, ((v, k) for (k, v) in enumerate(S)))
+        ordering = defaultdict(lambda: -1, ((v, k) for k, v in enumerate(S)))
         return "".join(sorted(T, key=ordering.__getitem__))
+
         
 # @lc code=end
 

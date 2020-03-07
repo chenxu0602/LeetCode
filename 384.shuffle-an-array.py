@@ -61,12 +61,12 @@ class Solution:
         """
         Fisher-Yates Algorithm
         """
-        
+
         for i in range(len(self.array)):
             swap_idx = randrange(i, len(self.array))
             self.array[i], self.array[swap_idx] = self.array[swap_idx], self.array[i]
-
         return self.array
+        
             
 
 

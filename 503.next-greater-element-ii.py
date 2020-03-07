@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/next-greater-element-ii/description/
 #
 # algorithms
-# Medium (51.48%)
-# Likes:    730
-# Dislikes: 44
-# Total Accepted:    53.7K
-# Total Submissions: 104.3K
+# Medium (53.83%)
+# Likes:    1108
+# Dislikes: 57
+# Total Accepted:    75.5K
+# Total Submissions: 139.7K
 # Testcase Example:  '[1,2,1]'
 #
 # 
@@ -36,25 +36,10 @@
 # The length of given array won't exceed 10000.
 # 
 #
+
+# @lc code=start
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        """
-        n = len(nums)
-        ans = [-1] * n
-        stack, i = [], n - 1
-        for _ in range(2 * n):
-            cur = nums[i]
-            while stack and stack[-1] <= cur:
-                stack.pop()
-            if stack:
-                ans[i] = stack[-1]
-            stack.append(cur)
-            i -= 1
-            if i == -1:
-                i = n - 1
-        return ans
-        """
-
         stack, res = [], [-1] * len(nums)
         for i in list(range(len(nums))) * 2:
             while stack and nums[stack[-1]] < nums[i]:
@@ -62,4 +47,5 @@ class Solution:
             stack.append(i)
         return res
         
+# @lc code=end
 

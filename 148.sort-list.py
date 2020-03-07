@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sort-list/description/
 #
 # algorithms
-# Medium (36.66%)
-# Likes:    1795
-# Dislikes: 93
-# Total Accepted:    211.8K
-# Total Submissions: 561.1K
+# Medium (39.35%)
+# Likes:    2164
+# Dislikes: 110
+# Total Accepted:    234.5K
+# Total Submissions: 592.5K
 # Testcase Example:  '[4,2,1,3]'
 #
 # Sort a linked list in O(n log n) time using constant space complexity.
@@ -39,7 +39,6 @@
 
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
-
         def merge(h1, h2):
             dummy = tail = ListNode(None)
             while h1 and h2:
@@ -59,7 +58,6 @@ class Solution:
         pre.next = None
 
         return merge(*map(self.sortList, (head, slow)))
-
 
         
 # @lc code=end

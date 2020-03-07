@@ -43,6 +43,7 @@
 # @lc code=start
 class Solution:
     def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+
         record, sum_, r = {}, 0, 0
 
         for i, num in enumerate(nums):
@@ -51,7 +52,7 @@ class Solution:
             if sum_ == k:
                 r = i + 1
             elif sum_ - k in record:
-                r = max(r, i - record[sum_-k])
+                r = max(i - record[sum_ - k], r)
 
             if sum_ not in record:
                 record[sum_] = i

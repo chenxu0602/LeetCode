@@ -60,11 +60,10 @@ from collections import defaultdict, deque
 
 class Solution:
     def treeDiameter(self, edges: List[List[int]]) -> int:
-
         graph = defaultdict(set)
-        for u, v in edges:
-            graph[u].add(v)
-            graph[v].add(u)
+        for x, y in edges:
+            graph[x].add(y)
+            graph[y].add(x)
 
         level = 0
 

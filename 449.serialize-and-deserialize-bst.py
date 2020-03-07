@@ -7,10 +7,10 @@
 #
 # algorithms
 # Medium (50.27%)
-# Likes:    1005
-# Dislikes: 61
-# Total Accepted:    85.7K
-# Total Submissions: 170.4K
+# Likes:    1028
+# Dislikes: 62
+# Total Accepted:    87.1K
+# Total Submissions: 172.8K
 # Testcase Example:  '[2,1,3]'
 #
 # Serialization is the process of converting a data structure or object into a
@@ -43,11 +43,9 @@ class Codec:
     def serialize(self, root: TreeNode) -> str:
         """Encodes a tree to a single string.
         """
-
         def postorder(node):
             return postorder(node.left) + postorder(node.right) + [node.val] if node else []
-
-        return " ".join(map(str, postorder(root)))
+        return ' '.join(map(str, postorder(root)))
         
 
     def deserialize(self, data: str) -> TreeNode:
@@ -64,7 +62,7 @@ class Codec:
             root.left = dfs(lower, val)
             return root
 
-        data = [int(x) for x in data.split() if x]
+        data = [int(x) for x in data.split(' ') if x]
         return dfs()
         
 
