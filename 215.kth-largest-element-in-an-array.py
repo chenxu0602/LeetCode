@@ -64,13 +64,13 @@ class Solution:
 
         # return heapq.nlargest(k, nums)[-1]
 
-        # for i in range(k):
-        #     for j in range(len(nums)-i-1):
-        #         if nums[j] > nums[j+1]:
-        #             nums[j], nums[j+1] = nums[j+1], nums[j]
-        # return nums[len(nums)-k]
+        # return self.findKthSmallest(nums, len(nums)-(k-1))
 
-        return self.findKthSmallest(nums, len(nums)-(k-1))
+        for i in range(k):
+            for j in range(len(nums)-i-1):
+                if nums[j] > nums[j+1]:
+                    nums[j], nums[j+1] = nums[j+1], nums[j]
+        return nums[-k]
         
 # @lc code=end
 

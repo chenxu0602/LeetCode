@@ -58,6 +58,7 @@ class Solution:
                 heapq.heappush(h, (n.next.val, n.next))
 
         return dummy.next
+
         
 # @lc code=end
 

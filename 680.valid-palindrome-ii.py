@@ -48,5 +48,6 @@ class Solution:
                 t, u = s[:i] + s[i+1:], s[:-1-i] + s[len(s)-i:]
                 return t == t[::-1] or u == u[::-1]
         return True
+
         
 

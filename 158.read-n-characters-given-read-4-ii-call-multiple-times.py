@@ -158,6 +158,7 @@ class Solution:
             if curr == 0:
                 break
         return idx
+
         
 # @lc code=end
 

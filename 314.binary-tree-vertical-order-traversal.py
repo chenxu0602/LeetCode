@@ -115,5 +115,6 @@ class Solution:
                 queue += (node.left, i - 1), (node.right, i + 1)
 
         return [cols[i] for i in sorted(cols)]
+
         
 

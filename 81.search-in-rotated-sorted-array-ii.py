@@ -50,12 +50,11 @@ class Solution:
         if not nums: return False
 
         l, r = 0, len(nums) - 1
-
         while l <= r:
             mid = l + (r - l) // 2
             if nums[mid] == target:
                 return True
-
+            
             while l < mid and nums[l] == nums[mid]:
                 l += 1
 

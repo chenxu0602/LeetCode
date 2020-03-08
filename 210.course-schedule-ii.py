@@ -60,6 +60,7 @@ from collections import defaultdict, deque
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+
         graph = defaultdict(list)
         v = [0] * numCourses
 

@@ -54,7 +54,6 @@ class Solution:
         #         heapq.heappush(heap, (random(), i))
 
         # _, idx = heapq.heappop(heap)
-        
         # return idx
 
         total, res = 0, -1

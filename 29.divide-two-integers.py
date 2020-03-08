@@ -48,6 +48,7 @@
 # @lc code=start
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
+
         positive = (dividend < 0) is (divisor < 0)
         dividend, divisor = abs(dividend), abs(divisor)
 
@@ -58,12 +59,13 @@ class Solution:
                 dividend -= temp
                 res += i
                 i <<= 1
-                temp  <<= 1
+                temp <<= 1
 
         if not positive:
             res = -res
 
-        return max(-2**31, min(res, 2**31-1))
+        return min(max(-2**31, res), 2**31-1)
+
         
 # @lc code=end
 

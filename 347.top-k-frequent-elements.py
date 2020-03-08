@@ -41,9 +41,13 @@
 #
 
 from collections import Counter
+import heapq
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = Counter(nums).most_common(k)
-        return [i[0] for i in count]
+        # count = Counter(nums).most_common(k)
+        # return [i[0] for i in count]
+
+        count = Counter(nums)
+        return heapq.nlargest(k, count.keys(), key=count.get)
 

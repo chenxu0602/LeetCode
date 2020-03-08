@@ -32,15 +32,14 @@ class Solution:
     def findStrobogrammatic(self, n: int) -> List[str]:
 
         res = [""]
-
-        if n % 2:
-            res = list("018")
+        if n % 2: res = list("018")
 
         while n > 1:
             n -= 2
             res = [a + num + b for a, b in "00 11 88 69 96".split()[n<2:] for num in res]
 
         return res
+
 
         
 # @lc code=end

@@ -61,7 +61,9 @@ class Solution:
             valid = set(filter(isValid, level))
             if valid:
                 return list(valid)
+            
             level = {s[:i] + s[i+1:] for s in level for i in range(len(s))}
+
         
 # @lc code=end
 

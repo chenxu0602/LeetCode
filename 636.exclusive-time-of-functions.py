@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/exclusive-time-of-functions/description/
 #
 # algorithms
-# Medium (48.92%)
-# Likes:    465
-# Dislikes: 766
-# Total Accepted:    43.3K
-# Total Submissions: 88.4K
+# Medium (50.59%)
+# Likes:    598
+# Dislikes: 999
+# Total Accepted:    57.6K
+# Total Submissions: 113.8K
 # Testcase Example:  '2\n["0:start:0","1:start:2","1:end:5","0:end:6"]'
 #
 # On a single threaded CPU, we execute some functions.  Each function has a
@@ -68,8 +68,8 @@
 # 
 # 
 #
-from collections import defaultdict
 
+# @lc code=start
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         ans = [0] * n
@@ -80,7 +80,7 @@ class Solution:
             fn, typ, time = log.split(':')
             fn, time = int(fn), int(time)
 
-            if typ == "start":
+            if typ == 'start':
                 if stack:
                     ans[stack[-1]] += time - prev_time
                 stack.append(fn)
@@ -90,6 +90,6 @@ class Solution:
                 prev_time = time + 1
 
         return ans
-
         
+# @lc code=end
 

@@ -72,9 +72,7 @@ class Solution:
                     stack.append(i)
                 else:
                     ans = max(ans, i - stack[-1])
-
         return ans
-
 
             
         

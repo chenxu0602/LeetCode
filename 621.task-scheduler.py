@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/task-scheduler/description/
 #
 # algorithms
-# Medium (45.85%)
-# Likes:    1794
-# Dislikes: 313
-# Total Accepted:    95.2K
-# Total Submissions: 207.2K
+# Medium (47.47%)
+# Likes:    2375
+# Dislikes: 485
+# Total Accepted:    130.4K
+# Total Submissions: 274.5K
 # Testcase Example:  '["A","A","A","B","B","B"]\n2'
 #
 # Given a char array representing tasks CPU need to do. It contains capital
@@ -45,9 +45,9 @@
 # 
 # 
 #
-from collections import defaultdict, Counter
-import heapq
 
+# @lc code=start
+from collections import defaultdict, Counter
 
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
@@ -62,13 +62,12 @@ class Solution:
             hs[ord(c) - ord('A')] += 1
         hs.sort()
 
-        max_val = hs.pop() - 1
+        max_val = hs[25] - 1
         idle_slots = max_val * n
-        for i in reversed(hs):
-            idle_slots -= min(i, max_val)
+        for i in range(24, -1, -1):
+            idle_slots -= min(hs[i], max_val)
 
-        return max(0, idle_slots) + len(tasks)
-
+        return idle_slots + len(tasks) if idle_slots > 0 else len(tasks)
         
-        
+# @lc code=end
 

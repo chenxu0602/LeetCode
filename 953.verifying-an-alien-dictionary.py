@@ -72,12 +72,13 @@
 #
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        """
+        # m = {c: i for i, c in enumerate(order)}
+        # words = [[m[c] for c in w] for w in words]
+        # return all(w1 <= w2 for w1, w2 in zip(words, words[1:]))
+
         order_index = {c: i for i, c in enumerate(order)}
 
-        for i in range(len(words)-1):
-            w1, w2 = words[i], words[i+1]
-
+        for w1, w2 in zip(words, words[1:]):
             for k in range(min(len(w1), len(w2))):
                 if w1[k] != w2[k]:
                     if order_index[w1[k]] > order_index[w2[k]]:
@@ -86,11 +87,7 @@ class Solution:
             else:
                 if len(w1) > len(w2):
                     return False
-        return True
-        """
 
-        m = {c: i for i, c in enumerate(order)}
-        words = [[m[c] for c in w] for w in words]
-        return all(w1 <= w2 for w1, w2 in zip(words, words[1:]))
+        return True
         
 

@@ -63,30 +63,27 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
+        self.s = []
+        def dfs(node):
+            if not node:
+                self.s.append('#')
+            else:
+                self.s.append(str(node.val))
+                dfs(node.left)
+                dfs(node.right)
+        dfs(root)
+        return ','.join(self.s)
 
-        # self.s = []
-
-        # def dfs(node):
-        #     if not node:
-        #         self.s.append('#')
-        #     else:
-        #         self.s.append(str(node.val))
-        #         dfs(node.left)
-        #         dfs(node.right)
-
-        # dfs(root)
-        # return ','.join(self.s)
-
-        if not root: return ""
-        queue = deque([root,])
-        res = []
-        while queue:
-            node = queue.popleft()
-            if node:
-                queue.append(node.left)
-                queue.append(node.right)
-            res.append(str(node.val) if node else '#')
-        return ','.join(res)
+        # if not root: return ""
+        # queue = deque([root,])
+        # res = []
+        # while queue:
+        #     node = queue.popleft()
+        #     if node:
+        #         queue.append(node.left)
+        #         queue.append(node.right)
+        #     res.append(str(node.val) if node else '#')
+        # return ','.join(res)
         
 
     def deserialize(self, data):
@@ -95,38 +92,37 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
+        def dfs():
+            val = next(vals)
+            if val == '#':
+                return None
 
-        # def dfs():
-        #     val = next(vals)
-        #     if val == '#':
-        #         return None
+            node = TreeNode(int(val))
+            node.left = dfs()
+            node.right = dfs()
+            return node
 
-        #     node = TreeNode(int(val))
-        #     node.left = dfs()
-        #     node.right = dfs()
-        #     return node
-
-        # vals = iter(data.split(','))
-        # return dfs()
-
-        if not data: return None
         vals = iter(data.split(','))
-        root = TreeNode(next(vals))
-        queue = deque([root,])
+        return dfs()
 
-        while queue:
-            node = queue.popleft()
-            val = next(vals)
-            if val != '#':
-                node.left = TreeNode(int(val))
-                queue.append(node.left)
+        # if not data: return None
+        # vals = iter(data.split(','))
+        # root = TreeNode(next(vals))
+        # queue = deque([root,])
 
-            val = next(vals)
-            if val != '#':
-                node.right = TreeNode(int(val))
-                queue.append(node.right)
+        # while queue:
+        #     node = queue.popleft()
+        #     val = next(vals)
+        #     if val != '#':
+        #         node.left = TreeNode(int(val))
+        #         queue.append(node.left)
 
-        return root
+        #     val = next(vals)
+        #     if val != '#':
+        #         node.right = TreeNode(int(val))
+        #         queue.append(node.right)
+
+        # return root
 
 
         

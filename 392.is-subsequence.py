@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/is-subsequence/description/
 #
 # algorithms
-# Medium (46.81%)
-# Likes:    570
-# Dislikes: 129
-# Total Accepted:    90.7K
-# Total Submissions: 193.3K
+# Easy (47.92%)
+# Likes:    947
+# Dislikes: 169
+# Total Accepted:    140.4K
+# Total Submissions: 292.9K
 # Testcase Example:  '"abc"\n"ahbgdc"'
 #
 # 
@@ -51,38 +51,31 @@
 # Credits:Special thanks to @pbrother for adding this problem and creating all
 # test cases.
 #
+
+# @lc code=start
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
 
-        """
-        if not s: return True
-        i = 0
-        for char in t:
-            if s[i] == char:
-                i += 1
+        # if not s: return True
+        # i = 0
+        # for char in t:
+        #     if s[i] == char:
+        #         i += 1
 
-            if i == len(s):
-                return True
+        #     if i == len(s):
+        #         return True
+        # return False
 
-        return False
-        """
-
-        """
-        last = -1
-        for char in s:
-            try:
-                last = t.index(char, last + 1)
-            except:
-                return False
-        return True
-        """
+        # last = -1
+        # for char in s:
+        #     try:
+        #         last = t.index(char, last + 1)
+        #     except:
+        #         return False
+        # return True
 
         t = iter(t)
         return all(c in t for c in s)
-
-
-
-
-
         
+# @lc code=end
 
