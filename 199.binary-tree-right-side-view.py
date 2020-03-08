@@ -60,30 +60,30 @@ class Solution:
         # collect(root, 0)
         # return view
 
-        # view = []
-        # if root:
-        #     level = [root]
-        #     while level:
-        #         view += level[-1].val,
-        #         level = [child for node in level for child in (node.left, node.right) if child]
-        # return view
+        view = []
+        if root:
+            level = [root]
+            while level:
+                view += level[-1].val,
+                level = [child for node in level for child in (node.left, node.right) if child]
+        return view
 
-        rightmost_value_at_depth = dict()
-        max_depth = -1
+        # rightmost_value_at_depth = dict()
+        # max_depth = -1
 
-        queue = deque([(root, 0)])
-        while queue:
-            node, depth = queue.popleft()
+        # queue = deque([(root, 0)])
+        # while queue:
+        #     node, depth = queue.popleft()
 
-            if node:
-                max_depth = max(max_depth, depth)
+        #     if node:
+        #         max_depth = max(max_depth, depth)
 
-                rightmost_value_at_depth[depth] = node.val
+        #         rightmost_value_at_depth[depth] = node.val
 
-                queue.append((node.left, depth+1))
-                queue.append((node.right, depth+1))
+        #         queue.append((node.left, depth+1))
+        #         queue.append((node.right, depth+1))
 
-        return [rightmost_value_at_depth[depth] for depth in range(max_depth + 1)]
+        # return [rightmost_value_at_depth[depth] for depth in range(max_depth + 1)]
 
         
 # @lc code=end

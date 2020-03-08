@@ -78,30 +78,30 @@ class Solution:
         #         heapq.heappush(heap, (dist, x, y))
         # return [(x, y) for (dist, x, y) in heap]
 
-
         dist = lambda i: points[i][0] ** 2 + points[i][1] ** 2
 
-        def quickSort(i, j, K):
-            pi = partition(i, j)
-            if K < pi - i + 1:
-                quickSort(i, pi - 1, K)
-            elif K > pi - i + 1:
-                quickSort(pi + 1, j, K - (pi - i + 1))
+        def quickSelect(low, high, K):
+            mid = partition(low, high)
+            if K < mid - low + 1:
+                quickSelect(low, mid - 1, K)
+            elif K > mid - low + 1:
+                quickSelect(mid + 1, high, K - (mid - low + 1))
 
-        def partition(i, j):
-            l = i
-            pivot = dist(j)
+        def partition(low, high):
+            i = low
+            pivot = dist(high)
 
-            for k in range(i, j):
-                if dist(k) < pivot:
-                    points[l], points[k] = points[k], points[l]
-                    l += 1
+            for j in range(low, high):
+                if dist(j) < pivot:
+                    points[i], points[j] = points[j], points[i]
+                    i += 1
 
-            points[l], points[j] = points[j], points[l]
-            return l
+            points[i], points[high] = points[high], points[i]
+            return i
 
-
-        quickSort(0, len(points)-1, K)
+        quickSelect(0, len(points)-1, K)
         return points[:K]
+
+
         
 

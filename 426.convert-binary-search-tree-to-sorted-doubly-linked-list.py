@@ -89,46 +89,47 @@ class Node:
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
 
-        # def dfs(node):
-        #     nonlocal first, last
+        # if not root: return
+        # dummy = prev = Node(0, None, None)
+        # stack, node = [], root
+        # while stack or node:
+        #     while node:
+        #         stack.append(node)
+        #         node = node.left
+        #     node = stack.pop()
+        #     node.left, prev.right, prev = prev, node, node
+        #     node = node.right
 
-        #     if node:
-        #         dfs(node.left)
-
-        #         if last:
-        #             last.right = node
-        #             node.left = last
-        #         else:
-        #             first = node
-
-        #         last = node
-
-        #         dfs(node.right)
+        # dummy.right.left, prev.right = prev, dummy.right
+        # return dummy.right
 
 
-        # if not root: return None
-        # last, first = None, None
-        # dfs(root)
+        def dfs(node):
+            nonlocal last, first
 
-        # last.right = first
-        # first.left = last
+            if node:
+                dfs(node.left)
 
-        # return first
+                if last:
+                    last.right = node
+                    node.left = last
+                else:
+                    first = node
+
+                last = node
+
+                dfs(node.right)
+
+        if not root: return None
+        last, first = None, None
+        dfs(root)
+
+        last.right = first
+        first.left = last
+
+        return first
 
 
-        if not root: return
-        dummy = prev = Node(0, None, None)
-        stack, node = [], root
-        while stack or node:
-            while node:
-                stack.append(node)
-                node = node.left
-            node = stack.pop()
-            node.left, prev.right, prev = prev, node, node
-            node = node.right
-
-        dummy.right.left, prev.right = prev, dummy.right
-        return dummy.right
         
 # @lc code=end
 

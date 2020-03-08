@@ -78,6 +78,7 @@ from collections import defaultdict
 
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
+
         pre, suc = defaultdict(set), defaultdict(set)
         for pair in zip(words, words[1:]):
             for a, b in zip(*pair):
@@ -90,6 +91,7 @@ class Solution:
         free = chars - set(pre)
         order = ""
 
+        # topsort
         while free:
             a = free.pop()
             order += a

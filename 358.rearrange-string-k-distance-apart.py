@@ -69,5 +69,6 @@ class Solution:
                     heapq.heappush(heap, t)
 
         return "".join(ans) if len(ans) == len(s) else ""
+
         
 

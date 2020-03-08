@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-paths/description/
 #
 # algorithms
-# Easy (46.08%)
-# Likes:    882
-# Dislikes: 68
-# Total Accepted:    227.7K
-# Total Submissions: 494.1K
+# Easy (48.97%)
+# Likes:    1319
+# Dislikes: 87
+# Total Accepted:    281.5K
+# Total Submissions: 572.3K
 # Testcase Example:  '[1,2,3,null,5]'
 #
 # Given a binary tree, return all root-to-leaf paths.
@@ -33,6 +33,8 @@
 # Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -43,51 +45,30 @@
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
 
-        """
-        def dfs(root: TreeNode, path: List[int]):
-            if not root.left and not root.right:
-                self.res.append("->".join(map(str, path)))
+        # def dfs(node, path):
+        #     if node:
+        #         if node.left is node.right:
+        #             res.append('->'.join(map(str, path + [node.val])))
 
-            if root.left:
-                dfs(root.left, path + [root.left.val])
+        #         if node.left:
+        #             dfs(node.left, path + [node.val])
 
-            if root.right:
-                dfs(root.right, path + [root.right.val])
+        #         if node.right:
+        #             dfs(node.right, path + [node.val])
 
-        self.res = []
-        if root:
-            dfs(root, [root.val,])        
-        return self.res
-        """
+        # res = []
+        # dfs(root, [])
+        # return res
 
-        """
-        def dfs(node, path):
-            if node:
-                if not node.left and not node.right:
-                    res.append("->".join(map(str, path + [node.val])))
-
-                if node.left:
-                    dfs(node.left, path + [node.val])
-
-                if node.right:
-                    dfs(node.right, path + [node.val])
-
+        if not root: return []
         res = []
-        dfs(root, [])
-        return res
-        """
-
-        if not root:
-            return []
-
-        res = []
-
         stack = [(root, [])]
+
         while stack:
             node, path = stack.pop()
             if node:
-                if not node.left and not node.right:
-                    res.append("->".join(map(str, path + [node.val])))
+                if node.left is node.right:
+                    res.append('->'.join(map(str, path + [node.val])))
 
                 if node.left:
                     stack.append((node.left, path + [node.val]))
@@ -96,4 +77,6 @@ class Solution:
                     stack.append((node.right, path + [node.val]))
 
         return res
+        
+# @lc code=end
 

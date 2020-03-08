@@ -64,9 +64,10 @@ class Solution:
         """
 
         res = [[]]
-        for num in sorted(nums):
-            res += [item + [num] for item in res]
+        for num in nums:
+            res += [cur + [num] for cur in res]
         return res
+
         
 # @lc code=end
 

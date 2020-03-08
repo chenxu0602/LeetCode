@@ -122,30 +122,30 @@ class Solution:
         # return clone_node
 
 
-        # visited = {}
-        # def dfs(node):
-        #     if node and node not in visited:
-        #         newNode = Node(node.val, [])
-        #         visited[node] = newNode
-        #         newNode.neighbors = [visited.get(n) or dfs(n) for n in node.neighbors]
-        #         return newNode
-        # return dfs(node)
-
-
-        if not node: return node
         visited = {}
-        queue = deque([node])
-        visited[node] = Node(node.val, [])
+        def dfs(node):
+            if node and node not in visited:
+                newNode = Node(node.val, [])
+                visited[node] = newNode
+                newNode.neighbors = [visited.get(n) or dfs(n) for n in node.neighbors]
+                return newNode
+        return dfs(node)
 
-        while queue:
-            n = queue.popleft()
-            for neighbor in n.neighbors:
-                if neighbor not in visited:
-                    visited[neighbor] = Node(neighbor.val, [])
-                    queue.append(neighbor)
-                visited[n].neighbors.append(visited[neighbor])
 
-        return visited[node]
+        # if not node: return node
+        # visited = {}
+        # queue = deque([node])
+        # visited[node] = Node(node.val, [])
+
+        # while queue:
+        #     n = queue.popleft()
+        #     for neighbor in n.neighbors:
+        #         if neighbor not in visited:
+        #             visited[neighbor] = Node(neighbor.val, [])
+        #             queue.append(neighbor)
+        #         visited[n].neighbors.append(visited[neighbor])
+
+        # return visited[node]
         
         
         

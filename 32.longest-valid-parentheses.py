@@ -74,6 +74,7 @@ class Solution:
                     ans = max(ans, i - stack[-1])
         return ans
 
+
             
         
 # @lc code=end

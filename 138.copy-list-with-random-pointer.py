@@ -84,40 +84,43 @@ class Solution:
         self.visited = {}
 
     def copyRandomList(self, head: 'Node') -> 'Node':
-        # if head is None: return None
-        # if head in self.visited: return self.visited[head]
+        if head is None: return None
 
-        # node = Node(head.val, None, None)
-        # self.visited[head] = node
+        if head in self.visited: 
+            return self.visited[head]
 
-        # node.next = self.copyRandomList(head.next)
-        # node.random = self.copyRandomList(head.random)
+        node = Node(head.val, None, None)
+        self.visited[head] = node
+        
+        node.next = self.copyRandomList(head.next)
+        node.random = self.copyRandomList(head.random)
 
-        # return node
+        return node
+        
 
 
-        def getClonedNode(node):
-            if node:
-                if node in self.visited:
-                    return self.visited[node]
-                else:
-                    self.visited[node] = Node(node.val, None, Node)
-                    return self.visited[node]
-            return None
+        # def getClonedNode(node):
+        #     if node:
+        #         if node in self.visited:
+        #             return self.visited[node]
+        #         else:
+        #             self.visited[node] = Node(node.val, None, Node)
+        #             return self.visited[node]
+        #     return None
 
-        if not head: return head
-        old_node = head
-        new_node = Node(old_node.val, None, None)
-        self.visited[old_node] = new_node
+        # if not head: return head
+        # old_node = head
+        # new_node = Node(old_node.val, None, None)
+        # self.visited[old_node] = new_node
 
-        while old_node:
-            new_node.random = getClonedNode(old_node.random)
-            new_node.next = getClonedNode(old_node.next)
+        # while old_node:
+        #     new_node.random = getClonedNode(old_node.random)
+        #     new_node.next = getClonedNode(old_node.next)
 
-            old_node = old_node.next
-            new_node = new_node.next
+        #     old_node = old_node.next
+        #     new_node = new_node.next
 
-        return self.visited[head]
+        # return self.visited[head]
 
 
         
