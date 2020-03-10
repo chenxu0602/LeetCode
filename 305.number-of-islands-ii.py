@@ -110,7 +110,7 @@ class Solution:
         ans, islands = [], Union()
         for p in map(tuple, positions):
             if p in islands.id:
-                ans += [ans[-1]]
+                ans += ans[-1],
                 continue
             islands.add(p)
             for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
@@ -119,6 +119,8 @@ class Solution:
                     islands.unite(p, q)
             ans += islands.count,
         return ans
+
+
         
 # @lc code=end
 

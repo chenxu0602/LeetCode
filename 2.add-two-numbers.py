@@ -50,10 +50,11 @@ class Solution:
             if l2:
                 v2 = l2.val
                 l2 = l2.next
-            carry, val = divmod(v1+v2+carry, 10)
+            carry, val = divmod(v1 + v2 + carry, 10)
             n.next = ListNode(val)
             n = n.next
         return root.next
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/jump-game/description/
 #
 # algorithms
-# Medium (32.42%)
-# Likes:    2486
-# Dislikes: 237
-# Total Accepted:    315.9K
-# Total Submissions: 966K
+# Medium (33.15%)
+# Likes:    3071
+# Dislikes: 277
+# Total Accepted:    365.3K
+# Total Submissions: 1.1M
 # Testcase Example:  '[2,3,1,1,4]'
 #
 # Given an array of non-negative integers, you are initially positioned at the
@@ -44,34 +44,18 @@
 # @lc code=start
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
+        # m = 0
+        # for i, v in enumerate(nums):
+        #     if i > m:
+        #         return False
+        #     m = max(m, i + v)
+        # return True
 
-        """
-        m = 0
-        for i, v in enumerate(nums):
-            if i > m:
-                return False
-            m = max(m, i + v)
-        return True
-        """
-
-        """
-        step = nums[0]
-        for i in range(1, len(nums)):
-            if step > 0:
-                step -= 1
-                step = max(step, nums[i])
-            else:
-                return False
-        return True
-        """
-
-        lastPos = len(nums)-1
+        lastPos = len(nums) - 1
         for i in range(lastPos, -1, -1):
             if i + nums[i] >= lastPos:
                 lastPos = i
         return lastPos == 0
-
-
         
 # @lc code=end
 

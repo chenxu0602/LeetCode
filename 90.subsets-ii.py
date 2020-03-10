@@ -58,7 +58,9 @@ class Solution:
                 l = len(res)
             for j in range(len(res) - l, len(res)):
                 res.append(res[j] + [nums[i]])
+
         return res
+
 
         
 # @lc code=end

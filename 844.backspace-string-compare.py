@@ -75,17 +75,16 @@ from itertools import zip_longest
 
 class Solution:
     def backspaceCompare(self, S: str, T: str) -> bool:
-        """
-        def build(S):
-            ans = []
-            for c in S:
-                if c != '#':
-                    ans.append(c)
-                elif ans:
-                    ans.pop()
-            return "".join(ans)
-        return build(S) == build(T)
-        """
+
+        # def build(S):
+        #     ans = []
+        #     for c in S:
+        #         if c != '#':
+        #             ans.append(c)
+        #         elif ans:
+        #             ans.pop()
+        #     return "".join(ans)
+        # return build(S) == build(T)
 
         def F(S):
             skip = 0
@@ -96,6 +95,9 @@ class Solution:
                     skip -= 1
                 else:
                     yield x
+
         return all(x == y for x, y in zip_longest(F(S), F(T)))
+
+
         
 

@@ -91,6 +91,7 @@ from collections import defaultdict
 
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+
         seen = defaultdict(lambda: defaultdict(list))
 
         def dfs(node, x=0, y=0):
@@ -109,6 +110,7 @@ class Solution:
             ans.append(report)
 
         return ans
+
         
 # @lc code=end
 

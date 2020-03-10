@@ -63,8 +63,10 @@
 
 class Solution:
     def longestConsecutive(self, root: TreeNode) -> int:
+
         def dfs(node, parent, length=0):
-            if not node: return length
+            if not node:
+                return length
 
             if parent and parent.val + 1 == node.val:
                 length += 1
@@ -74,6 +76,5 @@ class Solution:
             return max(length, dfs(node.left, node, length), dfs(node.right, node, length))
 
         return dfs(root, None)
-
             
 

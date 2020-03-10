@@ -59,6 +59,21 @@ class Solution:
                     result = result[:-1]
                 result += c
         return result
+
+        # stack = []
+        # seen = set()
+        # last_occurrence = {c: i for i, c in enumerate(s)}
+
+        # for i, c in enumerate(s):
+        #     if not c in seen:
+        #         while stack and c < stack[-1] and i < last_occurrence[stack[-1]]:
+        #             seen.discard(stack.pop())
+        #         seen.add(c)
+        #         stack.append(c)
+
+        # return "".join(stack)
+
+
         
 # @lc code=end
 

@@ -75,3 +75,4 @@ class Solution:
             route.append(stack.pop())
         return route[::-1]
 
+

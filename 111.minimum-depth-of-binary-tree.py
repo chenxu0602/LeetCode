@@ -47,11 +47,6 @@ from collections import deque
 class Solution:
     def minDepth(self, root: TreeNode) -> int:
 
-        # if root is None: return 0
-        # if root.left is None or root.right is None:
-        #     return self.minDepth(root.left) + self.minDepth(root.right) + 1
-        # return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
-
         # if not root: return 0
         # children = [root.left, root.right]
         # if not any(children): return 1
@@ -62,6 +57,7 @@ class Solution:
         #         min_depth = min(self.minDepth(c), min_depth)
         # return 1 + min_depth
 
+
         if not root: return 0
         node_deque = deque([(1, root),])
 
@@ -69,10 +65,10 @@ class Solution:
             depth, root = node_deque.popleft()
             children = [root.left, root.right]
             if not any(children):
-                return depth 
+                return depth
             for c in children:
                 if c:
-                    node_deque.append((depth+1, c)) 
+                    node_deque.append((1 + depth, c))
         
 # @lc code=end
 

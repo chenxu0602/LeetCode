@@ -55,8 +55,9 @@ class Solution:
         for x in range(1, target + 1):
             for y in nums:
                 if x >= y:
-                    dp[x] += dp[x - y]
+                    dp[x] += dp[x-y]
         return dp[target]
+
 
 
 

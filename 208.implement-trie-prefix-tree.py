@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/implement-trie-prefix-tree/description/
 #
 # algorithms
-# Medium (39.87%)
-# Likes:    1962
-# Dislikes: 35
-# Total Accepted:    211.1K
-# Total Submissions: 510.1K
-# Testcase Example:  '["Trie","insert","search","search","startsWith","insert","search"]\n' +
+# Medium (43.48%)
+# Likes:    2332
+# Dislikes: 41
+# Total Accepted:    238.7K
+# Total Submissions: 547.5K
+# Testcase Example:  '["Trie","insert","search","search","startsWith","insert","search"]\n' + '[[],["apple"],["apple"],["app"],["app"],["app"],["app"]]'
 #
 # Implement a trie with insert, search, and startsWith methods.
 # 
@@ -39,11 +39,10 @@
 
 # @lc code=start
 from collections import defaultdict
+from functools import reduce
 
-class TrieNode(object):
-    def __init__(self):
-        self.nodes = defaultdict(TrieNode)
-        self.isWord = False
+T = lambda: defaultdict(T)
+END = '#'
 
 class Trie:
 
@@ -51,40 +50,37 @@ class Trie:
         """
         Initialize your data structure here.
         """
-        self.root = TrieNode()
+        self.trie = T()
         
 
     def insert(self, word: str) -> None:
         """
         Inserts a word into the trie.
         """
-        curr = self.root
-        for char in word:
-            curr = curr.nodes[char]
-        curr.isWord = True
+        reduce(dict.__getitem__, word, self.trie)[END] = True
         
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the trie.
         """
-        curr = self.root
-        for char in word:
-            if char not in curr.nodes:
+        curr = self.trie
+        for c in word:
+            if c not in curr:
                 return False
-            curr = curr.nodes[char]
-        return curr.isWord
+            curr = curr[c]
+        return curr[END]
         
 
     def startsWith(self, prefix: str) -> bool:
         """
         Returns if there is any word in the trie that starts with the given prefix.
         """
-        curr = self.root
-        for char in prefix:
-            if char not in curr.nodes:
+        curr = self.trie
+        for c in prefix:
+            if c not in curr:
                 return False
-            curr = curr.nodes[char]
+            curr = curr[c]
         return True
         
 

@@ -90,11 +90,13 @@ class Solution:
                 return [node.val for node, d in queue]
             node, d = queue.popleft()
             for nei in (node.left, node.right, node.par):
-                if nei and nei not in seen:
+                if nei and not nei in seen:
                     seen.add(nei)
                     queue.append((nei, d + 1))
 
         return []
+
+
 
         
 

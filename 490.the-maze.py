@@ -84,28 +84,27 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
-        m, n, seen = len(maze), len(maze[0]), set()
 
+        @lru_cache(None)
         def dfs(i, j):
-            if (i, j) in seen:
-                return False
-
-            if [i, j] == destination: 
-                return True
+            if (i, j) in seen: return False
+            if [i, j] == destination: return True
 
             seen.add((i, j))
 
-            for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0)):
+            for dx, dy in (0, -1), (0, 1), (-1, 0), (1, 0):
                 x, y = i, j
                 while 0 <= x+dx < m and 0 <= y+dy < n and not maze[x+dx][y+dy]:
-                    x, y = x + dx, y + dy
+                    x, y = x+dx, y+dy
                 if dfs(x, y):
                     return True
             return False
 
-
+        m, n, seen = len(maze), len(maze[0]), set()
         return dfs(*start)
         
 

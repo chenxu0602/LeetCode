@@ -51,10 +51,12 @@ class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
 
         ans, queue = [], [root,]
+
         while root and queue:
             ans.append([node.val for node in queue])
             queue = [child for node in queue for child in (node.left, node.right) if child]
         return ans
+
         
 # @lc code=end
 

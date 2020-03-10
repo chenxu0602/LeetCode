@@ -92,6 +92,7 @@ class Solution:
 
         if not root: return None
         cur, nxt = root, root.left
+
         while cur.left:
             cur.left.next = cur.right
             if cur.next:
@@ -99,7 +100,9 @@ class Solution:
                 cur = cur.next
             else:
                 cur, nxt = nxt, nxt.left
+
         return root
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-continuous-increasing-subsequence/description/
 #
 # algorithms
-# Easy (44.51%)
-# Likes:    474
-# Dislikes: 96
-# Total Accepted:    73K
-# Total Submissions: 163.6K
+# Easy (45.26%)
+# Likes:    603
+# Dislikes: 108
+# Total Accepted:    92.3K
+# Total Submissions: 203.8K
 # Testcase Example:  '[1,3,5,4,7]'
 #
 # 
@@ -42,6 +42,8 @@
 # Length of the array will not exceed 10,000.
 # 
 #
+
+# @lc code=start
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         ans = anchor = 0
@@ -51,4 +53,5 @@ class Solution:
             ans = max(ans, i - anchor + 1)
         return ans
         
+# @lc code=end
 

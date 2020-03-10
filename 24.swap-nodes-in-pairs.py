@@ -38,24 +38,25 @@
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
 
-        # if not head or not head.next:
-        #     return head
+        # pre, pre.next = self, head
+        # while pre.next and pre.next.next:
+        #     a = pre.next
+        #     b = a.next
+        #     pre.next, b.next, a.next = b, a, b.next
+        #     pre = a
+        # return self.next
 
-        # first_node = head
-        # second_node = head.next
 
-        # first_node.next = self.swapPairs(second_node.next)
-        # second_node.next = first_node
+        if not head or not head.next:
+            return head
 
-        # return second_node
+        first_node = head
+        second_node = head.next
 
-        pre, pre.next = self, head
-        while pre.next and pre.next.next:
-            a = pre.next
-            b = a.next
-            pre.next, b.next, a.next = b, a, b.next
-            pre = a
-        return self.next
+        first_node.next = self.swapPairs(second_node.next)
+        second_node.next = first_node
+
+        return second_node
         
 # @lc code=end
 

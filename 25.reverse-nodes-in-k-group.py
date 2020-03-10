@@ -67,6 +67,7 @@ class Solution:
         #     else:
         #         return dummy.next
 
+
         def reverse(head, count):
             pre, cur, nxt = None, head, head
             while count > 0:
@@ -76,10 +77,10 @@ class Solution:
                 cur = nxt
                 count -= 1
             return cur, pre
-        
+
         count, node = 0, head
         while node and count < k:
-            node = node.next
+            node = node.next 
             count += 1
 
         if count < k: return head

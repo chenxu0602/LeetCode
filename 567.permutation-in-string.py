@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/permutation-in-string/description/
 #
 # algorithms
-# Medium (38.69%)
-# Likes:    701
-# Dislikes: 37
-# Total Accepted:    52.3K
-# Total Submissions: 135.1K
+# Medium (40.07%)
+# Likes:    1024
+# Dislikes: 52
+# Total Accepted:    77.7K
+# Total Submissions: 193.4K
 # Testcase Example:  '"ab"\n"eidbaooo"'
 #
 # Given two strings s1 and s2, write a function to return true if s2 contains
@@ -44,21 +44,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        """
-        s1 = "".join(sorted(s1))
-        for i in range(len(s2) - len(s1) + 1):
-            if s1 == "".join(sorted(s2[i:i+len(s1)])):
-                return True
-        return False
-        """
 
-        if len(s1) > len(s2):
-            return False
+        if len(s1) > len(s2): return False
 
-        map1 = [0] * 26
-        map2 = [0] * 26
+        map1, map2 = [0] * 26, [0] * 26
 
         i = 0
         while i < len(s1):
@@ -70,13 +63,13 @@ class Solution:
 
         left, right = 0, i
         while right < len(s2):
-            map2[ord(s2[left]) - ord('a')] -= 1
             map2[ord(s2[right]) - ord('a')] += 1
+            map2[ord(s2[left]) - ord('a')] -= 1
 
             if map1 == map2: return True
-
             left += 1; right += 1
 
         return False
         
+# @lc code=end
 

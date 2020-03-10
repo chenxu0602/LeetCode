@@ -34,20 +34,21 @@
 # @lc code=start
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-        # r = s[::-1]
-        # for i in range(len(s)+1):
-        #     if s.startswith(r[i:]):
-        #         return r[:i] + s
 
-        i = 0
-        for j in range(len(s)-1, -1, -1):
-            if s[i] == s[j]:
-                i += 1
+        # i = 0
+        # for j in range(len(s)-1, -1, -1):
+        #     if s[i] == s[j]:
+        #         i += 1
             
-        if i == len(s):
-            return s
+        # if i == len(s):
+        #     return s
 
-        return s[i:][::-1] + self.shortestPalindrome(s[:i]) + s[i:]
+        # return s[i:][::-1] + self.shortestPalindrome(s[:i]) + s[i:]
+
+        r = s[::-1]
+        for i in range(len(s)+1):
+            if s.startswith(r[i:]):
+                return r[:i] + s
         
 # @lc code=end
 

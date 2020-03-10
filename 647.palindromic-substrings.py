@@ -51,6 +51,7 @@
 # @lc code=start
 class Solution:
     def countSubstrings(self, s: str) -> int:
+
         L, r = len(s), 0
         for i in range(L):
             for a, b in [(i, i), (i, i+1)]:

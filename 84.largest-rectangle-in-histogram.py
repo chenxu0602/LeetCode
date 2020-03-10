@@ -52,9 +52,8 @@ class Solution:
             while heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
                 w = i - stack[-1] - 1
-                ans = max(ans, h * w)
+                ans = max(ans, w * h)
             stack.append(i)
-
         heights.pop()
         return ans
 
