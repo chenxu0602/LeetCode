@@ -62,7 +62,7 @@ class Solution:
         # return max_len
 
 
-        queue, start, r, k = OrderedDict(), 0, 0, 2
+        queue, start, r, k = OrderedDict(), -1, 0, 2
 
         for i, char in enumerate(s):
             if char in queue:
@@ -70,9 +70,9 @@ class Solution:
             queue[char] = i
 
             if len(queue) > k:
-                start = queue.popitem(False)[1] + 1
+                start = queue.popitem(False)[1]
 
-            r = max(r, i - start + 1)
+            r = max(r, i - start)
 
         return r
 
