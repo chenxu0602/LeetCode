@@ -85,21 +85,6 @@ class Solution:
         # dfs(root)
         # return self.lca
 
-        # def dfs(node):
-        #     if not node: return 0, None
-
-        #     h1, lca1 = dfs(node.left)
-        #     h2, lca2 = dfs(node.right)
-
-        #     if h1 > h2:
-        #         return h1 + 1, lca1
-        #     elif h1 < h2:
-        #         return h2 + 1, lca2
-        #     else:
-        #         return h1 + 1, node
-
-        # return dfs(root)[1]
-
         def dfs(node):
             if not node: return 0, None
             h1, lca1 = dfs(node.left)
