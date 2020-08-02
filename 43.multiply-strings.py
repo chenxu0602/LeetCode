@@ -47,6 +47,26 @@ from functools import reduce
 
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
+        # m, n = len(num1), len(num2)
+        # pos = [0] * (m + n)
+
+        # for i in range(m-1, -1, -1):
+        #     for j in range(n-1, -1, -1):
+        #         mul = (ord(num1[i]) - ord('0')) * (ord(num2[j]) - ord('0'))
+        #         idx_1, idx_2 = i + j, i + j + 1
+        #         mul += pos[idx_2]
+
+        #         pos[idx_1] += mul // 10
+        #         pos[idx_2] = mul % 10
+
+        # k = 0
+        # for l in range(len(pos)):
+        #     if pos[l] > 0:
+        #         k = l
+        #         break
+
+        # return str(int(reduce(lambda a, b: str(a) + str(b), pos[k:])))
+
         m, n = len(num1), len(num2)
         pos = [0] * (m + n)
 

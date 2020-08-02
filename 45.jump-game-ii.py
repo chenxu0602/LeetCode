@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/jump-game-ii/description/
 #
 # algorithms
-# Hard (28.58%)
-# Likes:    1517
-# Dislikes: 87
-# Total Accepted:    198.1K
-# Total Submissions: 683.6K
+# Hard (29.67%)
+# Likes:    1898
+# Dislikes: 112
+# Total Accepted:    224K
+# Total Submissions: 754.6K
 # Testcase Example:  '[2,3,1,1,4]'
 #
 # Given an array of non-negative integers, you are initially positioned at the
@@ -39,17 +39,14 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
 
-        res, last, curr = 0, 0, 0
-
+        ret, last, curr = 0, 0, 0
         for i in range(len(nums)):
             if i > last:
                 last = curr
-                res += 1
+                ret += 1
             curr = max(curr, i + nums[i])
 
-        return res
-
-
+        return ret
         
 # @lc code=end
 

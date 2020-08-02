@@ -39,31 +39,34 @@
 # @lc code=start
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        def findNSum(l, r, target, N, result, results):
-            if r-l+1 < N or N < 2 or target < nums[l]*N or target > nums[r]*N:
-                return
 
-            if N == 2:
-                while l < r:
-                    s = nums[l] + nums[r]
-                    if s == target:
-                        results.append(result + [nums[l], nums[r]])
-                        l += 1
-                        while l < r and nums[l] == nums[l-1]:
-                            l += 1
-                    elif s < target:
-                        l += 1
-                    else:
-                        r -= 1
-            else:
-                for i in range(l, r+1):
-                    if i == l or (i > l and nums[i-1] != nums[i]):
-                        findNSum(i+1, r, target - nums[i], N - 1, result + [nums[i]], results)
+        def twoSum(nums, target):
+            res, s = [], set()
+            for i in range(len(nums)):
+                if len(res) == 0 or res[-1][1] != nums[i]:
+                    if target - nums[i] in s:
+                        res.append([target - nums[i], nums[i]])
+                s.add(nums[i])                    
+            return res
 
+        def kSum(nums, target , k):
+            if len(nums) == 0 or nums[0] * k > target or target > nums[-1] * k:
+                return []
+
+            if k == 2:
+                return twoSum(nums, target)
+
+            res = []
+            for i in range(len(nums)):
+                if i == 0 or nums[i-1] != nums[i]:
+                    for _, set in enumerate(kSum(nums[i+1:], target - nums[i], k - 1)):
+                        res.append([nums[i]] + set)
+
+            return res
+
+        # Time complexity is O(n^(k-1))
         nums.sort()
-        results = []
-        findNSum(0, len(nums)-1, target, 4, [], results)
-        return results
+        return kSum(nums, target, 4)
         
 # @lc code=end
 

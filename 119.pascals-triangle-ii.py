@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/pascals-triangle-ii/description/
 #
 # algorithms
-# Easy (44.74%)
-# Likes:    565
-# Dislikes: 180
-# Total Accepted:    230.2K
-# Total Submissions: 505.3K
+# Easy (48.78%)
+# Likes:    846
+# Dislikes: 197
+# Total Accepted:    287.6K
+# Total Submissions: 588.4K
 # Testcase Example:  '3'
 #
 # Given a non-negative index k where k ≤ 33, return the k^th index row of the
@@ -38,6 +38,8 @@
 # @lc code=start
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
+
+        # Binomial coefficients
         row = [1]
         for _ in range(rowIndex):
             row = [x + y for x, y in zip([0] + row, row + [0])]

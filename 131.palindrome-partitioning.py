@@ -35,19 +35,34 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
 
-        def isPalindrom(s):
-            return s == s[::-1]
+        # O(n x 2^n)
+        # For a string with length n, there will be (n - 1) intervals between chars.
+        # For every interval, we can cut it or not cut it, so there will be 2^(n - 1) ways to partition the string.
+        # For every partition way, we need to check if it is palindrome, which is O(n).
 
-        def dfs(s, L):
-            if not s:
-                res.append(L)
-            for i in range(1, len(s)+1):
-                if isPalindrom(s[:i]):
-                    dfs(s[i:], L+[s[:i]])
+        # def isPalindrom(s):
+        #     return s == s[::-1]
 
-        res = []
-        dfs(s, [])
-        return res
+        # def dfs(s, L):
+        #     if not s:
+        #         res.append(L)
+        #     for i in range(1, len(s) + 1):
+        #         if isPalindrom(s[:i]):
+        #             dfs(s[i:], L + [s[:i]])
+
+        # res = []
+        # dfs(s, [])
+        # return res
+
+        dp = [[] for _ in range(len(s) + 1)]
+        dp[-1] = [[]]
+        for i in range(len(s) - 1, -1, -1):
+            for j in range(i + 1, len(s) + 1):
+                if s[i:j] == s[i:j][::-1]:
+                    for k in dp[j]:
+                        dp[i].append([s[i:j]] + k)
+
+        return dp[0]
         
 # @lc code=end
 

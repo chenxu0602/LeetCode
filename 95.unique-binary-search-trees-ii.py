@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/unique-binary-search-trees-ii/description/
 #
 # algorithms
-# Medium (36.61%)
-# Likes:    1519
-# Dislikes: 128
-# Total Accepted:    156K
-# Total Submissions: 418.6K
+# Medium (40.40%)
+# Likes:    2265
+# Dislikes: 159
+# Total Accepted:    195.2K
+# Total Submissions: 482K
 # Testcase Example:  '3'
 #
 # Given an integer n, generate all structurally unique BST's (binary search
@@ -38,16 +38,22 @@
 # ⁠  2     1         2                 3
 # 
 # 
+# 
+# Constraints:
+# 
+# 
+# 0 <= n <= 8
+# 
+# 
 #
 
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
 
@@ -56,16 +62,20 @@ class Solution:
                 return [None,]
 
             all_trees = []
-            for i in range(start, end+1):
-                left_trees = generate_trees(start, i-1)
-                right_trees = generate_trees(i+1, end)
+            for i in range(start, end + 1):
+                # all possible left subtrees if i is choosen to be a root
+                left_trees = generate_trees(start, i - 1)
 
+                # all possible right subtrees if i is choosen to be a root
+                right_trees = generate_trees(i + 1, end)
+
+                # connect left and right subtrees to the root i
                 for l in left_trees:
                     for r in right_trees:
                         current_tree = TreeNode(i)
                         current_tree.left = l
                         current_tree.right = r
-                        all_trees += current_tree,
+                        all_trees.append(current_tree)
 
             return all_trees
 

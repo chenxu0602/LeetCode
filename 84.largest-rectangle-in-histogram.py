@@ -54,8 +54,10 @@ class Solution:
                 w = i - stack[-1] - 1
                 ans = max(ans, w * h)
             stack.append(i)
+
         heights.pop()
         return ans
+        
 
 
         

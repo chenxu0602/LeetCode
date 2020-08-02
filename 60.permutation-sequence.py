@@ -57,17 +57,38 @@ from math import factorial
 
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        numbers = list(range(1, n+1))
-        permutation = ""
+        # numbers = list(range(1, n+1))
+        # permutation = ""
 
+        # k -= 1
+        # while n > 0:
+        #     n -= 1
+        #     index, k = divmod(k, factorial(n))
+        #     permutation += str(numbers[index])
+        #     numbers.remove(numbers[index])
+
+        # return permutation
+
+        factorials, nums = [1], ['1']
+        for i in range(1, n):
+            # generate factorial system bases 0!, 1!, ..., (n - 1)!
+            factorials.append(factorials[i - 1] * i)
+            # generate nums 1, 2, ..., n
+            nums.append(str(i + 1))
+
+        # fit k in the interval 0 ... (n! - 1)
         k -= 1
-        while n > 0:
-            n -= 1
-            index, k = divmod(k, factorial(n))
-            permutation += str(numbers[index])
-            numbers.remove(numbers[index])
 
-        return permutation
+        # compute factorial representation of k
+        output = []
+        for i in range(n - 1, -1, -1):
+            idx = k // factorials[i]
+            k -= idx * factorials[i]
+
+            output.append(nums[idx])
+            del nums[idx]
+
+        return "".join(output)
 
         
 # @lc code=end

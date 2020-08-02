@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/subsets/description/
 #
 # algorithms
-# Medium (54.38%)
-# Likes:    2446
-# Dislikes: 58
-# Total Accepted:    429K
-# Total Submissions: 770.8K
+# Medium (57.78%)
+# Likes:    2954
+# Dislikes: 70
+# Total Accepted:    490.4K
+# Total Submissions: 844.1K
 # Testcase Example:  '[1,2,3]'
 #
 # Given a set of distinct integers, nums, return all possible subsets (the
@@ -39,35 +39,27 @@
 # @lc code=start
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        
-        """
-        res = []
-        nums.sort()
-        for i in range(1 << len(nums)):
-            tmp = []
-            for j in range(len(nums)):
-                if i & 1 << j:
-                    tmp.append(nums[j])
-            res.append(tmp)
-        return res
-        """
 
-        """
-        def dfs(nums, index, path, res):
-            res.append(path)
-            for i in range(index, len(nums)):
-                dfs(nums, i+1, path+[nums[i]], res)
-
-        res = []
-        dfs(sorted(nums), 0, [], res)
-        return res
-        """
+        # n, output = len(nums), []
+        # for i in range(1 << n):
+        #     output.append([nums[j] for j in range(n) if i & 1 << j])
+        # return output
 
         res = [[]]
         for num in nums:
-            res += [cur + [num] for cur in res]
+            res += [curr + [num] for curr in res]
         return res
 
+
+        # def backtrack(nums, index, path, res):
+        #     res.append(path)
+        #     for i in range(index, len(nums)):
+        #         backtrack(nums, i + 1, path + [nums[i]], res)
+
+        # res = []
+        # backtrack(nums, 0, [], res)
+        # return res
+        
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/validate-binary-search-tree/description/
 #
 # algorithms
-# Medium (26.12%)
-# Likes:    2486
-# Dislikes: 365
-# Total Accepted:    490.2K
-# Total Submissions: 1.9M
+# Medium (27.01%)
+# Likes:    3014
+# Dislikes: 435
+# Total Accepted:    569.4K
+# Total Submissions: 2.1M
 # Testcase Example:  '[2,1,3]'
 #
 # Given a binary tree, determine if it is a valid binary search tree (BST).
@@ -65,21 +65,21 @@
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
 
-        # def dfs(node, lower=float("-inf"), upper=float("inf")):
-        #     if not node: return True
+        # def helper(node, lower=float("-inf"), upper=float("inf")):
+        #     if not node:
+        #         return True
 
-        #     if node.val <= lower or node.val >= upper:
+        #     if not lower < node.val < upper:
         #         return False
 
-        #     if not dfs(node.left, lower, node.val):
+        #     if not helper(node.left, lower, node.val):
         #         return False
-
-        #     if not dfs(node.right, node.val, upper):
+        #     if not helper(node.right, node.val, upper):
         #         return False
 
         #     return True
 
-        # return dfs(root)
+        # return helper(root)
 
         stack, inorder = [], float("-inf")
         while stack or root:
@@ -89,12 +89,10 @@ class Solution:
             root = stack.pop()
             if root.val <= inorder:
                 return False
-            inorder = root.val
+            inorder = root.val 
             root = root.right
         return True
-
-
-
+        
         
 # @lc code=end
 

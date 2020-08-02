@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/distinct-subsequences/description/
 #
 # algorithms
-# Hard (35.56%)
-# Likes:    815
-# Dislikes: 43
-# Total Accepted:    115.9K
-# Total Submissions: 322.2K
+# Hard (38.10%)
+# Likes:    1310
+# Dislikes: 55
+# Total Accepted:    138.3K
+# Total Submissions: 362.3K
 # Testcase Example:  '"rabbbit"\n"rabbit"'
 #
 # Given a string S and a string T, count the number of distinct subsequences of
@@ -21,13 +21,14 @@
 # the relative positions of the remaining characters. (ie, "ACE" is a
 # subsequence of "ABCDE" while "AEC" is not).
 # 
+# It's guaranteed the answer fits on a 32-bit signed integer.
+# 
 # Example 1:
 # 
 # 
 # Input: S = "rabbbit", T = "rabbit"
 # Output: 3
 # Explanation:
-# 
 # As shown below, there are 3 ways you can generate "rabbit" from S.
 # (The caret symbol ^ means the chosen letters)
 # 
@@ -45,7 +46,6 @@
 # Input: S = "babgbag", T = "bag"
 # Output: 5
 # Explanation:
-# 
 # As shown below, there are 5 ways you can generate "bag" from S.
 # (The caret symbol ^ means the chosen letters)
 # 
@@ -66,29 +66,45 @@
 # @lc code=start
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
-        """
-        l1, l2 = len(s)+1, len(t)+1
-        dp = [[1] * l2 for _ in range(l1)]
 
-        for j in range(1, l2):
-            dp[0][j] = 0
+        # Iterative Dynamic Programming
+        # Time/Space complexity: O(M x N)
+        # M, N = map(len, (s, t))
+        # dp = [[0] * (N + 1) for _ in range(M + 1)]
 
-        for i in range(1, l1):
-            for j in range(1, l2):
-                dp[i][j] = dp[i-1][j] + dp[i-1][j-1] * (s[i-1] == t[j-1])
-            
-        return dp[-1][-1]
-        """
+        # for j in range(N + 1):
+        #     dp[M][j] = 0
 
-        l1, l2 = len(s)+1, len(t)+1
-        cur = [0] * l2
-        cur[0] = 1
+        # for i in range(M + 1):
+        #     dp[i][N] = 1
 
-        for i in range(1, l1):
-            pre = cur[:]
-            for j in range(1, l2):
-                cur[j] = pre[j] + pre[j-1]*(s[i-1] == t[j-1])
-        return cur[-1]
+        # for i in range(M - 1, -1, -1):
+        #     for j in range(N - 1, -1, -1):
+        #         dp[i][j] = dp[i + 1][j]
+
+        #         if s[i] == t[j]:
+        #             dp[i][j] += dp[i + 1][j + 1]
+
+        # return dp[0][0]
+
+
+        # Space optimized Dynamic Programming
+        # Time  complexity: O(M x N)
+        # Space complexity: O(N)
+        M, N = map(len, (s, t))
+        dp = [0] * N
+
+        for i in range(M - 1, -1, -1):
+            prev = 1
+            for j in range(N - 1, -1, -1):
+                old_dpj = dp[j]
+
+                if s[i] == t[j]:
+                    dp[j] += prev
+
+                prev = old_dpj
+
+        return dp[0]
 
         
 # @lc code=end

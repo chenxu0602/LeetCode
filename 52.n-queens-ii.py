@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/n-queens-ii/description/
 #
 # algorithms
-# Hard (53.16%)
-# Likes:    337
-# Dislikes: 129
-# Total Accepted:    111.2K
-# Total Submissions: 205.6K
+# Hard (57.61%)
+# Likes:    534
+# Dislikes: 154
+# Total Accepted:    135.5K
+# Total Submissions: 234.9K
 # Testcase Example:  '4'
 #
 # The n-queens puzzle is the problem of placing n queens on an n×n chessboard
@@ -46,26 +46,26 @@
 # @lc code=start
 class Solution:
     def totalNQueens(self, n: int) -> int:
+
         def valid(nums, n):
             for i in range(n):
                 if nums[i] == nums[n] or abs(nums[n] - nums[i]) == n - i:
                     return False
             return True
 
-        def dfs(nums, index):
+        def backtrack(nums, index):
             if index == len(nums):
                 self.res += 1
                 return
-
+            
             for i in range(len(nums)):
                 nums[index] = i
                 if valid(nums, index):
-                    dfs(nums, index+1)
+                    backtrack(nums, index + 1)
 
         self.res = 0
-        dfs([-1]*n, 0)
+        backtrack([-1] * n, 0)
         return self.res
-        
         
 # @lc code=end
 

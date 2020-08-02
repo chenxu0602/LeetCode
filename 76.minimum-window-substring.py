@@ -48,9 +48,11 @@ class Solution:
                 while i < j and need[s[i]] < 0:
                     need[s[i]] += 1
                     i += 1
+
                 if not J or j - i <= J - I:
                     I, J = i, j
         return s[I:J]
+
         
 # @lc code=end
 

@@ -54,6 +54,7 @@ class Solution:
             else:
                 pre = pre.next
                 head = head.next
+
         return dummy.next
         
 # @lc code=end

@@ -55,7 +55,6 @@ class Solution:
                 res.append([nums[i]] + j)
 
         return res
-
         
 # @lc code=end
 

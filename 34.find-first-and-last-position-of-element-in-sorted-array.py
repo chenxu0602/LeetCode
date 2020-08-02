@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
 #
 # algorithms
-# Medium (34.01%)
-# Likes:    2095
-# Dislikes: 98
-# Total Accepted:    362K
-# Total Submissions: 1.1M
+# Medium (35.04%)
+# Likes:    2593
+# Dislikes: 116
+# Total Accepted:    421.1K
+# Total Submissions: 1.2M
 # Testcase Example:  '[5,7,7,8,8,10]\n8'
 #
 # Given an array of integers nums sorted in ascending order, find the starting
@@ -35,32 +35,27 @@
 #
 
 # @lc code=start
-from bisect import bisect_left, bisect_right
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
 
-        # i, j = bisect_left(nums, target), bisect_right(nums, target)
-        # if i == j:
-        #     return [-1, -1]
-        # return [i, j-1]
-
-        def extrem_insertion_index(nums, target, left):
+        def extreme_insertion_index(nums, target, left):
             lo, hi = 0, len(nums)
+
             while lo < hi:
-                mi = lo + (hi - lo) // 2
-                if nums[mi] > target or (left and target == nums[mi]):
-                    hi = mi
+                mid = (lo + hi) // 2
+                if nums[mid] > target or (left and target == nums[mid]):
+                    hi = mid
                 else:
-                    lo = mi + 1
+                    lo = mid + 1
+
             return lo
 
-        left_idx = extrem_insertion_index(nums, target, True)
+        left_idx = extreme_insertion_index(nums, target, True)
+
         if left_idx == len(nums) or nums[left_idx] != target:
             return [-1, -1]
 
-        return [left_idx, extrem_insertion_index(nums, target, False)-1]
-
-
+        return [left_idx, extreme_insertion_index(nums, target, False) - 1]
         
 # @lc code=end
 

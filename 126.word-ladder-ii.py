@@ -74,8 +74,9 @@ import string
 class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
 
+        # O(n^2 x k)
         wordList = set(wordList)
-        res, layer = [], {}
+        res, layer = [], defaultdict(list)
         layer[beginWord] = [[beginWord]]
 
         while layer:

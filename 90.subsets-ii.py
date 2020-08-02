@@ -38,21 +38,23 @@
 # @lc code=start
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        # def dfs(depth, start, L):
+
+        # def backtrack(depth, start, L):
         #     if L not in res:
         #         res.append(L)
         #     if depth == len(nums):
         #         return
         #     for i in range(start, len(nums)):
-        #         dfs(depth + 1, i + 1, L + [nums[i]])
+        #         backtrack(depth + 1, i + 1, L + [nums[i]])
 
         # nums.sort()
         # res = []
-        # dfs(0, 0, [])
+        # backtrack(0, 0, [])
         # return res
 
         res = [[]]
         nums.sort()
+
         for i in range(len(nums)):
             if i == 0 or nums[i] != nums[i-1]:
                 l = len(res)
@@ -60,7 +62,6 @@ class Solution:
                 res.append(res[j] + [nums[i]])
 
         return res
-
 
         
 # @lc code=end

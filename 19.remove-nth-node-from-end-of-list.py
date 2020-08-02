@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 #
 # algorithms
-# Medium (34.50%)
-# Likes:    2212
-# Dislikes: 163
-# Total Accepted:    463.7K
-# Total Submissions: 1.3M
+# Medium (34.78%)
+# Likes:    2604
+# Dislikes: 190
+# Total Accepted:    525.5K
+# Total Submissions: 1.5M
 # Testcase Example:  '[1,2,3,4,5]\n2'
 #
 # Given a linked list, remove the n-th node from the end of list and return its
@@ -45,26 +45,29 @@
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
 
-        # def remove(head):
-        #     if not head:
-        #         return 0, head
+        # slow = fast = head
+        # for _ in range(n):
+        #     fast = fast.next
 
-        #     i, head.next = remove(head.next)
-        #     return i + 1, (head, head.next)[i + 1 == n]
+        # if not fast:
+        #     return head.next
 
-        # return remove(head)[1]
+        # while fast.next:
+        #     slow, fast = slow.next, fast.next
 
-        slow = fast = head
-        for _ in range(n):
-            fast = fast.next
-        if not fast:
-            return head.next
-        while fast.next:
-            slow, fast = slow.next, fast.next
-        slow.next = slow.next.next
-        return head
-        
+        # slow.next = slow.next.next
 
+        # return head
+
+
+        def remove(head):
+            if not head:
+                return 0, head
+
+            i, head.next = remove(head.next)
+            return i + 1, (head, head.next)[i + 1 == n]
+
+        return remove(head)[1]
         
 # @lc code=end
 

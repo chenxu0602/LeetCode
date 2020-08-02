@@ -56,6 +56,7 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 
+        # Complexity O(N^target)
         def dfs(candidates, target, start, path):
             if target == 0:
                 return res.append(path)
@@ -63,7 +64,6 @@ class Solution:
                 if target < candidates[i]:
                     return
                 dfs(candidates, target - candidates[i], i, path + [candidates[i]])
-
 
         res = []
         candidates.sort()

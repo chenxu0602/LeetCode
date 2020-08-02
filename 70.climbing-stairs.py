@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/climbing-stairs/description/
 #
 # algorithms
-# Easy (44.79%)
-# Likes:    2762
-# Dislikes: 97
-# Total Accepted:    489.9K
-# Total Submissions: 1.1M
+# Easy (46.03%)
+# Likes:    3368
+# Dislikes: 110
+# Total Accepted:    568.5K
+# Total Submissions: 1.2M
 # Testcase Example:  '2'
 #
 # You are climbing a stair case. It takes n steps to reach to the top.
@@ -46,13 +46,11 @@
 # @lc code=start
 class Solution:
     def climbStairs(self, n: int) -> int:
-
         if n < 3: return n
         res = [0, 1, 2]
         for i in range(3, n + 1):
             res.append(res[-1] + res[-2])
         return res[-1]
-
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/
 #
 # algorithms
-# Medium (41.02%)
-# Likes:    784
-# Dislikes: 591
-# Total Accepted:    223.5K
-# Total Submissions: 537.3K
+# Medium (42.46%)
+# Likes:    904
+# Dislikes: 642
+# Total Accepted:    239.9K
+# Total Submissions: 564.7K
 # Testcase Example:  '[1,1,1,2,2,3]'
 #
 # Given a sorted array nums, remove the duplicates in-place such that
@@ -66,18 +66,29 @@
 # @lc code=start
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        if len(nums) < 3:
-            return len(nums)
 
+        # j, count = 1, 1
+        # for i in range(1, len(nums)):
+        #     if nums[i] == nums[i-1]:
+        #         count += 1
+        #     else:
+        #         count = 1
+
+        #     if count <= 2:
+        #         nums[j] = nums[i]
+        #         j += 1
+
+        # return j
+
+
+        if len(nums) < 3: return len(nums)
         pos = 1
-        for i in range(1, len(nums)-1):
+        for i in range(1, len(nums) - 1):
             if nums[i-1] != nums[i+1]:
                 nums[pos] = nums[i]
                 pos += 1
         nums[pos] = nums[-1]
         return pos + 1
-
-
         
 # @lc code=end
 

@@ -53,9 +53,9 @@ class Solution:
 
             if ia + ib < k:
                 if ma > mb:
-                    return kth(a, b[ib+1:], k-ib-1)
+                    return kth(a, b[ib+1:], k - ib - 1)
                 else:
-                    return kth(a[ia+1:], b, k-ia-1)
+                    return kth(a[ia+1:], b, k - ia - 1)
             else:
                 if ma > mb:
                     return kth(a[:ia], b, k)

@@ -58,21 +58,36 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
-        if len(prices) < 2: return 0
+        # Time/Space complexity: O(N)
+        # if len(prices) < 2: return 0
 
-        profits, max_profit, current_min = [], float("-inf"), float("inf")
-        for p in prices:
-            current_min = min(current_min, p)
-            max_profit = max(max_profit, p - current_min)
-            profits.append(max_profit)
+        # profits, max_profit, current_min = [], float("-inf"), float("inf")
+        # for p in prices:
+        #     current_min = min(current_min, p)
+        #     max_profit = max(max_profit, p - current_min)
+        #     profits.append(max_profit)
 
-        total_max, max_profit, current_max = float("-inf"), float("-inf"), float("-inf")
-        for i in range(len(prices)-1, -1, -1):
-            current_max = max(current_max, prices[i])
-            max_profit = max(max_profit, current_max - prices[i])
-            total_max = max(total_max, profits[i] + max_profit)
+        # total_max, max_profit, current_max = float("-inf"), float("-inf"), float("-inf")
+        # for i in range(len(prices)-1, -1, -1):
+        #     current_max = max(current_max, prices[i])
+        #     max_profit = max(max_profit, current_max - prices[i])
+        #     total_max = max(total_max, profits[i] + max_profit)
 
-        return total_max
+        # return total_max
+
+        t1_cost, t2_cost = float("inf"), float("inf")
+        t1_profit, t2_profit = 0, 0
+
+        for price in prices:
+            # the maximum profit if only one transaction is allowed
+            t1_cost = min(t1_cost, price)
+            t1_profit = max(t1_profit, price - t1_cost)
+
+            # reinvest the gained profit in the second transaction
+            t2_cost = min(t2_cost, price - t1_profit)
+            t2_profit = max(t2_profit, price - t2_cost)
+
+        return t2_profit
 
         
 # @lc code=end

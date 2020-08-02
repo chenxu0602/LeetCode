@@ -51,11 +51,29 @@ class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
 
         ans, queue = [], [root,]
-
         while root and queue:
             ans.append([node.val for node in queue])
             queue = [child for node in queue for child in (node.left, node.right) if child]
         return ans
+
+
+        # levels = []
+        # if not root:
+        #     return levels
+
+        # def helper(node, level):
+        #     if len(levels) == level:
+        #         levels.append([])
+
+        #     levels[level].append(node.val)
+
+        #     if node.left:
+        #         helper(node.left, level + 1)
+        #     if node.right:
+        #         helper(node.right, level + 1)
+
+        # helper(root, 0)
+        # return levels
 
         
 # @lc code=end

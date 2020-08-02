@@ -78,22 +78,54 @@ from collections import deque
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
 
-        if not root: return root
+        # O(N)
+        # if not root: return root
 
-        queue = deque([root,])
+        # queue = deque([root,])
 
-        while queue:
-            size = len(queue)
-            for i in range(size):
-                node = queue.popleft()
-                if i < size - 1:
-                    node.next = queue[0]
+        # while queue:
+        #     size = len(queue)
+        #     for i in range(size):
+        #         node = queue.popleft()
+        #         if i < size - 1:
+        #             node.next = queue[0]
 
-                if node.left:
-                    queue.append(node.left)
+        #         if node.left:
+        #             queue.append(node.left)
 
-                if node.right:
-                    queue.append(node.right)
+        #         if node.right:
+        #             queue.append(node.right)
+
+        # return root
+
+        # O(N) / O(1)
+        def processChild(childNode, prev, leftmost):
+            if childNode:
+                if prev:
+                    prev.next = childNode
+                else:
+                    leftmost = childNode
+
+                prev = childNode
+
+            return prev, leftmost
+
+
+        if not root:
+            return root
+
+        leftmost = root
+        while leftmost:
+            # "prev" tracks the latest node on the "next" level
+            # while "curr" tracks the latest node on the current level.
+            prev, curr = None, leftmost 
+
+            leftmost = None
+
+            while curr:
+                prev, leftmost = processChild(curr.left, prev, leftmost)
+                prev, leftmost = processChild(curr.right, prev, leftmost)
+                curr = curr.next
 
         return root
 

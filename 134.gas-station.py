@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/gas-station/description/
 #
 # algorithms
-# Medium (34.67%)
-# Likes:    972
-# Dislikes: 321
-# Total Accepted:    164.3K
-# Total Submissions: 464.5K
+# Medium (36.46%)
+# Likes:    1229
+# Dislikes: 347
+# Total Accepted:    183.4K
+# Total Submissions: 501K
 # Testcase Example:  '[1,2,3,4,5]\n[3,4,5,1,2]'
 #
 # There are N gas stations along a circular route, where the amount of gas at
@@ -80,14 +80,14 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
 
-        start = rest = overrall = 0
+        # O(N) / O(1)
+        start = rest = overall = 0
         for i in range(len(gas)):
             rest += gas[i] - cost[i]
-            overrall += gas[i] - cost[i]
+            overall += gas[i] - cost[i]
             if rest < 0:
                 rest, start = 0, i + 1
-
-        return start if overrall >= 0 else -1
+        return start if overall >= 0 else -1
         
 # @lc code=end
 

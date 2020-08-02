@@ -53,6 +53,17 @@
 
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+
+        if not root: return []
+
+        if not root.left and not root.right and sum == root.val:
+            return [[root.val]]
+
+        return [[root.val] + i for i in self.pathSum(root.left, sum - root.val) + self.pathSum(root.right, sum - root.val)]
+
         # def dfs(node, sum_, l, res):
         #     if node.left is node.right and sum_ == node.val:
         #         l.append(node.val)
@@ -66,12 +77,6 @@ class Solution:
         # res = []
         # dfs(root, sum, [], res)
         # return res
-
-        if not root: return []
-        if root.left is root.right and sum == root.val:
-            return [[root.val]]
-        tmp = self.pathSum(root.left, sum-root.val) + self.pathSum(root.right, sum-root.val)
-        return [[root.val] + i for i in tmp]
 
         # if not root: return []
         # res = []

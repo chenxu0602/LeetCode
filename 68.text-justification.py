@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/text-justification/description/
 #
 # algorithms
-# Hard (24.00%)
-# Likes:    442
-# Dislikes: 1185
-# Total Accepted:    108.6K
-# Total Submissions: 440.4K
+# Hard (27.59%)
+# Likes:    698
+# Dislikes: 1593
+# Total Accepted:    138.3K
+# Total Submissions: 500.2K
 # Testcase Example:  '["This", "is", "an", "example", "of", "text", "justification."]\n16'
 #
 # Given an array of words and a width maxWidth, format the text such that each
@@ -95,24 +95,22 @@
 # @lc code=start
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-        i, N, result = 0, len(words), []
-        while i < N:
-            oneLine, j, currWidth, positionNum, spaceNum = [words[i]], i+1, len(words[i]), 0, maxWidth - len(words[i])
-            while j < N and currWidth + 1 + len(words[j]) <= maxWidth:
-                oneLine.append(words[j])
-                currWidth += 1 + len(words[j])
-                spaceNum -= len(words[j])
-                positionNum, j = positionNum+1, j+1
-            i = j
-            if i < N and positionNum:
-                spaces = [' ' * (spaceNum // positionNum + (k < spaceNum % positionNum)) for k in range(positionNum)] + ['']
-            else:
-                spaces = [' '] * positionNum + [' '  * (maxWidth - currWidth)]
-            result.append("".join([s for pair in zip(oneLine, spaces) for s in pair]))
-
-        return result
-
-            
+        res, cur, num_of_letters = [], [], 0
+        for w in words:
+            if num_of_letters + len(w) + len(cur) > maxWidth:
+                if len(cur) == 1:
+                    res.append(cur[0] + ' ' * (maxWidth - num_of_letters))
+                else:
+                    num_spaces = maxWidth - num_of_letters
+                    space_between_words, num_extra_spaces = divmod(num_spaces, len(cur) - 1)
+                    for i in range(num_extra_spaces):
+                        cur[i] += ' '
+                    res.append((' ' * space_between_words).join(cur))
+                cur, num_of_letters = [], 0
+            cur += [w]
+            num_of_letters += len(w)
+        res.append(' '.join(cur) + ' ' * (maxWidth - num_of_letters - len(cur) + 1))
+        return res
         
 # @lc code=end
 

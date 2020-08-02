@@ -57,7 +57,6 @@ class Solution:
             p -= 1
 
         nums1[:p2+1] = nums2[:p2+1]
-
         
 # @lc code=end
 

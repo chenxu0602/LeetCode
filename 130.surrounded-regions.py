@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/surrounded-regions/description/
 #
 # algorithms
-# Medium (23.60%)
-# Likes:    974
-# Dislikes: 497
-# Total Accepted:    167.2K
-# Total Submissions: 688.1K
+# Medium (25.31%)
+# Likes:    1185
+# Dislikes: 542
+# Total Accepted:    186.7K
+# Total Submissions: 734.8K
 # Testcase Example:  '[["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]'
 #
 # Given a 2D board containing 'X' and 'O' (the letter O), capture all regions
@@ -48,22 +48,75 @@
 #
 
 # @lc code=start
+import itertools
+from collections import deque
+
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
+        # DFS (Depth-First Search)
+        # Time/Space complexity: O(N)   N is the number of cells in the board.
 
-        if not any(board): return 
-        m, n = len(board), len(board[0])
-        save = [ij for k in range(m+n) for ij in ((0, k), (m-1, k), (k, 0), (k, n-1))]
-        while save:
-            i, j = save.pop()
-            if 0 <= i < m and 0 <= j < n and board[i][j] == 'O':
-                board[i][j] = 'S'
-                save += (i, j-1), (i, j+1), (i-1, j), (i+1, j)
+        # if not board or not board[0]:
+        #     return 
 
-        board[:] = [["XO"[c == 'S'] for c in row] for row in board]
+        # m, n = map(len, (board, board[0]))
+        # borders = list(itertools.product(range(m), [0, n - 1])) \
+        #         + list(itertools.product([0, m - 1], range(n)))
+
+        # def dfs(board, r, c):
+        #     if board[r][c] != 'O':
+        #         return
+        #     board[r][c] = 'E'
+        #     if c < n - 1: dfs(board, r, c + 1)
+        #     if r < m - 1: dfs(board, r + 1, c)
+        #     if c > 0: dfs(board, r, c - 1)
+        #     if r > 0: dfs(board, r - 1, c)
+
+        # for r, c in borders:
+        #     dfs(board, r, c)
+
+        # for r in range(m):
+        #     for c in range(n):
+        #         if board[r][c] == 'O':
+        #             board[r][c] = 'X'
+        #         elif board[r][c] == 'E':
+        #             board[r][c] = 'O'
+
+        # BFS (Breath-First Search)
+        # Time/Space complexity: O(N)   N is the number of cells in the board.
+
+        if not board or not board[0]:
+            return 
+
+        m, n = map(len, (board, board[0]))
+        borders = list(itertools.product(range(m), [0, n - 1])) \
+                + list(itertools.product([0, m - 1], range(n)))
+
+        def bfs(board, r, c):
+            queue = deque([(r, c)])
+            while queue:
+                r, c = queue.popleft()
+                if board[r][c] != 'O':
+                    continue
+                board[r][c] = 'E'
+                if c < n - 1: queue.append((r, c + 1))
+                if r < m - 1: queue.append((r + 1, c))
+                if c > 0: queue.append((r, c - 1))
+                if r > 0: queue.append((r - 1, c))
+
+
+        for r, c in borders:
+            bfs(board, r, c)
+
+        for r in range(m):
+            for c in range(n):
+                if board[r][c] == 'O':
+                    board[r][c] = 'X'
+                elif board[r][c] == 'E':
+                    board[r][c] = 'O'
         
 # @lc code=end
 

@@ -53,6 +53,7 @@ class Solution:
             carry = (x & y) << 1
             x, y = answer, carry
         return bin(x)[2:]
+
         
         
 # @lc code=end

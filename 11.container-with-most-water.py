@@ -40,6 +40,7 @@
 # @lc code=start
 class Solution:
     def maxArea(self, height: List[int]) -> int:
+
         area, l, r = 0, 0, len(height) - 1
         while l < r:
             area = max(area, min(height[l], height[r]) * (r - l))

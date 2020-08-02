@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/
 #
 # algorithms
-# Easy (52.09%)
-# Likes:    1469
-# Dislikes: 151
-# Total Accepted:    306.9K
-# Total Submissions: 577.4K
+# Easy (57.68%)
+# Likes:    2543
+# Dislikes: 220
+# Total Accepted:    416.6K
+# Total Submissions: 720.6K
 # Testcase Example:  '[-10,-3,0,5,9]'
 #
 # Given an array where elements are sorted in ascending order, convert it to a
@@ -40,42 +40,24 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
 
-        """
-        n = len(nums)
-        if n == 0:
-            return None
-        if n == 1:
-            return TreeNode(nums[0])
-
-        mid = n // 2
-        root = TreeNode(nums[mid])
-        root.left = self.sortedArrayToBST(nums[:mid])
-        root.right = self.sortedArrayToBST(nums[mid+1:])
-
-        return root
-        """
-
-        def dfs(start, end):
+        def helper(start, end):
             if start > end:
                 return None
 
-            mid = (start + end) // 2
+            mid = start + (end - start) // 2
             node = TreeNode(nums[mid])
-            node.left = dfs(start, mid-1)
-            node.right = dfs(mid+1, end)
+            node.left = helper(start, mid - 1)
+            node.right = helper(mid + 1, end)
             return node
 
-        return dfs(0, len(nums)-1)
-
-
+        return helper(0, len(nums) - 1)
         
 # @lc code=end
 

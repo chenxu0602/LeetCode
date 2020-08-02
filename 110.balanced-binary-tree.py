@@ -66,36 +66,58 @@
 class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
 
-        # def height(root):
-        #     if root is None:
-        #         return 0
-        #     left = height(root.left)
-        #     if left == -1: return -1
-        #     right = height(root.right)
-        #     if right == -1: return -1
+        # Top-down recursion
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(n)
+        def height(node):
+            if not node:
+                return -1
+            return 1 + max(height(node.left), height(node.right))
 
-        #     if abs(left - right) > 1:
-        #         return -1
+        if not root:
+            return True
 
-        #     return 1 + max(left, right)
+        return abs(height(root.left) - height(root.right)) < 2 \
+            and self.isBalanced(root.left) and self.isBalanced(root.right)
 
-        # return height(root) != -1
+        # Bottom-up recursion
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        def helper(node):
+            if not node:
+                return True, -1
 
+            leftIsBalanced, leftHeight = helper(root.left)
+            if not leftIsBalanced:
+                return False, 0
+
+            rightIsBalanced, rightHeight = helper(root.right)
+            if not rightHeight:
+                return False, 0
+
+            return abs(leftHeight - rightHeight) < 2, 1 + max(leftHeight, rightHeight)
+
+        return helper(root)[0]
+
+
+        # Simpler bottom-up recursion
         def height(node):
             if node is None:
                 return 0
 
-            left, right = height(node.left), height(node.right)
-            if left == -1: return -1
-            if right == -1: return -1
+            left, right = map(height, (node.left, node.right))
+
+            if left == -1:
+                return -1
+
+            if right == -1:
+                return -1
 
             if abs(left - right) > 1:
                 return -1
-
+            
             return 1 + max(left, right)
 
-        return height(root) != -1
-
-        
+        return height(root) != 1
 # @lc code=end
 

@@ -75,9 +75,10 @@ class Solution:
             return ok[-1]
         
         def dfs(s, words, L):
+            if len(s) == 0:
+                res.append(L[1:])
+                return
             if check(s, words):
-                if len(s) == 0:
-                    res.append(L[1:])
                 for i in range(1, len(s)+1):
                     if s[:i] in words:
                         dfs(s[i:], words, L+' '+s[:i])
@@ -99,6 +100,7 @@ class Solution:
                         
         #     dp[i] = lst
         # return dp[-1]
+
 
         
 # @lc code=end

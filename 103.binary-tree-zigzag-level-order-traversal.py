@@ -50,18 +50,19 @@
 
 class Solution:
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+
         def addLevel(root, level, res):
             if root:
                 if len(res) == level:
                     res.append([])
-                
-                if level % 2 == 0:
-                    res[level].append(root.val)
-                else:
-                    res[level].insert(0, root.val)
 
-                addLevel(root.left, level+1, res)
-                addLevel(root.right, level+1, res)
+                if level % 2:
+                    res[level].insert(0, root.val)
+                else:
+                    res[level].append(root.val)
+
+                addLevel(root.left, level + 1, res)
+                addLevel(root.right, level + 1, res)
 
         res = []
         addLevel(root, 0, res)

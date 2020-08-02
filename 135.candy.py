@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/candy/description/
 #
 # algorithms
-# Hard (29.00%)
-# Likes:    622
-# Dislikes: 131
-# Total Accepted:    112.4K
-# Total Submissions: 380.9K
+# Hard (31.48%)
+# Likes:    978
+# Dislikes: 165
+# Total Accepted:    132.5K
+# Total Submissions: 420K
 # Testcase Example:  '[1,0,2]'
 #
 # There are N children standing in a line. Each child is assigned a rating
@@ -51,18 +51,18 @@
 # @lc code=start
 class Solution:
     def candy(self, ratings: List[int]) -> int:
-        res = len(ratings) *[1]
+
+        res = [1] * len(ratings)
 
         for i in range(1, len(ratings)):
             if ratings[i] > ratings[i-1]:
                 res[i] = res[i-1] + 1
 
-        for i in range(len(ratings)-1, 0, -1):
+        for i in range(len(ratings) - 1, 0, -1):
             if ratings[i-1] > ratings[i]:
-                res[i-1] = max(res[i-1], res[i]+1)
+                res[i-1] = max(res[i-1], res[i] + 1)
 
         return sum(res)
-
         
 # @lc code=end
 

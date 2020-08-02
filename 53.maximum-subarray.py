@@ -35,21 +35,16 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
 
-        """
-        if not nums:
-            return 0
-
-        curSum = maxSum = nums[0]
-        for i in nums[1:]:
-            curSum = max(i, curSum + i)
-            maxSum = max(maxSum, curSum)
-
-        return maxSum
-        """
+        # if not nums: return 0
+        # curSum = maxSum = nums[0]
+        # for i in nums[1:]:
+        #     curSum = max(curSum + i, i)
+        #     maxSum = max(maxSum, curSum)
+        # return maxSum
 
         curSum = 0
         maxSum = float("-inf")
-        
+
         for i in nums:
             curSum += i
             maxSum = max(maxSum, curSum)

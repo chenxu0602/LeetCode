@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/set-matrix-zeroes/description/
 #
 # algorithms
-# Medium (40.55%)
-# Likes:    1329
-# Dislikes: 231
-# Total Accepted:    243.3K
-# Total Submissions: 592K
+# Medium (41.87%)
+# Likes:    1574
+# Dislikes: 262
+# Total Accepted:    270.6K
+# Total Submissions: 645.7K
 # Testcase Example:  '[[1,1,1],[1,0,1],[1,1,1]]'
 #
 # Given a m x n matrix, if an element is 0, set its entire row and column to 0.
@@ -67,12 +67,12 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-
-        m, n, firstRowHasZero = len(matrix), len(matrix[0]), not all(matrix[0])
+        m, n = map(len, (matrix, matrix[0]))
+        firstRowHasZero = not all(matrix[0])
 
         for i in range(1, m):
             for j in range(n):
-                if matrix[0][0] == 0:
+                if matrix[i][j] == 0:
                     matrix[0][j] = matrix[i][0] = 0
 
         for i in range(1, m):

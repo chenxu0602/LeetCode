@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/search-in-rotated-sorted-array/description/
 #
 # algorithms
-# Medium (33.09%)
-# Likes:    3062
-# Dislikes: 368
-# Total Accepted:    496.1K
-# Total Submissions: 1.5M
+# Medium (33.59%)
+# Likes:    3669
+# Dislikes: 400
+# Total Accepted:    566.7K
+# Total Submissions: 1.7M
 # Testcase Example:  '[4,5,6,7,0,1,2]\n0'
 #
 # Suppose an array sorted in ascending order is rotated at some pivot unknown
@@ -44,29 +44,23 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
 
-        if not nums: return -1
-
-        low, high = 0, len(nums) - 1
-
-        while low <= high:
-            mid = (low + high) // 2
-            if target == nums[mid]:
+        start, end = 0, len(nums) - 1
+        while start <= end:
+            mid = start + (end - start) // 2
+            if nums[mid] == target:
                 return mid
-
-            if nums[low] <= nums[mid]:
-                if nums[low] <= target <= nums[mid]:
-                    high = mid - 1
+            elif nums[mid] >= nums[start]:
+                if nums[start] <= target < nums[mid]:
+                    end = mid - 1
                 else:
-                    low = mid + 1
+                    start = mid + 1
             else:
-                if nums[mid] <= target <= nums[high]:
-                    low = mid + 1
+                if nums[mid] < target <= nums[end]:
+                    start = mid + 1
                 else:
-                    high = mid - 1
+                    end = end - 1
 
         return -1
-
-
         
 # @lc code=end
 

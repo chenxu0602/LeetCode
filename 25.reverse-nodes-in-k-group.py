@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reverse-nodes-in-k-group/description/
 #
 # algorithms
-# Hard (39.52%)
-# Likes:    1724
-# Dislikes: 337
-# Total Accepted:    235.9K
-# Total Submissions: 595.4K
+# Hard (41.82%)
+# Likes:    2322
+# Dislikes: 358
+# Total Accepted:    274.2K
+# Total Submissions: 654.2K
 # Testcase Example:  '[1,2,3,4,5]\n2'
 #
 # Given a linked list, reverse the nodes of a linked list k at a time and
@@ -44,49 +44,59 @@
 # @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
+    def reverseLinkedList(self, head, k):
+        new_head, ptr = None, head
+        while k:
+            next_node = ptr.next
+            ptr.next = new_head
+            new_head = ptr
+            ptr = next_node
+            k -= 1
+        return new_head
+
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        # count, ptr = 0, head
 
-        # dummy = jump = ListNode(0)
-        # dummy.next = l = r = head
+        # while count < k and ptr:
+        #     ptr = ptr.next
+        #     count += 1
 
-        # while True:
-        #     count = 0
-        #     while r and count < k:
-        #         r = r.next
-        #         count += 1
-        #     if count == k:
-        #         pre, cur = r, l
-        #         for _ in range(k):
-        #             cur.next, cur, pre = pre, cur.next, cur
-        #         jump.next, jump, l = pre, l, r
-        #     else:
-        #         return dummy.next
+        # if count == k:
+        #     reversedHead = self.reverseLinkedList(head, k)
+        #     head.next = self.reverseKGroup(ptr, k)
+        #     return reversedHead
 
+        # return head 
 
-        def reverse(head, count):
-            pre, cur, nxt = None, head, head
-            while count > 0:
-                nxt = cur.next
-                cur.next = pre
-                pre = cur
-                cur = nxt
-                count -= 1
-            return cur, pre
+        ptr, ktail, new_head = head, None, None
 
-        count, node = 0, head
-        while node and count < k:
-            node = node.next 
-            count += 1
+        while ptr:
+            count, ptr = 0, head
 
-        if count < k: return head
-        new_head, pre = reverse(head, count)
-        head.next = self.reverseKGroup(new_head, k)
-        return pre
+            while count < k and ptr:
+                ptr = ptr.next
+                count += 1
 
+            if count == k:
+                revHead = self.reverseLinkedList(head, k)
+
+                if not new_head:
+                    new_head = revHead
+
+                if ktail:
+                    ktail.next = revHead
+
+                ktail, head = head, ptr
+
+        if ktail:
+            ktail.next = head
+
+        return new_head if new_head else head
+
+        
 # @lc code=end
 

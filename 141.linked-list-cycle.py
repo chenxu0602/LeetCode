@@ -77,12 +77,21 @@
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
 
+        # if head is None or head.next is None:
+        #     return False
+
+        # slow, fast = head, head.next
+        # while slow is not fast:
+        #     if fast is None or fast.next is None:
+        #         return False
+        #     slow, fast = slow.next, fast.next.next
+        
+        # return True
+
         try:
-            slow = head
-            fast = head.next
+            slow, fast = head, head.next
             while slow is not fast:
-                slow = slow.next
-                fast = fast.next.next
+                slow, fast = slow.next, fast.next.next
             return True
         except:
             return False

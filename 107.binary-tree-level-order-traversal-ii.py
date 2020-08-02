@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-level-order-traversal-ii/description/
 #
 # algorithms
-# Easy (47.81%)
-# Likes:    876
-# Dislikes: 164
-# Total Accepted:    254.4K
-# Total Submissions: 523.6K
+# Easy (53.33%)
+# Likes:    1528
+# Dislikes: 215
+# Total Accepted:    357.8K
+# Total Submissions: 669.8K
 # Testcase Example:  '[3,9,20,null,null,15,7]'
 #
 # Given a binary tree, return the bottom-up level order traversal of its nodes'
@@ -42,42 +42,50 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
 
 class Solution:
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
 
-        def dfs(root, level, res):
-            if root:
-                if len(res) == level:
-                    res.append([])
-                res[level].append(root.val)
-                dfs(root.left, level+1, res)
-                dfs(root.right, level+1, res)
+        # levels = []
+        # if not root:
+        #     return levels
 
-        res = []
-        dfs(root, 0, res)
-        return res[::-1]
+        # def helper(node, level):
+        #     if len(levels) == level:
+        #         levels.append([])
 
-        """
-        stack = [(root, 0)]
-        res = []
-        while stack:
-            node, level = stack.pop()
-            if node:
-                if len(res) == level:
-                    res.append([])
-                res[level].append(node.val)
-                stack.append((node.right, level+1))
-                stack.append((node.left, level+1))
+        #     levels[level].append(node.val)
 
-        return res[::-1]
-        """
+        #     if node.left:
+        #         helper(node.left, level + 1)
+        #     if node.right:
+        #         helper(node.right, level + 1)
 
-                
+        # helper(root, 0)
+        # return levels[::-1]
+
+        levels = []
+        next_level = deque([root])
+
+        while root and next_level:
+            curr_level = next_level
+            next_level = deque()
+            levels.append([])
+
+            for node in curr_level:
+                levels[-1].append(node.val)
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+
+        return levels[::-1]
+
         
 # @lc code=end
 

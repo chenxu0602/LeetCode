@@ -94,7 +94,7 @@ class Solution:
         }
 
         total = values.get(s[-1])
-        for i in range(len(s)-2, -1, -1):
+        for i in range(len(s) - 2, -1, -1):
             if values[s[i]] < values[s[i+1]]:
                 total -= values[s[i]]
             else:

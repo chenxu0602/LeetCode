@@ -52,14 +52,18 @@
 #         self.right = None
 
 class Solution:
-    prev = None
+    prev = None 
 
     def flatten(self, root: TreeNode) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
 
-        # if not root: return None
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if not root:
+        #     return None
+        
         # self.flatten(root.right)
         # self.flatten(root.left)
 
@@ -67,7 +71,7 @@ class Solution:
         # root.left = None
         # self.prev = root
 
-        last = TreeNode(-1)
+        last = ListNode(-1)
         stack = [root,]
 
         while stack:
@@ -82,6 +86,7 @@ class Solution:
                 stack.append(node.left)
 
             last = node
+
 
 
         

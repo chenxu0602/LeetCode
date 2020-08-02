@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/linked-list-cycle-ii/description/
 #
 # algorithms
-# Medium (33.05%)
-# Likes:    1785
-# Dislikes: 145
-# Total Accepted:    247.2K
-# Total Submissions: 730.3K
+# Medium (37.08%)
+# Likes:    2825
+# Dislikes: 224
+# Total Accepted:    332.2K
+# Total Submissions: 893.1K
 # Testcase Example:  '[3,2,0,-4]\n1'
 #
 # Given a linked list, return the node where the cycle begins. If there is no
@@ -73,22 +73,36 @@
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
 
+        # Hash Table
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        # visited, node = set(), head
+        # while node is not None:
+        #     if node in visited:
+        #         return node
+        #     else:
+        #         visited.add(node)
+        #         node = node.next
+        # return None
+        
+
+        # Floyd's Tortoise and Hare
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
         if head is None or head.next is None:
             return None
 
         slow = fast = head
 
         while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+            slow, fast = slow.next, fast.next.next
             if slow == fast:
                 break
 
         if slow == fast:
             slow = head
             while slow is not fast:
-                slow = slow.next
-                fast = fast.next
+                slow, fast = slow.next, fast.next
 
             return slow
 

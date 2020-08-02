@@ -45,8 +45,8 @@ class Solution:
         #     l2.next = self.mergeTwoLists(l1, l2.next)
         #     return l2
 
-        dummy = head = ListNode(-1)
-        
+        dummy = head = ListNode(0)
+
         while l1 and l2:
             if l1.val <= l2.val:
                 head.next = l1
@@ -54,9 +54,9 @@ class Solution:
             else:
                 head.next = l2
                 l2 = l2.next
-            head = head.next
-        
-        head.next = l1 if l1 else l2
+            head = head.next 
+
+        head.next = l1 or l2
 
         return dummy.next
 

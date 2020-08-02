@@ -47,19 +47,52 @@ from collections import deque
 class Solution:
     def minDepth(self, root: TreeNode) -> int:
 
-        # if not root: return 0
+        # Recursion
+        # Time  complexity: O(N)
+        # Space complexity: O(logN)
+        # if not root:
+        #     return 0
+
         # children = [root.left, root.right]
-        # if not any(children): return 1
+        # if not any(children):
+        #     return 1
 
         # min_depth = float("inf")
         # for c in children:
         #     if c:
         #         min_depth = min(self.minDepth(c), min_depth)
-        # return 1 + min_depth
+        
+        # return min_depth + 1
+        
 
+        # DFS Iteration
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if not root:
+        #     return 0
+        # else:
+        #     stack, min_depth = [(1, root),], float("inf")
 
-        if not root: return 0
-        node_deque = deque([(1, root),])
+        # while stack:
+        #     depth, root = stack.pop()
+        #     children = [root.left, root.right]
+        #     if not any(children):
+        #         min_depth = min(depth, min_depth)
+        #     for c in children:
+        #         if c:
+        #             stack.append((depth + 1, c))
+
+        # return min_depth
+        
+
+        # BFS Iteration
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # One way to optimize the complexity is to use the BFS strategy. We iterate the tree level by level, and the first leaf we reach corresponds to the minimum depth. 
+        if not root:
+            return 0
+        else:
+            node_deque = deque([(1, root),])
 
         while node_deque:
             depth, root = node_deque.popleft()
@@ -68,7 +101,8 @@ class Solution:
                 return depth
             for c in children:
                 if c:
-                    node_deque.append((1 + depth, c))
-        
+                    node_deque.append((depth + 1, c))
+
+
 # @lc code=end
 

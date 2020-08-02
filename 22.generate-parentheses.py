@@ -36,6 +36,7 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
 
+        # Time and space complexity: O(4^n / sqrt(n))
         if n == 0: return [""]
         ans = []
         for c in range(n):

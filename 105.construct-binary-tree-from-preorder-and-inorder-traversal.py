@@ -45,33 +45,42 @@
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+
+        # Time complexity: O(n^2) because of the index
         # if inorder:
-        #     idx = inorder.index(preorder.pop(0))
-        #     root = TreeNode(inorder[idx])
-        #     root.left = self.buildTree(preorder, inorder[:idx])
-        #     root.right = self.buildTree(preorder, inorder[idx+1:])
+        #     ind = inorder.index(preorder.pop(0))
+        #     root = TreeNode(inorder[ind])
+        #     root.left = self.buildTree(preorder, inorder[:ind])
+        #     root.right = self.buildTree(preorder, inorder[ind+1:])
         #     return root
-        # return None
 
-        def dfs(left, right):
+        # Complexity: O(N)
+        def helper(in_left=0, in_right=len(inorder)):
             nonlocal pre_idx
-
-            if left == right:
+            if in_left == in_right:
                 return None
 
+            # pick up pre_idx element as a root
             root_val = preorder[pre_idx]
             root = TreeNode(root_val)
 
-            idx = idx_map[root_val]
+            # root splits inorder list into left and right subtrees
+            index = idx_map[root_val]
 
+            # recursion
             pre_idx += 1
-            root.left = dfs(left, idx)
-            root.right = dfs(idx+1, right)
+            root.left = helper(in_left, index)
+            root.right = helper(index + 1, in_right)
             return root
 
+        # start from first preorder element
         pre_idx = 0
+
+        # build a hashmap value -> its index
         idx_map = {val: idx for idx, val in enumerate(inorder)}
-        return dfs(0, len(inorder))
+        return helper()
+
+
         
 # @lc code=end
 

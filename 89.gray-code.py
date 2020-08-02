@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/gray-code/description/
 #
 # algorithms
-# Medium (46.46%)
-# Likes:    457
-# Dislikes: 1313
-# Total Accepted:    144.8K
-# Total Submissions: 308.5K
+# Medium (49.00%)
+# Likes:    654
+# Dislikes: 1554
+# Total Accepted:    163.5K
+# Total Submissions: 333.2K
 # Testcase Example:  '2'
 #
 # The gray code is a binary numeral system where two successive values differ
@@ -56,20 +56,15 @@
 # @lc code=start
 class Solution:
     def grayCode(self, n: int) -> List[int]:
-
         res = []
-        size = 1 << n
-        for i in range(size):
+        for i in range(1 << n):
             res.append((i >> 1) ^ i)
         return res
 
-        """
-        res = [0]
-        for i in range(1, 2**n):
-            res.append(res[-1] ^ (i & -i))
-        return res
-        """
-
+        # res = [0]
+        # for i in range(1, 1 << n):
+        #     res.append(res[-1] ^ (i & -i))
+        # return res
         
 # @lc code=end
 

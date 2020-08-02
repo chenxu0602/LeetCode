@@ -36,6 +36,7 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
+
 import heapq
 
 class ListNodeExtension(ListNode):
@@ -44,21 +45,22 @@ class ListNodeExtension(ListNode):
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+
         ListNode.__lt__ = ListNodeExtension.__lt__
 
-        dummy = node = ListNode(0)
-        h = [(n.val, n) for n in lists if n]
-        heapq.heapify(h)
+        dummy = head = ListNode(0)
+        heap = [(node.val, node) for node in lists if node]
+        heapq.heapify(heap)
 
-        while h:
-            v, n = heapq.heappop(h)
-            node.next = n
+        while heap:
+            val, node = heapq.heappop(heap)
+            head.next = node
+            head = head.next 
             node = node.next
-            if n.next:
-                heapq.heappush(h, (n.next.val, n.next))
+            if node:
+                heapq.heappush(heap, (node.val, node))
 
-        return dummy.next
-
+        return dummy.next 
         
 # @lc code=end
 

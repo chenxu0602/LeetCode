@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/scramble-string/description/
 #
 # algorithms
-# Hard (32.04%)
-# Likes:    352
-# Dislikes: 561
-# Total Accepted:    97.3K
-# Total Submissions: 300.6K
+# Hard (32.81%)
+# Likes:    415
+# Dislikes: 635
+# Total Accepted:    103.5K
+# Total Submissions: 313.9K
 # Testcase Example:  '"great"\n"rgeat"'
 #
 # Given a string s1, we may represent it as a binary tree by partitioning it to
@@ -82,13 +82,11 @@
 # @lc code=start
 class Solution:
     def isScramble(self, s1: str, s2: str) -> bool:
-        if not len(s1) == len(s2):
-            return False
+        if not len(s1) == len(s2): return False
 
         if s1 == s2: return True
 
-        l1 = sorted(list(s1))
-        l2 = sorted(list(s2))
+        l1, l2 = map(sorted, (s1, s2))
 
         if not l1 == l2: return False
 
@@ -101,6 +99,8 @@ class Solution:
                 return True
 
         return False
+
+
         
 # @lc code=end
 

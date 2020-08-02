@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-inorder-traversal/description/
 #
 # algorithms
-# Medium (57.90%)
-# Likes:    2049
-# Dislikes: 91
-# Total Accepted:    547.1K
-# Total Submissions: 928.4K
+# Medium (63.07%)
+# Likes:    3255
+# Dislikes: 136
+# Total Accepted:    752.6K
+# Total Submissions: 1.2M
 # Testcase Example:  '[1,null,2,3]'
 #
 # Given a binary tree, return the inorder traversal of its nodes' values.
@@ -34,24 +34,22 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
-#        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []
+        # return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []
 
         res, stack = [], []
-        while root or stack:
+        while stack or root:
             while root:
                 stack.append(root)
                 root = root.left
             root = stack.pop()
             res.append(root.val)
             root = root.right
-
         return res
         
 # @lc code=end

@@ -48,7 +48,9 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
 
-        red, white, blue = 0, 0, len(nums)-1
+        # The problem is known as Dutch National Flag Problem and first was proposed by Edsger W. Dijkstra. 
+
+        red, white, blue = 0, 0, len(nums) - 1
 
         while white <= blue:
             if nums[white] == 0:
@@ -60,6 +62,8 @@ class Solution:
                 blue -= 1
             else:
                 white += 1
+
+
 
         
 # @lc code=end

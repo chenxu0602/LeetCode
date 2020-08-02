@@ -75,22 +75,64 @@ class Node:
         self.right = right
         self.next = next
 """
+from collections import deque
+
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        # if not root: return root
+
+        # Level Order Traversal
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if not root:
+        #     return root
+
+        # queue = deque([root,])
+        # while queue:
+        #     size = len(queue)
+
+        #     # Iterate over all the nodes on the current level
+        #     for i in range(size):
+        #         node = queue.popleft()
+
+        #         if i < size - 1:
+        #             node.next = queue[0]
+
+        #         if node.left:
+        #             queue.append(node.left)
+        #         if node.right:
+        #             queue.append(node.right)
+
+        # return root
+
+
+        # Using previously established next pointers
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # if not root:
+        #     return root
 
         # leftmost = root
 
+        # # Once we reach the final level, we are done
         # while leftmost.left:
         #     head = leftmost
         #     while head:
         #         head.left.next = head.right
-        #         head.right.next = head.next and head.next.left
+
+        #         if head.next:
+        #             head.right.next = head.next.left
+
         #         head = head.next
+
+        #     # Move onto the next level
         #     leftmost = leftmost.left
+
         # return root
 
-        if not root: return None
+        # Simpler iterations
+        if not root:
+            return None
+
         cur, nxt = root, root.left
 
         while cur.left:

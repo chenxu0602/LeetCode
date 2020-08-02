@@ -71,17 +71,17 @@ class Solution:
         return s
         """
 
-        s = '1'
-        for _ in range(n-1):
-            s = "".join(str(len(list(group))) + digit for digit, group in groupby(s))
-        return s
-
         """
         if n == '1':
             return '1'
         else:
             return ''.join(str(len(x)) + x[0] for x in [list(g) for k, g in itertools.groupby(self.countAndSay(n-1))])
         """
+
+        s = '1'
+        for _ in range(n-1):
+            s = "".join(str(len(list(group))) + digit for digit, group in groupby(s))
+        return s
         
 # @lc code=end
 

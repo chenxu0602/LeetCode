@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/valid-number/description/
 #
 # algorithms
-# Hard (14.23%)
-# Likes:    522
-# Dislikes: 3739
-# Total Accepted:    138.9K
-# Total Submissions: 963.1K
+# Hard (15.25%)
+# Likes:    746
+# Dislikes: 4862
+# Total Accepted:    172.1K
+# Total Submissions: 1.1M
 # Testcase Example:  '"0"'
 #
 # Validate if a given string can be interpreted as a decimal number.
@@ -77,9 +77,6 @@ class Solution:
                 return False
 
         return met_digit
-
-
-
         
 # @lc code=end
 

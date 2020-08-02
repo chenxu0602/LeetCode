@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/rotate-list/description/
 #
 # algorithms
-# Medium (27.75%)
-# Likes:    746
-# Dislikes: 889
-# Total Accepted:    218.1K
-# Total Submissions: 775.2K
+# Medium (29.89%)
+# Likes:    1287
+# Dislikes: 1010
+# Total Accepted:    278.3K
+# Total Submissions: 929.4K
 # Testcase Example:  '[1,2,3,4,5]\n2'
 #
 # Given a linked list, rotate the list to the right by k places, where k is
@@ -42,16 +42,13 @@
 # @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head:
-            return None
-        if not head.next:
-            return head
+        if not head: return None
+        if not head.next: return head
 
         old_tail = head
         n = 1
@@ -60,15 +57,16 @@ class Solution:
             n += 1
         old_tail.next = head
 
+        # find new tail : (n - k % n - 1)th node
+        # and new head : (n - k % n)th node
         new_tail = head
         for i in range(n - k % n - 1):
             new_tail = new_tail.next
-        new_head = new_tail.next
 
+        new_head = new_tail.next
         new_tail.next = None
 
         return new_head
-
         
 # @lc code=end
 

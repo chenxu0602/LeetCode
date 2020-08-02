@@ -43,12 +43,11 @@ class Solution:
         # return (3 * sum(set(nums)) - sum(nums)) // 2
 
         seen_once = seen_twice = 0
-
         for num in nums:
             seen_once = ~seen_twice & (seen_once ^ num)
             seen_twice = ~seen_once & (seen_twice ^ num)
-
         return seen_once
+
 
 
         
