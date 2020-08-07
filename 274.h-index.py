@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/h-index/description/
 #
 # algorithms
-# Medium (34.62%)
-# Likes:    393
-# Dislikes: 673
-# Total Accepted:    123.1K
-# Total Submissions: 355.6K
+# Medium (35.17%)
+# Likes:    515
+# Dislikes: 866
+# Total Accepted:    141K
+# Total Submissions: 400.8K
 # Testcase Example:  '[3,0,6,1,5]'
 #
 # Given an array of citations (each citation is a non-negative integer) of a
@@ -36,45 +36,37 @@
 # the h-index.
 # 
 #
+
+# @lc code=start
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-#        citations.sort(reverse=True)
 
-#        for i, v in enumerate(citations):
-#            if not v > i:
-#                return i
-#
-#        return len(citations)
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(1)
+        # citations.sort()
+        # i = 0
+        # while i < len(citations) and citations[len(citations) - 1 - i] > i:
+        #     i += 1
+        # return i
 
-#        i = 0
-#        while i < len(citations) and citations[i] > i:
-#            i += 1
-#
-#        return i
 
-#        return sum(i < j for i, j in enumerate(sorted(citations, reverse=True)))
+        # return sum(i < j for i, j in enumerate(sorted(citations, reverse=True)))
 
-        """
+
+
+        # Counting Sort
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         n = len(citations)
-        count = [0] * (n+1)
-
-        for num in citations:
-            count[min(n, num)] += 1
-
-        r = 0
-        for i in range(n, -1, -1):
-            r += count[i]
-            if r >= i:
-                return i
-
-        return 0
-        """
-
-        citations.sort(reverse=True)
-        i = 0
-        while i < len(citations) and citations[i] > i:
-            i += 1
-        return i
+        papers = [0] * (n + 1)
+        for c in citations:
+            papers[min(n, c)] += 1
+        k, s = n, papers[n]
+        while k > s:
+            k -= 1
+            s += papers[k]
+        return k 
         
-        
+
+# @lc code=end
 

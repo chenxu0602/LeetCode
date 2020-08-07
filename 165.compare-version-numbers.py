@@ -76,42 +76,33 @@ from itertools import zip_longest
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
 
-        """
-        v1, v2 = (map(int, v.split('.')) for v in (version1, version2))
-        v1 = list(v1)
-        v2 = list(v2)
-        d = len(v2) - len(v1)
-        v1 += [0]*d
-        v2 += [0]*-d
-        if v1 > v2:
-            return 1
-        elif v1 < v2:
-            return -1
-        else:
-            return 0
-        """
+        # Time  complexity: O(N + M + max(N, M))
+        # Space complexity: O(N + M)
+        # v1, v2 = version1.split('.'), version2.split('.')
+        # n1, n2 = map(len, (v1, v2))
 
-        """
-        v1, v2 = version1.split('.'), version2.split('.')
-        l1, l2 = len(v1), len(v2)
+        # for i in range(max(n1, n2)):
+        #     a = int(v1[i]) if i < n1 else 0
+        #     b = int(v2[i]) if i < n2 else 0
 
-        i = 0
-        while i < max(l1, l2):
-            a = int(v1[i]) if i < l1 else 0
-            b = int(v2[i]) if i < l2 else 0
+        #     r = (a > b) - (a < b)
 
-            r = (a>b) - (a<b)
+        #     if r:
+        #         return r
 
-            if r:
-                return r
+        #     i += 1
 
-            i += 1
+        # return 0
 
-        return 0
-        """
+
+        # def cmp(a, b):
+        #     return (a>b) - (a<b)
+
+        # splits = (map(int, v.split('.')) for v in (version1, version2))
+        # return cmp(*zip(*zip_longest(*splits, fillvalue=0)))
 
         def cmp(a, b):
-            return (a>b) - (a<b)
+            return (a > b) - (a < b)
 
         splits = (map(int, v.split('.')) for v in (version1, version2))
         return cmp(*zip(*zip_longest(*splits, fillvalue=0)))

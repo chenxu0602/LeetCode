@@ -48,32 +48,18 @@ from functools import lru_cache
 class Solution:
     def rob(self, nums: List[int]) -> int:
 
-        """
-        n = len(nums)
-        if n == 0:
-            return 0
+        # dp = [0] * (len(nums) + 2)
+        # for i, num in enumerate(nums, 2):
+        #     dp[i] = max(dp[i-2] + num, dp[i-1])
+        # return dp[-1]
 
-        if n == 1:
-            return nums[0]
-
-        return max(self.rob(nums[1:]), nums[0] + self.rob(nums[2:]))
-        """
-
-        """
         prevMax = currMax = 0
         for i in nums:
             temp = currMax
             currMax = max(prevMax + i, currMax)
             prevMax = temp
-
         return currMax
-        """
 
-        dp = [0] * (len(nums) + 2)
-        for i, num in enumerate(nums, 2):
-            dp[i] = max(dp[i-2] + num, dp[i-1])
-
-        return dp[-1]
 
 
         

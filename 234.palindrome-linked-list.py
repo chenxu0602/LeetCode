@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/palindrome-linked-list/description/
 #
 # algorithms
-# Easy (36.76%)
-# Likes:    2036
-# Dislikes: 291
-# Total Accepted:    310.7K
-# Total Submissions: 834.4K
+# Easy (39.12%)
+# Likes:    3343
+# Dislikes: 367
+# Total Accepted:    440.9K
+# Total Submissions: 1.1M
 # Testcase Example:  '[1,2]'
 #
 # Given a singly linked list, determine if it is a palindrome.
@@ -35,10 +35,9 @@
 # @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
 
@@ -57,8 +56,6 @@ class Solution:
             prev, head = prev.next, head.next
 
         return True
-
-
         
 # @lc code=end
 

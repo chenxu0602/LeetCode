@@ -34,21 +34,47 @@
 # @lc code=start
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n)
         # i = 0
         # for j in range(len(s)-1, -1, -1):
         #     if s[i] == s[j]:
         #         i += 1
-            
+
         # if i == len(s):
         #     return s
 
         # return s[i:][::-1] + self.shortestPalindrome(s[:i]) + s[i:]
 
+
+        # r = s[::-1]
+        # for i in range(len(s) + 1):
+        #     if s.startswith(r[i:]):
+        #         return r[:i] + s
+
+
+
+        # KMP (Knuth–Morris–Pratt) algorithm
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         r = s[::-1]
-        for i in range(len(s)+1):
-            if s.startswith(r[i:]):
-                return r[:i] + s
+        s_new = s + '#' + r
+        n_new = len(s_new)
+        f = [0] * n_new
+
+        for i in range(1, n_new):
+            t = f[i-1]
+            while t > 0 and s_new[i] != s_new[t]:
+                t = f[t-1]
+            if s_new[i] == s_new[t]:
+                t += 1
+            f[i] = t
+
+        return r[:len(s) - f[n_new - 1]] + s
+
+
+
+
         
 # @lc code=end
 

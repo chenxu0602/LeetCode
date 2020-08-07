@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/peeking-iterator/description/
 #
 # algorithms
-# Medium (40.70%)
-# Likes:    282
-# Dislikes: 192
-# Total Accepted:    76.1K
-# Total Submissions: 187K
-# Testcase Example:  '["PeekingIterator","next","peek","next","next","hasNext"]\n' +
+# Medium (45.42%)
+# Likes:    516
+# Dislikes: 376
+# Total Accepted:    100.6K
+# Total Submissions: 220.6K
+# Testcase Example:  '["PeekingIterator","next","peek","next","next","hasNext"]\n' + '[[[1,2,3]],[],[],[],[],[]]'
 #
 # Given an Iterator class interface with methods: next() and hasNext(), design
 # and implement a PeekingIterator that support the peek() operation -- it
@@ -35,6 +35,8 @@
 # types, not just integer?
 # 
 #
+
+# @lc code=start
 # Below is the interface for Iterator, which is already defined for you.
 #
 # class Iterator:
@@ -95,4 +97,5 @@ class PeekingIterator:
 # while iter.hasNext():
 #     val = iter.peek()   # Get the next element but not advance the iterator.
 #     iter.next()         # Should return the same value as [val].
+# @lc code=end
 

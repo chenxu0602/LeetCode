@@ -60,6 +60,36 @@
 
 class Solution:
     def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        # Time  complexity: O(H_p) in the best case, when node p has a right child. O(H) in the worst case of no right child.
+        # Space complexity: O(1) in the best case when node p has a right child. Otherwise, up to O(H) to keep the stack.
+        # the successor is somewhere lower in the right subtree
+        # successor: one step right and then left till you can
+        # if p.right:
+        #     p = p.right
+        #     while p.left:
+        #         p = p.left
+        #     return p
+
+        # # the successor is somewhere upper in the tree
+        # stack, inorder = [], float("-inf")
+
+        # # inorder traversal : left -> node -> right
+        # while stack or root:
+        #     while root:
+        #         stack.append(root)
+        #         root = root.left
+
+        #     root = stack.pop()
+        #     if inorder == p.val:  # if the previous node was equal to p
+        #         return root       # then the current node is its 
+
+        #     inorder = root.val
+        #     root = root.right
+        
+        # return None
+
+
+
 
         succ = None
         while root:
@@ -70,7 +100,5 @@ class Solution:
                 root = root.right
 
         return succ
-
-        
 # @lc code=end
 

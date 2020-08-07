@@ -61,49 +61,69 @@
 #         self.right = None
 
 class Solution:
+
+    def __init__(self):
+        self.ans = None 
+
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # Recursive Approach
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # def recurse_tree(node):
+        #     if not node:
+        #         return False
 
-        # if root in (None, p, q):
-        #     return root
-
-        # left, right = (self.lowestCommonAncestor(child, p, q) for child in (root.left, root.right))
-        # return root if left and right else left or right
-
-        # def dfs(node):
-        #     if not node: return False
-        #     left, right = dfs(node.left), dfs(node.right)
+        #     left, right = map(recurse_tree, (node.left, node.right))
         #     mid = node == p or node == q
+
         #     if mid + left + right >= 2:
         #         self.ans = node
+
         #     return mid or left or right
 
-        # dfs(root)
+        # recurse_tree(root)
         # return self.ans
 
-        stack = [root,]
-        parent = {root: None}
 
-        while p not in parent or q not in parent:
-            node = stack.pop()
-            if node.left:
-                parent[node.left] = node
-                stack.append(node.left)
-            if node.right:
-                parent[node.right] = node
-                stack.append(node.right)
+        # Iterative using parent pointers
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # stack = [root]
+        # parent = {root: None}
 
-        ancestors = set()
+        # while p not in parent or q not in parent:
+        #     node = stack.pop()
 
-        while p:
-            ancestors.add(p)
-            p = parent[p]
+        #     if node.left:
+        #         parent[node.left] = node
+        #         stack.append(node.left)
+        #     if node.right:
+        #         parent[node.right] = node
+        #         stack.append(node.right)
 
-        while q not in ancestors:
-            q = parent[q]
+        # ancestors = set()
+        # while p:
+        #     ancestors.add(p)
+        #     p = parent[p]
 
-        return q
+        # while q not in ancestors:
+        #     q = parent[q]
+
+        # return q
+
+
+
+        if root in (None, p, q):
+            return root
+
+        left, right = map(self.lowestCommonAncestor, (root.left, root.right), (p, p), (q, q))
+        return root if left and right else left or right
+        
+
+
+
+
             
-
         
 # @lc code=end
 

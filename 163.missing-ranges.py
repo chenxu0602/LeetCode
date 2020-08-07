@@ -28,15 +28,18 @@
 # @lc code=start
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[str]:
-        start = [lower] + sorted(set(map(lambda x: x+1, nums)) - set(nums)) 
-        end = sorted(set(map(lambda x: x-1, nums)) - set(nums)) + [upper]
+
+        start = [lower] + sorted(set(map(lambda x: x + 1, nums)) - set(nums))
+        end = sorted(set(map(lambda x: x - 1, nums)) - set(nums)) + [upper]
 
         res = []
+
         for s, e in zip(start, end):
             if s < e:
-                res.append(f"{s}->{e}")
+                res.append("{}->{}".format(s, e))
             elif s == e:
-                res.append(f"{s}")
+                res.append("{}".format(s))
+
         return res
         
 # @lc code=end

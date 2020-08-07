@@ -152,11 +152,12 @@ class Solution:
             l = read4(buf4)
             self.queue.extend(buf4)
             curr = min(len(self.queue), n - idx)
-            for i in range(curr):
-                buf[idx] = self.queue.popleft()
-                idx += 1
             if curr == 0:
                 break
+            for _ in range(curr):
+                buf[idx] = self.queue.popleft()
+                idx += 1
+
         return idx
 
         

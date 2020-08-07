@@ -42,6 +42,9 @@
 
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
+
+        # Time/Space complexity: O(N)
+
         if not root:
             return []
 

@@ -48,6 +48,44 @@
 
 class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
+        # Recursive Inorder + Linear search, O(N) time
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # def inorder(r: TreeNode):
+        #     return inorder(r.left) + [r.val] + inorder(r.right) if r else []
+
+        # return min(inorder(root), key=lambda x: abs(target - x))
+
+
+        # Iterative Inorder, O(k) time
+        # Time  complexity: O(k) in average case and O(H + k) in the worst case.
+        # Space complexity: O(H) to keep the stack in the case of non-balanced tree.
+        # stack, pred = [], float("-inf")
+
+        # while stack or root:
+        #     while root:
+        #         stack.append(root)
+        #         root = root.left
+        #     root = stack.pop()
+
+        #     if pred <= target < root.val:
+        #         return min(pred, root.val, key=lambda x: abs(target - x))
+
+        #     pred = root.val
+        #     root = root.right
+
+        # return pred
+
+
+        # Binary Search, O(H) time
+        # Time  complexity: O(H)
+        # Space complexity: O(1)
+        closest = root.val
+        while root:
+            closest = min(root.val, closest, key=lambda x: abs(target - x))
+            root = root.left if target < root.val else root.right
+        return closest
+
 
         # def inorder(node):
         #     return inorder(node.left) + [node.val] + inorder(node.right) if node else []
@@ -79,11 +117,11 @@ class Solution:
 
         # return res
 
-        closest = root.val
-        while root:
-            closest = min(root.val, closest, key=lambda x: abs(x - target))
-            root = root.left if root.val > target else root.right
-        return closest
+        # closest = root.val
+        # while root:
+        #     closest = min(root.val, closest, key=lambda x: abs(x - target))
+        #     root = root.left if root.val > target else root.right
+        # return closest
 
 
 

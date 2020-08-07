@@ -45,40 +45,31 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
 
-        def _splitList(head):
-            fast = slow = head
-            while fast and fast.next:
-                slow = slow.next
-                fast = fast.next.next
-            mid = slow.next
-            slow.next = None
-            return head, mid
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        if not head:
+            return
 
-        def _reverseList(head):
-            last, current = None, head
-            while current:
-                next = current.next
-                current.next = last
-                last = current
-                current = next
-            return last
+        # find the middle of linked list [Problem 876]
+        # in 1->2->3->4->5->6 find 4 
+        slow = fast = head
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
 
-        def _mergeList(a, b):
-            tail = head = a
-            a = a.next
-            while b:
-                tail.next = b
-                tail = tail.next
-                b = b.next
-                if a:
-                    a, b = b, a
+        # reverse the second part of the list [Problem 206]
+        # convert 1->2->3->4->5->6 into 1->2->3->4 and 6->5->4
+        # reverse the second half in-place
+        prev, curr = None, slow
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next
 
-        if not head or not head.next:
-            return 
-
-        a, b = _splitList(head)
-        b = _reverseList(b)
-        head = _mergeList(a, b)
+        # merge two sorted linked lists [Problem 21]
+        # merge 1->2->3->4 and 6->5->4 into 1->6->2->5->3->4
+        first, second = head, prev
+        while second.next:
+            first.next, first = second, first.next
+            second.next, second = first, second.next
+            
         
 # @lc code=end
 

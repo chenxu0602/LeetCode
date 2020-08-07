@@ -35,14 +35,21 @@
 # @lc code=start
 class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
-        n, ans, left, ss = len(nums), float("inf"), 0, 0
-        for i in range(n):
+
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
+
+        ans, left, ss = float("inf"), 0, 0
+
+        for i in range(len(nums)):
             ss += nums[i]
             while ss >= s:
                 ans = min(ans, i - left + 1)
                 ss -= nums[left]
                 left += 1
+
         return ans if ans < float("inf") else 0
+
         
 # @lc code=end
 

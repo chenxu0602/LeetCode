@@ -76,6 +76,20 @@ from math import sqrt
 
 class Solution:
     def getFactors(self, n: int) -> List[List[int]]:
+        # O(N^(logN))
+
+        # self.res = []
+        # def dfs(path, cur, biggest):
+        #     for i in range(biggest, int(sqrt(cur)) + 1):
+        #         if cur % i == 0:
+        #             dfs(path + [i], cur // i, i)
+
+        #     if path:
+        #         self.res.append(path + [cur])
+
+        # dfs([], n, 2)
+        # return self.res
+
 
         def dfs(n, i, path, paths):
             while i * i <= n:
@@ -86,19 +100,6 @@ class Solution:
             return paths
 
         return dfs(n, 2, [], [])
-
-        """
-        self.res = []
-        def dfs(path, cur, biggest):
-            for i in range(biggest, int(sqrt(cur))+1):
-                if cur % i == 0:
-                    dfs(path + [i], cur // i, i)
-
-            if path:
-                self.res.append(path + [cur])
-        dfs([], n, 2)
-        return self.res
-        """
         
 # @lc code=end
 

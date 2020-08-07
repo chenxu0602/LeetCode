@@ -53,7 +53,9 @@
 # @lc code=start
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
-        ns, nt = len(s), len(t)
+
+        # O(N)
+        ns, nt = map(len, (s, t))
 
         if ns > nt:
             return self.isOneEditDistance(t, s)
@@ -69,6 +71,8 @@ class Solution:
                     return s[i:] == t[i+1:]
 
         return ns + 1 == nt
+        
+
 
         
 # @lc code=end

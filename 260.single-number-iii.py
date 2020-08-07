@@ -37,8 +37,10 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
 
-        # difference between two numbers (x and y) which were seen only once
+        # x & (-x) is a way to isolate the rightmost 1-bit
+        # x & (-x) keeps the rightmost 1-bit and sets all the other bits to 0
 
+        # difference between two numbers (x and y) which were seen only once
         bitmask = 0
         for num in nums:
             bitmask ^= num
@@ -52,7 +54,7 @@ class Solution:
             if num & diff:
                 x ^= num
 
-        return [x, bitmask ^ x]
+        return [x, bitmask^x]
         
 # @lc code=end
 

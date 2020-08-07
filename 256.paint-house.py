@@ -41,17 +41,28 @@
 # @lc code=start
 class Solution:
     def minCost(self, costs: List[List[int]]) -> int:
-        """
+        # O(n) / O(1)
+        # for i in reversed(range(len(costs) - 1)):
+        #     # Total cost of painting ith house red.
+        #     costs[i][0] += min(costs[i+1][1], costs[i+1][2])
+        #     # Total cost of painting nth house green.
+        #     costs[i][1] += min(costs[i+1][0], costs[i+1][2])
+        #     # Total cost of painting nth house blue.
+        #     costs[i][2] += min(costs[i+1][0], costs[i+1][1])
+
+        # if len(costs) == 0: return 0
+        # return min(costs[0])
+
+
+        # colors = [0] * 3
+        # for cost in costs:
+        #     colors = [cost[i] + min(colors[:i] + colors[i+1:]) for i in range(3)]
+        # return min(colors)
+
+        
         red, blue, green = 0, 0, 0
         for cr, cb, cg in costs:
             red, blue, green = min(blue, green) + cr, min(red, green) + cb, min(red, blue) + cg
         return min(red, blue, green)
-        """
-
-        colors = [0] * 3
-        for cost in costs:
-            colors = [cost[i] + min(colors[:i] + colors[i+1:]) for i in range(3)]
-        return min(colors)
-        
 # @lc code=end
 

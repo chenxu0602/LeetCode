@@ -35,6 +35,8 @@
 #
 
 # @lc code=start
+# Time  complexity: O(nlgn)
+# Space complexity: O(n)
 class LargerNumber(str):
     def __lt__(self, other):
         return self + other > other + self

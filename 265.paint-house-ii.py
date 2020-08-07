@@ -46,9 +46,10 @@
 class Solution:
     def minCostII(self, costs: List[List[int]]) -> int:
 
+        # Time  complexity: O(nk^2)
+        # Space complexity: O(k)
         k = len(costs[0]) if costs else 0
         colors = [0] * k
-
         for cost in costs:
             colors = [cost[i] + min(colors[:i] + colors[i+1:], default=0) for i in range(k)]
         return min(colors) if colors else 0

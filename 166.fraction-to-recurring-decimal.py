@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/fraction-to-recurring-decimal/description/
 #
 # algorithms
-# Medium (19.78%)
-# Likes:    564
-# Dislikes: 1247
-# Total Accepted:    98.5K
-# Total Submissions: 488.9K
+# Medium (20.73%)
+# Likes:    691
+# Dislikes: 1518
+# Total Accepted:    110.5K
+# Total Submissions: 531.8K
 # Testcase Example:  '1\n2'
 #
 # Given two integers representing the numerator and denominator of a fraction,
@@ -44,21 +44,22 @@
 # @lc code=start
 class Solution:
     def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+
         n, remainder = divmod(abs(numerator), abs(denominator))
-        sign = '-' if numerator*denominator < 0 else ''
+        sign = '-' if numerator * denominator < 0 else ''
         result = [sign + str(n), '.']
         stack = []
 
         while remainder not in stack:
             stack.append(remainder)
-            n, remainder = divmod(remainder*10, abs(denominator))
+            n, remainder = divmod(remainder * 10, abs(denominator))
             result.append(str(n))
 
         idx = stack.index(remainder)
-        result.insert(idx+2, '(')
+        result.insert(idx + 2, '(')
         result.append(')')
-        return "".join(result).replace('(0)', '').rstrip('.')
-        
+
+        return "".join(result).replace("(0)", "").rstrip('.')
         
 # @lc code=end
 

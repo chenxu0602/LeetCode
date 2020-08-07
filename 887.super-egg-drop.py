@@ -88,5 +88,29 @@ class Solution:
                 dp[m][k] = dp[m-1][k-1] + dp[m-1][k] + 1
             if dp[m][K] >= N:
                 return m
+
+
+        # dp = [[0] * (N + 1) for _ in range(K + 1)]
+
+        # for k in range(1, K + 1):
+        #     dp[k][1] = 1
+        #     dp[k][0] = 0
+
+        # for n in range(1, N + 1):
+        #     dp[1][n] = n
+
+        # for k in range(2, K + 1):
+        #     for n in range(2, N + 1):
+        #         dp[k][n] = float("inf")
+        #         minimum = float("inf")
+
+        #         for x in range(1, n):
+        #             minimum = min(minimum, 1 + max(dp[k-1][x-1], dp[k][n-x]))
+
+        #         dp[k][n] = minimum
+
+        # return dp[K][N]
+
+
         
 

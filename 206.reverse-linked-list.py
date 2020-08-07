@@ -39,22 +39,30 @@
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
 
-        # prev, curr = None, head
-        # while curr:
-        #     next = curr.next
-        #     curr.next = prev
-        #     prev = curr
-        #     curr = next
-        # return prev
+        # Recursive
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        # if not head or not head.next:
+        #     return head
+        
+        # p = self.reverseList(head.next)
+        # head.next.next = head
+        # head.next = None
 
-        if not head or not head.next:
-            return head
+        # return p
 
-        p = self.reverseList(head.next)
-        head.next.next = head
-        head.next = None
+        
 
-        return p
+        # Iterative
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
+        prev, curr = None, head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev
         
 # @lc code=end
 

@@ -52,13 +52,14 @@ class Solution:
             '9': '6'
         }
 
-        l, r = 0, len(num)-1
+        l, r = 0, len(num) - 1
         while l <= r:
             if not num[l] in d or d[num[l]] != num[r]:
                 return False
-
             l += 1; r -= 1
+
         return True
+
 
         
 # @lc code=end

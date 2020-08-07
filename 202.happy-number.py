@@ -38,15 +38,41 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
 
-        mem = set()
-        while n != 1:
-            n = sum([int(i)**2 for i in str(n)])
-            if n in mem:
-                return False
-            else:
-                mem.add(n)
-        else:
-            return True
+        # Detect Cycles with a HashSet
+        # Time  complexity: O(logn)
+        # Space complexity: O(logn)
+        # def get_next(n):
+        #     total_sum = 0
+        #     while n > 0:
+        #         n, digit = divmod(n, 10)
+        #         total_sum += digit ** 2
+        #     return total_sum
+
+        # seen = set()
+        # while n != 1 and n not in seen:
+        #     seen.add(n)
+        #     n = get_next(n)
+
+        # return n == 1
+
+
+        # Floyd's Cycle-Finding Algorithm
+        # Instead of keeping track of just one value in the chain, we keep track of 2, called the slow runner and the fast runner. 
+        # Time  complexity: O(logn)
+        # Space complexity: O(1)
+        def get_next(n):
+            total_num = 0
+            while n > 0:
+                n, digit = divmod(n, 10)
+                total_num += digit ** 2
+            return total_num
+
+        slow_runner, fast_runner = n, get_next(n)
+        while fast_runner != 1 and slow_runner != fast_runner:
+            slow_runner, fast_runner = get_next(slow_runner), get_next(get_next(fast_runner))
+        return fast_runner == 1
+
+
         
 # @lc code=end
 

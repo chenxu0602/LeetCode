@@ -39,6 +39,7 @@
 
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
+
         def merge(h1, h2):
             dummy = tail = ListNode(None)
             while h1 and h2:
@@ -55,10 +56,11 @@ class Solution:
         pre, slow, fast = None, head, head
         while fast and fast.next:
             pre, slow, fast = slow, slow.next, fast.next.next
-        pre.next = None
 
+        pre.next = None
         return merge(*map(self.sortList, (head, slow)))
 
+        
         
 # @lc code=end
 

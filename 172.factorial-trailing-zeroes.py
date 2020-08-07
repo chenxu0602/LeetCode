@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/factorial-trailing-zeroes/description/
 #
 # algorithms
-# Easy (37.53%)
-# Likes:    564
-# Dislikes: 812
-# Total Accepted:    174.5K
-# Total Submissions: 463.7K
+# Easy (37.80%)
+# Likes:    891
+# Dislikes: 1135
+# Total Accepted:    213.4K
+# Total Submissions: 564.7K
 # Testcase Example:  '3'
 #
 # Given an integer n, return the number of trailing zeroes in n!.
@@ -37,21 +37,20 @@
 class Solution:
     def trailingZeroes(self, n: int) -> int:
 
-        """
-        r = 0
+        # if n < 5:
+        #     return 0
+
+        # if n < 10:
+        #     return 1
+
+        # return n // 5 + self.trailingZeroes(n // 5)
+
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        zero_count = 0
         while n > 0:
             n //= 5
-            r += n
-        return r
-        """
-
-        if n < 5:
-            return 0
-
-        if n < 10:
-            return 1
-
-        return n // 5 + self.trailingZeroes(n//5)
-        
+            zero_count += n
+        return zero_count
 # @lc code=end
 

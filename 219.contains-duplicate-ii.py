@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/contains-duplicate-ii/description/
 #
 # algorithms
-# Easy (35.78%)
-# Likes:    594
-# Dislikes: 733
-# Total Accepted:    222.3K
-# Total Submissions: 614.5K
+# Easy (37.62%)
+# Likes:    882
+# Dislikes: 1048
+# Total Accepted:    275.3K
+# Total Submissions: 730.2K
 # Testcase Example:  '[1,2,3,1]\n3'
 #
 # Given an array of integers and an integer k, find out whether there are two
@@ -49,13 +49,27 @@
 # @lc code=start
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+
+        # Time:  complexity: O(n)
+        # Space: complexity: O(min(n, k))
+        # dic = set()
+        # for i in range(len(nums)):
+        #     if nums[i] in dic:
+        #         return True
+        #     dic.add(nums[i])
+        #     if len(dic) > k:
+        #         dic.remove(nums[i-k])
+        # return False
+
+
+        # Time:  complexity: O(n)
+        # Space: complexity: O(n)
         dic = {}
         for i, v in enumerate(nums):
             if v in dic and i - dic[v] <= k:
                 return True
             dic[v] = i
         return False
-
         
 # @lc code=end
 

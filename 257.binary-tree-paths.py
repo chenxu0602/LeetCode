@@ -45,6 +45,7 @@
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
 
+        # O(N) / O(logN)
         # def dfs(node, path):
         #     if node:
         #         if node.left is node.right:
@@ -60,6 +61,8 @@ class Solution:
         # dfs(root, [])
         # return res
 
+
+        # O(N) / O(N)
         if not root: return []
         res = []
         stack = [(root, [])]

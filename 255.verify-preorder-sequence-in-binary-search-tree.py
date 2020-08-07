@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/description/
 #
 # algorithms
-# Medium (44.12%)
-# Likes:    441
-# Dislikes: 45
-# Total Accepted:    40.8K
-# Total Submissions: 91.7K
+# Medium (45.61%)
+# Likes:    602
+# Dislikes: 51
+# Total Accepted:    48.5K
+# Total Submissions: 106.1K
 # Testcase Example:  '[5,2,6,1,3]'
 #
 # Given an array of numbers, verify whether it is the correct preorder
@@ -48,19 +48,19 @@
 class Solution:
     def verifyPreorder(self, preorder: List[int]) -> bool:
 
-        stack, root = [], float("-inf")
-        for num in preorder:
-            if num < root:
-                return False
+        # stack, root = [], float("-inf")
+        # for num in preorder:
+        #     if num < root:
+        #         return False
 
-            while stack and num > stack[-1]:
-                root = stack.pop()
+        #     while stack and num > stack[-1]:
+        #         root = stack.pop()
 
-            stack.append(num)
+        #     stack.append(num)
 
-        return True
+        # return True
 
-        """
+
         lower = float("-inf")
         i = 0
         for num in preorder:
@@ -70,11 +70,11 @@ class Solution:
             while i > 0 and num > preorder[i-1]:
                 lower = preorder[i-1]
                 i -= 1
+
             preorder[i] = num
             i += 1
-        return True
-        """
 
+        return True
         
 # @lc code=end
 

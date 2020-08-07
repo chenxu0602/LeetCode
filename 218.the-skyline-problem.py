@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/the-skyline-problem/description/
 #
 # algorithms
-# Hard (33.31%)
-# Likes:    1692
-# Dislikes: 88
-# Total Accepted:    116.7K
-# Total Submissions: 350.3K
+# Hard (34.44%)
+# Likes:    2110
+# Dislikes: 116
+# Total Accepted:    134.7K
+# Total Submissions: 390.1K
 # Testcase Example:  '[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]'
 #
 # A city's skyline is the outer contour of the silhouette formed by all the
@@ -58,11 +58,11 @@
 #
 
 # @lc code=start
-import heapq
-
 class Solution:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
 
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(n)
         events = [(L, -H, R) for L, R, H in buildings]
         events += list({(R, 0, None) for _, R, _ in buildings})
         events.sort()

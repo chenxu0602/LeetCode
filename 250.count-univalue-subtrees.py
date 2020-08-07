@@ -44,60 +44,70 @@
 class Solution:
     def countUnivalSubtrees(self, root: TreeNode) -> int:
 
-        """
-        def is_uni(node):
-            if node.left is None and node.right is None:
-                self.count += 1
-                return True
+        # Depth First Search
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
+        # def uni_value(node):
+        #     # base case - if the node has no children this is a univalue subtree
+        #     if node.left is node.right:
+        #         self.count += 1
+        #         return True
 
-            isuni = True
-            if node.left is not None:
-                isuni = is_uni(node.left) and isuni and node.left.val == node.val
-            if node.right is not None:
-                isuni = is_uni(node.right) and isuni and node.right.val == node.val
+        #     is_uni = True
 
-            self.count += isuni
-            return isuni
+        #     if node.left:
+        #         is_uni = uni_value(node.left) and is_uni and node.left.val == node.val
+        #     if node.right:
+        #         is_uni = uni_value(node.right) and is_uni and node.right.val == node.val
+
+        #     self.count += is_uni
+        #     return is_uni
+
+        # if not root: return 0
+        # self.count = 0
+        # uni_value(root)
+        # return self.count
 
 
-        if root is None:
-            return 0
 
-        self.count = 0
-        is_uni(root)
-        return self.count
-        """
 
+        # Depth First Search - Pass Parent Values
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
         def is_valid_part(node, val):
-            if node is None: return True
+            # considered a valid subtree
+            if not node: return True
 
+            # check if node.left and node.right are univalue subtrees of value node.val
             if not all([is_valid_part(node.left, node.val),
                         is_valid_part(node.right, node.val)]):
                 return False
 
             self.count += 1
+
             return node.val == val
 
         self.count = 0
         is_valid_part(root, 0)
         return self.count
 
-        """
-        def checkUni(node):
-            if not node:
-                return True
-            left, right = checkUni(node.left), checkUni(node.right)
-            if left and right and (not node.left or node.left.val == node.val) and \
-                (not node.right or node.right.val == node.val):
-                self.count += 1
-                return True
-            return False
 
-        self.count = 0
-        checkUni(root)
-        return self.count
-        """
 
+        # def checkUni(node):
+        #     if not node: return True
+
+        #     left, right = map(checkUni, (node.left, node.right))
+
+        #     if left and right and (not node.left or node.left.val == node.val) and \
+        #         (not node.right or node.right.val == node.val):
+        #         self.count += 1
+        #         return True
+
+        #     return False
+
+        # self.count = 0
+        # checkUni(root)
+        # return self.count
         
 # @lc code=end
 

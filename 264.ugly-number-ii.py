@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/ugly-number-ii/description/
 #
 # algorithms
-# Medium (36.44%)
-# Likes:    901
-# Dislikes: 63
-# Total Accepted:    105K
-# Total Submissions: 288.1K
+# Medium (41.93%)
+# Likes:    1974
+# Dislikes: 122
+# Total Accepted:    179.8K
+# Total Submissions: 428.3K
 # Testcase Example:  '10'
 #
 # Write a program to find the n-th ugly number.
@@ -32,48 +32,15 @@
 # n does not exceed 1690.
 # 
 #
-from heapq import heappush, heappop
 
-class Solution:
-    def nthUglyNumber(self, n: int) -> int:
-        """
-        res, i, j, k = [1], 0, 0, 0
-        while len(res) < n:
-            u2, u3, u5 = 2 * res[i], 3 * res[j], 5 * res[k]
-            umin = min(u2, u3, u5)
-            if umin == u2:
-                i += 1
-            if umin == u3:
-                j += 1
-            if umin == u5:
-                k += 1
-            res.append(umin)
+# @lc code=start
+class Ugly:
+    def __init__(self):
+        self.nums = nums = [1,]
+        i2 = i3 = i5 = 0
 
-        return res[-1]
-        """
-
-        """
-        seen = {1, }
-        nums = []
-        heap = []
-        heappush(heap, 1)
-
-        for _ in range(1690):
-            curr_ugly = heappop(heap)
-            nums.append(curr_ugly)
-            for i in [2, 3, 5]:
-                new_ugly = curr_ugly * i
-                if new_ugly not in seen:
-                    seen.add(new_ugly)
-                    heappush(heap, new_ugly)
-
-        return nums[n-1]
-        """
-
-        nums = [1, ]
-        i2, i3, i5 = 0, 0, 0
-        while len(nums) < n:
-            ugly = min(nums[i2]*2, nums[i3]*3, nums[i5]*5)
+        for i in range(1, 1690):
+            ugly = min(nums[i2] * 2, nums[i3] * 3, nums[i5] * 5)        
             nums.append(ugly)
 
             if ugly == nums[i2] * 2:
@@ -83,7 +50,10 @@ class Solution:
             if ugly == nums[i5] * 5:
                 i5 += 1
 
-        return nums[-1]
-            
+class Solution:
+    u = Ugly()
+    def nthUglyNumber(self, n: int) -> int:
+        return self.u.nums[n-1]
         
+# @lc code=end
 

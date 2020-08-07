@@ -73,6 +73,8 @@ class WordDictionary:
         return self.res
 
     def dfs(self, node: TreeNode, word: str) -> None:
+        # Time  complexity: O(M)
+        # Space complexity: O(1)
         if not word:
             if END in node:
                 self.res = True
@@ -87,6 +89,8 @@ class WordDictionary:
                 if not node:
                     return
                 self.dfs(node, word[1:])
+
+
 
 
 # Your WordDictionary object will be instantiated and called as such:

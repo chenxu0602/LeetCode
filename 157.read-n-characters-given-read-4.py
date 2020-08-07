@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/read-n-characters-given-read4/description/
 #
 # algorithms
-# Easy (30.24%)
-# Likes:    187
-# Dislikes: 1643
-# Total Accepted:    83.6K
-# Total Submissions: 269K
+# Easy (34.01%)
+# Likes:    274
+# Dislikes: 1974
+# Total Accepted:    105.1K
+# Total Submissions: 308.1K
 # Testcase Example:  '"abc"\n4'
 #
 # Given a file and assume that you can only read the file using a given method
@@ -30,24 +30,25 @@
 # Definition of read4:
 # 
 # 
-# ⁠   Parameter:  char[] buf
+# ⁠   Parameter:  char[] buf4
 # ⁠   Returns:    int
 # 
-# Note: buf[] is destination not source, the results from read4 will be copied
-# to buf[]
+# Note: buf4[] is destination not source, the results from read4 will be copied
+# to buf4[]
 # 
 # 
 # Below is a high level example of how read4 works:
 # 
 # 
-# File file("abcdefghijk"); // File is "abcdefghijk", initially file pointer
-# (fp) points to 'a'
-# char[] buf = new char[4]; // Create buffer with enough space to store
+# 
+# 
+# File file("abcde"); // File is "abcde", initially file pointer (fp) points to
+# 'a'
+# char[] buf4 = new char[4]; // Create buffer with enough space to store
 # characters
-# read4(buf); // read4 returns 4. Now buf = "abcd", fp points to 'e'
-# read4(buf); // read4 returns 4. Now buf = "efgh", fp points to 'i'
-# read4(buf); // read4 returns 3. Now buf = "ijk", fp points to end of
-# file
+# read4(buf4); // read4 returns 4. Now buf = "abcd", fp points to 'e'
+# read4(buf4); // read4 returns 1. Now buf = "e", fp points to end of file
+# read4(buf4); // read4 returns 0. Now buf = "", fp points to end of file
 # 
 # 
 # 
@@ -129,17 +130,18 @@
 """
 The read4 API is already defined for you.
 
-    @param buf, a list of characters
+    @param buf4, a list of characters
     @return an integer
-    def read4(buf):
+    def read4(buf4):
 
 # Below is an example of how the read4 API can be called.
 file = File("abcdefghijk") # File is "abcdefghijk", initially file pointer (fp) points to 'a'
-buf = [' '] * 4 # Create buffer with enough space to store characters
-read4(buf) # read4 returns 4. Now buf = ['a','b','c','d'], fp points to 'e'
-read4(buf) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
-read4(buf) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
+buf4 = [' '] * 4 # Create buffer with enough space to store characters
+read4(buf4) # read4 returns 4. Now buf = ['a','b','c','d'], fp points to 'e'
+read4(buf4) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
+read4(buf4) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
 """
+
 class Solution:
     def read(self, buf, n):
         """
@@ -148,36 +150,20 @@ class Solution:
         :rtype: The number of actual characters read (int)
         """
 
-        write, temp, end = 0, [None]*4, False
+        idx, tmp, end = 0, [None] * 4, False
 
-        while write < n and not end:
-            s = read4(temp)
+        while idx < n and not end:
+            s = read4(tmp)
             if s < 4:
                 end = True
 
             for i in range(s):
-                buf[write] = temp[i]
-                write += 1
-                if write == n:
-                    break
-        return write
-
-        """
-        idx = 0
-        while n > 0:
-            buf4 = [""]*4
-            l = read4(buf4)
-
-            if not l:
-                return idx
-
-            for i in range(min(l, n)):
-                buf[idx] = buf4[i]
+                buf[idx] = tmp[i]
                 idx += 1
-                n -= 1
+                if idx == n:
+                    break
 
         return idx
-        """
         
 # @lc code=end
 

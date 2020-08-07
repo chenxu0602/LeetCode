@@ -45,6 +45,8 @@
 # 
 #
 class Solution:
+    # Time  complexity: O(N)
+    # Space complexity: O(1)
     def robline(self, nums: List[int]) -> int:
         prevMax = currMax = 0
         for i in nums:
@@ -53,14 +55,12 @@ class Solution:
             prevMax = temp
         return currMax
 
-    """
-    def robline(self, nums: List[int]) -> int:
-        dp = [0] * (len(nums) + 2)
-        for i, num in enumerate(nums, 2):
-            dp[i] = max(dp[i-1], dp[i-2] + num)
+    # def robline(self, nums: List[int]) -> int:
+    #     dp = [0] * (len(nums) + 2)
+    #     for i, num in enumerate(nums, 2):
+    #         dp[i] = max(dp[i-1], dp[i-2] + num)
 
-        return dp[-1]
-    """
+    #     return dp[-1]
 
     def rob(self, nums: List[int]) -> int:
         if len(nums) == 1: 

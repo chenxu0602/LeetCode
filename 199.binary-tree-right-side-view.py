@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-right-side-view/description/
 #
 # algorithms
-# Medium (48.98%)
-# Likes:    1353
-# Dislikes: 73
-# Total Accepted:    201.5K
-# Total Submissions: 403K
+# Medium (51.36%)
+# Likes:    1635
+# Dislikes: 87
+# Total Accepted:    229.6K
+# Total Submissions: 446.8K
 # Testcase Example:  '[1,2,3,null,5,null,4]'
 #
 # Given a binary tree, imagine yourself standing on the right side of it,
@@ -39,51 +39,31 @@
 #         self.left = None
 #         self.right = None
 
-from collections import deque
-
 class Solution:
     def rightSideView(self, root: TreeNode) -> List[int]:
-        # if not root: return []
 
-        # right = self.rightSideView(root.right)
-        # left = self.rightSideView(root.left)
-        # return [root.val] + right + left[len(right):]
+        # Recursive DFS
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
+        # if root is None:
+        #     return []
 
-        # def collect(node, depth):
-        #     if node:
-        #         if depth == len(view):
-        #             view.append(node.val)
-        #         collect(node.right, depth+1)
-        #         collect(node.left, depth+1)
+        # rightside = []
 
-        # view = []
-        # collect(root, 0)
-        # return view
+        # def helper(node: TreeNode, level: int) -> None:
+        #     if level == len(rightside):
+        #         rightside.append(node.val)
+        #     for child in [node.right, node.left]:
+        #         if child:
+        #             helper(child, level + 1)
 
-        view = []
-        if root:
-            level = [root]
-            while level:
-                view += level[-1].val,
-                level = [child for node in level for child in (node.left, node.right) if child]
-        return view
+        # helper(root, 0)
+        # return rightside
 
-        # rightmost_value_at_depth = dict()
-        # max_depth = -1
 
-        # queue = deque([(root, 0)])
-        # while queue:
-        #     node, depth = queue.popleft()
-
-        #     if node:
-        #         max_depth = max(max_depth, depth)
-
-        #         rightmost_value_at_depth[depth] = node.val
-
-        #         queue.append((node.left, depth+1))
-        #         queue.append((node.right, depth+1))
-
-        # return [rightmost_value_at_depth[depth] for depth in range(max_depth + 1)]
+        if not root: return []
+        right, left = map(self.rightSideView, (root.right, root.left))
+        return [root.val] + right + left[len(right):]
 
         
 # @lc code=end

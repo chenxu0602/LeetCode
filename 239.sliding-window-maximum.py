@@ -9,22 +9,54 @@ from collections import deque
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
 
-        queue, r = deque([]), []
+        # O(N)
+        # queue, r = deque([]), []
 
-        for i, num in enumerate(nums):
+        # for i, num in enumerate(nums):
+        #     while queue and queue[0][1] <= i - k:
+        #         queue.popleft()
 
-            while queue and queue[0][1] <= i - k:
-                queue.popleft()
+        #     while queue and queue[-1][0] < num:
+        #         queue.pop()
 
-            while queue and num > queue[-1][0]:
-                queue.pop()
+        #     queue.append([num, i])
 
-            queue.append([num, i])
+        #     if i >= k - 1:
+        #         r.append(queue[0][0])
 
-            if i >= k - 1:
-                r.append(queue[0][0])
+        # return r
 
-        return r
+
+        # Dynamic programming
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        n = len(nums)
+        if n * k == 0:
+            return []
+        if k == 1:
+            return nums
+
+        left = [0] * n
+        left[0] = nums[0]
+        right = [0] * n
+        right[n-1] = nums[n-1]
+        for i in range(1, n):
+            if i % k == 0:
+                left[i] = nums[i]
+            else:
+                left[i] = max(left[i-1], nums[i])
+
+            j = n - i - 1
+            if (j + 1) % k == 0:
+                right[j] = nums[j]
+            else:
+                right[j] = max(right[j+1], nums[j])
+
+        output = []
+        for i in range(n - k + 1):
+            output.append(max(left[i + k - 1], right[i]))
+
+        return output
 
 
 

@@ -40,42 +40,91 @@ from collections import deque
 
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        parent = list(range(n))
+        # Graph Theory + Iterative Depth-First Search
+        # G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
+        # G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
+        # Time  complexity: O(N + E)
+        # Space complexity: O(N + E)
+        # if len(edges) != n - 1: return False
 
-        """
-        def find(x):
-            if parent[x] == x:
-                return x
-            return find(parent[x])
+        # adj_list = [[] for _ in range(n)]
+        # for A, B in edges:
+        #     adj_list[A].append(B)
+        #     adj_list[B].append(A)
 
-#            if parent[x] != x:
-#                parent[x] = find(parent[x])
-#            return parent[x]
+        # parent = {0: -1}
+        # queue = deque([0])
+
+        # while queue:
+        #     node = queue.popleft()
+        #     for neighbor in adj_list[node]:
+        #         if neighbor == parent[node]:
+        #             continue
+        #         if neighbor in parent:
+        #             return False
+        #         parent[neighbor] = node
+        #         queue.append(neighbor)
+
+        # return len(parent) == n
 
 
-        def union(xy):
-            x, y = map(find, xy)
-            parent[x] = y
-            return x != y
+        # Advanced Graph Theory + Iterative Depth-First Search
+        # Check whether or not there are n - 1 edges. If there's not, then return false.
+        # Check whether or not the graph is fully connected. Return true if it is, false if otherwise.
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if len(edges) != n - 1: return False
 
-        return len(edges) == n - 1 and all(map(union, edges))
-        """
+        # adj_list = [[] for _ in range(n)]
+        # for A, B in edges:
+        #     adj_list[A].append(B)
+        #     adj_list[B].append(A)
 
-        """
-        if len(edges) != n - 1:
-            return False
+        # seen = set()
 
-        neighbors = {i: [] for i in range(n)}
-        for v, w in edges:
-            neighbors[v] += w,
-            neighbors[w] += v,
+        # def dfs(node):
+        #     if node in seen: return
+        #     seen.add(node)
+        #     for neighbor in adj_list[node]:
+        #         dfs(neighbor)
 
-        def visit(v):
-            list(map(visit, neighbors.pop(v, [])))
+        # dfs(0)
+        # return len(seen) == n
 
-        visit(0)
-        return not neighbors
-        """
+
+        # Advanced Graph Theory + Union Find
+        # Time  complexity: O(N x a(N)), where a(N) is the Inverse Ackermann Function.
+        # Space complexity: O(N)
+        # parent = list(range(n))
+
+        # def find(x):
+        #     if parent[x] == x:
+        #         return x
+        #     return find(parent[x])
+
+        # def union(xy):
+        #     x, y = map(find, xy)
+        #     parent[x] = y
+        #     return x != y
+
+        # return len(edges) == n - 1 and all(map(union, edges))
+
+
+
+        # if len(edges) != n - 1:
+        #     return False
+
+        # neighbors = {i: [] for i in range(n)}
+        # for v, w in edges:
+        #     neighbors[v] += w,
+        #     neighbors[w] += v,
+
+        # def visit(v):
+        #     list(map(visit, neighbors.pop(v, [])))
+
+        # visit(0)
+        # return not neighbors
+
 
         if len(edges) != n - 1:
             return False
@@ -91,6 +140,6 @@ class Solution:
 
         return not neighbors
 
-        
+
 # @lc code=end
 

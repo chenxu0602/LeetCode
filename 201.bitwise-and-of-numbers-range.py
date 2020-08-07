@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/bitwise-and-of-numbers-range/description/
 #
 # algorithms
-# Medium (36.36%)
-# Likes:    508
-# Dislikes: 69
-# Total Accepted:    90K
-# Total Submissions: 245.3K
+# Medium (39.33%)
+# Likes:    1043
+# Dislikes: 124
+# Total Accepted:    155.1K
+# Total Submissions: 394.4K
 # Testcase Example:  '5\n7'
 #
 # Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND
@@ -33,19 +33,24 @@
 # @lc code=start
 class Solution:
     def rangeBitwiseAnd(self, m: int, n: int) -> int:
+        # Bit Shift
+        # Time  complexity: O(1)
+        # Space complexity: O(1)
+        # shift = 0
+        # while m != n:
+        #     m >>= 1
+        #     n >>= 1
+        #     shift += 1
+        # return n << shift
 
-        i = 0
-        while m != n:
-            m >>= 1
-            n >>= 1
-            i += 1
-        return n << i
 
-        """
+        # Brian Kernighan's Algorithm
+        # Time  complexity: O(1)
+        # Space complexity: O(1)
         while m < n:
-            n = n & (n-1)
+            n = n & (n - 1)
         return n
-        """
+
         
 # @lc code=end
 

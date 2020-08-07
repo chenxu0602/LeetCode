@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-upside-down/description/
 #
 # algorithms
-# Medium (51.72%)
-# Likes:    210
-# Dislikes: 688
-# Total Accepted:    53K
-# Total Submissions: 100.7K
+# Medium (53.70%)
+# Likes:    243
+# Dislikes: 786
+# Total Accepted:    56.9K
+# Total Submissions: 105.9K
 # Testcase Example:  '[1,2,3,4,5]'
 #
 # Given a binary tree where all the right nodes are either leaf nodes with a

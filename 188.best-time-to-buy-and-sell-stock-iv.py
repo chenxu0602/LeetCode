@@ -46,21 +46,43 @@
 #
 
 # @lc code=start
+import math
+
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
+
+        # Time  complexity: O(nk) if 2k <= n, O(n) if 2k > n.
+        # Space complexity: O(nk)
         n = len(prices)
-        if k >= n >> 1:
-            return sum([max(prices[i] - prices[i-1], 0) for i in range(1, n)])
 
-        dp = [[0] * n for _ in range(k+1)]
-        for i in range(1, k+1):
-            transaction = 0
-            for j in range(1, n):
-                profit = prices[j] - prices[j-1]
-                transaction = max(dp[i-1][j-1] + max(profit, 0), transaction + profit)
-                dp[i][j] = max(dp[i][j-1], transaction)
+        if not prices or k == 0:
+            return 0
 
-        return dp[k][-1]
-        
+        if 2 * k > n:
+            res = 0
+            for i, j in zip(prices[1:], prices[:-1]):
+                res += max(0, i - j)
+            return res
+
+        # dp[i][used_k][ishold] = balance
+        # ishold: 0 nothold, 1 hold
+        dp = [[[-math.inf] * 2 for _ in range(k + 1)] for _ in range(n)]
+
+        # set starting value
+        dp[0][0][0] = 0
+        dp[0][1][1] = -prices[0]
+
+        # fill the array
+        for i in range(1, n):
+            for j in range(k + 1):
+                # transition equation
+                dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1] + prices[i])
+                # you can't hold stock without any transaction
+                if j > 0:
+                    dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0] - prices[i])
+
+        res = max(dp[n-1][j][0] for j in range(k + 1))
+        return res
+
 # @lc code=end
 

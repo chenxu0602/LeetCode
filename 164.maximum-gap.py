@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-gap/description/
 #
 # algorithms
-# Hard (33.10%)
-# Likes:    605
-# Dislikes: 142
-# Total Accepted:    76.7K
-# Total Submissions: 228.4K
+# Hard (35.33%)
+# Likes:    859
+# Dislikes: 182
+# Total Accepted:    89.2K
+# Total Submissions: 252K
 # Testcase Example:  '[3,6,9,1]'
 #
 # Given an unsorted array, find the maximum difference between the successive
@@ -45,27 +45,68 @@
 
 # @lc code=start
 class Solution:
+    def countingSort(self, arr, exp1):
+        n = len(arr)
+        output = [0] * n
+        count = [0] * 10
+
+        for i in range(n):
+            idx = arr[i] // exp1
+            count[idx % 10] += 1
+
+        for i in range(1, 10):
+            count[i] += count[i-1]
+
+        i = n - 1
+        while i >= 0:
+            idx = arr[i] // exp1
+            output[count[idx % 10] - 1] = arr[i]
+            count[idx % 10] -= 1
+            i -= 1
+
+        for i in range(len(arr)):
+            arr[i] = output[i]
+
     def maximumGap(self, nums: List[int]) -> int:
-        if not nums:
+        # Radix Sort
+        # Time  complexity: O(d(n + k))
+        # Space complexity: O(n)
+        # if not nums:
+        #     return 0
+
+        # max1 = max(nums)
+        # exp = 1
+        # while max1 // exp > 0:
+        #     self.countingSort(nums, exp)
+        #     exp *= 10
+
+        # maxGap = 0        
+        # for i in range(len(nums) - 1):
+        #     maxGap = max(nums[i+1] - nums[i], maxGap)
+
+        # return maxGap
+
+
+        # Buckets and The Pigeonhole Principle
+        # Time  complexity: O(n + b)
+        # Space complexity: O(b)
+        if len(nums) < 2 or max(nums) == min(nums):
             return 0
 
-        max_sum = max(nums)
-        bucket = [[] for i in range(10)]
-        exp = 1
+        a, b = min(nums), max(nums)
 
-        while max_sum // exp > 0:
-            for num in nums:
-                bucket[(num//exp) % 10].append(num)
-            nums = []
-            for each in bucket:
-                nums.extend(each)
-            bucket = [[] for i in range(10)]
-            exp *= 10
+        size = (b - a) // (len(nums) - 1) or 1
 
-        max_gap = 0
-        for i in range(1, len(nums)):
-            max_gap = max(max_gap, nums[i] - nums[i-1])
-        return max_gap
+        bucket = [[None, None] for _ in range((b - a) // size + 1)]
+
+        for n in nums:
+            b = bucket[(n - a) // size]
+            b[0] = n if b[0] is None else min(b[0], n)
+            b[1] = n if b[1] is None else max(b[1], n)
+        
+        bucket = [b for b in bucket if b[0] is not None]
+        return max(bucket[i][0] - bucket[i-1][1] for i in range(1, len(bucket)))
+
         
 # @lc code=end
 

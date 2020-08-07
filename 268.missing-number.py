@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/missing-number/description/
 #
 # algorithms
-# Easy (48.46%)
-# Likes:    904
-# Dislikes: 1334
-# Total Accepted:    279.6K
-# Total Submissions: 577K
+# Easy (50.22%)
+# Likes:    1537
+# Dislikes: 1905
+# Total Accepted:    416K
+# Total Submissions: 818.6K
 # Testcase Example:  '[3,0,1]'
 #
 # Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find
@@ -34,12 +34,15 @@
 # Your algorithm should run in linear runtime complexity. Could you implement
 # it using only constant extra space complexity?
 #
+
+# @lc code=start
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-
+        # Because we know that nums contains nn numbers and that it is missing exactly one number on the range [0..n-1][0..n−1], we know that nn definitely replaces the missing number in nums. Therefore, if we initialize an integer to nn and XOR it with every index and value, we will be left with the missing number. 
         missing = len(nums)
         for i, num in enumerate(nums):
             missing ^= i ^ num
         return missing
         
+# @lc code=end
 

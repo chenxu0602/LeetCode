@@ -41,6 +41,8 @@ from collections import defaultdict
 
 class WordDistance:
 
+    # O(N)
+
     def __init__(self, words: List[str]):
         self.locations = defaultdict(list)
 

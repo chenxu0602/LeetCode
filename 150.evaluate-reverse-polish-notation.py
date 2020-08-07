@@ -66,20 +66,39 @@ from operator import truediv
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
 
+        # O(n)
+        # stack = []
+        # for t in tokens:
+        #     if not t in ['+', '-', '*', '/']:
+        #         stack.append(int(t))
+        #     else:
+        #         a, b = stack.pop(), stack.pop()
+        #         if t == '+':
+        #             stack.append(a+b)
+        #         elif t == '-':
+        #             stack.append(b-a)
+        #         elif t == '*':
+        #             stack.append(a*b)
+        #         elif t == '/':
+        #             stack.append(int(truediv(b, a)))
+
+        # return stack.pop()
+
+        operations = {
+            '+': lambda a, b: a + b,
+            '-': lambda a, b: a - b,
+            '/': lambda a, b: int(truediv(a, b)),
+            '*': lambda a, b: a * b,
+        }
+
         stack = []
         for t in tokens:
-            if not t in ['+', '-', '*', '/']:
-                stack.append(int(t))
+            if t in operations:
+                b, a = stack.pop(), stack.pop()
+                operation = operations[t]
+                stack.append(operation(a, b))
             else:
-                a, b = stack.pop(), stack.pop()
-                if t == '+':
-                    stack.append(a+b)
-                elif t == '-':
-                    stack.append(b-a)
-                elif t == '*':
-                    stack.append(a*b)
-                elif t == '/':
-                    stack.append(int(truediv(b, a)))
+                stack.append(int(t))
 
         return stack.pop()
 

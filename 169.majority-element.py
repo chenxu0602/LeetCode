@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/majority-element/description/
 #
 # algorithms
-# Easy (53.67%)
-# Likes:    2050
-# Dislikes: 179
-# Total Accepted:    449.5K
-# Total Submissions: 824.6K
+# Easy (58.56%)
+# Likes:    3348
+# Dislikes: 224
+# Total Accepted:    668.3K
+# Total Submissions: 1.1M
 # Testcase Example:  '[3,2,3]'
 #
 # Given an array of size n, find the majority element. The majority element is
@@ -35,21 +35,24 @@
 #
 
 # @lc code=start
-from random import choice 
+import random
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
+        # Randomization
+        # Time  complexity: worst case O(Infinity), average linear
+        # Space complexity: O(1)
+        # majority_count = len(nums) // 2
+        # while True:
+        #     candidate = random.choice(nums)
+        #     if sum(1 for elem in nums if elem == candidate) > majority_count:
+        #         return candidate
 
-        """
-        majority_count = len(nums) // 2
-        while True:
-            candidate = choice(nums)
-            if sum(1 for elem in nums if elem == candidate) > majority_count:
-                return candidate
-        """
 
-        count = 0
-        candidate = None
+        # Boyer-Moore Voting Algorithm
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
+        count, candidate = 0, None
 
         for num in nums:
             if count == 0:
@@ -57,6 +60,7 @@ class Solution:
             count += (1 if num == candidate else -1)
 
         return candidate
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/course-schedule/description/
 #
 # algorithms
-# Medium (38.81%)
-# Likes:    2318
-# Dislikes: 112
-# Total Accepted:    271.9K
-# Total Submissions: 685.7K
+# Medium (40.77%)
+# Likes:    2916
+# Dislikes: 146
+# Total Accepted:    327.8K
+# Total Submissions: 801.9K
 # Testcase Example:  '2\n[[1,0]]'
 #
 # There are a total of n courses you have to take, labeled from 0 to n-1.
@@ -55,7 +55,84 @@ from collections import defaultdict, deque
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # Backtracking
+        # Time  complexity: O(E + V^2), where E is the number of dependencies, V is the number of courses.
+        # Space complexity: O(E + V)
+        # def isCyclic(currCourse, courseDict, path):
+        #     """
+        #     backtracking method to check that no cycle would be formed starting from currCourse
+        #     """
+        #     if path[currCourse]:
+        #         return True
 
+        #     path[currCourse] = True
+
+        #     ret = False
+        #     for child in courseDict[currCourse]:
+        #         ret = isCyclic(child, courseDict, path)
+        #         if ret: break
+
+        #     path[currCourse] = False
+        #     return ret
+
+
+        # courseDict = defaultdict(list)
+
+        # for relation in prerequisites:
+        #     nextCourse, prevCourse = relation[0], relation[1]
+        #     courseDict[prevCourse].append(nextCourse)
+
+        # path = [False] * numCourses
+
+        # for currCourse in range(numCourses):
+        #     if isCyclic(currCourse, courseDict, path):
+        #         return False
+        # return True
+
+
+        # Postorder DFS (Depth-First Search)
+        # Time  complexity: O(E + V)
+        # Space complexity: O(E + V)
+        # def isCyclic(currCourse, courseDict, checked, path):
+        #     if checked[currCourse]:
+        #         return False
+
+        #     if path[currCourse]:
+        #         return True
+
+        #     path[currCourse] = True
+
+        #     ret = False
+        #     for child in courseDict[currCourse]:
+        #         ret = isCyclic(child, courseDict, checked, path)
+        #         if ret: break
+
+        #     path[currCourse] = False
+
+        #     checked[currCourse] = True
+        #     return ret
+
+        # courseDict = defaultdict(list)
+
+        # for relation in prerequisites:
+        #     nextCourse, prevCourse = relation[0], relation[1]
+        #     courseDict[prevCourse].append(nextCourse)
+
+        # checked = [False] * numCourses
+        # path = [False] * numCourses
+
+        # for currCourse in range(numCourses):
+        #     if isCyclic(currCourse, courseDict, checked, path):
+        #         return False
+        # return True
+
+
+        # Topological Sort
+        # Time  complexity: O(E + V)
+        # Space complexity: O(E + V)
+        # There are two possible outcomes:
+        # 1). If there are still some edges left in the graph, then these edges must have formed certain cycles, which is similar to the deadlock situation. It is due to these cyclic dependencies that we cannot remove them during the above processes.
+        # 2). Otherwise, i.e. we have removed all the edges from the graph, and we got ourselves a topological order of the graph.
         graph = defaultdict(list)
         v = [0] * numCourses
 
@@ -71,9 +148,12 @@ class Solution:
                 v[node] -= 1
                 if not v[node]:
                     stack.append(node)
+
             del graph[top]
 
         return not bool(graph)
+
+
         
 # @lc code=end
 

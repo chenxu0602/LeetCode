@@ -43,31 +43,47 @@ from bisect import bisect_left, bisect
 
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        """
-        self.__getitem__ = lambda i: nums[i] <= nums[-1]
-        return nums[bisect(self, False, 0, len(nums))]
-        """
+        # self.__getitem__ = lambda i: nums[i] <= nums[-1]
+        # return nums[bisect(self, False, 0, len(nums))]
 
-        if len(nums) == 1:
-            return nums[0]
+        # Binary Search
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        # if len(nums) == 1:
+        #     return nums[0]
 
-        left, right = 0, len(nums)-1
-        if nums[right] > nums[0]:
-            return nums[0]
+        # left, right = 0, len(nums) - 1
 
-        while right > left:
-            mid = left + (right - right) // 2
-            if nums[mid] > nums[mid+1]:
-                return nums[mid+1]
+        # if nums[left] < nums[right]:
+        #     return nums[left]
 
-            if nums[mid-1] > nums[mid]:
-                return nums[mid]
+        # while left <= right:
+        #     mid = left + (right - left) // 2
+            
+        #     if nums[mid] > nums[mid + 1]:
+        #         return nums[mid + 1]
 
-            if nums[mid] >= nums[0]:
-                left += 1
+        #     if nums[mid - 1] > nums[mid]:
+        #         return nums[mid]
+
+        #     if nums[mid] > nums[0]:
+        #         left = mid + 1
+        #     else:
+        #         right = mid - 1
+
+
+
+        left, right = 0, len(nums) - 1
+
+        while left < right:
+            mid = left + (right - left) // 2
+
+            if nums[mid] > nums[right]:
+                left = mid + 1
             else:
-                right -= 1
+                right = mid
 
+        return nums[left]
             
 
         

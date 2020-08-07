@@ -41,20 +41,39 @@ class Solution:
         # for i in range(1, len(nums)):
         #     if nums[i] < 0:
         #         imin, imax = imax, imin
-            
-        #     imin = min(nums[i], imin*nums[i])
-        #     imax = max(nums[i], imax*nums[i])
+
+        #     imin = min(nums[i], imin * nums[i])
+        #     imax = max(nums[i], imax * nums[i])
 
         #     r = max(r, imax)
         # return r
 
-        A = nums[:]
-        B = nums[::-1]
+
+        # if len(nums) == 0:
+        #     return 0
+
+        # max_so_far = min_so_far = nums[0]
+        # result = max_so_far
+
+        # for i in range(1, len(nums)):
+        #     curr = nums[i]
+        #     temp_max = max(curr, max_so_far * curr, min_so_far * curr)
+        #     min_so_far = min(curr, max_so_far * curr, min_so_far * curr)
+
+        #     max_so_far = temp_max
+
+        #     result = max(max_so_far, result)
+
+        # return result
+
+
+        A, B = nums[:], nums[::-1]
+
         for i in range(1, len(A)):
             A[i] *= A[i-1] or 1
             B[i] *= B[i-1] or 1
-        return max(A+B)
 
+        return max(A + B)
 
         
 # @lc code=end

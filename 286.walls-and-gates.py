@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/walls-and-gates/description/
 #
 # algorithms
-# Medium (49.60%)
-# Likes:    637
-# Dislikes: 10
-# Total Accepted:    76.5K
-# Total Submissions: 154.2K
+# Medium (52.01%)
+# Likes:    886
+# Dislikes: 13
+# Total Accepted:    98.9K
+# Total Submissions: 190K
 # Testcase Example:  '[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]'
 #
 # You are given a m x n 2D grid initialized with these three possible
@@ -48,16 +48,21 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
         """
         Do not return anything, modify rooms in-place instead.
         """
-
+        # BFS guarantees that we search all rooms of distance d before searching rooms of distance d + 1, the distance to an empty room must be the shortest.
+        # O(m x n)
         q = [(i, j) for i, row in enumerate(rooms) for j, r in enumerate(row) if not r]
         for i, j in q:
-            for I, J in (i+1, j), (i-1, j), (i, j+1), (i, j-1):
+            for I, J in (i+1, j), (i-1, j), (i, j-1), (i, j+1):
                 if 0 <= I < len(rooms) and 0 <= J < len(rooms[0]) and rooms[I][J] > 2**30:
-                    rooms[I][J] = rooms[i][j] + 1
+                    rooms[I][J] = min(rooms[I][J], rooms[i][j] + 1)
                     q += (I, J),
+        
+# @lc code=end
 

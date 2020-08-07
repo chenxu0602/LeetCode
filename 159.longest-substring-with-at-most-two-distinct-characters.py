@@ -40,13 +40,14 @@ from collections import defaultdict, OrderedDict
 class Solution:
     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
 
-        # n = len(s)
-        # if n < 3: return n
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # if len(s) < 3: return len(s)
 
         # left, right, max_len = 0, 0, 2
         # hashmap = defaultdict(int)
 
-        # while right < n:
+        # while right < len(s):
         #     if len(hashmap) < 3:
         #         hashmap[s[right]] = right
         #         right += 1
@@ -66,7 +67,7 @@ class Solution:
 
         for i, char in enumerate(s):
             if char in queue:
-                queue.pop(char)
+                queue.move_to_end(char)
             queue[char] = i
 
             if len(queue) > k:

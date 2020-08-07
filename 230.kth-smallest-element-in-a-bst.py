@@ -61,6 +61,17 @@
 
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
+        # Recursive Inorder Traversal
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # def inorder(r):
+        #     return inorder(r.left) + [r.val] + inorder(r.right) if r else []
+        # return inorder(root)[k-1]
+
+
+        # Iterative Inorder Traversal
+        # Time  complexity: O(H + k)
+        # Space complexity: O(H)
         stack = []
         while root or stack:
             while root:
@@ -71,6 +82,7 @@ class Solution:
             if k == 0:
                 return root.val
             root = root.right
+
         
 # @lc code=end
 

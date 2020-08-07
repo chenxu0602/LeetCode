@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/
 #
 # algorithms
-# Easy (45.74%)
-# Likes:    1334
-# Dislikes: 89
-# Total Accepted:    324K
-# Total Submissions: 694.2K
+# Easy (47.94%)
+# Likes:    1613
+# Dislikes: 94
+# Total Accepted:    357.3K
+# Total Submissions: 744.7K
 # Testcase Example:  '[6,2,8,0,4,7,9,null,null,3,5]\n2\n8'
 #
 # Given a binary search tree (BST), find the lowest common ancestor (LCA) of
@@ -62,23 +62,36 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # Recursive Approach
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # parent_val = root.val
+        # p_val = p.val
+        # q_val = q.val
 
-        # node = root
-        # while node:
-        #     if node.val < p.val and node.val < q.val:
-        #         node = node.right
-        #     elif node.val > p.val and node.val > q.val:
-        #         node = node.left
-        #     else:
-        #         return node
+        # if p_val > parent_val and q_val > parent_val:
+        #     return self.lowestCommonAncestor(root.right, p, q)
+        # elif p_val < parent_val and q_val < parent_val:
+        #     return self.lowestCommonAncestor(root.left, p, q)
+        # else:
+        #     return root
 
-        if root.val < p.val and root.val < q.val:
-            return self.lowestCommonAncestor(root.right, p, q)
-        elif root.val > p.val and root.val > q.val:
-            return self.lowestCommonAncestor(root.left, p, q)
-        else:
-            return root
 
+        # Iterative Approach
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        p_val = p.val
+        q_val = q.val
+
+        node = root
+        while node:
+            parent_val = node.val
+            if p_val > parent_val and q_val > parent_val:
+                node = node.right
+            elif p_val < parent_val and q_val < parent_val:
+                node = node.left
+            else:
+                return node
         
 # @lc code=end
 

@@ -37,11 +37,13 @@ from collections import Counter
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        ctr = Counter(nums)
+
+        ctr = Counter()
         for i in nums:
             ctr[i] += 1
             if len(ctr) == 3:
                 ctr -= Counter(set(ctr))
+
         return [n for n in ctr if nums.count(n) > len(nums) // 3]
 
 

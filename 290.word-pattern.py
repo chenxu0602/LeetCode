@@ -49,11 +49,10 @@
 #
 class Solution:
     def wordPattern(self, pattern: str, str: str) -> bool:
-        """
-        s = pattern 
-        t = str.split()
-        return list(map(s.find, s)) == list(map(t.index, t))
-        """
+
+        # s = pattern
+        # t = str.split()
+        # return list(map(s.find, s)) == list(map(t.index, t))
 
         f = lambda s: map({}.setdefault, s, range(len(s)))
         return list(f(pattern)) == list(f(str.split()))

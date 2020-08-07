@@ -54,14 +54,14 @@
 # @lc code=start
 class Solution:
     def convertToTitle(self, n: int) -> str:
-        capitals = [chr(x) for x in range(ord('A'), ord('Z')+1)]
-        result = []
-        while n > 0:
-            result.append(capitals[(n-1) % 26])
-            n = (n-1) // 26
+        capitals = [chr(x) for x in range(ord('A'), ord('Z') + 1)]
 
-        result.reverse()
-        return "".join(result)
+        results = []
+        while n > 0:
+            n, res = divmod(n - 1, 26)
+            results.append(capitals[res])
+
+        return "".join(results[::-1])
 
         
 # @lc code=end

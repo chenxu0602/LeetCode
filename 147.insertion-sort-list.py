@@ -66,7 +66,8 @@
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
 
-        if not head: return head
+        if not head:
+            return head
 
         dummy = ListNode(0)
         dummy.next = curr = head
@@ -82,6 +83,7 @@ class Solution:
                 pre.next = tmp
             else:
                 curr = curr.next
+
         return dummy.next
 
 

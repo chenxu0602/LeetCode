@@ -38,39 +38,41 @@
 import heapq
 
 class Solution:
-
-    def partition(self, nums, l, r):
-        low = l
-        while l < r:
-            if nums[l] < nums[r]:
-                nums[l], nums[low] = nums[low], nums[l]
-                low += 1
-            l += 1
-        nums[low], nums[r] = nums[r], nums[low]
-        return low
-
-    def findKthSmallest(self, nums, k):
-        if nums:
-            pos = self.partition(nums, 0, len(nums)-1)
-            if k > pos + 1:
-                return self.findKthSmallest(nums[pos+1:], k-(pos+1))
-            elif k < pos + 1:
-                return self.findKthSmallest(nums[:pos], k)
-            else:
-                return nums[pos]
-
-
     def findKthLargest(self, nums: List[int], k: int) -> int:
 
+        # Heap
+        # Time  complexity: O(Nlogk)
+        # Space complexity: O(k)
         # return heapq.nlargest(k, nums)[-1]
 
-        # return self.findKthSmallest(nums, len(nums)-(k-1))
+        # QuickSelect
+        # Time  complexity: O(N) on average, O(N^2) in the worse case.
+        # Space complexity: O(1)
+        def partition(nums, low, high):
+            i = low
+            pivot = nums[high]
 
-        for i in range(k):
-            for j in range(len(nums)-i-1):
-                if nums[j] > nums[j+1]:
-                    nums[j], nums[j+1] = nums[j+1], nums[j]
-        return nums[-k]
+            for j in range(low, high):
+                if nums[j] < pivot:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    i += 1
+
+            nums[i], nums[high] = nums[high], nums[i]
+            return i
+
+        def findKthSmallest(nums, k):
+            if nums:
+                pos = partition(nums, 0, len(nums) - 1)
+                if k > pos + 1:
+                    return findKthSmallest(nums[pos+1:], k - pos - 1)
+                elif k < pos + 1:
+                    return findKthSmallest(nums[:pos], k)
+                else:
+                    return nums[pos]
+
+        return findKthSmallest(nums, len(nums) - (k - 1))
+        
+
         
 # @lc code=end
 

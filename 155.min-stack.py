@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/min-stack/description/
 #
 # algorithms
-# Easy (38.23%)
-# Likes:    2195
-# Dislikes: 240
-# Total Accepted:    361K
-# Total Submissions: 919.7K
-# Testcase Example:  '["MinStack","push","push","push","getMin","pop","top","getMin"]\n' +
+# Easy (44.30%)
+# Likes:    3545
+# Dislikes: 342
+# Total Accepted:    570.3K
+# Total Submissions: 1.3M
+# Testcase Example:  '["MinStack","push","push","push","getMin","pop","top","getMin"]\n' + '[[],[-2],[0],[-3],[],[],[],[]]'
 #
 # Design a stack that supports push, pop, top, and retrieving the minimum
 # element in constant time.
@@ -24,20 +24,33 @@
 # 
 # 
 # 
+# Example 1:
 # 
-# Example:
 # 
+# Input
+# ["MinStack","push","push","push","getMin","pop","top","getMin"]
+# [[],[-2],[0],[-3],[],[],[],[]]
 # 
+# Output
+# [null,null,null,null,-3,null,0,-2]
+# 
+# Explanation
 # MinStack minStack = new MinStack();
 # minStack.push(-2);
 # minStack.push(0);
 # minStack.push(-3);
-# minStack.getMin();   --> Returns -3.
+# minStack.getMin(); // return -3
 # minStack.pop();
-# minStack.top();      --> Returns 0.
-# minStack.getMin();   --> Returns -2.
+# minStack.top();    // return 0
+# minStack.getMin(); // return -2
 # 
 # 
+# 
+# Constraints:
+# 
+# 
+# Methods pop, top and getMin operations will always be called on non-empty
+# stacks.
 # 
 # 
 #
@@ -50,33 +63,34 @@ class MinStack:
         initialize your data structure here.
         """
         self.stack = []
+        self.min_stack = []
         
 
     def push(self, x: int) -> None:
+        self.stack.append(x)
 
-        if not self.stack:
-            self.stack.append((x, x))
-        else:
-            self.stack.append((x, min(x, self.stack[-1][1])))
+        if not self.min_stack or x < self.min_stack[-1][0]:
+            self.min_stack.append([x, 1])
+        elif x == self.min_stack[-1][0]:
+            self.min_stack[-1][1] += 1
+        
 
     def pop(self) -> None:
-        if self.stack:
-            self.stack.pop()
+        if self.min_stack[-1][0] == self.stack[-1]:
+            self.min_stack[-1][1] -= 1
+
+        if self.min_stack[-1][1] == 0:
+            self.min_stack.pop()
+
+        self.stack.pop()
         
 
     def top(self) -> int:
-
-        if self.stack:
-            return self.stack[-1][0]
-        else:
-            return None
+        return self.stack[-1]
         
 
     def getMin(self) -> int:
-        if self.stack:
-            return self.stack[-1][1]
-        else:
-            return None
+        return self.min_stack[-1][0]
         
 
 

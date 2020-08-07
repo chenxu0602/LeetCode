@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/invert-binary-tree/description/
 #
 # algorithms
-# Easy (59.18%)
-# Likes:    2122
-# Dislikes: 35
-# Total Accepted:    373.8K
-# Total Submissions: 622.2K
+# Easy (64.75%)
+# Likes:    3486
+# Dislikes: 56
+# Total Accepted:    548K
+# Total Submissions: 844.8K
 # Testcase Example:  '[4,2,7,1,3,6,9]'
 #
 # Invert a binary tree.
@@ -46,35 +46,26 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 from collections import deque
 
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
-        """
+
+        # O(n)
+
+        # if not root: 
+        #     return root
+        # root.left, root.right = map(self.invertTree, (root.right, root.left))
+        # return root
+
         if not root:
-            return 
-
-        root.left, root.right = root.right, root.left
-        self.invertTree(root.left)
-        self.invertTree(root.right)
-        return root
-        """
-
-        """
-        if not root: return root
-        root.left, root.right = map(self.invertTree, (root.right, root.left))
-        return root
-        """
-
-        if not root: return root
+            return root
 
         queue = deque([root,])
-
         while queue:
             current = queue.popleft()
             current.left, current.right = current.right, current.left

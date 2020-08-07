@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/isomorphic-strings/description/
 #
 # algorithms
-# Easy (37.90%)
-# Likes:    927
-# Dislikes: 271
-# Total Accepted:    236.5K
-# Total Submissions: 615.3K
+# Easy (39.72%)
+# Likes:    1429
+# Dislikes: 363
+# Total Accepted:    299.3K
+# Total Submissions: 752.9K
 # Testcase Example:  '"egg"\n"add"'
 #
 # Given two strings s and t, determine if they are isomorphic.
@@ -46,41 +46,9 @@
 #
 
 # @lc code=start
-from collections import defaultdict
-
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-
-        """
-        if not len(s) == len(t):
-            return False
-
-        n = len(s)
-
-        m1, m2 = defaultdict(int), defaultdict(int)
-
-        for i in range(n):
-            if not m1[s[i]] == m2[t[i]]:
-                return False
-
-            m1[s[i]] = i + 1
-            m2[t[i]] = i + 1
-
-        return True
-        """
-
-        """
-        return len(set(zip(s, t))) == len(set(s)) == len(set(t))
-        """
-
-        """
-        return [s.find(i) for i in s] == [t.find(j) for j in t]
-        """
-
-        """
         return list(map(s.find, s)) == list(map(t.find, t))
-        """
-
         
 # @lc code=end
 
