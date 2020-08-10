@@ -53,22 +53,47 @@ from functools import lru_cache
 
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        # O(mn)
+        # def dfs(matrix, x, y, dp):
+        #     if dp[x][y] != 0:
+        #         return dp[x][y]
 
-        # @lru_cache(None)
-        # def dfs(i, j):
-        #     val = matrix[i][j]
-        #     return 1 + max(
-        #         dfs(i-1, j) if i  and val > matrix[i-1][j] else 0,
-        #         dfs(i+1, j) if i < m - 1 and val > matrix[i+1][j] else 0,
-        #         dfs(i, j-1) if j and val > matrix[i][j-1] else 0,
-        #         dfs(i, j+1) if j < n - 1 and val > matrix[i][j+1] else 0
-        #     )
+        #     for dx, dy in (0, 1), (0, -1), (1, 0), (-1, 0):
+        #         nx, ny = x + dx, y + dy
+        #         if 0 <= nx < m and 0 <= ny < n and matrix[nx][ny] > matrix[x][y]:
+        #             dp[x][y] = max(dp[x][y], dfs(matrix, nx, ny, dp))
+
+        #     dp[x][y] += 1
+        #     return dp[x][y]
 
         # if not matrix: return 0
+        # m, n = map(len, (matrix, matrix[0]))
 
-        # m, n = len(matrix), len(matrix[0])
+        # dp = [[0] * n for _ in range(m)]
 
-        # return max(dfs(x, y) for x in range(m) for y in range(n))
+        # ans = 0
+        # for i in range(m):
+        #     for j in range(n):
+        #         ans = max(ans, dfs(matrix, i, j, dp))
+
+        # return ans
+            
+
+
+
+        @lru_cache(None)
+        def dfs(i, j):
+            val = matrix[i][j]
+            return 1 + max(
+                dfs(i-1, j) if i and val > matrix[i-1][j] else 0,
+                dfs(i+1, j) if i < m - 1 and val > matrix[i+1][j] else 0,
+                dfs(i, j-1) if j and val > matrix[i][j-1] else 0,
+                dfs(i, j+1) if j < n - 1 and val > matrix[i][j+1] else 0
+            )
+
+        if not matrix: return 0
+        m, n = map(len, (matrix, matrix[0]))
+        return max(dfs(x, y) for x in range(m) for y in range(n))
 
 
         # matrix = {i + j*1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)}
@@ -78,12 +103,12 @@ class Solution:
         #         if Z in matrix and matrix[z] > matrix[Z]] or [0])
         # return max(length.values(), default=0)
 
-        @lru_cache(None)
-        def length(z):
-            return 1 + max([length(Z) for Z in (z-1, z+1, z-1j, z+1j)
-                if Z in matrix and matrix[z]> matrix[Z]] or [0])
-        matrix = {i + j * 1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)}
-        return max(map(length, matrix), default=0)
+        # @lru_cache(None)
+        # def length(z):
+        #     return 1 + max([length(Z) for Z in (z-1, z+1, z-1j, z+1j)
+        #         if Z in matrix and matrix[z]> matrix[Z]] or [0])
+        # matrix = {i + j * 1j: val for i, row in enumerate(matrix) for j, val in enumerate(row)}
+        # return max(map(length, matrix), default=0)
         
 # @lc code=end
 

@@ -32,18 +32,22 @@
 # Follow up:
 # Derive your algorithm's runtime complexity.
 #
+from functools import lru_cache
+
 class Solution:
     _memo = {}
+
+    @lru_cache(None)
     def canWin(self, s: str) -> bool:
 
-        """
-        return any(s[i:i+2] == '++' and not self.canWin(s[:i] + '--' + s[i+2:]) for i in range(len(s)))
-        """
+        # O(2^(n/2))
+        # if s not in self._memo:
+        #     self._memo[s] = any(s[i:i+2] == '++' and not self.canWin(s[:i] + '--' + s[i+2:]) for i in range(len(s)))
+        # return self._memo[s]
 
-        memo = self._memo
-        if s not in memo:
-            return any(s[i:i+2] == '++' and not self.canWin(s[:i] + '--' + s[i+2:]) for i in range(len(s)))
-        return memo[s]
+
+        return any(s[i:i+2] == '++' and not self.canWin(s[:i] + '--' + s[i+2:]) for i in range(len(s)-1))
+
 
         
 

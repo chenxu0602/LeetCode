@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/best-meeting-point/description/
 #
 # algorithms
-# Hard (54.88%)
-# Likes:    270
-# Dislikes: 21
-# Total Accepted:    24.8K
-# Total Submissions: 45.3K
+# Hard (56.82%)
+# Likes:    386
+# Dislikes: 29
+# Total Accepted:    31.8K
+# Total Submissions: 55.9K
 # Testcase Example:  '[[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]]'
 #
 # A group of two or more people wants to meet and minimize the total travel
@@ -38,23 +38,29 @@
 # of 2+2+2=6 is minimal. So return 6.
 # 
 #
+
+# @lc code=start
 class Solution:
-    def minDistance1D(self, points):
-        dist = 0
-        i, j = 0, len(points) - 1
-
-        while i < j:
-            dist += points[j] - points[i]
-            i += 1
-            j -= 1
-
-        return dist
-
     def minTotalDistance(self, grid: List[List[int]]) -> int:
-        m, n = len(grid), len(grid[0])
+
+        def minDistance1D(points):
+            dist = 0
+
+            i, j = 0, len(points) - 1
+            while i < j:
+                dist += points[j] - points[i]
+                i += 1; j -= 1
+            return dist
+
+
+        m, n = map(len, (grid, grid[0]))
+
         rows = [i for i in range(m) for j in range(n) if grid[i][j] == 1]
+
+        # To keep the column order
         cols = [j for j in range(n) for i in range(m) if grid[i][j] == 1]
 
-        return self.minDistance1D(rows) + self.minDistance1D(cols)
+        return minDistance1D(rows) + minDistance1D(cols)
         
+# @lc code=end
 

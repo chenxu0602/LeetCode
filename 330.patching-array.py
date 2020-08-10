@@ -49,6 +49,8 @@
 class Solution:
     def minPatches(self, nums: List[int], n: int) -> int:
 
+        # Time  complexity: O(m + logn)
+        # Space complexity: O(1)
         miss, i, added = 1, 0, 0
         while miss <= n:
             if i < len(nums) and nums[i] <= miss:
@@ -59,6 +61,7 @@ class Solution:
                 added += 1
             print(f"i={i}, added={added}, miss={miss}")
         return added
+
 
         
 

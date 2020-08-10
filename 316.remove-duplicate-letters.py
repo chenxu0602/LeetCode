@@ -43,13 +43,37 @@ from collections import Counter
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
 
-        # result = ""
-        # while s:
-        #     i = min(map(s.rindex, set(s)))
-        #     c = min(s[:i+1])
-        #     result += c
-        #     s = s[s.index(c):].replace(c, "")
-        # return result
+        # Greedy - Solving Letter by Letter
+        # find pos - the index of the leftmost letter in our solution
+        # we create a counter and end the iteration once the suffix doesn't have each unique character
+        # pos will be the index of the smallest character we encounter before the iteration ends
+        # Time  complexity: O(N) x C = O(N)
+        # Space complexity: O(N) x C = O(N)
+        # c = Counter(s)
+        # pos = 0
+        # for i in range(len(s)):
+        #     if s[i] < s[pos]: pos = i
+        #     c[s[i]] -= 1
+        #     if c[s[i]] == 0: break
+        #     # our answer is the leftmost letter plus the recursive call on the remainder of the string
+        #     # note we have to get rid of further occurrences of s[pos] to ensure that there are no duplicates
+        # return s[pos] + self.removeDuplicateLetters(s[pos:].replace(s[pos], "")) if s else ""
+
+
+        # Greedy - Solving with Stack
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # stack, seen = [], set()
+        # last_coccurrence = {c: i for i, c in enumerate(s)}
+
+        # for i, c in enumerate(s):
+        #     if c not in seen:
+        #         while stack and c < stack[-1] and i < last_coccurrence[stack[-1]]:
+        #             seen.discard(stack.pop())
+        #         seen.add(c)
+        #         stack.append(c)
+        # return "".join(stack)
+
 
         rindex = {c: i for i, c in enumerate(s)}
         result = ""
@@ -60,18 +84,15 @@ class Solution:
                 result += c
         return result
 
-        # stack = []
-        # seen = set()
-        # last_occurrence = {c: i for i, c in enumerate(s)}
 
-        # for i, c in enumerate(s):
-        #     if not c in seen:
-        #         while stack and c < stack[-1] and i < last_occurrence[stack[-1]]:
-        #             seen.discard(stack.pop())
-        #         seen.add(c)
-        #         stack.append(c)
+        # result = ""
+        # while s:
+        #     i = min(map(s.rindex, set(s)))
+        #     c = min(s[:i+1])
+        #     result += c
+        #     s = s[s.index(c):].replace(c, "")
+        # return result
 
-        # return "".join(stack)
 
 
         

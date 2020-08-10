@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-distance-from-all-buildings/description/
 #
 # algorithms
-# Hard (37.86%)
-# Likes:    444
-# Dislikes: 24
-# Total Accepted:    41.5K
-# Total Submissions: 109.3K
+# Hard (41.31%)
+# Likes:    799
+# Dislikes: 48
+# Total Accepted:    70.6K
+# Total Submissions: 170.4K
 # Testcase Example:  '[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]'
 #
 # You want to build a house on an empty land which reaches all buildings in the
@@ -47,39 +47,52 @@
 # house according to the above rules, return -1.
 # 
 #
+
+# @lc code=start
 from collections import defaultdict, deque
 
 class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
-        if not grid or not grid[0]:
+        # BFS with pruning
+        # O((M x N)^2)
+        if not grid:
             return -1
 
-        m, n, buildings = len(grid), len(grid[0]), sum(val for line in grid for val in line if val == 1)
-        hit, distSum = [[0] * n for i in range(m)], [[0] * n for i in range(m)]
+        m, n = map(len, (grid, grid[0]))
+        buildings = sum(val for line in grid for val in line if val == 1)
+        hits    = [[0] * n for _ in range(m)]
+        distSum = [[0] * n for _ in range(m)]
 
-        def bfs(x, y):
-            visited = [[False] * n for k in range(m)]
-            visited[x][y], count1, queue = True, 1, deque([(x, y, 0)])
+        def bfs(p, q):
+            visited = [[False] * n for _ in range(m)]
+            visited[p][q] = True
+
+            count1 = 1
+            queue = deque([(p, q, 0)])
 
             while queue:
                 x, y, dist = queue.popleft()
-                for i, j in ((x+1, y), (x-1, y), (x, y+1), (x, y-1)):
-                    if 0 <= i < m and 0 <= j < n and not visited[i][j]:
-                        visited[i][j] = True
-                        if not grid[i][j]:
-                            queue.append((i, j, dist + 1))
-                            hit[i][j] += 1
-                            distSum[i][j] += dist + 1
-                        elif grid[i][j] == 1:
+                for dx, dy in (1, 0), (-1, 0), (0, 1), (0, -1):
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < m and 0 <= ny < n and not visited[nx][ny]:
+                        visited[nx][ny] = True
+                        if not grid[nx][ny]:
+                            queue.append((nx, ny, dist + 1))
+                            hits[nx][ny] += 1
+                            distSum[nx][ny] += dist + 1
+                        elif grid[nx][ny] == 1:
                             count1 += 1
+                        
             return count1 == buildings
 
-        for x in range(m):
-            for y in range(n):
-                if grid[x][y] == 1:
-                    if not bfs(x, y):
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    if not bfs(i, j):
                         return -1
 
-        return min([distSum[i][j] for i in range(m) for j in range(n) if not grid[i][j] and hit[i][j] == buildings] or [-1])
+        return min([distSum[i][j] for i in range(m) for j in range(n) if not grid[i][j] and hits[i][j] == buildings] or [-1])
         
+# @lc code=end
 

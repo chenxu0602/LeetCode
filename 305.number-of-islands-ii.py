@@ -80,47 +80,56 @@
 # @lc code=start
 class Union:
     def __init__(self):
-        self.id = {}
-        self.sz = {}
+        self.par = {}
+        self.rnk = {}
+        self.siz = {}
         self.count = 0
 
     def add(self, p):
-        self.id[p] = p
-        self.sz[p] = 1
+        self.par[p] = p
+        self.rnk[p] = 0
+        self.siz[p] = 1
         self.count += 1
 
-    def root(self, label):
-        while label != self.id[label]:
-            self.id[label] = label = self.id[self.id[label]]
-        return label
+    def find(self, x):
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
 
-    def unite(self, p, q):
-        i, j = map(self.root, (p, q))
-        if i == j: return 
-        if self.sz[i] > self.sz[j]:
-            i, j = j, i
-        self.id[i] = j
-        self.sz[j] += self.sz[i]
+    def unite(self, x, y):
+        xr, yr = map(self.find, (x, y))
+        if xr == yr: return
+        if self.rnk[xr] < self.rnk[yr]:
+            xr, yr = yr, xr
+        if self.rnk[xr] == self.rnk[yr]:
+            self.rnk[xr] += 1
+
+        self.par[yr] = xr
+        self.siz[xr] += self.siz[yr]
         self.count -= 1
 
 
 class Solution:
     def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
 
+        # Union Find (aka Disjoint Set)
+        # Time  complexity: O(m x n + L)
+        # Space complexity: O(m x n)
         ans, islands = [], Union()
-        for p in map(tuple, positions):
-            if p in islands.id:
+        for x, y in positions:
+            if (x, y) in islands.par:
                 ans += ans[-1],
                 continue
-            islands.add(p)
-            for dp in (0, 1), (0, -1), (1, 0), (-1, 0):
-                q = (p[0] + dp[0], p[1] + dp[1])
-                if q in islands.id:
-                    islands.unite(p, q)
+
+            islands.add((x, y))
+            for dx, dy in (0, 1), (0, -1), (1, 0), (-1, 0):
+                nx, ny = x + dx, y + dy
+                if (nx, ny) in islands.par:
+                    islands.unite((x, y), (nx, ny))
+
             ans += islands.count,
+
         return ans
-
-
         
 # @lc code=end
 

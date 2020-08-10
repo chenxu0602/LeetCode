@@ -30,14 +30,32 @@
 # sums are: -2, -1, 2.
 # 
 #
+import itertools
+from collections import defaultdict
+import heapq
+
 class Solution:
     def countRangeSum(self, nums: List[int], lower: int, upper: int) -> int:
-        first = [0]
-        for num in nums:
-            first.append(first[-1] + num)
+
+        # O(N x (upper - lower + 1))
+        # cumsum = [0] + list(itertools.accumulate(nums))
+        # record = defaultdict(int)
+
+        # res = 0
+        # for csum in cumsum:
+        #     for target in range(lower, upper + 1):
+        #         if csum - target in record:
+        #             res += record[csum - target]
+        #     record[csum] += 1
+
+        # return res
+
+
+        # O(NlogN)
+        first = [0] + list(itertools.accumulate(nums))
 
         def sort(lo, hi):
-            mid = (lo + hi) // 2
+            mid = lo + (hi - lo) // 2
             if mid == lo:
                 return 0
 
@@ -45,14 +63,18 @@ class Solution:
 
             i = j = mid
             for left in first[lo:mid]:
-                while i < hi and first[i] - left < lower: 
+                while i < hi and first[i] - left < lower:
                     i += 1
-                while j < hi and first[j] - left <= upper: 
+                while j < hi and first[j] - left <= upper:
                     j += 1
+
                 count += j - i
 
             first[lo:hi] = sorted(first[lo:hi])
             return count
 
         return sort(0, len(first))
+
+
+
 

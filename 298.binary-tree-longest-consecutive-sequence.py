@@ -64,6 +64,9 @@
 class Solution:
     def longestConsecutive(self, root: TreeNode) -> int:
 
+        # Top Down Depth-first Search (Preorder)
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         def dfs(node, parent, length=0):
             if not node:
                 return length
@@ -73,8 +76,33 @@ class Solution:
             else:
                 length = 1
 
-            return max(length, dfs(node.left, node, length), dfs(node.right, node, length))
+            return max(length, *map(dfs, (node.left, node.right), (node, node), (length, length)))
 
         return dfs(root, None)
+
+
+        # Bottom Up Depth-first Search (Postorder)
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        # def dfs(node):
+        #     if not node:
+        #         return 0
+
+        #     L, R = dfs(node.left) + 1, dfs(node.right) + 1
+
+        #     if node.left and node.val + 1 != node.left.val:
+        #         L = 1
+
+        #     if node.right and node.val + 1 != node.right.val:
+        #         R = 1
+
+        #     length = max(L, R)
+        #     self.maxLength = max(self.maxLength, length)
+        #     return length
+
+        # self.maxLength = 0
+        # dfs(root)
+        # return self.maxLength
+
             
 

@@ -75,6 +75,7 @@ from collections import defaultdict
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
 
+        # O(N)
         if not edges or n == 1:
             return [0]
 
@@ -89,12 +90,13 @@ class Solution:
             n -= len(leaves)
             newLeaves = []
             for i in leaves:
-                j = graph[i].pop()
+                j = graph[i].pop() # len(graph[i] == 1)
                 graph[j].remove(i)
                 if len(graph[j]) == 1:
                     newLeaves.append(j)
+
             leaves = newLeaves
-        
+
         return leaves
         
 # @lc code=end

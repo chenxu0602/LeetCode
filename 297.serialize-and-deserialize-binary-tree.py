@@ -57,24 +57,17 @@ from collections import deque
 
 class Codec:
 
+    # O(N) / O(N)
+
     def serialize(self, root):
         """Encodes a tree to a single string.
         
         :type root: TreeNode
         :rtype: str
         """
-        self.s = []
-        def dfs(node):
-            if not node:
-                self.s.append('#')
-            else:
-                self.s.append(str(node.val))
-                dfs(node.left)
-                dfs(node.right)
-        dfs(root)
-        return ','.join(self.s)
-
-        # if not root: return ""
+        # if not root:
+        #     return ""
+        
         # queue = deque([root,])
         # res = []
         # while queue:
@@ -83,8 +76,24 @@ class Codec:
         #         queue.append(node.left)
         #         queue.append(node.right)
         #     res.append(str(node.val) if node else '#')
+
         # return ','.join(res)
-        
+
+
+
+        self.s = []
+
+        def dfs(node):
+            if not node:
+                self.s.append('#')
+            else:
+                self.s.append(str(node.val))
+                dfs(node.left)
+                dfs(node.right)
+
+        dfs(root)
+        return ','.join(self.s)
+
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -92,20 +101,9 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        def dfs():
-            val = next(vals)
-            if val == '#':
-                return None
+        # if not data:
+        #     return None
 
-            node = TreeNode(int(val))
-            node.left = dfs()
-            node.right = dfs()
-            return node
-
-        vals = iter(data.split(','))
-        return dfs()
-
-        # if not data: return None
         # vals = iter(data.split(','))
         # root = TreeNode(next(vals))
         # queue = deque([root,])
@@ -124,6 +122,20 @@ class Codec:
 
         # return root
 
+
+
+        def dfs():
+            val = next(vals)
+            if val == '#':
+                return None 
+
+            node = TreeNode(int(val))
+            node.left = dfs()
+            node.right = dfs()
+            return node
+
+        vals = iter(data.split(','))
+        return dfs()
 
         
 

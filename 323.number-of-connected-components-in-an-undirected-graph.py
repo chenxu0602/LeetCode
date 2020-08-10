@@ -49,28 +49,27 @@
 #
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        p = list(range(n))
+        def find(v):
+            if p[v] != v:
+                p[v] = find(p[v])
+            return p[v]
+
+        for v, w in edges:
+            p[find(v)] = find(w)
+
+        return len(set(map(find, p)))
+
         # p = list(range(n))
         # def find(v):
         #     if p[v] != v:
         #         p[v] = find(p[v])
         #     return p[v]
 
-        # for v, w in edges:
-        #     p[find(v)] = find(w)
-
-        # return len(set(map(find, p)))
-
-        p = list(range(n))
-
-        def find(v):
-            if p[v] != v:
-                p[v] = find(p[v])
-            return p[v]
-
-        for e in edges:
-            v, w = map(find, e)
-            p[v] = w
-            n -= v != w
-        return n
+        # for e in edges:
+        #     v, w = map(find, e)
+        #     p[v] = w
+        #     n -= v != w
+        # return n
         
 

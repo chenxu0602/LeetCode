@@ -49,30 +49,51 @@ from collections import defaultdict
 class Solution:
     def maxProduct(self, words: List[str]) -> int:
 
-        maskLen = {reduce(lambda x, y: x | y, [1 << (ord(c) - 97) for c in word], 0): len(word)\
-            for word in sorted(words, key=lambda x: len(x))}.items()
+        # Time  complexity: O(N^2 + L),  where NN is a number of words and LL is a total length of all words together. 
+        # The precomputation takes O(L) time because we iterate over all characters in all words. 
+        # Space complexity: O(N)
+        # n = len(words)
+        # masks = [0] * n
+        # lens = [0] * n
+        # bit_number = lambda ch: ord(ch) - ord('a')
 
-        return max([x[1] * y[1] for i, x in enumerate(maskLen) for y in list(maskLen)[:i] if not (x[0] & y[0])] or [0])
+        # for i in range(n):
+        #     bitmask = 0
+        #     for ch in words[i]:
+        #         bitmask |= 1 << bit_number(ch)
+        #     masks[i] = bitmask
+        #     lens[i] = len(words[i])
 
-        """
-        hashmap = defaultdict(int)
-        bit_number = lambda ch: ord(ch) - ord('a')
+        # max_val = 0
+        # for i in range(n):
+        #     for j in range(i + 1, n):
+        #         if masks[i] & masks[j] == 0:
+        #             max_val = max(max_val, lens[i] * lens[j])
 
-        for word in words:
-            bitmask = 0
-            for ch in word:
-                bitmask |= 1 << bit_number(ch)
-            hashmap[bitmask] = max(hashmap[bitmask], len(word))
+        # return max_val
 
-        max_prod = 0
-        for x in hashmap:
-            for y in hashmap:
-                if x & y == 0:
-                    max_prod = max(max_prod, hashmap[x] * hashmap[y])
 
-        return max_prod
-        """
+        # hashmap = defaultdict(int)
+        # bit_number = lambda ch: ord(ch) - ord('a')
+
+        # for word in words:
+        #     bitmask = 0
+        #     for ch in word:
+        #         bitmask |= 1 << bit_number(ch)
+        #     hashmap[bitmask] = max(hashmap[bitmask], len(word))
+
+        # max_prod = 0
+        # for x in hashmap:
+        #     for y in hashmap:
+        #         if x & y == 0:
+        #             max_prod = max(max_prod, hashmap[x] * hashmap[y])
+
+        # return max_prod
 
         
+
+        maskLen = {reduce(lambda x, y: x | y, [1 << (ord(c) - ord('a')) for c in word], 0) \
+            : len(word) for word in sorted(words, key=lambda x: len(x))}.items()
+        return max([x[1] * y[1] for i, x in enumerate(maskLen) for y in list(maskLen)[:i] if not (x[0] & y[0])] or [0])
         
 

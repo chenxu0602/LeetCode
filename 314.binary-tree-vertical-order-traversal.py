@@ -102,11 +102,12 @@
 #         self.left = None
 #         self.right = None
 
-from collections import defaultdict
+from collections import defaultdict, deque
 
 class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
-
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         cols = defaultdict(list)
         queue = [(root, 0)]
         for node, i in queue:
@@ -115,6 +116,27 @@ class Solution:
                 queue += (node.left, i - 1), (node.right, i + 1)
 
         return [cols[i] for i in sorted(cols)]
+
+
+        # Time  complexity: O(N)
+        # Space compleixty: O(N)
+        if root is None: return []
+        # cols = defaultdict(list)
+        # min_col = max_col = 0
+        # queue = deque([(root, 0)])
+
+        # while queue:
+        #     node, col = queue.popleft()
+
+        #     if node is not None:
+        #         cols[col].append(node.val)
+        #         min_col = min(min_col, col)
+        #         max_col = max(max_col, col)
+
+        #         queue.append((node.left, col - 1))
+        #         queue.append((node.right, col + 1))
+
+        # return [cols[i] for i in range(min_col, max_col + 1)]
 
         
 

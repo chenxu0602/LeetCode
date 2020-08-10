@@ -41,23 +41,26 @@
 
 # @lc code=start
 class NumArray:
-
+    # Segment Tree
     def __init__(self, nums: List[int]):
+        # Time  complexity: O(n), n + n/2 + n/4 + n/8 + ... 1 = 2n
+        # Space complexity: O(n)
         self.n = len(nums)
         self.tree = [0] * (2 * self.n)
         self.buildTree(nums)
-
+        
     def buildTree(self, nums: List[int]):
         i, j = self.n, 0
         while i < 2 * self.n:
             self.tree[i] = nums[j]
-            i += 1
-            j += 1
+            i += 1; j += 1
 
         for i in range(self.n-1, 0, -1):
             self.tree[i] = self.tree[i*2] + self.tree[i*2+1]
 
     def update(self, i: int, val: int) -> None:
+        # Time  complexity: O(logn)
+        # Space complexity: O(1)
         i += self.n
         self.tree[i] = val
         while i > 0:
@@ -66,11 +69,18 @@ class NumArray:
                 right = i + 1
             else:
                 left = i - 1
+
             self.tree[i // 2] = self.tree[left] + self.tree[right]
             i //= 2
         
+
     def sumRange(self, i: int, j: int) -> int:
+        # Time  complexity: O(logn)
+        # Space complexity: O(1)
+        # Check if ll is right child of its parent PP
+        # Check if rr is left child of its parent PP
         l, r, s = i + self.n, j + self.n, 0
+
         while l <= r:
             if l % 2 == 1:
                 s += self.tree[l]
@@ -78,8 +88,8 @@ class NumArray:
             if r % 2 == 0:
                 s += self.tree[r]
                 r -= 1
-            l //= 2
-            r //= 2
+
+            l //= 2; r //= 2
 
         return s
         

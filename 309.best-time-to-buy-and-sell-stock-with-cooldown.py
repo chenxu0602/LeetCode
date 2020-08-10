@@ -40,12 +40,23 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
-        p1, p2 = 0, 0
-        for i in range(1, len(prices)):
-            temp = p1
-            p1 = max(p1 + prices[i] - prices[i-1], p2)
-            p2 = max(temp, p2)
-        return max(p1, p2)
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        sold, held, reset = float("-inf"), float("-inf"), 0
+
+        for price in prices:
+            sold, held, reset = held + price, max(held, reset - price), max(reset, sold)
+
+        return max(sold, reset)
+
+
+        # p1, p2 = 0, 0
+        # for i in range(1, len(prices)):
+        #     temp = p1
+        #     p1 = max(p1 + prices[i] - prices[i-1], p2)
+        #     p2 = max(temp, p2)
+
+        # return max(p1, p2)
         
 # @lc code=end
 

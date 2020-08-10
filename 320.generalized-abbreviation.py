@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/generalized-abbreviation/description/
 #
 # algorithms
-# Medium (48.82%)
-# Likes:    282
-# Dislikes: 28
-# Total Accepted:    37.9K
-# Total Submissions: 77.6K
+# Medium (51.87%)
+# Likes:    418
+# Dislikes: 70
+# Total Accepted:    47.7K
+# Total Submissions: 91.7K
 # Testcase Example:  '"word"'
 #
 # Write a function to generate the generalized abbreviations of a word. 
@@ -29,32 +29,28 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def generateAbbreviations(self, word: str) -> List[str]:
-
-        """
-        def dfs(word, pos, cur, count, result):
+        # Backtracking
+        # Time  complexity: O(n x 2^n)
+        # All these recursive calls form a complete binary recursion tree with 2^n leaves and 2^n - 1 inner nodes.
+        # For each leaf node, it needs O(n) time for converting builder to String; for each internal node, it needs only constant time. 
+        # Space complexity: O(n)
+        def backtrack(word, pos, cur, count, result):
             if len(word) == pos:
                 result.append(cur + str(count) if count > 0 else cur)
             else:
-                dfs(word, pos + 1, cur, count + 1, result)
-                dfs(word, pos + 1, cur + (str(count) if count > 0 else '') + word[pos], 0, result)
+                backtrack(word, pos + 1, cur, count + 1, result)
+                backtrack(word, pos + 1, cur + (str(count) if count > 0 else "") + word[pos], 0, result)
 
 
-        result = []
-        dfs(word, 0, '', 0, result)
-        return result
-        """
-
-        def dfs(word, pos, cur, count):
-            if pos == len(word):
-                result.append(cur + str(count) if count > 0 else cur)
-            else:
-                dfs(word, pos + 1, cur, count + 1)
-                dfs(word, pos + 1, (cur + str(count) if count > 0 else cur) + word[pos], 0)
 
         result = []
-        dfs(word, 0, "", 0)
+        backtrack(word, 0, "", 0, result)
         return result
+
         
+# @lc code=end
 

@@ -53,8 +53,11 @@
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
+        if not head:
+            return None
 
-        if not head: return None
         odd, even = head, head.next
         evenHead = even
 
@@ -66,7 +69,6 @@ class Solution:
 
         odd.next = evenHead
         return head
-
         
 # @lc code=end
 

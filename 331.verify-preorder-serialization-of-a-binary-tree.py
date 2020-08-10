@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/description/
 #
 # algorithms
-# Medium (38.64%)
-# Likes:    496
-# Dislikes: 30
-# Total Accepted:    58.8K
-# Total Submissions: 152K
+# Medium (40.33%)
+# Likes:    762
+# Dislikes: 48
+# Total Accepted:    72.4K
+# Total Submissions: 179.4K
 # Testcase Example:  '"9,3,4,#,#,1,#,#,2,#,6,#,#"'
 #
 # One way to serialize a binary tree is to use pre-order traversal. When we
@@ -59,51 +59,56 @@
 # Input: "9,#,#,1"
 # Output: false
 #
+
+# @lc code=start
 class Solution:
-    def endsWithTwoHashes(self, stack, top):
-        if top < 1:
-            return False
-        if stack[top] == stack[top-1] == '#':
-            return True
-        return False
-
     def isValidSerialization(self, preorder: str) -> bool:
-        """
-        stack = []
-        top = -1
-        preorder = preorder.split(',')
-        for s in preorder:
-            stack.append(s)
-            top += 1
-            while self.endsWithTwoHashes(stack, top):
-                h = stack.pop()
-                top -= 1
-                h = stack.pop()
-                top -= 1
-                if top < 0:
-                    return False
-                h = stack.pop()
-                stack.append('#')
 
-        if len(stack) == 1 and stack[0] == '#':
-            return True
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # slots = 1
 
-        return False
-        """
+        # for node in preorder.split(','):
+        #     # one node takes one slot
+        #     slots -= 1
 
-        slots = 1
-        for node in preorder.split(','):
-            slots -= 1
+        #     # no more slots available
+        #     if slots < 0:
+        #         return False
 
-            if slots < 0:
-                return False
+        #     # non-empty node creates two children slots
+        #     if node != '#':
+        #         slots += 2
 
-            if node != '#':
-                slots += 2
-
-        return slots == 0
-
-
-
+        # # all slots should be used up
+        # return slots == 0
         
+
+
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        slots = 1
+
+        prev = None # previous character
+        for ch in preorder:
+            if ch == ',':
+                # one node takes one slot
+                slots -= 1
+
+                # no more slots available
+                if slots < 0:
+                    return False
+
+                # non-empty node creates two children slots
+                if prev != '#':
+                    slots += 2
+
+            prev = ch
+
+        # the last node
+        slots = slots + 1 if ch != '#' else slots - 1
+        # all slots should be used up
+        return slots == 0
+        
+# @lc code=end
 

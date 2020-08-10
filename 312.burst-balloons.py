@@ -45,6 +45,38 @@ from functools import lru_cache
 
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
+        # Top-down
+        # Time  complexity: O(N^3)
+        # Space complexity: O(N^2) to store cache
+        # nums = [1] + nums + [1]
+
+        # @lru_cache(None)
+        # def dp(left, right):
+        #     # no more balloons can be added
+        #     if left + 1 == right: return 0
+
+        #     # add each balloon on the interval and return the maximum score
+        #     return max(nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left + 1, right))
+
+        # return dp(0, len(nums) - 1)
+
+
+        # Bottom-up
+        # Time  complexity: O(N^3)
+        # Space complexity: O(N^2)
+        nums = [1] + nums + [1]
+        n = len(nums)
+
+        dp = [[0] * n for _ in range(n)]
+
+        # iterate over dp and incrementally build up to dp[0][n-1]
+        for left in range(n-2, -1, -1):
+            for right in range(left+2, n):
+                dp[left][right] = max(nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right] for i in range(left+1, right))
+
+        return dp[0][n-1]
+
+
         # nums = [1] + nums + [1]
         # n = len(nums)
         # dp = [[0] * n for _ in range(n)]
@@ -52,29 +84,12 @@ class Solution:
         # for gap in range(2, n):
         #     for i in range(n - gap):
         #         j = i + gap
-        #         for k in range(i+1, j):
-        #             dp[i][j] = max(dp[i][j], nums[i]*nums[k]*nums[j] + dp[i][k] + dp[k][j])
-
+        #         for k in range(i + 1, j):
+        #             dp[i][j] = max(dp[i][j], nums[i] * nums[k] * nums[j] + dp[i][k] + dp[k][j])
+        
         # return dp[0][n-1]
 
 
-        # nums = [1] + nums + [1]
-        # @lru_cache(None)
-        # def dp(left, right):
-        #     if left + 1 == right:
-        #         return 0
-        #     return max(nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left+1, right))
-        # return dp(0, len(nums)-1)
 
-        nums = [1] + nums + [1]
-        n = len(nums)
-
-        dp = [[0] * n for _ in range(n)]
-        for left in range(n-2, -1, -1):
-            for right in range(left+2, n):
-                dp[left][right] = max(nums[left]*nums[i]*nums[right] + dp[left][i] + dp[i][right] for i in range(left+1, right))
-
-        return dp[0][n-1]
-        
 # @lc code=end
 

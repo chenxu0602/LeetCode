@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-increasing-subsequence/description/
 #
 # algorithms
-# Medium (40.87%)
-# Likes:    2523
-# Dislikes: 58
-# Total Accepted:    225.5K
-# Total Submissions: 551.6K
+# Medium (41.89%)
+# Likes:    3665
+# Dislikes: 81
+# Total Accepted:    312.3K
+# Total Submissions: 745.5K
 # Testcase Example:  '[10,9,2,5,3,7,101,18]'
 #
 # Given an unsorted array of integers, find the length of longest increasing
@@ -35,25 +35,37 @@
 # Follow up: Could you improve it to O(n log n) time complexity?
 # 
 #
+
+# @lc code=start
 import bisect
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-
+        # Dynamic Programming
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n)
         # n = len(nums)
-        # if n == 0: return 0
-        # dp = [0] * n
-        # dp[0] = 1
-        # maxans = 1
+        # if n == 0:
+        #     return 0
+
+        # dp, maxans = [0] * n, 0
+
         # for i in range(n):
         #     maxval = 0
-        #     for j in range(0, i):
+        #     for j in range(i):
         #         if nums[i] > nums[j]:
         #             maxval = max(maxval, dp[j])
+
         #     dp[i] = maxval + 1
         #     maxans = max(maxans, dp[i])
+
         # return maxans
 
+
+
+        # Dynamic Programming with Binary Search
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(n)
         lst = []
         for num in nums:
             i = bisect.bisect_left(lst, num)
@@ -62,6 +74,5 @@ class Solution:
             lst[i] = num
         return len(lst)
 
-
-        
+# @lc code=end
 
