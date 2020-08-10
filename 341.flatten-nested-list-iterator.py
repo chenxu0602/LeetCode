@@ -70,10 +70,24 @@ class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         self.stack = []
         self.iter = iter(nestedList)
+
+        # def _int_generator(nested_list) -> "Generator[Int]":
+        #     for nested in nested_list:
+        #         if nested.isInteger():
+        #             yield nested.getInteger()
+        #         else:
+        #             yield from _int_generator(nested.getList())
+
+        # self._generator = _int_generator(nestedList)
+        # self._peeked = None
         
     
     def next(self) -> int:
         return self.nextInteger
+
+        # if not self.hasNext(): return None
+        # next_integer, self._peeked = self._peeked, None
+        # return next_integer
         
     
     def hasNext(self) -> bool:
@@ -92,6 +106,14 @@ class NestedIterator:
             self.iter = iter(r.getList())
 
         return False
+
+
+        # if self._peeked is not None: return True
+        # try:
+        #     self._peeked = next(self._generator)
+        #     return True
+        # except:
+        #     return False
          
 
 # Your NestedIterator object will be instantiated and called as such:

@@ -59,6 +59,7 @@ class Solution:
         # c1, c2 = Counter(nums1), Counter(nums2)
         # return sum([[num] * min(c1[num], c2[num]) for num in c1 & c2], [])
 
+
         nums1, nums2 = sorted(nums1), sorted(nums2)
         pt1 = pt2 = 0
         res = []
@@ -71,8 +72,7 @@ class Solution:
                     pt1 += 1
                 else:
                     res.append(nums1[pt1])
-                    pt1 += 1
-                    pt2 += 1
+                    pt1 += 1; pt2 += 1
             except IndexError:
                 break
 

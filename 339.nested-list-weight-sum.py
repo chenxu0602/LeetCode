@@ -94,6 +94,9 @@ class Solution:
         #     depth += 1
         # return res
 
+        # DFS
+        # Time  complexity: O(N)
+        # Space complexity: O(D) where D is the maximum level of nesting in the input.
         def dfs(nestedList: List[NestedInteger], depth: int) -> int:
             sum_ = 0
             for x in nestedList:
@@ -101,6 +104,7 @@ class Solution:
                     sum_ += x.getInteger() * depth
                 else:
                     sum_ += dfs(x.getList(), depth + 1)
+
             return sum_
 
         return dfs(nestedList, 1)

@@ -86,28 +86,6 @@ class Solution:
             root = root.left if target < root.val else root.right
         return closest
 
-
-        # def inorder(node):
-        #     return inorder(node.left) + [node.val] + inorder(node.right) if node else []
-
-        # return min(inorder(root), key=lambda x: abs(target - x))
-
-        # stack, pred = [], float("-inf")
-
-        # while stack or root:
-        #     while root:
-        #         stack.append(root)
-        #         root = root.left 
-        #     root = stack.pop()
-
-        #     if pred <= target < root.val:
-        #         return min(pred, root.val, key=lambda x: abs(target-x))
-
-        #     pred = root.val
-        #     root = root.right
-
-        # return pred
-
         # res = root.val
         # while root:
         #     if abs(root.val - target) < abs(target - res):
@@ -116,12 +94,6 @@ class Solution:
         #     root = root.left if target < root.val else root.right
 
         # return res
-
-        # closest = root.val
-        # while root:
-        #     closest = min(root.val, closest, key=lambda x: abs(x - target))
-        #     root = root.left if root.val > target else root.right
-        # return closest
 
 
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-cost-to-merge-stones/description/
 #
 # algorithms
-# Hard (34.16%)
-# Likes:    291
-# Dislikes: 23
-# Total Accepted:    6.4K
-# Total Submissions: 17.8K
+# Hard (39.61%)
+# Likes:    624
+# Dislikes: 45
+# Total Accepted:    15K
+# Total Submissions: 37.8K
 # Testcase Example:  '[3,2,4,1]\n2'
 #
 # There are N piles of stones arranged in a row.  The i-th pile has stones[i]
@@ -74,78 +74,31 @@
 # 
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
+import itertools
 
 class Solution:
     def mergeStones(self, stones: List[int], K: int) -> int:
-        
-        """
-        def recursive(i, j, piles):
-            if i == j and piles == 1:
-                return 0
-
-            if (j - i + 1 - piles) % (K - 1) != 0:
-                return float("inf")
-
-            if (i, j, piles) in dp:
-                return dp[(i, j, piles)]
-
-            if piles == 1:
-                dp[(i, j, piles)] = recursive(i, j, K) + pre_sum[j+1] - pre_sum[i]
-                return dp[(i, j, piles)]
-            else:
-                min_cost = float("inf")
-                for k in range(i, j, K-1):
-                    min_cost = min(min_cost, recursive(i, k, 1) + recursive(k+1, j, piles-1))
-                dp[(i, j, piles)] = min_cost
-                return dp[(i, j, piles)]
-
-        n = len(stones)
-        if (n - 1) % (K - 1) != 0:
-            return -1
-        pre_sum = [0] * (n + 1)
-        for i in range(n):
-            pre_sum[i+1] = pre_sum[i] + stones[i]
-        dp = {}
-        return recursive(0, n-1, 1)
-        """
-
-        """
-        n = len(stones)
-        prefix = [0] * (n + 1)
-        for i in range(n):
-            prefix[i+1] = prefix[i] + stones[i]
-
-        @lru_cache(None)
-        def dp(i, j, m):
-            if (j - i + 1 - m) % (K - 1):
-                return float("inf")
-            if i == j:
-                return 0 if m == 1 else float("inf")
-            if m == 1:
-                return dp(i, j, K) + prefix[j+1] - prefix[i]
-
-            return min(dp(i, mid, 1) + dp(mid+1, j, m-1) for mid in range(i, j, K-1))
-        res = dp(0, n-1, 1)
-        return res if res < float("inf") else -1
-        """
-
+        # Time  complexity: O(N^3 / K)
+        # Space complexity: O(KN^2)
         n = len(stones)
         if (n - 1) % (K - 1): return -1
-        prefix = [0] * (n + 1)
-        for i in range(n):
-            prefix[i+1] = prefix[i] + stones[i]
+        prefix = [0] + list(itertools.accumulate(stones))
 
         @lru_cache(None)
         def dp(i, j):
-            if j - i + 1 < K:
-                return 0
-            res = min(dp(i, mid) + dp(mid+1, j) for mid in range(i, j, K-1))
+            if j - i + 1 < K: return 0
+
+            res = min(dp(i, mid) + dp(mid + 1, j) for mid in range(i, j, K - 1))
+
             if (j - i) % (K - 1) == 0:
                 res += prefix[j + 1] - prefix[i]
 
             return res
 
-        return dp(0, n-1)
+        return dp(0, n - 1)
         
+# @lc code=end
 

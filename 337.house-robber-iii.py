@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/house-robber-iii/description/
 #
 # algorithms
-# Medium (48.08%)
-# Likes:    1502
-# Dislikes: 31
-# Total Accepted:    103.1K
-# Total Submissions: 214.5K
+# Medium (49.66%)
+# Likes:    2102
+# Dislikes: 46
+# Total Accepted:    134.3K
+# Total Submissions: 270.2K
 # Testcase Example:  '[3,2,3,null,3,null,1]'
 #
 # The thief has found himself a new place for his thievery again. There is only
@@ -52,6 +52,8 @@
 # Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -60,13 +62,15 @@
 #         self.right = None
 
 class Solution:
-    def robsub(self, root: TreeNode) -> List[int]:
-        if not root:
-            return [0, 0]   # 1st is not steal the root, 2nd is steal the root
-
-        left, right = map(self.robsub, (root.left, root.right))
-        return [max(left) + max(right), root.val + left[0] + right[0]]
-
     def rob(self, root: TreeNode) -> int:
-        return max(self.robsub(root))
+        #[skip the current node, rob the current node]
+        def robsub(node):
+            if not node:
+                return [0, 0]
+            left, right = map(robsub, (node.left, node.right))
+            return [max(left) + max(right), node.val + left[0] + right[0]]
+
+        return max(robsub(root))
+        
+# @lc code=end
 

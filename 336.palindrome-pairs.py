@@ -42,30 +42,44 @@
 # @lc code=start
 class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
+        # Let n be the number of words, and k be the length of the longest word.
+        # Time  complexity: O(k^2 x n)
+        # Space complexity: O((k + n)^2)
+        def all_valid_prefixes(word):
+            valid_prefixes = []
+            for i in range(len(word)):
+                if word[i:] == word[i:][::-1]:
+                    valid_prefixes.append(word[:i])
+            return valid_prefixes
 
-        def is_palindrome(check):
-            return check == check[::-1]
+        def all_valid_suffixes(word):
+            all_valid_suffixes = []
+            for i in range(len(word)):
+                if word[:i+1] == word[:i+1][::-1]:
+                    all_valid_suffixes.append(word[i+1:])
+            return all_valid_suffixes
 
-        words = {word: i for i, word in enumerate(words)}
-        valid_pals = []
+        word_lookup = {word: i for i, word in enumerate(words)}
+        solutions = []
 
-        for word, k in words.items():
-            n = len(word)
-            for j in range(n+1):
-                prefix = word[:j]
-                suffix = word[j:]
+        for word_index, word in enumerate(words):
+            reversed_word = word[::-1]
 
-                if is_palindrome(prefix):
-                    back = suffix[::-1]
-                    if back != word and back in words:
-                        valid_pals.append([words[back], k])
+            if reversed_word in word_lookup and word_index != word_lookup[reversed_word]:
+                solutions.append([word_index, word_lookup[reversed_word]])
 
-                if j != n and is_palindrome(suffix):
-                    back = prefix[::-1]
-                    if back != word and back in words:
-                        valid_pals.append([k, words[back]])
+            for suffix in all_valid_suffixes(word):
+                reversed_suffix = suffix[::-1]
+                if reversed_suffix in word_lookup:
+                    solutions.append([word_lookup[reversed_suffix], word_index])
 
-        return valid_pals
+            for prefix in all_valid_prefixes(word):
+                reversed_prefix = prefix[::-1]
+                if reversed_prefix in word_lookup:
+                    solutions.append([word_index, word_lookup[reversed_prefix]])
+                    
+        return solutions
+        
         
 # @lc code=end
 

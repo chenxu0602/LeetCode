@@ -31,12 +31,27 @@
 #
 
 # @lc code=start
+from collections import deque
+
 class MovingAverage:
 
     def __init__(self, size: int):
         """
         Initialize your data structure here.
         """
+        # Double-ended Queue
+        # Time  complexity: O(1)
+        # Space complexity: O(N), where N is the size of the moving window
+        # self.size = size
+        # self.queue = deque()
+        # self.window_sum = 0
+        # self.count = 0
+
+
+        # Circular Queue with Array
+        # tail = (head + 1) mod size
+        # Time  complexity: O(1)
+        # Space complexity: O(N), where N is the size of the circular queue.
         self.size = size
         self.queue = [0] * self.size
         self.head = self.window_sum = 0
@@ -44,14 +59,29 @@ class MovingAverage:
         
 
     def next(self, val: int) -> float:
+        # Double-ended Queue
+        # Time  complexity: O(1)
+        # Space complexity: O(N), where N is the size of the moving window
+        # self.count += 1
+        # # calculate the new sum by shifting the window
+        # self.queue.append(val)
+        # tail = self.queue.popleft() if self.count > self.size else 0
+        # self.window_sum = self.window_sum - tail + val
+        # return self.window_sum / min(self.size, self.count)
+        
+
+        # Circular Queue with Array
+        # tail = (head + 1) mod size
+        # Time  complexity: O(1)
+        # Space complexity: O(N), where N is the size of the circular queue.
         self.count += 1
+        # calculate the new sum by shifting the window
         tail = (self.head + 1) % self.size
         self.window_sum = self.window_sum - self.queue[tail] + val
+        # move on to the next head
         self.head = (self.head + 1) % self.size
         self.queue[self.head] = val
         return self.window_sum / min(self.size, self.count)
-        
-
 
 # Your MovingAverage object will be instantiated and called as such:
 # obj = MovingAverage(size)

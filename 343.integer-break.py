@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/integer-break/description/
 #
 # algorithms
-# Medium (47.83%)
-# Likes:    585
-# Dislikes: 169
-# Total Accepted:    80.7K
-# Total Submissions: 168.4K
+# Medium (50.19%)
+# Likes:    1086
+# Dislikes: 227
+# Total Accepted:    110.4K
+# Total Submissions: 219.2K
 # Testcase Example:  '2'
 #
 # Given a positive integer n, break it into the sum of at least two positive
@@ -37,62 +37,39 @@
 # 
 # 
 #
+
+# @lc code=start
+import math
+
 class Solution:
     def integerBreak(self, n: int) -> int:
-        """
+        # if n == 2:
+        #     return 1
+
+        # if n == 3:
+        #     return 2
+
+        # dp = [0] * (n + 1)
+        # dp[2] = 2
+        # dp[3] = 3
+
+        # for i in range(4, n + 1):
+        #     dp[i] = max(dp[i-2] * 2, dp[i-3] * 3)
+
+        # return dp[n]
+
+
+        # O(logN)
         if n == 2: 
             return 1
-
-        if n == 3:
+        elif n == 3: 
             return 2
-
-        dp = [0] * (n + 1)
-
-        dp[2] = 2;
-        dp[3] = 3;
-
-        for i in range(4, n+1):
-            dp[i] = max(dp[i-2] * 2, dp[i-3] * 3)
-
-        return dp[n]
-        """
-
-        if n == 2 or n == 3:
-            return n - 1
-        if n % 3 == 0:
-            return 3**(n//3)
-        if n % 3 == 1:
-            return 3**(n//3 - 1) * 4
-        if n % 3 == 2:
-            return 3**(n//3) * 2
-
-
-
-        """
-
-        if n == 2:
-            return 1
-
-        if n == 3:
-            return 2
-
-        res = 1
-
-        while n > 2:
-            res *= 3
-            n -= 3
-
-        if n == 0:
-            return res
-
-        if n == 1:
-            return (res // 3) * 4
-
-        if n == 2:
-            return res * 2
-
-        """
+        elif n % 3 == 0:
+            return int(math.pow(3, n // 3))
+        elif n % 3 == 1:
+            return 2 * 2 * int(math.pow(3, (n - 4) // 3))
+        else:
+            return 2 * int(math.pow(3, n // 3))
         
-
-        
+# @lc code=end
 

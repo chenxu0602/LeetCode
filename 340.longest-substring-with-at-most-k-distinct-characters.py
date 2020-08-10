@@ -37,44 +37,25 @@
 #
 
 # @lc code=start
+from collections import OrderedDict
+
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+        # Time  complexity: O(N)
+        # Space complexity: O(k)
+        queue, start, r = OrderedDict(), -1, 0
 
-        # d = {}
-        # res, low = 0, 0
-        # for i, c in enumerate(s):
-        #     d[c] = i
-        #     if len(d) > k:
-        #         low = min(d.values())
-        #         del d[s[low]]
-        #         low += 1
-        #     res = max(res, i - low + 1)
-        # return res
+        for i, char in enumerate(s):
+            if char in queue:
+                queue.pop(char)
+            queue[char] = i
 
-        from collections import OrderedDict
+            if len(queue) > k:
+                start = queue.popitem(False)[1]
 
-        n = len(s)
-        if k == 0 or n == 0:
-            return 0
+            r = max(r, i - start)
 
-        left, right = 0, 0
-        hashmap = OrderedDict()
-        max_len = 1
-
-        while right < n:
-            character = s[right]
-            if character in hashmap:
-                del hashmap[character]
-            hashmap[character] = right
-            right += 1
-
-            if len(hashmap) == k + 1:
-                _, del_idx = hashmap.popitem(last=False)
-                left = del_idx + 1
-
-            max_len = max(max_len, right - left)
-
-        return max_len
+        return r
         
 # @lc code=end
 

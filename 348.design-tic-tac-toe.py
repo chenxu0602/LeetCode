@@ -99,11 +99,13 @@ class TicTacToe:
                 2: Player 2 wins.
         """
 
-        for i, x in enumerate((row, col, row+col, row-col)):
+        for i, x in enumerate((row, col, row + col, row - col)):
             self.count[i, x, player] += 1
             if self.count[i, x, player] == self.size:
                 return player
+
         return 0
+
         
 
 
