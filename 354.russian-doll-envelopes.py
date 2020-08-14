@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/russian-doll-envelopes/description/
 #
 # algorithms
-# Hard (33.96%)
-# Likes:    572
-# Dislikes: 28
-# Total Accepted:    45.4K
-# Total Submissions: 133.4K
+# Hard (35.50%)
+# Likes:    1186
+# Dislikes: 40
+# Total Accepted:    69.3K
+# Total Submissions: 194.9K
 # Testcase Example:  '[[5,4],[6,4],[6,7],[2,3]]'
 #
 # You have a number of envelopes with widths and heights given as a pair of
@@ -37,11 +37,11 @@
 # 
 #
 
+# @lc code=start
 import bisect
 
 class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
-
         envelopes.sort(key=lambda x: (x[0], -x[1]))
         res = []
         for en in envelopes:
@@ -51,6 +51,6 @@ class Solution:
             else:
                 res[i] = en[1]
         return len(res)
-
         
+# @lc code=end
 

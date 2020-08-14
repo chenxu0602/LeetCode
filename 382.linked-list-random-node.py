@@ -44,6 +44,7 @@
 from random import randint
 
 class Solution:
+    # Reservoir Sampling
 
     def __init__(self, head: ListNode):
         """
@@ -56,13 +57,13 @@ class Solution:
         """
         Returns a random node's value.
         """
-        
+
         res, n = -1, 0
         head = self.head
         while head:
             if randint(0, n) == 0:
                 res = head.val
-            head= head.next
+            head = head.next
             n += 1
         return res
             

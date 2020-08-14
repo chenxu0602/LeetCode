@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/logger-rate-limiter/description/
 #
 # algorithms
-# Easy (65.19%)
-# Likes:    193
-# Dislikes: 67
-# Total Accepted:    47.1K
-# Total Submissions: 72.1K
-# Testcase Example:  '["Logger","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage"]\n' +
+# Easy (70.46%)
+# Likes:    524
+# Dislikes: 110
+# Total Accepted:    106.6K
+# Total Submissions: 150.5K
+# Testcase Example:  '["Logger","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage","shouldPrintMessage"]\n' + '[[],[1,"foo"],[2,"bar"],[3,"foo"],[8,"bar"],[10,"foo"],[11,"foo"]]'
 #
 # Design a logger system that receive stream of messages along with its
 # timestamps, each message should be printed if and only if it is not printed
@@ -46,13 +46,15 @@
 # logger.shouldPrintMessage(11,"foo"); returns true;
 # 
 #
+
+# @lc code=start
 class Logger:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.ok = dict()
+        self.ok = {}
         
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
@@ -61,7 +63,6 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-
         if timestamp < self.ok.get(message, 0):
             return False
 
@@ -73,4 +74,5 @@ class Logger:
 # Your Logger object will be instantiated and called as such:
 # obj = Logger()
 # param_1 = obj.shouldPrintMessage(timestamp,message)
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sum-of-two-integers/description/
 #
 # algorithms
-# Easy (50.91%)
-# Likes:    778
-# Dislikes: 1365
-# Total Accepted:    137K
-# Total Submissions: 269.3K
+# Medium (50.70%)
+# Likes:    1288
+# Dislikes: 2279
+# Total Accepted:    192.3K
+# Total Submissions: 379.3K
 # Testcase Example:  '1\n2'
 #
 # Calculate the sum of two integers a and b, but you are not allowed to use the
@@ -35,31 +35,36 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def getSum(self, a: int, b: int) -> int:
+        # O(1)
+        # x, y = abs(a), abs(b)
+        # # ensure x >= y
+        # if x < y:
+        #     return self.getSum(b, a)  
+        # sign = 1 if a > 0 else -1
+        
+        # if a * b >= 0:
+        #     # sum of two positive integers
+        #     while y:
+        #         x, y = x ^ y, (x & y) << 1
+        # else:
+        #     # difference of two positive integers
+        #     while y:
+        #         x, y = x ^ y, ((~x) & y) << 1
+        
+        # return x * sign
 
-        """
-        def add(a, b):
-            for _ in range(32):
-                a, b = a ^ b, (a & b) << 1
 
-            return a
-
-        s = add(a, b) & 0xFFFFFFFF
-
-        if s & 0x80000000:
-            return -add(~(s & 0x7FFFFFFF) & 0x7FFFFFFF, 1)
-
-        return s
-        """
+        mask = 0xFFFFFFFF
 
         while b != 0:
-            c = a & b
-            a = a ^ b
-            b = c << 1
-        return a
+            a, b = (a ^ b) & mask, ((a & b) << 1) & mask
 
-#        a ^ b is add without counting the carry
-#        a & b is carry part
+        max_int = 0x7FFFFFFF  # To manage the overflow
+        return a if a < max_int else ~(a ^ mask)
         
+# @lc code=end
 

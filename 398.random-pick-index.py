@@ -38,8 +38,7 @@
 #
 
 # @lc code=start
-import heapq
-from random import randint, random
+import heapq, random
 
 class Solution:
 
@@ -51,19 +50,23 @@ class Solution:
         # heap = []
         # for i, v in enumerate(self.nums):
         #     if v == target:
-        #         heapq.heappush(heap, (random(), i))
+        #         heapq.heappush(heap, (random.random(), i))
 
-        # _, idx = heapq.heappop(heap)
+        # r, idx = heapq.heappop(heap)
         # return idx
 
+
+        # Reservoir Sampling
         total, res = 0, -1
         for i, v in enumerate(self.nums):
             if v == target:
-                x = randint(0, total)
+                x = random.randint(0, total)
                 if x == 0:
                     res = i
                 total += 1
+
         return res
+        
 
 
 # Your Solution object will be instantiated and called as such:

@@ -50,12 +50,13 @@ import functools
 
 class Solution:
     def maxRotateFunction(self, A: List[int]) -> int:
+
         sum_A, n = sum(A), len(A)
-        prev_F = functools.reduce(lambda acc, it: acc + A[it]*it, range(n), 0)
+        prev_F = functools.reduce(lambda acc, it: acc + A[it] * it, range(n), 0)
         max_F = prev_F
 
-        for i in range(n-1, 0, -1):
-            prev_F += (sum_A - n * A[i])
+        for i in range(n - 1, 0, -1):
+            prev_F += sum_A - n * A[i]
             max_F = max(max_F, prev_F)
 
         return max_F

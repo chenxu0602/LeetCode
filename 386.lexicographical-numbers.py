@@ -23,17 +23,20 @@
 #
 class Solution:
     def lexicalOrder(self, n: int) -> List[int]:
+        # O(N)
+
 #        return list(map(int, sorted([str(i) for i in range(1, n+1)])))
 
         def dfs(i):
             if i <= n:
-                result.append(i)
+                results.append(i)
                 for d in range(10):
                     dfs(10 * i + d)
 
-        result = []
+        results = []
         for i in range(1, 10):
             dfs(i)
-        return result
+
+        return results
         
 

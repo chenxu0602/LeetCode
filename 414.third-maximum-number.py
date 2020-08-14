@@ -52,6 +52,8 @@
 #
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
+        # Time  complexity: O(n)
+        # Space complexity: O(1)
         nums = set(nums)
         for i in range((2, 0)[len(nums) < 3]):
             nums.remove(max(nums))

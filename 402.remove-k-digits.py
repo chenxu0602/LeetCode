@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/remove-k-digits/description/
 #
 # algorithms
-# Medium (26.68%)
-# Likes:    905
-# Dislikes: 59
-# Total Accepted:    62.6K
-# Total Submissions: 234.1K
+# Medium (27.46%)
+# Likes:    1382
+# Dislikes: 79
+# Total Accepted:    85K
+# Total Submissions: 309.4K
 # Testcase Example:  '"1432219"\n3'
 #
 # Given a non-negative integer num represented as a string, remove k digits
@@ -52,20 +52,25 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-
-        stack = []
+        # Greedy with Stack
+        # Time  complexity: O(N + k)
+        # Space complexity: O(N)
+        numStack = []
+        # Construct a monotone increasing sequence of digits
         for digit in num:
-            while k and stack and stack[-1] > digit:
-                stack.pop()
+            while k and numStack and numStack[-1] > digit:
+                numStack.pop()
                 k -= 1
-            stack.append(digit)
 
-        stack = stack[:-k] if k else stack
+            numStack.append(digit)
 
-        return "".join(stack).lstrip('0') or '0'
+        finalStack = numStack[:-k] if k else numStack
 
-            
+        return "".join(finalStack).lstrip('0') or '0'
         
+# @lc code=end
 

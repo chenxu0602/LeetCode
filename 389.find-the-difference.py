@@ -40,15 +40,23 @@ from functools import reduce
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
 
-        """
-        x = Counter(t) - Counter(s)
-        return list(x.keys())[0]
-        """
+        # O(N)
 
-        """
-        return chr(sum(map(ord, t)) - sum(map(ord, s)))
-        """
+        # x = Counter(t) - Counter(s)
+        # return list(x.keys())[0]
 
-        return chr(reduce(int.__xor__, map(ord, s+t)))
+
+        # return chr(sum(map(ord, t)) - sum(map(ord, s)))
         
+
+        # return chr(reduce(int.__xor__, map(ord, s + t)))
+
+        ch = 0
+        for char_ in s:
+            ch ^= ord(char_)
+
+        for char_ in t:
+            ch ^= ord(char_)
+
+        return chr(ch)
 

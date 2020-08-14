@@ -58,8 +58,8 @@
 #
 
 # @lc code=start
-import random
 from collections import defaultdict
+import random
 
 class RandomizedCollection:
 
@@ -67,40 +67,36 @@ class RandomizedCollection:
         """
         Initialize your data structure here.
         """
-        self.vals, self.ids = [], defaultdict(set)
+        self.lst = []
+        self.idx = defaultdict(set)
         
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
         """
-        self.vals.append(val)
-        self.ids[val].add(len(self.vals)-1)
-        return len(self.ids[val]) == 1
+        self.idx[val].add(len(self.lst))
+        self.lst.append(val)
+        return len(self.idx[val]) == 1
         
 
     def remove(self, val: int) -> bool:
         """
         Removes a value from the collection. Returns true if the collection contained the specified element.
         """
-        if val not in self.ids:
-            return False
-
-        idx, last = self.ids[val].pop(), self.vals[-1]
-        len(self.ids[val]) > 0 or self.ids.pop(val, None)
-        if last in self.ids:
-            self.ids[last] = (self.ids[last] | {idx}) - {len(self.vals) - 1}
-        self.vals[idx] = last
-        self.vals.pop()
-
+        if not self.idx[val]: return False
+        remove, last = self.idx[val].pop(), self.lst[-1]
+        self.lst[remove] = last
+        self.idx[last].add(remove)
+        self.idx[last].discard(len(self.lst) - 1)
+        self.lst.pop()
         return True
-        
 
     def getRandom(self) -> int:
         """
         Get a random element from the collection.
         """
-        return random.choice(self.vals)
+        return random.choice(self.lst)
         
 
 

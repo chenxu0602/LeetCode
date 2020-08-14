@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shuffle-an-array/description/
 #
 # algorithms
-# Medium (50.08%)
-# Likes:    268
-# Dislikes: 648
-# Total Accepted:    79K
-# Total Submissions: 157.3K
+# Medium (51.83%)
+# Likes:    412
+# Dislikes: 882
+# Total Accepted:    107.2K
+# Total Submissions: 206.6K
 # Testcase Example:  '["Solution","shuffle","reset","shuffle"]\n[[[1,2,3]],[],[],[]]'
 #
 # Shuffle a set of numbers without duplicates.
@@ -34,13 +34,12 @@
 # 
 # 
 #
-
 from random import randrange
 
+# @lc code=start
 class Solution:
 
     def __init__(self, nums: List[int]):
-
         self.array = nums
         self.original = list(nums)
         
@@ -49,29 +48,26 @@ class Solution:
         """
         Resets the array to its original configuration and return it.
         """
-
-        return self.original
+        self.array = self.original
+        self.original = list(self.original)
+        return self.array
         
 
     def shuffle(self) -> List[int]:
         """
         Returns a random shuffling of the array.
         """
-
-        """
-        Fisher-Yates Algorithm
-        """
-
         for i in range(len(self.array)):
             swap_idx = randrange(i, len(self.array))
             self.array[i], self.array[swap_idx] = self.array[swap_idx], self.array[i]
+
         return self.array
         
-            
 
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
+# @lc code=end
 

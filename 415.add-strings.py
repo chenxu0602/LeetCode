@@ -31,6 +31,7 @@ from functools import reduce
 
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
+        # O(max(N1, N2))
 
         # z = zip_longest(num1[::-1], num2[::-1], fillvalue='0')
         # res, carry, zero2 = [], 0, 2 * ord('0')
@@ -40,6 +41,7 @@ class Solution:
         #     res.append(str(r))
         # return ('1' if carry else '') + ''.join(res[::-1])
 
+
         return str(
             reduce(lambda a, b: 10 * a + b,
                 map(lambda x: ord(x[0]) + ord(x[1]) - 2 * ord('0'),
@@ -47,6 +49,9 @@ class Solution:
                 )
             )
         )
+
+
+
 
         
 

@@ -37,6 +37,8 @@ class Solution:
         for i in range(n if n <= 10 else 10):
             product *= choices[i]
             ans += product
+
         return ans
+
 
 

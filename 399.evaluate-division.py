@@ -45,21 +45,21 @@ from collections import defaultdict
 
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        # Floyd–Warshall algorithm
+        # O(V^3)
+        # quotes = defaultdict(dict)
+        # for (num, den), val in zip(equations, values):
+        #     quotes[num][num] = quotes[den][den] = 1.0
+        #     quotes[num][den] = val
+        #     quotes[den][num] = 1.0 / val
 
-        quotes = defaultdict(dict)
-        for (num, den), val in zip(equations, values):
-            quotes[num][num] = quotes[den][den] = 1.0
-            quotes[num][den] = val
-            quotes[den][num] = 1.0 / val
+        # for q in quotes:
+        #     for i in quotes[q]:
+        #         for j in quotes[q]:
+        #             quotes[i][j] = quotes[i][q] * quotes[q][j]
 
-        for q in quotes:
-            for i in quotes[q]:
-                for j in quotes[q]:
-                    quotes[i][j] = quotes[i][q] * quotes[q][j]
+        # return [quotes[num].get(den, -1.0) for num, den in queries]
 
-        return [quotes[num].get(den, -1.0) for num, den in queries]
-
-        """
         g = defaultdict(set)
         for (x, y), v in zip(equations, values):
             g[x].add((y, v))
@@ -67,20 +67,19 @@ class Solution:
 
         def bfs(src, dst):
             if not (src in g and dst in g):
-                return -1.0
+                return -1
 
             q, seen = [(src, 1.0)], set()
             for x, v in q:
                 if x == dst: return v
                 seen.add(x)
                 for y, k in g[x]:
-                    if y not in seen: q.append((y, v * k))
+                    if y not in seen:
+                        q.append((y, v * k))
 
             return -1.0
 
-
         return [bfs(s, d) for s, d in queries]
-        """
 
 
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/wiggle-subsequence/description/
 #
 # algorithms
-# Medium (37.47%)
-# Likes:    541
-# Dislikes: 47
-# Total Accepted:    48.7K
-# Total Submissions: 129.6K
+# Medium (39.51%)
+# Likes:    1006
+# Dislikes: 59
+# Total Accepted:    69.9K
+# Total Submissions: 176.5K
 # Testcase Example:  '[1,7,4,9,2,5]'
 #
 # A sequence of numbers is called a wiggle sequence if the differences between
@@ -57,47 +57,26 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
-        """
-        nan = float("nan")
-        diffs = [a - b for a, b in zip([nan] + nums, nums + [nan]) if a - b]
+        # O(N) / O(1)
+
+        # n = len(nums)
+        # if n < 2: return n
+
+        # down = up = 1
+        # for i in range(1, n):
+        #     if nums[i] > nums[i-1]:
+        #         up = down + 1
+        #     elif nums[i] < nums[i-1]:
+        #         down = up + 1
+
+        # return max(up, down)
+
+        diffs = [a - b for a, b in zip([float("nan")] + nums, nums + [float("nan")]) if a - b]
         return sum(not d * e >= 0 for d, e in zip(diffs, diffs[1:]))
-        """
-
-        """
-        n = len(nums)
-        if n < 2: 
-            return n
-
-        up, down = [0] * n, [0] * n
-        up[0] = down[0] = 1
-
-        for i in range(1, n):
-            if nums[i] - nums[i-1] > 0:
-                up[i] = down[i-1] + 1
-                down[i] = down[i-1]
-            elif nums[i] - nums[i-1] < 0:
-                down[i] = up[i-1] + 1
-                up[i] = up[i-1]
-            else:
-                up[i] = up[i-1]
-                down[i] = down[i-1]
         
-        return max(up[n-1], down[n-1])
-        """
-
-        n = len(nums)
-        if n < 2:
-            return n
-
-        down = up = 1
-        for i in range(1, n):
-            if nums[i] > nums[i-1]:
-                up = down + 1
-            elif nums[i] < nums[i-1]:
-                down = up + 1
-        return max(down, up)
-
-
+# @lc code=end
 

@@ -92,7 +92,6 @@
 
 class Solution:
     def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
-
         def dfs(nestedL, prev=0):
             isum = prev
             ilist = []
@@ -106,7 +105,6 @@ class Solution:
             return isum + lsum
 
         return dfs(nestedList)
-
         
 # @lc code=end
 

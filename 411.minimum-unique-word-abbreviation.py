@@ -49,6 +49,7 @@ import re
 
 class Solution:
     def minAbbreviation(self, target: str, dictionary: List[str]) -> str:
+        # For each dictionary word (of correct size), I create a diff-number whose bits tell me which of the word's letters differ from the target. 
         m = len(target)
         diffs = {sum(2**i for i, c in enumerate(word) if not target[i] == c) for word in dictionary if len(word) == m}
 
@@ -57,6 +58,7 @@ class Solution:
 
         print(diffs)
 
+        # Two consecutive 0-bits in the abbreviation number mean that the two corresponding letters will be encoded as the number 2. It saves length 1.
         bits = max((i for i in range(2**m) if all(d & i for d in diffs)), 
                key=lambda bits: sum((bits >> i) & 3 == 0 for i in range(m-1)))
 

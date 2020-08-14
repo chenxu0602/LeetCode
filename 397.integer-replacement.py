@@ -60,16 +60,18 @@
 #
 class Solution:
     def integerReplacement(self, n: int) -> int:
+
+        # O(logN)
         res = 0
         while not n == 1:
             if bin(n)[-1] == '0':
                 n >>= 1
+            elif bin(n)[-2] == '1' and not len(bin(n)) == 4:
+                n += 1
             else:
-                if bin(n)[-2] == '1' and not len(bin(n)) == 4:
-                    n += 1
-                else:
-                    n -= 1
+                n -= 1
+
             res += 1
-        
+
         return res
 

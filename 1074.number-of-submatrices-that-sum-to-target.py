@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/description/
 #
 # algorithms
-# Hard (58.12%)
-# Likes:    162
-# Dislikes: 8
-# Total Accepted:    4.9K
-# Total Submissions: 8.4K
+# Hard (58.82%)
+# Likes:    537
+# Dislikes: 27
+# Total Accepted:    17.8K
+# Total Submissions: 29.5K
 # Testcase Example:  '[[0,1,0],[1,1,1],[0,1,0]]\n0'
 #
 # Given a matrix, and a target, return the number of non-empty submatrices that
@@ -55,27 +55,75 @@
 # 
 # 
 #
-from collections import Counter
+
+# @lc code=start
+from collections import defaultdict
 
 class Solution:
     def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+        # Horizontal 1D Prefix Sum
+        # Time  complexity: O(R^2 x C), where R is the number of rows and C is the number of columns.
+        # Space complexity: O(RC)
+        # r, c = map(len, (matrix, matrix[0]))
 
-        m, n = len(matrix), len(matrix[0])
-        for row in matrix:
-            for i in range(n-1):
-                row[i+1] += row[i]
+        # # compute 2D prefix sum
+        # ps = [[0] * (c + 1) for _ in range(r + 1)]
+        # for i in range(1, r + 1):
+        #     for j in range(1, c + 1):
+        #         ps[i][j] = ps[i-1][j] + ps[i][j-1] - ps[i-1][j-1] + matrix[i-1][j-1]
 
-        res = 0
-        for i in range(n):
-            for j in range(i, n):
-                c = Counter({0: 1})
-                cur = 0
-                for k in range(m):
-                    cur += matrix[k][j] - (matrix[k][i-1] if i > 0 else 0)
-                    res += c[cur-target]
-                    c[cur] += 1
+        # count = 0
+        # # reduce 2D problem to 1D one
+        # # by fixing two rows r1 and r2 and 
+        # # computing 1D prefix sum for all matrices using [r1..r2] rows
+        # for r1 in range(1, r + 1):
+        #     for r2 in range(r1, r + 1):
+        #         h = defaultdict(int)
+        #         h[0] = 1
 
-        return res
+        #         for col in range(1, c + 1):
+        #             # current 1D prefix sum  
+        #             curr_sum = ps[r2][col] - ps[r1-1][col]
+
+        #             # add subarrays which sum up to (curr_sum - target)
+        #             count += h[curr_sum - target]
+
+        #             # save current prefix sum
+        #             h[curr_sum] += 1
+
+        # return count
 
         
+        # Horizontal 1D Prefix Sum
+        # Time  complexity: O(R x C^2), where R is the number of rows and C is the number of columns.
+        # Space complexity: O(RC)
+        r, c = map(len, (matrix, matrix[0]))
+
+        # compute 2D prefix sum
+        ps = [[0] * (c + 1) for _ in range(r + 1)]
+        for i in range(1, r + 1):
+            for j in range(1, c + 1):
+                ps[i][j] = ps[i-1][j] + ps[i][j-1] - ps[i-1][j-1] + matrix[i-1][j-1]
+
+        count = 0
+        # reduce 2D problem to 1D one
+        # by fixing two columns c1 and c2 and 
+        # computing 1D prefix sum for all matrices using [c1..c2] columns
+        for c1 in range(1, c + 1):
+            for c2 in range(c1, c + 1):
+                h = defaultdict(int)
+                h[0] = 1
+
+                for row in range(1, r + 1):
+                    # current 1D prefix sum 
+                    curr_sum = ps[row][c2] - ps[row][c1-1]
+
+                    # add subarrays which sum up to (curr_sum - target)
+                    count += h[curr_sum - target]
+
+                    # save current prefix sum
+                    h[curr_sum] += 1
+
+        return count
+# @lc code=end
 

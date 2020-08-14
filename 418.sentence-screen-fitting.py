@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sentence-screen-fitting/description/
 #
 # algorithms
-# Medium (31.19%)
-# Likes:    327
-# Dislikes: 174
-# Total Accepted:    34.9K
-# Total Submissions: 111.7K
+# Medium (32.61%)
+# Likes:    461
+# Dislikes: 223
+# Total Accepted:    44K
+# Total Submissions: 134.8K
 # Testcase Example:  '["hello","world"]\n2\n8'
 #
 # Given a rows x cols screen and a sentence represented by a list of non-empty
@@ -82,27 +82,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def wordsTyping(self, sentence: List[str], rows: int, cols: int) -> int:
-
-        """
-        comb = ' ' + ' '.join(sentence)
-        l = len(comb)
-
-        res, i = 0, 1
-        for _ in range(rows):
-            i += cols
-            if i > l - 1:
-                res += i // l
-                i = i % l
-
-            while not comb[i] == ' ':
-                i -= 1
-
-            i += 1
-
-        return res
-        """
 
         s = ' '.join(sentence) + ' '
         start, l = 0, len(s)
@@ -113,4 +96,5 @@ class Solution:
             start += 1
         return start // l
         
+# @lc code=end
 

@@ -57,19 +57,34 @@ from functools import lru_cache
 
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-
-        possible = {0}
-        for n in nums:
-            possible.update({v + n for v in possible})
-        return sum(nums) / 2. in possible
-
-        # target, n = sum(nums), len(nums)
-        # if target & 1: return False
-        # target >>= 1
-        # dp = [True] + [False] * target
+        # O(2^n)
+        # possible = {0}
         # for n in nums:
-        #     dp = [dp[s] or (s >= n and dp[s-n]) for s in range(target+1)]
-        # return dp[target]
+        #     possible.update({v + n for v in possible})
+        # return sum(nums) / 2. in possible
+
+        # if sum(nums) & 1 == 0:
+        #     target = sum(nums) >> 1
+        #     cur = {0}
+        #     for i in nums:
+        #         cur |= {i + x for x in cur}
+        #         if target in cur:
+        #             return True
+        # return False
+
+        # return (sum(nums) / 2.) in reduce(lambda cur, x: cur | {v + x for v in cur}, nums, {0})
+
+        # 0/1 knapsack
+        # Time  complexity: O(n x target)
+        # Space complexity: O(target)
+        target, n = sum(nums), len(nums)
+        if target & 1: return False
+        target >>= 1
+        dp = [True] + [False] * target
+        for n in nums:
+            dp = [dp[s] or (s >= n and dp[s - n]) for s in range(target + 1)]
+        return dp[target]
+
         
         
 # @lc code=end

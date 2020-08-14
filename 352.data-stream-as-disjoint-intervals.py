@@ -39,6 +39,8 @@
 # @lc code=start
 import bisect
 
+# O(NlogN)
+
 class SummaryRanges:
 
     def __init__(self):
@@ -47,7 +49,6 @@ class SummaryRanges:
         """
         self.intervals = []
         
-
     def addNum(self, val: int) -> None:
         pos = bisect.bisect_right([i[0] for i in self.intervals], val) - 1
         if 0 <= pos < len(self.intervals) and self.intervals[pos][0] <= val <= self.intervals[pos][1]:
@@ -56,20 +57,17 @@ class SummaryRanges:
         pos += 1
         self.intervals.insert(pos, [val, val])
 
-        if pos + 1 < len(self.intervals) and self.intervals[pos+1][0] == val + 1:
-            self.intervals[pos][1] = self.intervals[pos+1][1]
+        if pos + 1 < len(self.intervals) and self.intervals[pos + 1][0] == val + 1:
+            self.intervals[pos][1] = self.intervals[pos + 1][1]
             self.intervals.pop(pos + 1)
 
-        if pos - 1 >= 0 and self.intervals[pos-1][1] == val - 1:
-            self.intervals[pos-1][1] = self.intervals[pos][1]
+        if pos - 1 >= 0 and self.intervals[pos - 1][1] == val - 1:
+            self.intervals[pos - 1][1] = self.intervals[pos][1]
             self.intervals.pop(pos)
-        
 
     def getIntervals(self) -> List[List[int]]:
         return self.intervals
         
-
-
 # Your SummaryRanges object will be instantiated and called as such:
 # obj = SummaryRanges()
 # obj.addNum(val)

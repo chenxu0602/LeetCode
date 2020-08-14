@@ -61,26 +61,28 @@ class Solution:
             bit >>= 1
         return root * root == num
 
-        """
-        r = num
-        while r * r > num:
-            r = (r + num / r) // 2
+        # Newton's Method
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        if num < 2: return True
+        # x = num // 2
+        # while x * x > num:
+        #     x = (x + num // x) // 2
+        # return x * x == num
 
-        return r * r == num
-        """
+        # Binary Search
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        # left, right = 0, num
+        # while left <= right:
+        #     mid = left + (right - left) // 2
+        #     if mid ** 2 == num:
+        #         return True
+        #     elif mid ** 2 > num:
+        #         right = mid - 1
+        #     else:
+        #         left = mid + 1
 
-        """
-        left, right = 0, num
-        while left <= right:
-            mid = left + (right - left) // 2
-            if mid ** 2 == num:
-                return True
-            elif mid ** 2 > num:
-                right = mid - 1
-            else:
-                left = mid + 1
-
-        return False
-        """
+        # return False
 
 

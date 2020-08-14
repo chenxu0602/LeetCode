@@ -66,26 +66,29 @@ from functools import lru_cache
 
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n^2)
         # d = {x: set() for x in stones}
         # if not stones[1] == 1: return False
+
         # d[1].add(1)
 
         # for i in range(1, len(stones)):
         #     for j in d[stones[i]]:
-        #         for k in range(j-1, j+2):
-        #             if k > 0 and stones[i]+k in d:
-        #                 d[stones[i]+k].add(k)
+        #         for k in range(j - 1, j + 2):
+        #             if k > 0 and stones[i] + k in d:
+        #                 d[stones[i] + k].add(k)
 
         # return not d[stones[-1]] == set()
 
+
         @lru_cache(None)
         def jump(stone, k):
-            return stone == stones[-1] or any(jump(stone+leap, leap)
-                for leap in range(max(1, k-1), k+2)[::-1] if (stone+leap) in stoneSet)
+            return stone == stones[-1] or any(jump(stone + leap, leap)
+                for leap in range(max(1, k - 1), k + 2)[::-1] if (stone + leap) in stoneSet)
 
         stoneSet = set(stones)
         return jump(0, 0)
-
         
 # @lc code=end
 

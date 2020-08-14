@@ -55,7 +55,7 @@
 # @lc code=start
 class Solution:
     def toHex(self, num: int) -> str:
-        if num < 0:
+        if num < 0: 
             num += 2 ** 32
 
         stack = []
@@ -65,8 +65,7 @@ class Solution:
             num, adding = divmod(num, 16)
             stack.append(s[adding])
 
-        if not stack:
-            return "0"
+        if not stack: return '0'
 
         return "".join(reversed(stack))
 

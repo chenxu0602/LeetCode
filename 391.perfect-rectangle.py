@@ -101,6 +101,7 @@ class Solution:
     def isRectangleCover(self, rectangles: List[List[int]]) -> bool:
         area, corners = 0, set()
         a, c = lambda: (X - x) * (Y - y), lambda: {(x, y), (x, Y), (X, y), (X, Y)}
+
         for x, y, X, Y in rectangles:
             area += a()
             corners ^= c()

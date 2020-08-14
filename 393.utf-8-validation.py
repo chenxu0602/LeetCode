@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/utf-8-validation/description/
 #
 # algorithms
-# Medium (35.91%)
-# Likes:    143
-# Dislikes: 675
-# Total Accepted:    36.1K
-# Total Submissions: 100.4K
+# Medium (37.50%)
+# Likes:    224
+# Dislikes: 1043
+# Total Accepted:    49.3K
+# Total Submissions: 131.3K
 # Testcase Example:  '[197,130,1]'
 #
 # A character in UTF8 can be from 1 to 4 bytes long, subjected to the following
@@ -67,87 +67,84 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
+        # String Manipulation
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # # Number of bytes in the current UTF-8 character
+        # n_bytes = 0
 
-        """
-        if not data:
-            return False
+        # For each integer in the data array.
+        # for num in data:
+        #     # Get the binary representation. We only need the least significant 8 bits
+        #     # for any given number.
+        #     bin_rep = format(num, '#010b')[-8:]
 
-        i, n = 0, len(data)
-        arr = [bin(x)[2:].rjust(8, '0') for x in data]
-        while i < n:
-            cnt = len(arr[i]) - len(arr[i].lstrip('1'))
-            if cnt == 0:
-                i += 1
-            elif 2 <= cnt <= 4:
-                while i + 1 < n and arr[i+1].startswith('10') and cnt > 1:
-                    i += 1
-                    cnt -= 1
-                if not cnt == 1:
-                    return False
-                i += 1
-            else:
-                return False
+        #     # If this is the case then we are to start processing a new UTF-8 character.
+        #     if n_bytes == 0:
+        #         # Get the number of 1s in the beginning of the string.
+        #         for bit in bin_rep:
+        #             if bit == '0': break
+        #             n_bytes += 1
 
-        return True
-        """
+        #         # 1 byte characters
+        #         if n_bytes == 0:
+        #             continue
 
-        """
+        #         # Invalid scenarios according to the rules of the problem.
+        #         if n_bytes == 1 or n_bytes > 4:
+        #             return False
+        #     else:
+        #         if not (bin_rep[0] == '1' and bin_rep[1] == '0'):
+        #             return False
+
+        #     n_bytes -= 1
+
+        # return n_bytes == 0
+
+
+        # Bit Manipulation
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # Number of bytes in the current UTF-8 character
         n_bytes = 0
 
-        for num in data:
-
-            bin_rep = format(num, '#010b')[-8:]
-
-            if n_bytes == 0:
-
-                for bit in bin_rep:
-                    if bit == '0': break
-                    n_bytes += 1
-
-                if n_bytes == 0:
-                    continue
-
-                if n_bytes == 1 or n_bytes > 4:
-                    return False
-
-            else:
-                if not (bin_rep[0] == '1' and bin_rep[1] == '0'):
-                    return False
-
-            n_bytes -= 1
-
-        return n_bytes == 0
-        """
-
-        n_bytes = 0
-
+        # Mask to check if the most significant bit (8th bit from the left) is set or not
         mask1 = 1 << 7
+        # Mask to check if the second most significant bit is set or not
         mask2 = 1 << 6
 
         for num in data:
+            # Get the number of set most significant bits in the byte if
+            # this is the starting byte of an UTF-8 character.
             mask = 1 << 7
             if n_bytes == 0:
                 while mask & num:
                     n_bytes += 1
                     mask = mask >> 1
 
+                # 1 byte characters
                 if n_bytes == 0:
                     continue
 
+                # Invalid scenarios according to the rules of the problem.
                 if n_bytes == 1 or n_bytes > 4:
                     return False
             else:
+                # If this byte is a part of an existing UTF-8 character, then we
+                # simply have to look at the two most significant bits and we make
+                # use of the masks we defined before.
                 if not (num & mask1 and not (num & mask2)):
                     return False
+
             n_bytes -= 1
+
         return n_bytes == 0
 
 
         
-
-
-
-
+# @lc code=end
 

@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-hit-counter/description/
 #
 # algorithms
-# Medium (59.06%)
-# Likes:    332
-# Dislikes: 34
-# Total Accepted:    45K
-# Total Submissions: 76.1K
-# Testcase Example:  '["HitCounter","hit","hit","hit","getHits","hit","getHits","getHits"]\n' +
+# Medium (63.52%)
+# Likes:    759
+# Dislikes: 78
+# Total Accepted:    88.3K
+# Total Submissions: 138.7K
+# Testcase Example:  '["HitCounter","hit","hit","hit","getHits","hit","getHits","getHits"]\n' + '[[],[1],[2],[3],[4],[300],[300],[301]]'
 #
 # Design a hit counter which counts the number of hits received in the past 5
 # minutes.
@@ -54,8 +54,9 @@
 # What if the number of hits per second could be very large? Does your design
 # scale?
 #
-import bisect
-from collections import deque
+
+# @lc code=start
+from collections import deque 
 
 class HitCounter:
 
@@ -63,7 +64,6 @@ class HitCounter:
         """
         Initialize your data structure here.
         """
-
         self.num_of_hits = 0
         self.time_hits = deque()
         
@@ -73,7 +73,6 @@ class HitCounter:
         Record a hit.
         @param timestamp - The current timestamp (in seconds granularity).
         """
-
         if not self.num_of_hits or self.time_hits[-1][0] != timestamp:
             self.time_hits.append([timestamp, 1])
         else:
@@ -87,15 +86,16 @@ class HitCounter:
         Return the number of hits in the past 5 minutes.
         @param timestamp - The current timestamp (in seconds granularity).
         """
-
         while self.num_of_hits and self.time_hits[0][0] <= timestamp - 300:
             self.num_of_hits -= self.time_hits.popleft()[1]
 
         return self.num_of_hits
+        
 
 
 # Your HitCounter object will be instantiated and called as such:
 # obj = HitCounter()
 # obj.hit(timestamp)
 # param_2 = obj.getHits(timestamp)
+# @lc code=end
 

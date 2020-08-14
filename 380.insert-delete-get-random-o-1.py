@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/insert-delete-getrandom-o1/description/
 #
 # algorithms
-# Medium (42.88%)
-# Likes:    1151
-# Dislikes: 90
-# Total Accepted:    117.7K
-# Total Submissions: 273.8K
-# Testcase Example:  '["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"]\n' +
+# Medium (45.18%)
+# Likes:    1705
+# Dislikes: 123
+# Total Accepted:    166.4K
+# Total Submissions: 368.1K
+# Testcase Example:  '["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"]\n' + '[[],[1],[2],[2],[],[1],[2],[]]'
 #
 # Design a data structure that supports all following operations in average
 # O(1) time.
@@ -53,7 +53,9 @@
 # 
 # 
 #
-from random import randint 
+
+# @lc code=start
+import random
 
 class RandomizedSet:
 
@@ -61,20 +63,18 @@ class RandomizedSet:
         """
         Initialize your data structure here.
         """
-
-        self.nums, self.pos = [], {}
+        self.dict = {}
+        self.list = []
         
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the set. Returns true if the set did not already contain the specified element.
         """
-
-        if val in self.pos:
+        if val in self.dict:
             return False
-
-        self.nums.append(val)
-        self.pos[val] = len(self.nums) - 1
+        self.dict[val] = len(self.list) 
+        self.list.append(val)
         return True
         
 
@@ -82,24 +82,23 @@ class RandomizedSet:
         """
         Removes a value from the set. Returns true if the set contained the specified element.
         """
-
-        if not val in self.pos:
-            return False
-
-        # Swap the last value and val
-        idx, last = self.pos[val], self.nums[-1]
-        self.nums[idx], self.pos[last] = last, idx
-        self.nums.pop()
-        self.pos.pop(val, 0)
-
-        return True
+        if val in self.dict:
+            # move the last element to the place idx of the element to delete
+            last_element, idx = self.list[-1], self.dict[val]
+            self.list[idx], self.dict[last_element] = last_element, idx
+            # delete the last element
+            self.list.pop()
+            del self.dict[val]
+            return True
+        return False
         
 
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        return self.nums[randint(0, len(self.nums) - 1)]        
+        return random.choice(self.list)
+        
 
 
 # Your RandomizedSet object will be instantiated and called as such:
@@ -107,4 +106,5 @@ class RandomizedSet:
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+# @lc code=end
 

@@ -47,15 +47,20 @@
 #
 class Solution:
     def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
+        # Range Caching
+        # Time  complexity: O(n + k)
+        # Space complexity: O(1)
         res = [0] * (length + 1)
-        for upd in updates:
-            start, end, inc = upd
-            res[start] += inc
-            res[end+1] -= inc
+        for start, end, inc in updates:
+            res[start]   += inc
+            res[end + 1] -= inc
 
-        for i in range(1, length+1):
-            res[i] += res[i-1]
+        for i in range(1, length + 1):
+            res[i] += res[i - 1]
 
         return res[:-1]
+
+
+
         
 

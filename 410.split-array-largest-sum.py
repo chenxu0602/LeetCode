@@ -44,12 +44,19 @@
 #
 
 # @lc code=start
+import itertools
+
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
+        # Dynamic Programming 
+        # Let's define f[i][j] to be the minimum largest subarray sum for splitting nums[0...i] into j parts.
+        # Consider the jth subarray. We can split the array from a smaller index k to i to form it.
+        # Thus f[i][j]] can be derived from max(f[k][j-1], nums[k+1] + ... + nums[i]).
+        # For all valid index k, f[i][j] should choose the minimum value of the above formula.
+        # Time  complexity: O(n^2 x m)
+        # Space complexity: O(n x m)
         # n = len(nums)
-        # sums = [0] * (n + 1)
-        # for i, v in enumerate(nums):
-        #     sums[i+1] = sums[i] + nums[i]
+        # sums = [0] + list(itertools.accumulate(nums))
 
         # dp = [[float("inf")] * (m + 1) for _ in range(n + 1)]
         # dp[0][0] = 0
@@ -60,13 +67,12 @@ class Solution:
 
         # return dp[n][m]
 
-        n = len(nums)
-        l, r = 0, 0
 
-        for i in range(n):
-            r += nums[i]
-            if l < nums[i]:
-                l = nums[i]
+        # Binary Search + Greedy
+        # Time  complexity: O(nlog(sum(array)))
+        # Space complexity: O(n)
+        n = len(nums)
+        l, r = max(nums), sum(nums)
 
         ans = r
         while l <= r:
@@ -86,6 +92,9 @@ class Solution:
                 l = mid + 1
 
         return ans
+
+        
+
         
 # @lc code=end
 

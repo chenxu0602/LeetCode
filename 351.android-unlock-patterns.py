@@ -71,28 +71,24 @@
 # 
 #
 class Solution:
-    def dfs(self, vis, skip, cur, remain):
-        if remain < 0:
-            return 0
-
-        if remain == 0:
-            return 1
-
-        vis[cur] = True
-
-        rst = 0
-
-        for i in range(1, 10):
-            if not vis[i] and (skip[cur][i] == 0 or vis[skip[cur][i]]):
-                rst += self.dfs(vis, skip, i, remain - 1)
-
-        vis[cur] = False
-        return rst
-
     def numberOfPatterns(self, m: int, n: int) -> int:
+        # O(n!) where n is the maximum pattern length.
+        def backtrack(vis, skip, cur, remain):
+            if remain < 0: return 0
+            if remain == 0: return 1
 
-        skip = [[0] * 10 for _ in range(0, 10)]
-        
+            vis[cur] = True
+            rst = 0
+
+            for i in range(1, 10):
+                if not vis[i] and (skip[cur][i] == 0 or vis[skip[cur][i]]):
+                    rst += backtrack(vis, skip, i, remain - 1)
+
+            vis[cur] = False
+            return rst
+
+        skip = [[0] * 10 for _ in range(10)]
+
         skip[1][3] = skip[3][1] = 2
         skip[1][7] = skip[7][1] = 4
         skip[3][9] = skip[9][3] = 6
@@ -103,9 +99,9 @@ class Solution:
         rst = 0
         vis = [False] * 10
         for i in range(m, n + 1):
-            rst += self.dfs(vis, skip, 1, i - 1) * 4
-            rst += self.dfs(vis, skip, 2, i - 1) * 4
-            rst += self.dfs(vis, skip, 5, i - 1)
-        
+            rst += backtrack(vis, skip, 1, i - 1) * 4
+            rst += backtrack(vis, skip, 2, i - 1) * 4
+            rst += backtrack(vis, skip, 5, i - 1)
+
         return rst
 

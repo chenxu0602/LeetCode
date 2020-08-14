@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/description/
 #
 # algorithms
-# Hard (35.13%)
-# Likes:    410
-# Dislikes: 34
-# Total Accepted:    27.8K
-# Total Submissions: 79K
+# Hard (37.28%)
+# Likes:    809
+# Dislikes: 59
+# Total Accepted:    44.7K
+# Total Submissions: 120K
 # Testcase Example:  '[[1,0,1],[0,-2,3]]\n2'
 #
 # Given a non-empty 2D matrix matrix and an integer k, find the max sum of a
@@ -32,52 +32,44 @@
 # What if the number of rows is much larger than the number of columns?
 # 
 #
-from bisect import bisect_left, bisect_right, insort
+
+# @lc code=start
+import bisect
 
 class Solution:
-
-    def maxSubArrayLessK(self, nums, k):
-        cumset = [0]
-        maxsum = -1 << 32
-        cursum = 0
-
-        for i in range(len(nums)):
-            cursum += nums[i]
-            idx = bisect_left(cumset, cursum - k)
-            if 0 <= idx < len(cumset):
-                maxsum = max(maxsum, cursum - cumset[idx])
-
-            insort(cumset, cursum)
-
-        return maxsum
-
-
     def maxSumSubmatrix(self, matrix: List[List[int]], k: int) -> int:
-        if not matrix:
-            return 0
+        def maxSubArrayLessK(nums, k):
+            cumset = [0]
+            maxsum = -1 << 32
+            cursum = 0
 
-        m, n = len(matrix), len(matrix[0])
+            for i in range(len(nums)):
+                cursum += nums[i]
+                idx = bisect.bisect_left(cumset, cursum - k)
+                if 0 <= idx < len(cumset):
+                    maxsum = max(maxsum, cursum - cumset[idx])
 
-        res = -(1 << 32)
+                bisect.insort(cumset, cursum)
+
+            return maxsum
+
+        if not matrix: return 0
+        m, n = map(len, (matrix, matrix[0]))
+        res = -1 << 32
 
         for left in range(n):
-            cursums = [0 for _ in range(m)]
+            cursums = [0] * m
 
             right = left
             while right < n:
                 for i in range(m):
                     cursums[i] += matrix[i][right]
 
-                curarrmax = self.maxSubArrayLessK(cursums, k)
+                curarrmax = maxSubArrayLessK(cursums, k)
                 res = max(res, curarrmax)
                 right += 1
 
         return res
-
-
-
-
-
-
-
+        
+# @lc code=end
 
