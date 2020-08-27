@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/valid-triangle-number/description/
 #
 # algorithms
-# Medium (45.57%)
-# Likes:    625
-# Dislikes: 75
-# Total Accepted:    40.4K
-# Total Submissions: 88.3K
+# Medium (48.39%)
+# Likes:    1091
+# Dislikes: 95
+# Total Accepted:    65.4K
+# Total Submissions: 134.9K
 # Testcase Example:  '[2,2,3,4]'
 #
 # Given an array consists of non-negative integers,  your task is to count the
@@ -37,8 +37,12 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
+        # Time  complexity: O(n^2)
+        # Space compleixty: O(nlogn)
         c = 0
         nums.sort()
         n = len(nums)
@@ -46,12 +50,13 @@ class Solution:
         for i in range(n-1, -1, -1):
             low, high = 0, i - 1
             while low < high:
-                if nums[high] + nums[low] > nums[i]:
+                if nums[low] + nums[high] > nums[i]:
                     c += high - low
                     high -= 1
                 else:
                     low += 1
 
-        return c   
+        return c
         
+# @lc code=end
 

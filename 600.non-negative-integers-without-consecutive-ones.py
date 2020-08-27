@@ -31,7 +31,8 @@
 #
 class Solution:
     def findIntegers(self, num: int) -> int:
-        """
+        # O(log2(max_int)=32)
+
         f = [0] * 32
         f[0] = 1
         f[1] = 2
@@ -55,22 +56,28 @@ class Solution:
             i -= 1
 
         return s + 1
-        """
 
-        A = bin(num)[2:][::-1]
-        dp = [[1, 1] for _ in range(len(A))]
-        res = 1 if A[0] == '0' else 2
-        for i in range(1, len(A)):
-            dp[i][0] = dp[i-1][0] + dp[i-1][1]
-            dp[i][1] = dp[i-1][0]
 
-            if A[i-1:i+1] == "01":
-                res += dp[i][0]
-            elif A[i-1:i+1] == "11":
-                res = dp[i][0] + dp[i][1]
-                
-        return res
 
+        # x, y are used to calculate Fibonacci numbers.
+        # num & 1 and num & 2 will check if num ends with 11 in binary.
+        # a(n) = the number of valid integers less than 2^n
+        # a(5) = the number of valid integers less than 0b100000
+        # It equals to the number of valid integers in [0b0, 0b10000[ and in [0b10000, 0b11000[.
+        # The number of valid integers [0b0, 0b10000[, which is like '0b0XXXX', equals to a(4).
+        # The number of valid integers [0b10000, 0b11000[, which is like '0b101XX', equals to a(3).
+        # So a(5) = a(4) + a(3).
+        # x , y = 1, 2
+        # res = 0
+        # num += 1
+        # while num:
+        #     if num & 1 and num & 2:
+        #         res = 0
+        #     res += x * (num & 1)
+        #     num >>= 1
+        #     x, y = y, x + y
+        # return res
+            
 
 
 

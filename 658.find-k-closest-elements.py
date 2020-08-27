@@ -56,15 +56,18 @@ class Solution:
         # arr = sorted(arr, key=lambda y: abs(x-y))
         # return sorted(arr[:k])
 
+        # Binary Search and Two Pointers
+        # Time  complexity: O(logn + k)
+        # Space complexity: O(k)
         left, right = 0, len(arr) - k
         while left < right:
-            mid = (left + right) // 2
+            mid = left + (right - left) // 2
             if x - arr[mid] > arr[mid + k] - x:
                 left = mid + 1
             else:
                 right = mid
 
-        return arr[left:left+k]
+        return arr[left:left + k]
 
 
         

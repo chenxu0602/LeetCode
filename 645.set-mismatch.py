@@ -45,49 +45,47 @@ from collections import Counter
 
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        """
-        d = Counter(nums)
-        dup = missing = 0
+        # O(n) / O(n)
+        # d = Counter(nums)
+        # dup = missing = 0
 
-        for i in range(1, len(nums)+1):
-            if i in d:
-                if d[i] == 2:
-                    dup = i
-            else:
-                missing = i
+        # for i in range(1, len(nums)+1):
+        #     if i in d:
+        #         if d[i] == 2:
+        #             dup = i
+        #     else:
+        #         missing = i
 
-        return [dup, missing]
-        """
+        # return [dup, missing]
 
-        """
-        arr = [0] * (len(nums)+1)
-        dup, missing = -1, 1
-        for i in range(len(nums)):
-            arr[nums[i]] += 1
+        # O(n) / O(n)
+        # arr = [0] * (len(nums)+1)
+        # dup, missing = -1, 1
+        # for i in range(len(nums)):
+        #     arr[nums[i]] += 1
 
-        for i in range(1, len(arr)):
-            if arr[i] == 0:
-                missing = i
-            elif arr[i] == 2:
-                dup = i
+        # for i in range(1, len(arr)):
+        #     if arr[i] == 0:
+        #         missing = i
+        #     elif arr[i] == 2:
+        #         dup = i
 
-        return dup, missing
-        """
+        # return dup, missing
 
-        """
-        dup, missing = -1, 1
-        for n in nums:
-            if nums[abs(n)-1] < 0:
-                dup = abs(n)
-            else:
-                nums[abs(n)-1] *= -1
 
-        for i in range(1, len(nums)):
-            if nums[i] > 0:
-                missing = i + 1
+        # dup, missing = -1, 1
+        # for n in nums:
+        #     if nums[abs(n)-1] < 0:
+        #         dup = abs(n)
+        #     else:
+        #         nums[abs(n)-1] *= -1
 
-        return dup, missing
-        """
+        # for i in range(1, len(nums)):
+        #     if nums[i] > 0:
+        #         missing = i + 1
+
+        # return dup, missing
+
 
         n = len(nums)
         s = n * (n+1) // 2

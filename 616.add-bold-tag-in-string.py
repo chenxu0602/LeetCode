@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/add-bold-tag-in-string/description/
 #
 # algorithms
-# Medium (39.51%)
-# Likes:    338
-# Dislikes: 37
-# Total Accepted:    25.2K
-# Total Submissions: 63.5K
+# Medium (40.93%)
+# Likes:    405
+# Dislikes: 50
+# Total Accepted:    29.3K
+# Total Submissions: 71.6K
 # Testcase Example:  '"abcxyz123"\n["abc","123"]'
 #
 # Given a string s and a list of strings dict, you need to add a closed pair of
@@ -46,17 +46,21 @@
 # 
 # 
 #
+
+# @lc code=start
 import itertools
 
 class Solution:
     def addBoldTag(self, s: str, dict: List[str]) -> str:
+        # Time  complexity: O(n x Sum(w_i)), where N is the length of s and w_i is the sum of W.
+        # Space complexity: O(N).
         n = len(s)
         mask = [False] * n
         for i in range(n):
             prefix = s[i:]
             for word in dict:
                 if prefix.startswith(word):
-                    for j in range(i, min(i+len(word), n)):
+                    for j in range(i, min(i + len(word), n)):
                         mask[j] = True
 
         ans = []
@@ -70,4 +74,6 @@ class Solution:
         return "".join(ans)
 
         
+        
+# @lc code=end
 

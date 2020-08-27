@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/max-consecutive-ones/description/
 #
 # algorithms
-# Easy (55.18%)
-# Likes:    373
-# Dislikes: 318
-# Total Accepted:    143K
-# Total Submissions: 259.1K
+# Easy (54.85%)
+# Likes:    747
+# Dislikes: 369
+# Total Accepted:    254.9K
+# Total Submissions: 467.4K
 # Testcase Example:  '[1,0,1,1,0,1]'
 #
 # Given a binary array, find the maximum number of consecutive 1s in this
@@ -33,29 +33,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
-        """
-        count = maxCount = 0
-
-        for i in range(len(nums)):
-            if nums[i] == 1:
-                count += 1
-            else:
-                maxCount = max(count, maxCount)
-                count = 0
-
-        return max(count, maxCount)
-        """
-
-        """
-        return max(map(lambda x: len(x), ''.join([str(num) for num in nums]).split('0')))
-        """
-
         for i in range(1, len(nums)):
             if nums[i]:
                 nums[i] += nums[i-1]
         return max(nums)
-
         
+# @lc code=end
 

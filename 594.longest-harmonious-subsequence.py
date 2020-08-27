@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-harmonious-subsequence/description/
 #
 # algorithms
-# Easy (44.16%)
-# Likes:    436
-# Dislikes: 61
-# Total Accepted:    39.2K
-# Total Submissions: 88.6K
+# Easy (46.48%)
+# Likes:    684
+# Dislikes: 85
+# Total Accepted:    57.5K
+# Total Submissions: 123K
 # Testcase Example:  '[1,3,2,2,5,2,3,7]'
 #
 # We define a harmounious array as an array where the difference between its
@@ -32,18 +32,26 @@
 # Note: The length of the input array will not exceed 20,000.
 # 
 #
+
+# @lc code=start
+from collections import Counter
+
 class Solution:
     def findLHS(self, nums: List[int]) -> int:
-        hashmap, res = {}, 0
+        # O(n)
 
+        # count = Counter(nums)
+        # return max((count[x] + count[x + 1] for x in nums if count[x + 1]), default=0)
+
+
+        d, res = {}, 0
         for num in nums:
-            hashmap[num] = hashmap.setdefault(num, 0) + 1
-            if num + 1 in hashmap:
-                res = max(res, hashmap[num] + hashmap[num+1])
-            if num - 1 in hashmap:
-                res = max(res, hashmap[num] + hashmap[num-1])
-
+            d[num] = d.setdefault(num, 0) + 1
+            if num + 1 in d:
+                res = max(res, d[num] + d[num + 1])
+            if num - 1 in d:
+                res = max(res, d[num] + d[num - 1])
         return res
-
         
+# @lc code=end
 

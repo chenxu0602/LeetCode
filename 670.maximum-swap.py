@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-swap/description/
 #
 # algorithms
-# Medium (39.97%)
-# Likes:    593
-# Dislikes: 48
-# Total Accepted:    39.6K
-# Total Submissions: 98.5K
+# Medium (41.57%)
+# Likes:    739
+# Dislikes: 54
+# Total Accepted:    50.6K
+# Total Submissions: 121.6K
 # Testcase Example:  '2736'
 #
 # 
@@ -41,18 +41,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def maximumSwap(self, num: int) -> int:
-
+        # Greedy
+        # Time  complexity: O(N) where N is the total number of digits in the input number
+        # Space complexity: O(N)
         A = list(map(int, str(num)))
         last = {x: i for i, x in enumerate(A)}
         for i, x in enumerate(A):
             for d in range(9, x, -1):
                 if last.get(d, -1) > i:
                     A[i], A[last[d]] = A[last[d]], A[i]
-                    return int("".join(map(str, A)))
+                    return int(''.join(map(str, A)))
 
         return num
-
         
+# @lc code=end
 

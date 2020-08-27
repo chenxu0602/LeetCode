@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/fraction-addition-and-subtraction/description/
 #
 # algorithms
-# Medium (47.24%)
-# Likes:    123
-# Dislikes: 238
-# Total Accepted:    13.6K
-# Total Submissions: 28.7K
+# Medium (48.82%)
+# Likes:    177
+# Dislikes: 297
+# Total Accepted:    18.5K
+# Total Submissions: 37.7K
 # Testcase Example:  '"-1/2+1/2"'
 #
 # Given a string representing an expression of fraction addition and
@@ -63,42 +63,46 @@
 # 
 # 
 #
+
+# @lc code=start
+from fractions import Fraction
 from math import gcd
-from fractions import Fraction 
 import re
 from functools import reduce
 
 class Solution:
     def fractionAddition(self, expression: str) -> str:
-        def lcm(x, y):
-            lcm = (x*y) // gcd(x ,y)
-            return lcm
+        # res = sum(map(Fraction, expression.replace('+', ' +').replace('-', ' -').split()))
+        # return str(res.numerator) + '/' + str(res.denominator)
+
+        def lcm(x, y): 
+            return (x * y) // gcd(x, y)
 
         def lcmm(*args):
             return reduce(lcm, args)
 
         num, denom = [], []
         m = re.findall("(([+|-]?\d+)/(\d+))", expression)
+        
         for tup in m:
-            num.append(int(tup[1].replace("+", "")))
+            num.append(int(tup[1].replace('+', '')))
             denom.append(int(tup[2]))
 
         mult = lcmm(*denom)
         sm = 0
 
         for i in range(len(denom)):
-            num[i] *=  mult / denom[i]
+            num[i] *= mult / denom[i]
             sm += num[i]
 
         frc = str(Fraction(int(sm), int(mult)))
 
         try:
-            frc.index("/")
+            frc.index('/')
         except:
-            frc += "/1"
+            frc += '/1'
 
         return frc
-
-            
         
+# @lc code=end
 

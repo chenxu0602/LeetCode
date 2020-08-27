@@ -6,77 +6,32 @@
 # https://leetcode.com/problems/inorder-successor-in-bst-ii/description/
 #
 # algorithms
-# Medium (54.00%)
-# Likes:    71
-# Dislikes: 14
-# Total Accepted:    4.6K
-# Total Submissions: 8.5K
-# Testcase Example:  '{"$id":"1","left":{"$id":"2","left":null,"parent":{"$ref":"1"},"right":null,"val":1},"parent":null,"right":{"$id":"3","left":null,"parent":{"$ref":"1"},"right":null,"val":3},"val":2}\n' +
+# Medium (57.97%)
+# Likes:    279
+# Dislikes: 21
+# Total Accepted:    17.3K
+# Total Submissions: 29.8K
+# Testcase Example:  '[2,1,3]\n1'
 #
-# Given a binary search tree and a node in it, find the in-order successor of
-# that node in the BST.
+# Given a node in a binary search tree, find the in-order successor of that
+# node in the BST.
 # 
-# The successor of a node p is the node with the smallest key greater than
-# p.val.
+# If that node has no in-order successor, return null.
+# 
+# The successor of a node is the node with the smallest key greater than
+# node.val.
 # 
 # You will have direct access to the node but not to the root of the tree. Each
-# node will have a reference to its parent node.
+# node will have a reference to its parent node. Below is the definition for
+# Node:
 # 
 # 
-# 
-# Example 1:
-# 
-# 
-# Input: 
-# root =
-# {"$id":"1","left":{"$id":"2","left":null,"parent":{"$ref":"1"},"right":null,"val":1},"parent":null,"right":{"$id":"3","left":null,"parent":{"$ref":"1"},"right":null,"val":3},"val":2}
-# p = 1
-# Output: 2
-# Explanation: 1's in-order successor node is 2. Note that both p and the
-# return value is of Node type.
-# 
-# 
-# Example 2:
-# 
-# 
-# Input: 
-# root =
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":{"$id":"4","left":null,"parent":{"$ref":"3"},"right":null,"val":1},"parent":{"$ref":"2"},"right":null,"val":2},"parent":{"$ref":"1"},"right":{"$id":"5","left":null,"parent":{"$ref":"2"},"right":null,"val":4},"val":3},"parent":null,"right":{"$id":"6","left":null,"parent":{"$ref":"1"},"right":null,"val":6},"val":5}
-# p = 6
-# Output: null
-# Explanation: There is no in-order successor of the current node, so the
-# answer is null.
-# 
-# 
-# Example 3:
-# 
-# 
-# Input: 
-# root =
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":{"$id":"4","left":null,"parent":{"$ref":"3"},"right":null,"val":2},"parent":{"$ref":"2"},"right":{"$id":"5","left":null,"parent":{"$ref":"3"},"right":null,"val":4},"val":3},"parent":{"$ref":"1"},"right":{"$id":"6","left":null,"parent":{"$ref":"2"},"right":{"$id":"7","left":{"$id":"8","left":null,"parent":{"$ref":"7"},"right":null,"val":9},"parent":{"$ref":"6"},"right":null,"val":13},"val":7},"val":6},"parent":null,"right":{"$id":"9","left":{"$id":"10","left":null,"parent":{"$ref":"9"},"right":null,"val":17},"parent":{"$ref":"1"},"right":{"$id":"11","left":null,"parent":{"$ref":"9"},"right":null,"val":20},"val":18},"val":15}
-# p = 15
-# Output: 17
-# 
-# 
-# Example 4:
-# 
-# 
-# Input: 
-# root =
-# {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":{"$id":"4","left":null,"parent":{"$ref":"3"},"right":null,"val":2},"parent":{"$ref":"2"},"right":{"$id":"5","left":null,"parent":{"$ref":"3"},"right":null,"val":4},"val":3},"parent":{"$ref":"1"},"right":{"$id":"6","left":null,"parent":{"$ref":"2"},"right":{"$id":"7","left":{"$id":"8","left":null,"parent":{"$ref":"7"},"right":null,"val":9},"parent":{"$ref":"6"},"right":null,"val":13},"val":7},"val":6},"parent":null,"right":{"$id":"9","left":{"$id":"10","left":null,"parent":{"$ref":"9"},"right":null,"val":17},"parent":{"$ref":"1"},"right":{"$id":"11","left":null,"parent":{"$ref":"9"},"right":null,"val":20},"val":18},"val":15}
-# p = 13
-# Output: 15
-# 
-# 
-# 
-# 
-# Note:
-# 
-# 
-# If the given node has no in-order successor in the tree, return null.
-# It's guaranteed that the values of the tree are unique.
-# Remember that we are using the Node type instead of TreeNode type so their
-# string representation are different.
+# class Node {
+# ⁠   public int val;
+# ⁠   public Node left;
+# ⁠   public Node right;
+# ⁠   public Node parent;
+# }
 # 
 # 
 # 
@@ -85,29 +40,88 @@
 # 
 # Could you solve it without looking up any of the node's values?
 # 
+# 
+# Example 1:
+# 
+# 
+# Input: tree = [2,1,3], node = 1
+# Output: 2
+# Explanation: 1's in-order successor node is 2. Note that both the node and
+# the return value is of Node type.
+# 
+# 
+# Example 2:
+# 
+# 
+# Input: tree = [5,3,6,2,4,null,null,1], node = 6
+# Output: null
+# Explanation: There is no in-order successor of the current node, so the
+# answer is null.
+# 
+# 
+# Example 3:
+# 
+# 
+# Input: tree =
+# [15,6,18,3,7,17,20,2,4,null,13,null,null,null,null,null,null,null,null,9],
+# node = 15
+# Output: 17
+# 
+# 
+# Example 4:
+# 
+# 
+# Input: tree =
+# [15,6,18,3,7,17,20,2,4,null,13,null,null,null,null,null,null,null,null,9],
+# node = 13
+# Output: 15
+# 
+# 
+# Example 5:
+# 
+# 
+# Input: tree = [0], node = 0
+# Output: null
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# -10^5 <= Node.val <= 10^5
+# 1 <= Number of Nodes <= 10^4
+# All Nodes will have unique values.
+# 
+# 
 #
+
+# @lc code=start
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, left, right, parent):
+    def __init__(self, val):
         self.val = val
-        self.left = left
-        self.right = right
-        self.parent = parent
+        self.left = None
+        self.right = None
+        self.parent = None
 """
+
 class Solution:
     def inorderSuccessor(self, node: 'Node') -> 'Node':
-
+        # the successor is somewhere lower in the right subtree
+        # Time  complexity: O(H)
+        # Space compleixty: O(1)
         if node.right:
             node = node.right
             while node.left:
                 node = node.left
             return node
 
+        # the successor is somewhere upper in the tree
         while node.parent and node == node.parent.right:
             node = node.parent
+
         return node.parent
-
-
         
+# @lc code=end
 

@@ -64,7 +64,10 @@
 # @lc code=start
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        # intervals.sort()
+        # Using Greedy Approach based on starting points 
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(1)
+        intervals.sort()
         # res = lo = 0
         # for hi in range(1, len(intervals)):
         #     if intervals[lo][1] > intervals[hi][0]:
@@ -72,17 +75,25 @@ class Solution:
         #     if not intervals[hi][0] < intervals[lo][1] < intervals[hi][1]:
         #         lo = hi
         # return res
+        
 
-        if not len(intervals) > 0: return 0
+
+        # Using Greedy Approach based on end points
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(1)
+        if not len(intervals) > 0:
+            return 0
+
         intervals.sort(key=lambda x: x[1])
-        end = float("-inf")
-        count = 0
-        for i in range(len(intervals)):
+        end = intervals[0][1]
+        count = 1
+
+        for i in range(1, len(intervals)):
             if intervals[i][0] >= end:
                 end = intervals[i][1]
                 count += 1
-        return len(intervals) - count
 
+        return len(intervals) - count
         
 # @lc code=end
 

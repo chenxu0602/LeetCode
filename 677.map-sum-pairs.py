@@ -42,25 +42,52 @@
 #
 from collections import Counter
 
+# O(K^2) for prefix hashmap insert, O(1) sum
+# O(K) for Trie insert and sum
+
+class TrieNode:
+    __slots__ = "children", "score"
+    def __init__(self):
+        self.children = {}
+        self.score = 0
+
 class MapSum:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
+        # self.map = {}
+        # self.score = Counter()
+
         self.map = {}
-        self.score = Counter()
+        self.root = TrieNode()
         
 
     def insert(self, key: str, val: int) -> None:
+        # delta = val - self.map.get(key, 0)
+        # self.map[key] = val
+        # for i in range(len(key)+1):
+        #     prefix = key[:i]
+        #     self.score[prefix] += delta
+
         delta = val - self.map.get(key, 0)
         self.map[key] = val
-        for i in range(len(key)+1):
-            prefix = key[:i]
-            self.score[prefix] += delta
+        cur = self.root
+        cur.score += delta
+        for char in key:
+            cur = cur.children.setdefault(char, TrieNode())
+            cur.score += delta
         
     def sum(self, prefix: str) -> int:
-        return self.score[prefix]
+        # return self.score[prefix]
+
+        cur = self.root
+        for char in prefix:
+            if char not in cur.children:
+                return 0
+            cur = cur.children[char]
+        return cur.score
         
 
 

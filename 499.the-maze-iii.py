@@ -99,6 +99,7 @@ import heapq
 
 class Solution:
     def findShortestWay(self, maze: List[List[int]], ball: List[int], hole: List[int]) -> str:
+        # Dijkstra O(V + E x logV)
         ball, hole = tuple(ball), tuple(hole)
         R, C = len(maze), len(maze[0])
 

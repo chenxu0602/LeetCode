@@ -38,6 +38,7 @@ class Solution:
                 res.append(abs(x))
             else:
                 nums[abs(x) - 1] *= -1
+
         return res
 
 

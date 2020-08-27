@@ -119,20 +119,63 @@ class Node:
 """
 class Solution:
     def flatten(self, head: 'Node') -> 'Node':
-        if not head: return None
-        stack, p = [head], None
+        # DFS by Recursion
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # def flatten_dfs(prev, curr):
+        #     if not curr:
+        #         return prev
+
+        #     curr.prev = prev
+        #     prev.next = curr
+
+        #     # the curr.next would be tempered in the recursive function
+        #     tempNext = curr.next
+        #     tail = flatten_dfs(curr, curr.child)
+        #     curr.child = None
+        #     return flatten_dfs(tail, tempNext)
+
+        # if not head: return head
+
+        # # pseudo head to ensure the `prev` pointer is never none
+        # pseudoHead = Node(None, None, head, None)
+        # flatten_dfs(pseudoHead, head)
+
+        # # detach the pseudo head from the real head
+        # pseudoHead.next.prev = None
+        # return pseudoHead.next
+
+
+        # DFS by Iteration
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        if not head:
+            return
+
+        pseudoHead = Node(0, None, head, None)
+        prev = pseudoHead
+
+        stack = [head,]
 
         while stack:
-            r = stack.pop()
-            if p:
-                p.next, r.prev = r, p
-            p = r
-            if r.next:
-                stack.append(r.next)
-            if r.child:
-                stack.append(r.child)
-                r.child = None
-        return head
+            curr = stack.pop()
+
+            prev.next = curr
+            curr.prev = prev
+
+            if curr.next:
+                stack.append(curr.next)
+
+            if curr.child:
+                stack.append(curr.child)
+                # don't forget to remove all child pointers.
+                curr.child = None
+
+            prev = curr
+
+        # detach the pseudo head node from the result.
+        pseudoHead.next.prev = None
+        return pseudoHead.next
         
 # @lc code=end
 

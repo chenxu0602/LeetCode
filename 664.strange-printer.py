@@ -48,19 +48,35 @@
 # 
 # Hint: Length of the given string will not exceed 100.
 #
+from functools import lru_cache
+
 class Solution:
     def strangePrinter(self, s: str) -> int:
-        memo = {}
-        def dfs(i, j):
-            if i > j: return 0
-            if (i, j) not in memo:
-                ans = dfs(i+1, j) + 1
-                for k in range(i+1, j+1):
-                    if s[k] == s[i]:
-                        ans = min(ans, dfs(i, k-1) + dfs(k+1, j))
-                memo[i, j] = ans
-            return memo[i, j]
+        # Time  complexity: O(N^3)
+        # Space complexity: O(N^2)
+        # memo = {}
+        # def dfs(i, j):
+        #     if i > j: return 0
+        #     if (i, j) not in memo:
+        #         ans = dfs(i+1, j) + 1
+        #         for k in range(i+1, j+1):
+        #             if s[k] == s[i]:
+        #                 ans = min(ans, dfs(i, k-1) + dfs(k+1, j))
+        #         memo[i, j] = ans
+        #     return memo[i, j]
 
-        return dfs(0, len(s)-1)
+        # return dfs(0, len(s)-1)
+
+
+        @lru_cache(None)
+        def dp(i, j):
+            if i > j: return 0
+            ans = dp(i + 1, j) + 1
+            for k in range(i + 1, j + 1):
+                if s[k] == s[i]:
+                    ans = min(ans, dp(i, k - 1) + dp(k + 1, j))
+            return ans
+
+        return dp(0, len(s) - 1)
         
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-unsorted-continuous-subarray/description/
 #
 # algorithms
-# Easy (30.28%)
-# Likes:    1548
-# Dislikes: 72
-# Total Accepted:    74.1K
-# Total Submissions: 244.2K
+# Easy (31.06%)
+# Likes:    2877
+# Dislikes: 153
+# Total Accepted:    130.5K
+# Total Submissions: 419.7K
 # Testcase Example:  '[2,6,4,8,10,9,15]'
 #
 # Given an integer array, you need to find one continuous subarray that if you
@@ -35,33 +35,18 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findUnsortedSubarray(self, nums: List[int]) -> int:
-
-        """
-        nums2 = nums[:]
-        nums2.sort()
-
-        start = end = 0
-        for i in range(len(nums)):
-            if nums[i] != nums2[i]:
-                start = i
-                break
-
-        for i in range(len(nums)-1, 0, -1):
-            if nums[i] != nums2[i]:
-                end = i
-                break
-
-        return end - start + 1 if end - start else 0
-        """
-
+        # O(n) / O(n)
         stack = []
         l, r = len(nums), 0
         for i in range(len(nums)):
             while stack and nums[stack[-1]] > nums[i]:
                 l = min(l, stack.pop())
             stack.append(i)
+        
         stack.clear()
         for i in range(len(nums)-1, -1, -1):
             while stack and nums[stack[-1]] < nums[i]:
@@ -69,7 +54,7 @@ class Solution:
             stack.append(i)
 
         return r - l + 1 if r - l > 0 else 0
+
         
-
-
+# @lc code=end
 

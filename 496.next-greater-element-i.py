@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/next-greater-element-i/description/
 #
 # algorithms
-# Easy (59.94%)
-# Likes:    839
-# Dislikes: 1357
-# Total Accepted:    101.2K
-# Total Submissions: 168.8K
+# Easy (63.67%)
+# Likes:    1679
+# Dislikes: 2230
+# Total Accepted:    165K
+# Total Submissions: 258.3K
 # Testcase Example:  '[4,1,2]\n[1,3,4,2]'
 #
 # 
@@ -58,10 +58,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-
+        # Time  complexity: O(m + n)
+        # Space complexity: O(m + n)
         stack, dic, res = [], {}, []
+
         for num in nums2:
             while stack and num > stack[-1]:
                 dic[stack.pop()] = num
@@ -69,9 +73,11 @@ class Solution:
 
         for num in nums1:
             if num in dic:
-                res.append(dic[num]) 
+                res.append(dic[num])
             else:
                 res.append(-1)
 
         return res
+        
+# @lc code=end
 

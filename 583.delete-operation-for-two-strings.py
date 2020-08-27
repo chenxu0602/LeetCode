@@ -37,15 +37,55 @@
 #
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        l1, l2 = len(word1), len(word2)
-        lcs = [[0] * (l1 + 1) for _ in range(l2 + 1)]
-        for i in range(1, l2+1):
-            for j in range(1, l1+1):
-                if word2[i-1] == word1[j-1]:
-                    lcs[i][j] = 1 + lcs[i-1][j-1]
+        # Using Longest Common Subsequence- Dynamic Programming
+        # lcs[i][j] represents the length of the longest common subsequence among s1 and s2 upto (i-1)th and (j-1)th index.
+        # Time  complexity: O(mn)
+        # Space complexity: O(mn)
+        l1, l2 = map(len, (word1, word2))
+        lcs = [[0] * (l2 + 1) for _ in range(l1 + 1)]
+        for i in range(1, l1 + 1):
+            for j in range(1, l2 + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    lcs[i][j] = lcs[i - 1][j - 1] + 1
                 else:
-                    lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1])
+                    lcs[i][j] = max(lcs[i - 1][j], lcs[i][j - 1])
 
-        return l1 + l2 - 2 * lcs[l2][l1]
+        return l1 + l2 - 2 * lcs[l1][l2]
+
+
+        # Without using LCS Dynamic Programmming 
+        # Time  complexity: O(mn)
+        # Space complexity: O(mn)
+        # l1, l2 = map(len, (word1, word2))
+        # dp = [[0] * (l2 + 1) for _ in range(l1 + 1)]
+        # for i in range(l1 + 1):
+        #     for j in range(l2 + 1):
+        #         if i == 0 or j == 0:
+        #             dp[i][j] = i + j
+        #         elif word1[i - 1] == word2[j - 1]:
+        #             dp[i][j] = dp[i - 1][j - 1]
+        #         else:
+        #             dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1])
+
+        # return dp[l1][l2]
+
+
+        # 1-D Dynamic Programming
+        # Time  complexity: O(mn)
+        # Space complexity: O(n)
+        # l1, l2 = map(len, (word1, word2))
+        # dp = [0] * (l2 + 1)
+        # for i in range(l1 + 1):
+        #     temp = [0] * (l2 + 1)
+        #     for j in range(l2 + 1):
+        #         if i == 0 or j == 0:
+        #             temp[j] = i + j
+        #         elif word1[i - 1] == word2[j - 1]:
+        #             temp[j] = dp[j - 1]
+        #         else:
+        #             temp[j] = 1 + min(dp[j], temp[j - 1])
+        #     dp = temp
+
+        # return dp[l2]
         
 

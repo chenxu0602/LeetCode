@@ -58,13 +58,13 @@ class Solution:
         while pq:
             left, i, j = heapq.heappop(pq)
             if right - left < ans[1] - ans[0]:
-                ans = left, right
+                ans = [left, right]
 
             if j + 1 == len(nums[i]):
                 return ans
 
-            v = nums[i][j+1]
-            right = max(v, right)
+            v = nums[i][j + 1]
+            right = max(right, v)
             heapq.heappush(pq, (v, i, j + 1))
         
 # @lc code=end

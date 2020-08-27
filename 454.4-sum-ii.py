@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/4sum-ii/description/
 #
 # algorithms
-# Medium (50.84%)
-# Likes:    701
-# Dislikes: 59
-# Total Accepted:    69.4K
-# Total Submissions: 136.4K
+# Medium (53.08%)
+# Likes:    1261
+# Dislikes: 75
+# Total Accepted:    114.1K
+# Total Submissions: 214.5K
 # Testcase Example:  '[1,2]\n[-2,-1]\n[-1,2]\n[0,2]'
 #
 # Given four lists A, B, C, D of integer values, compute how many tuples (i, j,
@@ -41,18 +41,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
-        res, counter = 0, {}
-
+        # Hashmap
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n^2)
+        cnt, m = 0, {}
         for a in A:
             for b in B:
-                counter[a+b] = counter.get(a+b, 0) + 1
-
+                m[a + b] = m.get(a + b, 0) + 1
         for c in C:
             for d in D:
-                res += counter.get(-c-d, 0)
-
-        return res
+                cnt += m.get(-(c + d), 0)
+        return cnt
         
+        
+# @lc code=end
 

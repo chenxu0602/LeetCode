@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/cut-off-trees-for-golf-event/description/
 #
 # algorithms
-# Hard (30.78%)
-# Likes:    306
-# Dislikes: 180
-# Total Accepted:    18K
-# Total Submissions: 57.5K
+# Hard (34.57%)
+# Likes:    530
+# Dislikes: 309
+# Total Accepted:    33.7K
+# Total Submissions: 97.4K
 # Testcase Example:  '[[1,2,3],[0,0,4],[7,6,5]]'
 #
 # You are asked to cut off trees in a forest for a golf event. The forest is
@@ -23,7 +23,9 @@
 # and this positive number represents the tree's height.
 # 
 # 
-# 
+# In one step you can walk in any of the four directions top, bottom, left and
+# right also when standing in a point which is a tree you can decide whether or
+# not to cut off the tree.
 # 
 # You are asked to cut off all the trees in this forest in the order of tree's
 # height - always cut off the tree with lowest height first. And after cutting,
@@ -79,41 +81,54 @@
 # 
 # 
 # 
+# Constraints:
 # 
-# Hint: size of the given matrix will not exceed 50x50.
+# 
+# 1 <= forest.length <= 50
+# 1 <= forest[i].length <= 50
+# 0 <= forest[i][j] <= 10^9
+# 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
-    def hadlocks(self, forest, sr, sc, tr, tc):
-        R, C = len(forest), len(forest[0])
-        processed = set()
-        queue = deque([(0, sr, sc)])
-        while queue:
-            detours, r, c = queue.popleft()
-            if (r, c) not in processed:
-                processed.add((r, c))
-                if r == tr and c == tc:
-                    return abs(sr-tr) + abs(sc-tc) + 2*detours
-                for nr, nc, closer in ((r-1, c, r > tr), (r+1, c, r < tr),
-                                       (r, c-1, c > tc), (r, c+1, c < tc)):
-                    if 0 <= nr < R and 0 <= nc < C and forest[nr][nc]:
-                        if closer:
-                            queue.appendleft((detours, nr, nc))
-                        else:
-                            queue.append((detours+1, nr, nc))
-        return -1
-
-
     def cutOffTree(self, forest: List[List[int]]) -> int:
+        # Hadlock's Algorithm
+        def hadlocks(forest, src, sc, tr, tc):
+            R, C = map(len, (forest, forest[0]))
+            processed = set()
+            queue = deque([(0, sr, sc)])
+
+            while queue:
+                detours, r, c = queue.popleft()
+                if (r, c) not in processed:
+                    processed.add((r, c))
+                    if r == tr and c == tc:
+                        return abs(sr - tr) + abs(sc - tc) + 2 * detours
+
+                    for nr, nc, closer in (r - 1, c, r > tr), (r + 1, c, r < tr), \
+                                          (r, c - 1, c > tc), (r, c + 1, c < tc):
+                        if 0 <= nr < R and 0 <= nc < C and forest[nr][nc]:
+                            if closer:
+                                queue.appendleft((detours, nr, nc))
+                            else:
+                                queue.append((detours + 1, nr, nc))
+
+            return -1
+
+
         trees = sorted((v, r, c) for r, row in enumerate(forest) for c, v in enumerate(row) if v > 1)
+
         sr = sc = ans = 0
         for _, tr, tc in trees:
-            d = self.hadlocks(forest, sr, sc, tr, tc)
+            d = hadlocks(forest, sr, sc, tr, tc)
             if d < 0: return -1
             ans += d
             sr, sc = tr, tc
         return ans
         
+# @lc code=end
 

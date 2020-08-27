@@ -35,11 +35,14 @@
 #
 class Solution:
     def newInteger(self, n: int) -> int:
+
+        # The answer is therefore just the n-th base-9 number.
+        # Time  complexity: O(1)
+        # Space complexity: O(1)
         ans = ""
         while n:
-            ans = str(n%9) + ans
+            ans = str(n % 9) + ans
             n //= 9
-
         return int(ans)
         
 

@@ -81,6 +81,8 @@ class Solution:
 
     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
 
+        # Time  complexity: O(nklogk) to O(nk)
+        # Space complexity: O(k)
         # medians, window = [], []
         # for i in range(len(nums)):
         #     if i >= k:

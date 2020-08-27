@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/diameter-of-binary-tree/description/
 #
 # algorithms
-# Easy (47.07%)
-# Likes:    1524
-# Dislikes: 94
-# Total Accepted:    143.5K
-# Total Submissions: 304.6K
+# Easy (48.34%)
+# Likes:    3291
+# Dislikes: 202
+# Total Accepted:    356.9K
+# Total Submissions: 736.6K
 # Testcase Example:  '[1,2,3,4,5]'
 #
 # 
@@ -39,24 +39,27 @@
 # between them.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        self.ans = 0
-        def depth(node):
+        # Time  complexity: O(N)
+        # Space complexity: O(N), the size of our implicit call stack during our depth first search.
+        def dfs(node):
             if not node: return 0
-            L = depth(node.left)
-            R = depth(node.right)
+            L, R = map(dfs, (node.left, node.right))
             self.ans = max(self.ans, L + R)
             return max(L, R) + 1
 
-        depth(root)
+        self.ans = 0
+        dfs(root)
         return self.ans
         
+# @lc code=end
 

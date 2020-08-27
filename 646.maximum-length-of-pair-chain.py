@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-length-of-pair-chain/description/
 #
 # algorithms
-# Medium (49.22%)
-# Likes:    597
-# Dislikes: 55
-# Total Accepted:    39.1K
-# Total Submissions: 79.3K
+# Medium (51.68%)
+# Likes:    991
+# Dislikes: 81
+# Total Accepted:    60.7K
+# Total Submissions: 116.7K
 # Testcase Example:  '[[1,2], [2,3], [3,4]]'
 #
 # 
@@ -43,28 +43,33 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findLongestChain(self, pairs: List[List[int]]) -> int:
-        """
-        pairs.sort()
-        dp = [1] * len(pairs)
+        # Dynamic Programming
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # pairs.sort()
+        # dp = [1] * len(pairs)
 
-        for j in range(len(pairs)):
-            for i in range(j):
-                if pairs[i][1] < pairs[j][0]:
-                    dp[j] = max(dp[j], dp[i] + 1)
+        # for j in range(len(pairs)):
+        #     for i in range(j):
+        #         if pairs[i][1] < pairs[j][0]:
+        #             dp[j] = max(dp[j], dp[i] + 1)
 
-        return max(dp)
-        """
+        # return max(dp)
 
+
+        # Greedy
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         cur, ans = float("-inf"), 0
         for x, y in sorted(pairs, key=lambda x: x[1]):
             if cur < x:
                 cur = y
                 ans += 1
-
         return ans
-
-
         
+# @lc code=end
 

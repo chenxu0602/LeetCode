@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/ipo/description/
 #
 # algorithms
-# Hard (38.17%)
-# Likes:    210
-# Dislikes: 19
-# Total Accepted:    12.4K
-# Total Submissions: 32.6K
+# Hard (40.26%)
+# Likes:    360
+# Dislikes: 39
+# Total Accepted:    18.1K
+# Total Submissions: 44.8K
 # Testcase Example:  '2\n0\n[1,2,3]\n[0,1,1]'
 #
 # 
@@ -61,46 +61,35 @@
 # 
 # 
 #
-from heapq import nlargest, heappop, heappush
+
+# @lc code=start
+import heapq
 
 class Solution:
     def findMaximizedCapital(self, k: int, W: int, Profits: List[int], Capital: List[int]) -> int:
-        """
+        # Greedy with Heap
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         if W >= max(Capital):
-            return W + sum(nlargest(k, Profits))
+            return W + sum(heapq.nlargest(k, Profits))
 
-        n = len(Profits)
-        projects = [(Capital[i], Profits[i]) for i in range(n)]
+        projects = sorted(zip(Capital, Profits), key=lambda x: -x[0])
 
-        projects.sort(key=lambda x: -x[0])
-
-        available = []
+        n, available = len(Profits), []
         while k > 0:
             while projects and projects[-1][0] <= W:
-                heappush(available, -projects.pop()[1])
+                heapq.heappush(available, -projects.pop()[1])
 
             if available:
-                W -= heappop(available)
+                W -= heapq.heappop(available)
             else:
                 break
 
             k -= 1
 
         return W
-        """
 
-        heap = []
-        projects = sorted(zip(Profits, Capital), key=lambda l: l[1])
-        i = 0
-        while k > 0:
-            while i < len(projects) and projects[i][1] <= W:
-                heapq.heappush(heap, -projects[i][0])
-                i += 1
-            
-            if heap:
-                W -= heapq.heappop(heap)
 
-            k -= 1
         
-        return W
+# @lc code=end
 

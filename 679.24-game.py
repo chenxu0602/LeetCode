@@ -47,17 +47,39 @@
 # 
 # 
 #
-import math, itertools
+import math, itertools, operator
 
 class Solution:
     def judgePoint24(self, nums: List[int]) -> bool:
-
+        # O(1)
         if len(nums) == 1:
             return math.isclose(nums[0], 24)
 
         return any(self.judgePoint24([x] + rest)
                    for a, b, *rest in itertools.permutations(nums)
                    for x in {a+b, a-b, a*b, b and a/b})
+
+
+        # if len(nums) == 1:
+        #     return math.isclose(nums[0], 24)
+
+        # for i in range(len(nums)):
+        #     for j in range(len(nums)):
+        #         if i != j:
+        #             rest = [nums[k] for k in range(len(nums)) if i != k != j]
+        #             for op in (operator.truediv, operator.mul, operator.add, operator.sub):
+        #                 if (op is operator.add or op is operator.mul) and j > i:
+        #                     continue
+        #                 if op is not operator.truediv or nums[j]:
+        #                     rest.append(op(nums[i], nums[j]))
+        #                     if self.judgePoint24(rest):
+        #                         return True
+        #                     rest.pop()
+
+        # return False
+
+
+
 
         
 

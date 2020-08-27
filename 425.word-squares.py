@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/word-squares/description/
 #
 # algorithms
-# Hard (44.50%)
-# Likes:    356
-# Dislikes: 31
-# Total Accepted:    24.8K
-# Total Submissions: 55.8K
+# Hard (47.56%)
+# Likes:    529
+# Dislikes: 38
+# Total Accepted:    36.9K
+# Total Submissions: 77.3K
 # Testcase Example:  '["area","lead","wall","lady","ball"]'
 #
 # Given a set of words (without duplicates), find all word squares you can
@@ -88,31 +88,34 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
-
-    def build(self, square, n):
-        if len(square) == n:
-            self.squares.append(square)
-            return
-
-        for word in self.fulls["".join(list(zip(*square))[len(square)])]:
-            self.build(square + [word], n)
-
     def wordSquares(self, words: List[str]) -> List[List[str]]:
+        # O(n!)
 
         n = len(words[0])
         self.fulls = defaultdict(list)
         for word in words:
-            for i in range(n):
+            for i in range(1, n):
                 self.fulls[word[:i]].append(word)
+
+
+        def build(square, n):
+            if len(square) == n:
+                self.squares.append(square)
+                return
+
+            for word in self.fulls[''.join(list(zip(*square))[len(square)])]:
+                build(square + [word], n)
 
         self.squares = []
         for word in words:
-            self.build([word], n)
+            build([word], n)
 
         return self.squares
         
-        
+# @lc code=end
 

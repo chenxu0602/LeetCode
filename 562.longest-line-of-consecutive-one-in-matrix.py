@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-line-of-consecutive-one-in-matrix/description/
 #
 # algorithms
-# Medium (43.95%)
-# Likes:    208
-# Dislikes: 57
-# Total Accepted:    17.3K
-# Total Submissions: 39.2K
+# Medium (45.83%)
+# Likes:    334
+# Dislikes: 71
+# Total Accepted:    27K
+# Total Submissions: 59K
 # Testcase Example:  '[[0,1,1,0],[0,1,1,0],[0,0,0,1]]'
 #
 # Given a 01 matrix M, find the longest line of consecutive one in the matrix.
@@ -31,38 +31,28 @@
 # The number of elements in the given matrix will not exceed 10,000.
 # 
 #
-import itertools
+
+# @lc code=start
+from itertools import groupby
 from collections import defaultdict
 
 class Solution:
     def longestLine(self, M: List[List[int]]) -> int:
-        """
-        def score(line):
-            ans = count = 0
-            for x in line:
-                if x:
-                    count += 1
-                    ans = max(ans, count)
-                else:
-                    count = 0
-            return count
-        """
-
+        # O(mn)
         if not M: return 0
 
         def score(line):
-            return max(len(list(v)) if k else 0 for k, v in itertools.groupby(line))
+            return max(len(list(v)) if k else 0 for k, v in groupby(line))
 
         groups = defaultdict(list)
         for r, row in enumerate(M):
             for c, val in enumerate(row):
-                groups[0, r] += [val]
-                groups[1, c] += [val]
-                groups[2, r+c] += [val]
-                groups[3, r-c] += [val]
+                groups[0, r] += val,
+                groups[1, c] += val,
+                groups[2, r + c] += val,
+                groups[3, r - c] += val,
 
         return max(map(score, groups.values()))
-                
-
         
+# @lc code=end
 

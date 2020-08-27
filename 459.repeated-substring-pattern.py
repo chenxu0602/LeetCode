@@ -48,7 +48,39 @@
 import re
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
-#        return s in (s+s)[1:-1]        
-        return re.match("^(.+)\\1+$", s)
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # return s in (s + s)[1:-1]
+
+        # Time  complexity: O(N^2)
+        # Space complexity: O(1)
+        # import re
+        # return re.match(r'^(.+)\1+$', s)
+
+        # Knuth-Morris-Pratt Algorithm (KMP)
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        n = len(s)
+        dp = [0] * n
+        # Construct partial match table (lookup table).
+        # It stores the length of the proper prefix that is also a proper suffix.
+        # ex. ababa --> [0, 0, 1, 2, 1]
+        # ab --> the length of common prefix / suffix = 0
+        # aba --> the length of common prefix / suffix = 1
+        # abab --> the length of common prefix / suffix = 2
+        # ababa --> the length of common prefix / suffix = 1
+        for i in range(1, n):
+            j = dp[i - 1]
+            while j > 0 and s[i] != s[j]:
+                j = dp[j - 1]
+
+            if s[i] == s[j]:
+                j += 1
+
+            dp[i] = j
+
+        l = dp[n - 1]
+        # check if it's repeated pattern string
+        return l != 0 and n % (n - l) == 0
 
 

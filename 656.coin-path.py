@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/coin-path/description/
 #
 # algorithms
-# Hard (27.11%)
-# Likes:    124
-# Dislikes: 68
-# Total Accepted:    7K
-# Total Submissions: 26K
+# Hard (28.87%)
+# Likes:    163
+# Dislikes: 82
+# Total Accepted:    9.3K
+# Total Submissions: 32.1K
 # Testcase Example:  '[1,2,4,-1,2]\n2'
 #
 # Given an array A (index starts at 1) consisting of N integers: A1, A2, ...,
@@ -63,25 +63,28 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def cheapestJump(self, A: List[int], B: int) -> List[int]:
+        # Time  complexity: O(nB)
+        # Space compleixty: O(n)
         nxt = [-1] * len(A)
         dp = [0] * len(A)
         res = []
-        
-        for i in range(len(A)-2, -1, -1):
+
+        for i in range(len(A) - 2, -1, -1):
             min_cost = float("inf")
-            for j in range(i+1, min(i+B+1, len(A))):
+            for j in range(i + 1, min(i + B + 1, len(A))):
                 if A[j] >= 0:
                     cost = A[i] + dp[j]
                     if cost < min_cost:
                         min_cost = cost
                         nxt[i] = j
-
             dp[i] = min_cost
 
         i = 0
-        while i < len(A) and nxt[i] > 0:
+        while i < len(A) - 1 and nxt[i] > 0:
             res.append(i + 1)
             i = nxt[i]
 
@@ -91,6 +94,6 @@ class Solution:
             return []
 
         return res
-            
         
+# @lc code=end
 

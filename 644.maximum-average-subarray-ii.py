@@ -44,25 +44,68 @@ from collections import deque
 
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        n = len(nums)
-        p = [0]
-        for i in nums:
-            p.append(p[-1] + i)
+        # n = len(nums)
+        # p = [0]
+        # for i in nums:
+        #     p.append(p[-1] + i)
 
-        def d(x, y):
-            return (p[y+1] - p[x]) / (y - x + 1)
+        # def d(x, y):
+        #     return (p[y + 1] - p[x]) / (y - x + 1)
 
-        hull = deque()
-        ans = float("-inf")
-        
-        for j in range(k-1, n):
-            while len(hull) >= 2 and d(hull[-2], hull[-1]-1) >= d(hull[-2], j-k):
-                hull.pop()
-            hull.append(j-k+1)
-            while len(hull) >= 2 and d(hull[0], hull[1]-1) <= d(hull[0], j):
-                hull.popleft()
-            ans = max(ans, d(hull[0], j))
+        # hull = deque()
+        # ans = float("-inf")
+        # for j in range(k - 1, n):
+        #     while len(hull) >= 2 and d(hull[-2], hull[-1] - 1) >= d(hull[-2], j - k):
+        #         hull.pop()
 
-        return ans
+        #     hull.append(j - k + 1)
+        #     while len(hull) >= 2 and d(hull[0], hull[1] - 1) <= d(hull[0], j):
+        #         hull.popleft()
+
+        #     ans = max(ans, d(hull[0], j))
+
+        # return ans
+
+
+        # Binary Search
+        # To find the maximum average of a subarray with atleast kk elements. 
+        # Time  complexity: O(N x log2(max_val - min_val) / 0.0001), check function is O(N)
+        # Space complexity: O(1)
+        def check(nums, mid, k):
+            sum_, prev, min_sum = 0, 0, 0
+            for i in range(k):
+                sum_ += nums[i] - mid
+
+            if sum_ >= 0: return True
+
+            for i in range(k, len(nums)):
+                sum_ += nums[i] - mid
+                prev += nums[i - k] - mid
+                min_sum = min(prev, min_sum)
+                if sum_ >= min_sum:
+                    return True
+
+            return False
+
+        max_val, min_val = float("-inf"), float("inf")
+        for n in nums:
+            max_val = max(max_val, n)
+            min_val = min(min_val, n)
+
+        prev_mid, error = max_val, float("inf")
+        while error > 0.00001:
+            mid = (max_val + min_val) / 2.0
+
+            if check(nums, mid, k):
+                min_val = mid
+            else:
+                max_val = mid
+
+            error = abs(prev_mid - mid)
+            prev_mid = mid
+
+        return min_val
+
+
 
 

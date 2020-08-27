@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/description/
 #
 # algorithms
-# Hard (42.34%)
-# Likes:    330
-# Dislikes: 19
-# Total Accepted:    13.2K
-# Total Submissions: 31K
+# Hard (45.47%)
+# Likes:    580
+# Dislikes: 21
+# Total Accepted:    21.5K
+# Total Submissions: 46.8K
 # Testcase Example:  '3\n3\n5'
 #
 # 
@@ -60,11 +60,33 @@
 # 
 # 
 #
+
+# @lc code=start
+import heapq
+
 class Solution:
     def findKthNumber(self, m: int, n: int, k: int) -> int:
+        # Next Heap
+        # Time  complexity: O(k x mlogm) = O(m^2nlogm)
+        # Space complexity: O(m)
+        # heap = [(i, i) for i in range(1, m + 1)]
+        # heapq.heapify(heap)
+
+        # for _ in range(k):
+        #     val, root = heapq.heappop(heap)
+        #     nxt = val + root
+        #     if nxt <= root * n:
+        #         heapq.heappush(heap, (nxt, root))
+
+        # return val
+
+
+        # Binary Search
+        # Time  complexity: O(mlogmn)
+        # Space complexity: O(1)
         def enough(x):
             count = 0
-            for i in range(1, m+1):
+            for i in range(1, m + 1):
                 count += min(x // i, n)
             return count >= k
 
@@ -77,4 +99,5 @@ class Solution:
                 hi = mi
         return lo
         
+# @lc code=end
 

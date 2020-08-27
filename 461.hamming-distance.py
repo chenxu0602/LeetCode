@@ -45,7 +45,6 @@ class Solution:
         while x:
             y += 1
             x = x & (x - 1)
-
         return y
         
 

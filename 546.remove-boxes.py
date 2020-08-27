@@ -47,25 +47,30 @@
 #
 class Solution:
     def removeBoxes(self, boxes: List[int]) -> int:
+        # Time  complexity: O(n^4) dp array of size n^3 is filled, and linear time is taken to process each element.
+        # Space complexity: O(n^3) dp array is of size n^3.
         n = len(boxes)
         memo = [[[0] * n for _ in range(n)] for _ in range(n)]
 
         def dp(i, j, k):
-            if i > j:
-                return 0
+            if i > j: return 0
+
             if not memo[i][j][k]:
                 m = i
-                while m + 1 <= j and boxes[m+1] == boxes[i]:
+                while m + 1 <= j and boxes[m + 1] == boxes[i]:
                     m += 1
-                i, k = m, k + m - i
-                ans = dp(i+1, j, 0) + (k+1)**2
 
-                for m in range(i+1, j+1):
+                i, k = m, k + m - i
+                ans = dp(i + 1, j, 0) + (k + 1) ** 2
+
+                for m in range(i + 1, j + 1):
                     if boxes[i] == boxes[m]:
-                        ans = max(ans, dp(i+1, m-1, 0) + dp(m, j, k+1))
+                        ans = max(ans, dp(i + 1, m - 1, 0) + dp(m, j, k + 1))
+
                 memo[i][j][k] = ans
+
             return memo[i][j][k]
 
-        return dp(0, n-1, 0)
+        return dp(0, n - 1, 0)
         
 

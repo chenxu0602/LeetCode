@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/generate-random-point-in-a-circle/description/
 #
 # algorithms
-# Medium (37.00%)
-# Likes:    94
-# Dislikes: 154
-# Total Accepted:    5.7K
-# Total Submissions: 15.5K
-# Testcase Example:  '["Solution", "randPoint", "randPoint", ' +
+# Medium (38.50%)
+# Likes:    168
+# Dislikes: 263
+# Total Accepted:    11.2K
+# Total Submissions: 29.2K
+# Testcase Example:  '["Solution", "randPoint", "randPoint", ' + '"randPoint"]\n[[1.0, 0.0, 0.0], [], [], ' + '[]]'
 #
 # Given the radius and x-y positions of the center of a circle, write a
 # function randPoint which generates a uniform random point in the circle.
@@ -59,33 +59,29 @@
 # 
 #
 
-import random, math
+# @lc code=start
+import math, random
 
 class Solution:
+    # Inverse Transform Sampling 
+    # Time  complexity: O(1)
+    # Space complexity: O(1)
+    # X = D x cos(theta); Y = D x sin(theta)
 
     def __init__(self, radius: float, x_center: float, y_center: float):
         self.radius = radius
-        self.x = x_center
-        self.y = y_center
+        self.x_center = x_center
+        self.y_center = y_center
         
-
     def randPoint(self) -> List[float]:
-        """
-        while True:
-            x = self.x + (2 * random.random() - 1) * self.radius
-            y = self.y + (2 * random.random() - 1) * self.radius
-
-            if (x-self.x)**2 + (y-self.y)**2 <= self.radius**2:
-                return [x, y]
-        """
-
         d = self.radius * math.sqrt(random.random())
         theta = random.random() * (2 * 3.1415926)
-        return [self.x + d * math.cos(theta), self.y + d * math.sin(theta)]
+        return [self.x_center + d * math.cos(theta), self.y_center + d * math.sin(theta)]
         
 
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(radius, x_center, y_center)
 # param_1 = obj.randPoint()
+# @lc code=end
 

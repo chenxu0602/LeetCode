@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-search-autocomplete-system/description/
 #
 # algorithms
-# Hard (38.49%)
-# Likes:    517
-# Dislikes: 46
-# Total Accepted:    26.4K
-# Total Submissions: 68.2K
-# Testcase Example:  '["AutocompleteSystem","input","input","input","input"]\n[[["i love ' +
+# Hard (44.54%)
+# Likes:    1049
+# Dislikes: 80
+# Total Accepted:    63.2K
+# Total Submissions: 141K
+# Testcase Example:  '["AutocompleteSystem","input","input","input","input"]\n[[["i love ' + 'you","island","iroman","i love leetcode"],[5,3,2,2]],["i"],[" ' + '"],["a"],["#"]]'
 #
 # Design a search autocomplete system for a search engine. Users may input a
 # sentence (at least one word and end with a special character '#'). For each
@@ -105,60 +105,39 @@
 # 
 # 
 #
-class TrieNode(object):
-    def __init__(self):
-        self.children = {}
-        self.isEnd = False
-        self.data = None
-        self.rank = 0
+
+# @lc code=start
+from collections import defaultdict
 
 class AutocompleteSystem:
 
     def __init__(self, sentences: List[str], times: List[int]):
-        self.root = TrieNode()
-        self.keyword = ""
-        for i, sentence in enumerate(sentences):
-            self.addRecord(sentence, times[i])
-
-    def addRecord(self, sentence, hot):
-        p = self.root
-        for c in sentence:
-            if c not in p.children:
-                p.children[c] = TrieNode()
-            p = p.children[c]
-        p.isEnd = True
-        p.data = sentence
-        p.rank = -hot
-
-    def dfs(self, root):
-        ret = []
-        if root:
-            if root.isEnd:
-                ret.append((root.rank, root.data))
-            for child in root.children:
-                ret.extend(self.dfs(root.children[child]))
-        return ret
-
-    def search(self, sentence):
-        p = self.root
-        for c in sentence:
-            if c not in p.children:
-                return []
-            p = p.children[c]
-        return self.dfs(p)
+        self.partial, self.matches = [], []
+        self.counts = defaultdict(int)
+        for sentence, count in zip(sentences, times):
+            self.counts[sentence] = count
 
     def input(self, c: str) -> List[str]:
-        results = []
-        if c != '#':
-            self.keyword += c
-            results = self.search(self.keyword)
-        else:
-            self.addRecord(self.keyword, 1)
-            self.keyword = ""
-        return [item[1] for item in sorted(results)[:3]]
+        if c == '#':
+            sentence = ''.join(self.partial)
+            self.counts[sentence] += 1
+            self.partial, self.matches = [], []
+            return []
         
+        if not self.partial:
+            self.matches = [(-count, sentence) for sentence, count in self.counts.items() if sentence[0] == c]
+            self.matches.sort()
+            self.matches = [sentence for _, sentence in self.matches]
+        else:
+            i = len(self.partial)
+            self.matches = [sentence for sentence in self.matches if len(sentence) > i and sentence[i] == c]
+
+        self.partial += c,
+        return self.matches[:3]
+
 
 # Your AutocompleteSystem object will be instantiated and called as such:
 # obj = AutocompleteSystem(sentences, times)
 # param_1 = obj.input(c)
+# @lc code=end
 

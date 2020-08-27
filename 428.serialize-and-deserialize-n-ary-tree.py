@@ -66,6 +66,7 @@ class Node(object):
 from collections import deque
 
 class Codec:
+    # O(N)
 
     def serialize(self, root: 'Node') -> str:
         """Encodes a tree to a single string.
@@ -86,7 +87,8 @@ class Codec:
             serial.append('#')
 
         preorder(root)
-        return " ".join(serial)
+        return ' '.join(serial)
+
         
 
     def deserialize(self, data: str) -> 'Node':
@@ -98,20 +100,21 @@ class Codec:
         # if not data: return None
         # return Node(data[0], [self.deserialize(c) for c in data[1]])
 
-        if not data: return None
-        tokens = deque(data.split())
-        root = Node(int(tokens.popleft()), [])
 
         def dfs(node):
-            if not tokens: return None
+            if not tokens: return
 
             while tokens[0] != '#':
-                val = tokens.popleft()
-                child = Node(int(val), [])
+                value = tokens.popleft()
+                child = Node(int(value), [])
                 node.children.append(child)
                 dfs(child)
 
             tokens.popleft()
+
+        if not data: return None
+        tokens = deque(data.split())
+        root = Node(int(tokens.popleft()), [])
 
         dfs(root)
         return root

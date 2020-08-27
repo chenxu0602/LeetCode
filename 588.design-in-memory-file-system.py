@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-in-memory-file-system/description/
 #
 # algorithms
-# Hard (40.47%)
-# Likes:    141
-# Dislikes: 20
-# Total Accepted:    6.7K
-# Total Submissions: 16.5K
-# Testcase Example:  '["FileSystem","ls","mkdir","addContentToFile","ls","readContentFromFile"]\n' +
+# Hard (45.60%)
+# Likes:    349
+# Dislikes: 47
+# Total Accepted:    18.7K
+# Total Submissions: 40.5K
+# Testcase Example:  '["FileSystem","ls","mkdir","addContentToFile","ls","readContentFromFile"]\n' + '[[],["/"],["/a/b/c"],["/a/b/c/d","hello"],["/"],["/a/b/c/d"]]'
 #
 # Design an in-memory file system to simulate the following functions:
 # 
@@ -65,18 +65,18 @@
 # 
 #
 
+# @lc code=start
 from collections import defaultdict
 
-class Node(object):
+class Node:
     def __init__(self):
         self.children = {}
-    
+
     def setdefault(self, token):
         return self.children.setdefault(token, Node())
 
     def get(self, token):
         return self.children.get(token, None)
-
 
 class FileSystem:
 
@@ -93,8 +93,7 @@ class FileSystem:
             if cur and token:
                 cur = cur.get(token)
 
-        return sorted(cur.children.keys()) if cur else []
-        
+        return sorted(cur.children.keys())  if cur else []
 
     def mkdir(self, path: str) -> None:
         cur = self.root
@@ -102,15 +101,13 @@ class FileSystem:
             if token:
                 cur = cur.setdefault(token)
         
-
     def addContentToFile(self, filePath: str, content: str) -> None:
         self.mkdir(filePath)
         self.fileinfo[filePath] += content
         
-
     def readContentFromFile(self, filePath: str) -> str:
         return self.fileinfo[filePath]
-
+        
 
 # Your FileSystem object will be instantiated and called as such:
 # obj = FileSystem()
@@ -118,4 +115,5 @@ class FileSystem:
 # obj.mkdir(path)
 # obj.addContentToFile(filePath,content)
 # param_4 = obj.readContentFromFile(filePath)
+# @lc code=end
 

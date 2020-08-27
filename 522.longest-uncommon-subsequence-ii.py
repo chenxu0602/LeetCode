@@ -49,6 +49,8 @@
 #
 class Solution:
     def findLUSlength(self, strs: List[str]) -> int:
+        # Time  complexity: O(xn^2). where n is the number of strings and x is the average length of the strings.
+        # Space complexity: O(1)
         def subseq(w1, w2):
             i = 0
             for c in w2:

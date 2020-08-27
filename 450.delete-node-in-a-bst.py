@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/delete-node-in-a-bst/description/
 #
 # algorithms
-# Medium (40.19%)
-# Likes:    955
-# Dislikes: 59
-# Total Accepted:    69.2K
-# Total Submissions: 172.2K
+# Medium (42.98%)
+# Likes:    1882
+# Dislikes: 84
+# Total Accepted:    116.1K
+# Total Submissions: 269.1K
 # Testcase Example:  '[5,3,6,2,4,null,7]\n3'
 #
 # Given a root node reference of a BST and a key, delete the node with the
@@ -57,67 +57,56 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-
-    def successor(self, root):
-        root = root.right
-        while root.left:
-            root = root.left
-        return root.val
-
-    def predecessor(self, root):
-        root = root.left
-        while root.right:
-            root = root.right
-        return root.val
-
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        # Recursion
+        # Time  complexity: O(logN)
+        # Space complexity: O(H)
+        def successor(root):
+            root = root.right
+            while root.left:
+                root = root.left
+            return root.val
 
-        """
-        if not root: return None
-        
-        if root.val == key:
-            if root.left:
-                left_right_most = root.left
-                while left_right_most.right:
-                    left_right_most = left_right_most.right
+        def predecessor(root):
+            root = root.left
+            while root.right:
+                root = root.right
+            return root.val
 
-                left_right_most.right = root.right
-                return root.left
-            else:
-                return root.right
-        elif root.val > key:
-            root.left = self.deleteNode(root.left, key)
-        else:
-            root.right = self.deleteNode(root.right, key)
+        if not root:
+            return None 
 
-        return root
-        """
-
-        if not root: return None
-
+        # delete from the right subtree
         if key > root.val:
             root.right = self.deleteNode(root.right, key)
+        # delete from the left subtree
         elif key < root.val:
             root.left = self.deleteNode(root.left, key)
+        # delete the current node
         else:
+            # the node is a leaf
             if not (root.left or root.right):
                 root = None
+            # the node is not a leaf and has a right child
             elif root.right:
-                root.val = self.successor(root)
+                root.val = successor(root)
                 root.right = self.deleteNode(root.right, root.val)
+            # the node is not a leaf, has no right child, and has a left child    
             else:
-                root.val = self.predecessor(root)
+                root.val = predecessor(root)
                 root.left = self.deleteNode(root.left, root.val)
 
         return root
-            
+
         
+# @lc code=end
 

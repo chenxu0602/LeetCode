@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/beautiful-arrangement/description/
 #
 # algorithms
-# Medium (54.92%)
-# Likes:    456
-# Dislikes: 115
-# Total Accepted:    38.9K
-# Total Submissions: 70.7K
+# Medium (57.74%)
+# Likes:    694
+# Dislikes: 151
+# Total Accepted:    51.9K
+# Total Submissions: 89.6K
 # Testcase Example:  '2'
 #
 # Suppose you have N integers from 1 to N. We define a beautiful arrangement as
@@ -57,28 +57,29 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def countArrangement(self, N: int) -> int:
-        """
+        def calculate(N, pos, visited):
+            if pos > N: self.count += 1
+
+            for i in range(1, N + 1):
+                if not visited[i] and (pos % i == 0 or i % pos == 0):
+                    visited[i] = True
+                    calculate(N, pos + 1, visited)
+                    visited[i] = False
+
         self.count = 0
-        visited = [False] * (N+1)
-        self.calculate(N, 1, visited)
+        visited = [False] * (N + 1)
+        calculate(N, 1, visited)
         return self.count
-        """
 
-        def count(i, X):
-            if i == 1: return 1
-            return sum(count(i-1, X-{x}) for x in X if x % i == 0 or i % x == 0)
-        return count(N, set(range(1, N+1)))
 
-    def calculate(self, N, pos, visited):
-        if pos > N:
-            self.count += 1
-
-        for i in range(1, N+1):
-            if not visited[i] and (pos % i == 0 or i % pos == 0):
-                visited[i] = True
-                self.calculate(N, pos + 1, visited)
-                visited[i] = False
+        # def count(i, X):
+        #     if i == 1: return 1
+        #     return sum(count(i-1, X-{x}) for x in X if x % i == 0 or i % x == 0)
+        # return count(N, set(range(1, N+1)))
         
+# @lc code=end
 

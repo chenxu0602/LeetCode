@@ -34,6 +34,7 @@
 #
 class Solution:
     def minMoves(self, nums: List[int]) -> int:
+        # decrease 1 each time
         return sum(nums) - min(nums) * len(nums)
         
 

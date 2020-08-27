@@ -38,25 +38,27 @@
 #
 class Solution:
     def arrayPairSum(self, nums: List[int]) -> int:
-        """
-        nums.sort()
-        s = 0
-        for i in range(0, len(nums), 2):
-            s += nums[i]
+        # O(nlogn) / O(1)
+        # nums.sort()
+        # s = 0
+        # for i in range(0, len(nums), 2):
+        #     s += nums[i]
 
-        return s
-        """
+        # return s
 
-        arr = [0] * 20001
+
+        # O(n) / O(n)
+        # arr[i] stores the frequency of occurence of (i-10000)^{th}(i−10000)th element.
         lim = 10000
+        arr = [0] * (2 * lim + 1)
 
         for num in nums:
-            arr[num+lim] += 1
+            arr[num + lim] += 1
 
         d, sums = 0, 0
-        for i in range(-10000, 10001):
-            sums += (arr[i+lim]+1-d) // 2 * i
-            d = (2 + arr[i+lim]-d) % 2
-        
+        for i in range(-lim, lim):
+            sums += (arr[i + lim] + 1 - d) // 2 * i
+            d = (2 + arr[i + lim] - d) % 2
+
         return sums
 

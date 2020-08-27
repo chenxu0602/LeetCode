@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/trim-a-binary-search-tree/description/
 #
 # algorithms
-# Easy (60.56%)
-# Likes:    1200
-# Dislikes: 135
-# Total Accepted:    71.4K
-# Total Submissions: 117.6K
+# Easy (62.92%)
+# Likes:    1914
+# Dislikes: 181
+# Total Accepted:    107.9K
+# Total Submissions: 171.2K
 # Testcase Example:  '[1,0,2]\n1\n2'
 #
 # 
@@ -60,30 +60,34 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
-        """
-        if not root: return None
-        if root.val < L:
-            return self.trimBST(root.right, L, R)
-        if root.val > R:
-            return self.trimBST(root.left, L, R)
-        root.right = self.trimBST(root.right, L, R)
-        root.left = self.trimBST(root.left, L, R)
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if not root: 
+        #     return None
+        # if root.val < L:
+        #     return self.trimBST(root.right, L, R)
+        # elif root.val > R:
+        #     return self.trimBST(root.left, L, R)
 
-        return root
-        """
+        # root.left = self.trimBST(root.left, L, R)
+        # root.right = self.trimBST(root.right, L, R)
+
+        # return root
+
 
         def trim(node):
             if not node:
-                return None
+                return node
             elif node.val > R:
                 return trim(node.left)
             elif node.val < L:
@@ -95,4 +99,5 @@ class Solution:
 
         return trim(root)
         
+# @lc code=end
 

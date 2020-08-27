@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/description/
 #
 # algorithms
-# Easy (53.66%)
-# Likes:    1701
-# Dislikes: 163
-# Total Accepted:    160.4K
-# Total Submissions: 298.8K
+# Easy (55.82%)
+# Likes:    3038
+# Dislikes: 255
+# Total Accepted:    273.8K
+# Total Submissions: 489.6K
 # Testcase Example:  '[4,3,2,7,8,2,3,1]'
 #
 # Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some
@@ -31,13 +31,35 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        for n in nums:
-            a = abs(n) - 1
-            if nums[a] > 0:
-                nums[a] *= -1
+        # Space InPlace Modification Solution
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # Iterate over each of the elements in the original array
+        for i in range(len(nums)):
+            # Treat the value as the new index
+            new_index = abs(nums[i]) - 1
 
-        return [i+1 for i in range(len(nums)) if nums[i] > 0]
+            # Check the magnitude of value at this new index
+            # If the magnitude is positive, make it negative 
+            # thus indicating that the number nums[i] has 
+            # appeared or has been visited.
+            if nums[new_index] > 0:
+                nums[new_index] *= -1
+
+        # Response array that would contain the missing numbers
+        result = []
+
+        # Iterate over the numbers from 1 to N and add all those
+        # that have positive magnitude in the array 
+        for i in range(1, len(nums) + 1):
+            if nums[i - 1] > 0:
+                result.append(i)
+
+        return result
         
+# @lc code=end
 

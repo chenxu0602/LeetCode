@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/unique-substrings-in-wraparound-string/description/
 #
 # algorithms
-# Medium (34.12%)
-# Likes:    374
-# Dislikes: 63
-# Total Accepted:    18.9K
-# Total Submissions: 55.2K
+# Medium (35.56%)
+# Likes:    612
+# Dislikes: 86
+# Total Accepted:    25.5K
+# Total Submissions: 71.6K
 # Testcase Example:  '"a"'
 #
 # Consider the string s to be the infinite wraparound string of
@@ -52,18 +52,19 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def findSubstringInWraproundString(self, p: str) -> int:
-        """
-        p, d, lo = '0'+p, defaultdict(int), 0
-        for hi in range(1, len(p)):
-            if p[hi-1]+p[hi] not in "abcdefghijklmnopqrstuvwxyza":
-                lo = hi
-            d[p[hi]] = max(d[p[hi]], hi+1-lo)
-        return sum(d.values())
-        """
+        # p, d, lo = '0' + p, defaultdict(int), 0
+        # for hi in range(1, len(p)):
+        #     if p[hi-1:hi+1] not in "abcdefghijklmnopqrstuvwxyza":
+        #         lo = hi
+        #     d[p[hi]] = max(d[p[hi]], hi - lo + 1)
+        # return sum(d.values())
+
 
         res = {i: 1 for i in p}
         l = 1
@@ -71,7 +72,6 @@ class Solution:
             l = l + 1 if (ord(j) - ord(i)) % 26 == 1 else 1
             res[j] = max(res[j], l)
         return sum(res.values())
-
-
         
+# @lc code=end
 

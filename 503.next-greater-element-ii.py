@@ -40,6 +40,7 @@
 # @lc code=start
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        # O(n) / O(n)
         stack, res = [], [-1] * len(nums)
         for i in list(range(len(nums))) * 2:
             while stack and nums[stack[-1]] < nums[i]:

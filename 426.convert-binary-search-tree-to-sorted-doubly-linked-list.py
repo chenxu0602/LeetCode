@@ -88,48 +88,67 @@ class Node:
 """
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
+        # # Inorder Recursion
+        # # Time  complexity: O(N)
+        # # Space complexity: O(N). 
+        # # We have to keep a recursion stack of the size of the tree height, 
+        # # which is O(logN) for the best case of completely balanced tree and
+        # # and O(N) for the worst case of completely unbalanced tree.
+        # def helper(node):
+        #     """
+        #     Performs standard inorder traversal:
+        #     left -> node -> right
+        #     and links all nodes into DLL
+        #     """
+        #     nonlocal last, first
+        #     if node:
+        #         # left
+        #         helper(node.left)
+        #         if last:
+        #             # link the previous node (last)
+        #             # with the current one (node)
+        #             last.right = node
+        #             node.left = last
+        #         else:
+        #             # keep the smallest node
+        #             # to close DLL later on
+        #             first = node
+        #         last = node
+        #         # right
+        #         helper(node.right)
 
-        # if not root: return
-        # dummy = prev = Node(0, None, None)
-        # stack, node = [], root
-        # while stack or node:
-        #     while node:
-        #         stack.append(node)
-        #         node = node.left
-        #     node = stack.pop()
-        #     node.left, prev.right, prev = prev, node, node
-        #     node = node.right
+        # if not root:
+        #     return None
 
-        # dummy.right.left, prev.right = prev, dummy.right
-        # return dummy.right
+        # # the smallest (first) and the largest (last) nodes
+        # first, last = None, None
+        # helper(root)
+        # # close DLL
+        # last.right = first
+        # first.left = last
+        # return first
 
 
-        def dfs(node):
-            nonlocal last, first
+        # Iteration
+        # O(N) / O(1)
+        if not root: return
+        dummy = prev = Node(0, None, None)
+        stack, node = [], root
 
-            if node:
-                dfs(node.left)
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            node.left, prev.right, prev = prev, node, node
+            node = node.right
 
-                if last:
-                    last.right = node
-                    node.left = last
-                else:
-                    first = node
-
-                last = node
-
-                dfs(node.right)
-
-        if not root: return None
-        last, first = None, None
-        dfs(root)
-
-        last.right = first
-        first.left = last
-
-        return first
+        dummy.right.left, prev.right = prev, dummy.right
+        return dummy.right
 
 
+
+        
         
 # @lc code=end
 

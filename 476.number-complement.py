@@ -43,14 +43,14 @@
 # 
 # 
 #
+import math
+
 class Solution:
     def findComplement(self, num: int) -> int:
-        complement, digit = 0, 0
-        while num > 0:
-            if num % 2 == 0:
-                complement += 2 ** digit
-            digit += 1
-            num >>= 1
-        return complement
+        # n = floor(math.log2(num)) + 1
+        # bitmask = (1 << n) - 1
+        # return bitmask ^ num
+
+        return num ^ (2 ** num.bit_length() - 1)
         
 

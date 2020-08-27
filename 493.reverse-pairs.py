@@ -45,7 +45,7 @@ class Solution:
         count = 0
         for i in reversed(range(len(nums))):
             count += bisect.bisect_left(s, nums[i])
-            bisect.insort_left(s, nums[i]*2)
+            bisect.insort_left(s, nums[i] * 2)
         return count
         
 

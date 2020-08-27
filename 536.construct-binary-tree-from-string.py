@@ -55,32 +55,33 @@
 
 class Solution:
     def str2tree(self, s: str) -> TreeNode:
-        # def dfs(s, i):
-        #     start = i
-        #     while i < len(s) and (s[i] == '-' or s[i].isdigit()):
-        #         i += 1
-        #     node = TreeNode(int(s[start:i]))
+        # def t(val, left=None, right=None):
+        #     node, node.left, node.right = TreeNode(val), left, right
+        #     return node
 
-        #     if i < len(s) and s[i] == '(':
-        #         i += 1
-        #         node.left, i = dfs(s, i)
-        #         i += 1
-        #     if i < len(s) and s[i] == '(':
-        #         i += 1
-        #         node.right, i = dfs(s, i)
-        #         i += 1
-        #     return node, i
+        # return eval("t(" + s.replace("(", ",t(") + ")") if s else None
 
-        # if not s or len(s) == 0: 
-        #     return None
-        # root, _ = dfs(s, 0)
-        # return root
+        def dfs(s, i):
+            start = i
+            while i < len(s) and (s[i] == '-' or s[i].isdigit()):
+                i += 1
+            node = TreeNode(int(s[start:i]))
 
-        def t(val, left=None, right=None):
-            node, node.left, node.right = TreeNode(val), left, right
-            return node
+            if i < len(s) and s[i] == '(':
+                i += 1
+                node.left, i = dfs(s, i)
+                i += 1
 
-        return eval("t(" + s.replace("(", ",t(") + ")") if s else None
+            if i < len(s) and s[i] == '(':
+                i += 1
+                node.right, i = dfs(s, i)
+                i += 1
+
+            return node, i
+
+        if not s or len(s) == 0: return None
+        root, _ = dfs(s, 0)
+        return root
 
         
 # @lc code=end

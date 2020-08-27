@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/most-frequent-subtree-sum/description/
 #
 # algorithms
-# Medium (54.96%)
-# Likes:    408
-# Dislikes: 80
-# Total Accepted:    51.4K
-# Total Submissions: 93.4K
+# Medium (57.77%)
+# Likes:    655
+# Dislikes: 124
+# Total Accepted:    72.3K
+# Total Submissions: 124.7K
 # Testcase Example:  '[5,2,-3]'
 #
 # 
@@ -47,33 +47,35 @@
 # signed integer.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 from collections import defaultdict, Counter
 
 class Solution:
-    def dfs(self, node):
-        if node:
-            left = self.dfs(node.left)
-            right = self.dfs(node.right)
-            self.sums.append(left + right + node.val)
-            return left + right + node.val
-        return 0
-
     def findFrequentTreeSum(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
+        # O(N)
+        def dfs(node):
+            if not node: return 0
+            left, right = map(dfs, (node.left, node.right))
+            s = node.val + left + right
+            count[s] += 1
+            return s
 
-        self.sums = []
-        self.dfs(root)
-        count = Counter(self.sums)
+        if not root: return []
+
+        count = Counter()
+        dfs(root)
         most_common = count.most_common()[0][1]
 
         return [k for k, v in count.items() if v == most_common]
+
+
         
+# @lc code=end
 

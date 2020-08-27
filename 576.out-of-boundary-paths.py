@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/out-of-boundary-paths/description/
 #
 # algorithms
-# Medium (32.45%)
-# Likes:    312
-# Dislikes: 109
-# Total Accepted:    18.7K
-# Total Submissions: 57.5K
+# Medium (34.90%)
+# Likes:    558
+# Dislikes: 135
+# Total Accepted:    29.3K
+# Total Submissions: 83.3K
 # Testcase Example:  '2\n2\n2\n0\n0'
 #
 # There is an m by n grid with a ball. Given the start coordinate (i,j) of the
@@ -50,53 +50,50 @@
 # 
 # 
 #
+
+# @lc code=start
+from functools import lru_cache
+
 class Solution:
-
-    def findPathsDFS(self, m, n, N, row, col, memo):
-        if row < 0 or row >= m or col < 0 or col >= n:
-            return 1
-
-        if N == 0:
-            return 0
-
-        if memo[row][col][N] != -1:
-            return memo[row][col][N]
-
-        path = self.findPathsDFS(m, n, N-1, row-1, col, memo)  \
-            + self.findPathsDFS(m, n, N-1, row, col+1, memo) \
-            + self.findPathsDFS(m, n, N-1, row+1, col, memo) \
-            + self.findPathsDFS(m, n, N-1, row, col-1, memo) 
-
-        memo[row][col][N] = int(path % 1000000007)
-
-        return memo[row][col][N]
-
     def findPaths(self, m: int, n: int, N: int, i: int, j: int) -> int:
+        # Time  complexity: O(mnN)
+        # Space complexity: O(mnN)
+        # @lru_cache(None)
+        # def dfs(m, n, N, i, j):
+        #     if i < 0 or i >= m or j < 0 or j >= n:
+        #         return 1
+        #     if N == 0:
+        #         return 0
 
-        """
-        memo = [[[-1 for _ in range(N+1)] for _ in range(n)] for _ in range(m)]
-        num_of_path = self.findPathsDFS(m, n, N, i, j, memo)
-        return num_of_path
-        """
+        #     path = dfs(m, n, N - 1, i - 1, j) + dfs(m, n, N - 1, i + 1, j) \
+        #         + dfs(m, n, N - 1, i, j - 1) + dfs(m, n, N - 1, i, j + 1)
 
-        M = 1000000000 + 7
+        #     return path % (10**9 + 7)
+
+        # return dfs(m, n, N, i, j)
+        
+
+
+        # Time  complexity: O(mnN)
+        # Space complexity: O(mn)
+        M = 10**9 + 7
         dp = [[0] * n for _ in range(m)]
         dp[i][j] = 1
         count = 0
 
-        for moves in range(1, N+1):
+        for move in range(1, N + 1):
             temp = [[0] * n for _ in range(m)]
             for i in range(m):
                 for j in range(n):
-                    if i == m - 1:
-                        count = (count + dp[i][j]) % M
-                    if j == n - 1:
-                        count = (count + dp[i][j]) % M
                     if i == 0:
+                        count = (count + dp[i][j]) % M
+                    if i == m - 1:
                         count = (count + dp[i][j]) % M
                     if j == 0:
                         count = (count + dp[i][j]) % M
-                    
+                    if j == n - 1:
+                        count = (count + dp[i][j]) % M
+
                     temp[i][j] += dp[i-1][j] if i > 0 else 0
                     temp[i][j] += dp[i+1][j] if i < m - 1 else 0
                     temp[i][j] += dp[i][j-1] if j > 0 else 0
@@ -105,7 +102,5 @@ class Solution:
             dp = temp
 
         return count
-
-                    
-        
+# @lc code=end
 

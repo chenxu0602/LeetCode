@@ -108,6 +108,7 @@
 # 
 #
 class Solution:
+    # O(n)
     def __init__(self):
         self.stack = []
         self.contains_tag = False

@@ -74,18 +74,31 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def shoppingOffers(self, price: List[int], special: List[List[int]], needs: List[int]) -> int:
-        d = {}
-        def dfs(cur):
-            val = sum(cur[i] * price[i] for i in range(len(needs)))
+        # d = {}
+        # def dfs(cur):
+        #     val = sum(cur[i] * price[i] for i in range(len(needs)))
+        #     for spec in special:
+        #         tmp = [cur[j] - spec[j] for j in range(len(needs))]
+        #         if min(tmp) >= 0:
+        #             val = min(val, d.get(tuple(tmp), dfs(tmp)) + spec[-1])
+        #     d[tuple(cur)] = val
+        #     return val
+
+        # return dfs(needs)
+
+        @lru_cache(None)
+        def dfs(needs):
+            val = sum(n * p for n, p in zip(needs, price))
             for spec in special:
-                tmp = [cur[j] - spec[j] for j in range(len(needs))]
+                tmp = [n - s for n, s in zip(needs, spec)]
                 if min(tmp) >= 0:
-                    val = min(val, d.get(tuple(tmp), dfs(tmp)) + spec[-1])
-            d[tuple(cur)] = val
+                    val = min(val, dfs(tuple(tmp)) + spec[-1])
             return val
 
-        return dfs(needs)
+        return dfs(tuple(needs))
         
 

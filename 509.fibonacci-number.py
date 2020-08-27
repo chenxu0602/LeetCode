@@ -59,6 +59,10 @@
 #
 class Solution:
     def fib(self, N: int) -> int:
+        # golden_ratio = (1 + 5 ** 0.5) / 2
+        # return int((golden_ratio ** N + 1) / 5 ** 0.5)
+        
+        
         a, b = 0, 1
 
         if N == 0: 
@@ -70,6 +74,6 @@ class Solution:
             a, b = b, a + b
         
         return b
-        
-        
+
+
 

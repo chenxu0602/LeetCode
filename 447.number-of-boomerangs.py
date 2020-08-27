@@ -40,12 +40,10 @@ from collections import Counter, defaultdict
 
 class Solution:
     def numberOfBoomerangs(self, points: List[List[int]]) -> int:
-        """
-        return sum(
-            n*(n-1)
-            for x0, y0 in points for n in Counter((x-x0)**2 + (y-y0)**2 for x, y in points).values()
-        )
-        """
+        # return sum(
+        #     n*(n-1)
+        #     for x0, y0 in points for n in Counter((x-x0)**2 + (y-y0)**2 for x, y in points).values()
+        # )
 
         res = 0
         for p in points:

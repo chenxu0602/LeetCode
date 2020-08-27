@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-right-interval/description/
 #
 # algorithms
-# Medium (42.99%)
-# Likes:    213
-# Dislikes: 99
-# Total Accepted:    27K
-# Total Submissions: 62.8K
+# Medium (45.29%)
+# Likes:    373
+# Dislikes: 136
+# Total Accepted:    36.6K
+# Total Submissions: 80.5K
 # Testcase Example:  '[[1,2]]'
 #
 # Given a set of intervals, for each of the interval i, check if there exists
@@ -76,17 +76,21 @@
 # 
 #
 
+# @lc code=start
 import bisect
 
 class Solution:
     def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        # O(NlogN) / O(N)
+
         l = sorted((e[0], i) for i, e in enumerate(intervals))
         res = []
         for e in intervals:
-            r = bisect.bisect_left(l, (e[1], ))
+            r = bisect.bisect_left(l, (e[1],))
             res.append(l[r][1] if r < len(l) else -1)
 
         return res
 
         
+# @lc code=end
 

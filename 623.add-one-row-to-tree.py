@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/add-one-row-to-tree/description/
 #
 # algorithms
-# Medium (47.50%)
-# Likes:    301
-# Dislikes: 109
-# Total Accepted:    28K
-# Total Submissions: 58.7K
+# Medium (49.60%)
+# Likes:    448
+# Dislikes: 133
+# Total Accepted:    38.9K
+# Total Submissions: 78.2K
 # Testcase Example:  '[4,2,6,3,1,5]\n1\n2'
 #
 # Given the root of a binary tree, then value v and depth d, you need to add a
@@ -85,31 +85,33 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
-        if d == 1:
-            nodeNew = TreeNode(v)
-            nodeNew.left = root
-            return nodeNew
+        if d == 1: 
+            newNode = TreeNode(v)
+            newNode.left = root
+            return newNode
 
-        if not root:
-            return None
+        if not root: return None
 
         if d == 2:
             l, r = root.left, root.right
-            root.left, root.right = TreeNode(v), TreeNode(v)
+            root.left, root.right = map(TreeNode, (v, v))
             root.left.left, root.right.right = l, r
             return root
 
-        root.left = self.addOneRow(root.left, v, d-1)
-        root.right = self.addOneRow(root.right, v, d-1)
+        root.left = self.addOneRow(root.left, v, d - 1)
+        root.right = self.addOneRow(root.right, v, d - 1)
+
         return root
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/132-pattern/description/
 #
 # algorithms
-# Medium (27.44%)
-# Likes:    655
-# Dislikes: 39
-# Total Accepted:    29.7K
-# Total Submissions: 108.2K
+# Medium (28.92%)
+# Likes:    1454
+# Dislikes: 92
+# Total Accepted:    57.5K
+# Total Submissions: 199K
 # Testcase Example:  '[1,2,3,4]'
 #
 # 
@@ -52,41 +52,32 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
-
-    def binarySearch(self, val, A, high):
-        low = 0
-        while high - low > 0:
-            i = low + (high - low) // 2
-            if A[i] > val:
-                low = i + 1
-            else:
-                high = i
-        return high
-
-
     def find132pattern(self, nums: List[int]) -> bool:
+        # Time  complexity: O(n^2)
+        # Space complexity: O(1)
+        # min_i = float("inf")
+        # for j in range(len(nums) - 1):
+        #     min_i = min(min_i, nums[j])
+        #     for k in range(j + 1, len(nums)):
+        #         if nums[k] < nums[j] and min_i < nums[k]:
+        #             return True
+        # return False
 
-        """
-        min_i = float("inf")
-        for j in range(len(nums)-1):
-            min_i = min(min_i, nums[j])
-            for k in range(j+1, len(nums)):
-                if nums[k] < nums[j] and min_i < nums[k]:
-                    return True
 
-        return False
-        """
-
-        """
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        if len(nums) < 3: 
+            return False
+        
         stack = []
-
-        if not nums: return False
 
         min_i = [float("inf")] * len(nums)
         min_i[0] = nums[0]
 
-        for i in range(1, len(nums)):
+        for i in range(len(nums)):
             min_i[i] = min(min_i[i-1], nums[i])
 
         for j in range(len(nums)-1, -1, -1):
@@ -97,28 +88,29 @@ class Solution:
                     return True
                 stack.append(nums[j])
 
-        return False
-        """
-
-        mins, maxs = [], []
-        cur_min = float("inf")
-        i = -1
-        for x in nums:
-            if x < cur_min:
-                cur_min = x
-            else:
-                i = self.binarySearch(x, maxs, i + 1)
-                if i > 0 and x > mins[i-1]:
-                    return True
-                if i < len(maxs):
-                    maxs[i] = x
-                    mins[i] = cur_min
-                else:
-                    maxs.append(x)
-                    mins.append(cur_min)
-
-        return False
-
         
+        # if len(nums) < 3: 
+        #     return False
         
+        # stack = []
+
+        # min_i = [float("inf")] * len(nums)
+        # min_i[0] = nums[0]
+
+        # for i in range(len(nums)):
+        #     min_i[i] = min(min_i[i-1], nums[i])
+
+        # k = len(nums)
+        # for j in range(len(nums)-1, -1, -1):
+        #     if nums[j] > min_i[j]:
+        #         while k < len(nums) and nums[k] <= min_i[j]:
+        #             k += 1
+        #         if k < len(nums) and nums[k] < nums[j]:
+        #             return True
+
+        #         k -= 1
+        #         nums[k] = nums[j]
+
+        # return False
+# @lc code=end
 

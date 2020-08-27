@@ -47,27 +47,42 @@
 #
 
 # @lc code=start
-from collections import defaultdict, Counter
-
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
+        # Greedy
+        # Time  complexity: O(N_total), where N_total is the number of tasks to execute.
+        # Space complexity: O(1).
+        # frequencies = [0] * 26
+        # for t in tasks:
+        #     frequencies[ord(t) - ord('A')] += 1
 
-        # task_counts = Counter(tasks).values()
-        # M = max(task_counts)
-        # Mct = list(task_counts).count(M)
-        # return max(len(tasks), (M-1) * (n+1) + Mct)
+        # frequencies.sort()
 
-        hs = [0] * 26
-        for c in tasks:
-            hs[ord(c) - ord('A')] += 1
-        hs.sort()
+        # # max frequency
+        # f_max = frequencies.pop()
+        # idle_time = (f_max - 1) * n
 
-        max_val = hs[25] - 1
-        idle_slots = max_val * n
-        for i in range(24, -1, -1):
-            idle_slots -= min(hs[i], max_val)
+        # while frequencies and idle_time > 0:
+        #     idle_time -= min(f_max - 1, frequencies.pop())
+        # idle_time = max(0, idle_time)
 
-        return idle_slots + len(tasks) if idle_slots > 0 else len(tasks)
+        # return idle_time + len(tasks)
+
+
+        # Math
+        # Time  complexity: O(N_total), where N_total is the number of tasks to execute.
+        # Space complexity: O(1).
+        frequencies = [0] * 26
+        for t in tasks:
+            frequencies[ord(t) - ord('A')] += 1
+
+        # max frequency
+        f_max = max(frequencies)
+        # count the most frequent tasks
+        n_max = frequencies.count(f_max)
+
+        return max(len(tasks), (f_max - 1) * (n + 1) + n_max)
+
         
 # @lc code=end
 

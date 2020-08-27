@@ -6,76 +6,65 @@
 # https://leetcode.com/problems/maximum-depth-of-n-ary-tree/description/
 #
 # algorithms
-# Easy (65.83%)
-# Likes:    392
-# Dislikes: 20
-# Total Accepted:    55.6K
-# Total Submissions: 84.4K
-# Testcase Example:  '{"$id":"1","children":[{"$id":"2","children":[{"$id":"5","children":[],"val":5},{"$id":"6","children":[],"val":6}],"val":3},{"$id":"3","children":[],"val":2},{"$id":"4","children":[],"val":4}],"val":1}'
+# Easy (68.53%)
+# Likes:    912
+# Dislikes: 50
+# Total Accepted:    119.8K
+# Total Submissions: 174.3K
+# Testcase Example:  '[1,null,3,2,4,null,5,6]'
 #
 # Given a n-ary tree, find its maximum depth.
 # 
 # The maximum depth is the number of nodes along the longest path from the root
 # node down to the farthest leaf node.
 # 
-# For example, given a 3-ary tree:
+# Nary-Tree input serialization is represented in their level order traversal,
+# each group of children is separated by the null value (See examples).
+# 
+# 
+# Example 1:
 # 
 # 
 # 
 # 
+# Input: root = [1,null,3,2,4,null,5,6]
+# Output: 3
 # 
 # 
-# We should return its max depth, which is 3.
+# Example 2:
 # 
 # 
 # 
-# Note:
+# 
+# Input: root =
+# [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+# Output: 5
 # 
 # 
-# The depth of the tree is at most 1000.
-# The total number of nodes is at most 5000.
+# 
+# Constraints:
+# 
+# 
+# The depth of the n-ary tree is less than or equal to 1000.
+# The total number of nodes is between [0, 10^4].
 # 
 # 
 #
+
+# @lc code=start
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, children):
+    def __init__(self, val=None, children=None):
         self.val = val
         self.children = children
 """
+
 class Solution:
     def maxDepth(self, root: 'Node') -> int:
-
-        """
-        if not root:
-            return 0
-        elif root.children == []:
-            return 1
-        else:
-            height = [self.maxDepth(c) for c in root.children]
-
-        return max(height) + 1
-        """
-
-        """
-        stack = []
-        if root:
-            stack.append((1, root))
-
-        depth = 0
-        while stack:
-            current_depth, root = stack.pop()
-            if root:
-                depth = max(depth, current_depth)
-                for c in root.children:
-                    stack.append((current_depth+1, c))
-
-        return depth
-        """
-
+        # O(N) / O(logN)
         if not root: return 0
-        return 1 + max(map(self.maxDepth, root.children or [None]))
+        return 1 + max(map(self.maxDepth, root.children or [None,]))
         
-        
+# @lc code=end
 

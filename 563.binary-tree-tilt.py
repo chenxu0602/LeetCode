@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-tilt/description/
 #
 # algorithms
-# Easy (47.18%)
-# Likes:    341
-# Dislikes: 787
-# Total Accepted:    54.9K
-# Total Submissions: 116.4K
+# Easy (48.66%)
+# Likes:    544
+# Dislikes: 1332
+# Total Accepted:    80.1K
+# Total Submissions: 164.3K
 # Testcase Example:  '[1,2,3]'
 #
 # Given a binary tree, return the tilt of the whole tree.
@@ -44,34 +44,38 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def findTilt(self, root: TreeNode) -> int:
-        """
+        # O(n) / O(n)
+        # def dfs(node):
+        #     if not node: 
+        #         return 0, 0
+
+        #     left, right = map(dfs, (node.left, node.right))
+        #     return left[0] + right[0] + node.val, abs(left[0] - right[0]) + left[1] + right[1]
+
+        # return dfs(root)[1]
+
+
         def dfs(node):
             if not node:
                 return 0
-            a, b = dfs(node.left), dfs(node.right)
-            self.s += abs(a - b)
-            return a + b + node.val
+
+            left, right = map(dfs, (node.left, node.right))
+            self.s += abs(left - right)
+            return left + right + node.val
 
         self.s = 0
         dfs(root)
         return self.s
-        """
-
-        def dfs(node):
-            if not node:
-                return 0, 0
-            left, right = dfs(node.left), dfs(node.right)
-            return left[0]+right[0]+node.val, abs(left[0]-right[0]) + left[1] + right[1]
-
-        return dfs(root)[1]
         
+# @lc code=end
 

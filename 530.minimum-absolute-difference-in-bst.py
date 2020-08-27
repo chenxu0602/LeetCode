@@ -51,7 +51,18 @@ class Solution:
         return self.inorder(root.left) + [root.val] + self.inorder(root.right) if root else []
 
     def getMinimumDifference(self, root: TreeNode) -> int:
-        nums = self.inorder(root)
-        return min(nums[i+1] - nums[i] for i in range(len(nums)-1))
+        # nums = self.inorder(root)
+        # return min(nums[i+1] - nums[i] for i in range(len(nums)-1))
+
+        def dfs(node, lo, hi):
+            if not node: 
+                return hi - lo
+
+            left, right = map(dfs, (node.left, node.right), (lo, node.val), (node.val, hi))
+            return min(left, right)
+
+        return dfs(root, float("-inf"), float("inf"))
+
+
         
 

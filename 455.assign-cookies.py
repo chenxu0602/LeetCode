@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/assign-cookies/description/
 #
 # algorithms
-# Easy (48.54%)
-# Likes:    327
-# Dislikes: 67
-# Total Accepted:    65.9K
-# Total Submissions: 135.8K
+# Easy (49.87%)
+# Likes:    638
+# Dislikes: 95
+# Total Accepted:    98.4K
+# Total Submissions: 197.3K
 # Testcase Example:  '[1,2,3]\n[1,1]'
 #
 # 
@@ -55,23 +55,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findContentChildren(self, g: List[int], s: List[int]) -> int:
-
-        """
-        g.sort()
-        s.sort()
-
-        res, i = 0, 0
-        for e in s:
-            if i == len(g):
-                break
-            if e >= g[i]:
-                res += 1
-                i += 1
-        return res
-        """
-
         g.sort(); s.sort()
         child, cookie = 0, 0
 
@@ -81,7 +68,6 @@ class Solution:
             cookie += 1
 
         return child
-
-            
         
+# @lc code=end
 

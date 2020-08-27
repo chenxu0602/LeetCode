@@ -87,21 +87,21 @@
 # 
 #
 
+from typing import Dict
 from functools import lru_cache
 
 class Solution:
-    def encode2(self, s, memo={}):
+    def encode2(self, s: str, memo: Dict[str, str] = {}) -> Dict[str, str]:
         if s not in memo:
             n = len(s)
             i = (s + s).find(s, 1)
             one = f"{n//i}[{self.encode2(s[:i])}]" if i < n else s
-            multi = [self.encode2(s[:i]) + self.encode2(s[i:]) for i in range(1 ,n)]
+            multi = [self.encode2(s[:i]) + self.encode2(s[i:]) for i in range(1, n)]
             memo[s] = min([s, one] + multi, key=len)
-
         return memo[s]
 
     def encode(self, s: str) -> str:
-#        return self.encode2(s)
+    #    return self.encode2(s)
 
         @lru_cache(None)
         def dfs(s):
@@ -110,7 +110,6 @@ class Solution:
             one = f"{n//i}[{dfs(s[:i])}]" if i < n else s
             multi = [dfs(s[:i]) + dfs(s[i:]) for i in range(1, n)]
             return min([s, one] + multi, key=len)
-
         return dfs(s)
         
 

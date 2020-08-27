@@ -60,11 +60,15 @@ from collections import Counter
 
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
-        if k > 0:
-            return len(set(nums) & set(n + k for n in nums))
-        elif k == 0:
-            return sum(v > 1 for v in Counter(nums).values())
-        else:
-            return 0
+        # if k > 0:
+        #     return len(set(nums) & set(n + k for n in nums))
+        # elif k == 0:
+        #     return sum(v > 1 for v in Counter(nums).values())
+        # else:
+        #     return 0
+
+
+        c = Counter(nums)
+        return sum(k > 0 and i + k in c or k == 0 and c[i] > 1 for i in c)
         
 

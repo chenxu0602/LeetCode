@@ -64,27 +64,10 @@
 # 
 #
 from collections import Counter
+import itertools
 
 class Solution:
     def magicalString(self, n: int) -> int:
-        """
-        s = '122'
-        idx = 2
-        bl = True
-        while len(s) <= n:
-            if s[idx] == '1':
-                s += '1' if bl else '2'
-            else:
-                s += '11' if bl else '22'
-            idx += 1
-
-            if bl:
-                bl = False
-            else:
-                bl = True
-        c = Counter(s[:n])
-        return c['1']
-        """
 
         S = [1, 2, 2]
         idx = 2
@@ -92,6 +75,7 @@ class Solution:
             S += S[idx] * [(3 - S[-1])]
             idx += 1
         return S[:n].count(1)
+
 
         
 

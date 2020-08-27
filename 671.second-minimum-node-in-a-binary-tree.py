@@ -65,6 +65,9 @@
 
 class Solution:
     def findSecondMinimumValue(self, root: TreeNode) -> int:
+        # We know all values in the subtree at \text{node}node are at least \text{node.val}node.val, so there cannot be a better candidate for the second minimum in this subtree. 
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         self.ans = float("inf")
         min1 = root.val
 

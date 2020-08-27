@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/freedom-trail/description/
 #
 # algorithms
-# Hard (40.90%)
-# Likes:    290
-# Dislikes: 18
-# Total Accepted:    13.8K
-# Total Submissions: 33.7K
+# Hard (42.86%)
+# Likes:    429
+# Dislikes: 24
+# Total Accepted:    18.6K
+# Total Submissions: 43.2K
 # Testcase Example:  '"godding"\n"gd"'
 #
 # In the video game Fallout 4, the quest "Road to Freedom" requires players to
@@ -68,19 +68,64 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findRotateSteps(self, ring: str, key: str) -> int:
-        stepsmap = {0: 0}
+        # m, n = len(key), len(ring)
+        # dp = [[0] * n for _ in range(m + 1)]
 
-        for target in key:
-            cur = {}
-            for idx in stepsmap:
-                for i, c in enumerate(ring):
-                    if c == target:
-                        steps = min(abs(idx-i), len(ring)-abs(idx-i))
-                        cur[i] = steps + stepsmap[idx] if i not in cur else min(cur[i], steps+stepsmap[idx])
-            stepsmap = cur
+        # for i in range(m-1, -1, -1):
+        #     for j in range(n):
+        #         dp[i][j] = float("inf")
+        #         for k in range(n):
+        #             if ring[k] == key[i]:
+        #                 diff = abs(j - k)
+        #                 step = min(diff, n - diff)
+        #                 dp[i][j] = min(dp[i][j], step + dp[i+1][k])
 
-        return min(stepsmap.values()) + len(key)
+        # return dp[0][0] + m
+
+
+        # O(MNN) while N is the most occurrence of the same character on the ring.
+        def dist(i, j): return min(abs(i - j), len(ring) - abs(i - j))
+
+        pos = {}
+        for i, c in enumerate(ring):
+            if c in pos:
+                pos[c].append(i)
+            else:
+                pos[c] = [i]
+
+        state = {0: 0}
+        for c in key:
+            next_state = {}
+            for j in pos[c]:
+                next_state[j] = float("inf")
+                for i in state:
+                    next_state[j] = min(next_state[j], dist(i, j) + state[i])
+
+            state = next_state
+
+        return min(state.values()) + len(key)
+
+
+        # stepsmap = {0: 0}
+
+        # for target in key:
+        #     cur = {}
+        #     for idx in stepsmap:
+        #         for i, c in enumerate(ring):
+        #             if c == target:
+        #                 steps = min(abs(idx - i), len(ring) - abs(idx - i))
+        #                 cur[i] = steps + stepsmap[idx] if i not in cur else min(cur[i], 
+        #                     steps + stepsmap[idx])
+
+        #     stepsmap = cur
+
+        # return min(stepsmap.values()) + len(key)
+
+
         
+# @lc code=end
 

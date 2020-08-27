@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-circular-deque/description/
 #
 # algorithms
-# Medium (49.58%)
-# Likes:    115
-# Dislikes: 30
-# Total Accepted:    8K
-# Total Submissions: 16.1K
-# Testcase Example:  '["MyCircularDeque","insertLast","insertLast","insertFront","insertFront","getRear","isFull","deleteLast","insertFront","getFront"]\n' +
+# Medium (52.54%)
+# Likes:    274
+# Dislikes: 40
+# Total Accepted:    17.9K
+# Total Submissions: 33.9K
+# Testcase Example:  '["MyCircularDeque","insertLast","insertLast","insertFront","insertFront","getRear","isFull","deleteLast","insertFront","getFront"]\n' + '[[3],[1],[2],[3],[4],[],[],[],[4],[]]'
 #
 # Design your implementation of the circular double-ended queue (deque).
 # 
@@ -64,6 +64,8 @@
 # 
 # 
 #
+
+# @lc code=start
 class MyCircularDeque:
 
     def __init__(self, k: int):
@@ -75,7 +77,6 @@ class MyCircularDeque:
         self.front = (k - 1) % k
         self.last = 0
         
-
     def insertFront(self, value: int) -> bool:
         """
         Adds an item at the front of Deque. Return true if the operation is successful.
@@ -86,7 +87,7 @@ class MyCircularDeque:
             return True
         else:
             return False
-        
+
     def insertLast(self, value: int) -> bool:
         """
         Adds an item at the rear of Deque. Return true if the operation is successful.
@@ -97,7 +98,7 @@ class MyCircularDeque:
             return True
         else:
             return False
-        
+
     def deleteFront(self) -> bool:
         """
         Deletes an item from the front of Deque. Return true if the operation is successful.
@@ -119,18 +120,21 @@ class MyCircularDeque:
             self.q[(self.last - 1) % self.len] = None
             self.last = (self.last - 1) % self.len
             return True
-
+        
     def getFront(self) -> int:
         """
         Get the front item from the deque.
         """
-        return self.q[(self.front + 1) % self.len] if self.q[(self.front + 1) % self.len] is not None else -1
+        front = (self.front + 1) % self.len
+        return self.q[front] if self.q[front] is not None else -1
 
     def getRear(self) -> int:
         """
         Get the last item from the deque.
         """
-        return self.q[(self.last - 1) % self.len] if self.q[(self.last - 1) % self.len] is not None else -1 
+        rear = (self.last - 1) % self.len
+        return self.q[rear] if self.q[rear] is not None else -1
+        
 
     def isEmpty(self) -> bool:
         """
@@ -156,4 +160,5 @@ class MyCircularDeque:
 # param_6 = obj.getRear()
 # param_7 = obj.isEmpty()
 # param_8 = obj.isFull()
+# @lc code=end
 

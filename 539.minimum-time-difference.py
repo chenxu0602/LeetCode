@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-time-difference/description/
 #
 # algorithms
-# Medium (48.31%)
-# Likes:    258
-# Dislikes: 88
-# Total Accepted:    30.3K
-# Total Submissions: 62.6K
+# Medium (51.49%)
+# Likes:    503
+# Dislikes: 154
+# Total Accepted:    51.9K
+# Total Submissions: 100.6K
 # Testcase Example:  '["23:59","00:00"]'
 #
 # Given a list of 24-hour clock time points in "Hour:Minutes" format, find the
@@ -31,31 +31,14 @@
 # 
 # 
 #
-from math import inf
 
+# @lc code=start
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        """
-        for i, timePoint in enumerate(timePoints):
-            hours, mins = timePoint.split(':')
-            timeInMins = int(hours) * 60 + int(mins)
-            timePoints[i] = timeInMins
-
-        timePoints.sort()
-        smallestDiff = inf
-
-        for i in range(1, len(timePoints)):
-            smallestDiff = min(smallestDiff, timePoints[i] - timePoints[i-1])
-
-        smallestDiff = min(smallestDiff, 60 * 24 + timePoints[0] - timePoints[-1])
-
-        return smallestDiff
-        """
 
         t = sorted(int(t[:2]) * 60 + int(t[-2:]) for t in timePoints)
-        t.append(t[0] + 1440)
+        t.append(t[0] + 60 * 24)
         return min(b - a for a, b in zip(t, t[1:]))
-
-
         
+# @lc code=end
 

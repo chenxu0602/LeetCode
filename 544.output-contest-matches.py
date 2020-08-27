@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/output-contest-matches/description/
 #
 # algorithms
-# Medium (73.58%)
-# Likes:    208
-# Dislikes: 63
-# Total Accepted:    16.1K
-# Total Submissions: 21.9K
+# Medium (75.11%)
+# Likes:    273
+# Dislikes: 93
+# Total Accepted:    20.9K
+# Total Submissions: 27.8K
 # Testcase Example:  '4'
 #
 # 
@@ -75,36 +75,40 @@
 # 
 # 
 #
-import math 
+
+# @lc code=start
+import math
 
 class Solution:
     def findContestMatch(self, n: int) -> str:
-        team = list(map(str, range(1, n+1)))
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(NlogN)
+        # team = list(map(str, range(1, n + 1)))
+        # while n > 1:
+        #     for i in range(n // 2):
+        #         team[i] = "({},{})".format(team[i], team.pop())
+        #     n //= 2
+        # return team[0]
 
-        while n > 1:
-            for i in range(n // 2):
-                team[i] = "({},{})".format(team[i], team.pop())
-            n //= 2
 
-        return team[0]
-
-        """
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         team, ans = [], []
         def write(r):
             if r == 0:
                 i = len(team)
                 w = i & -i
-                team.append(n//w + 1 - team[i-w] if w else 1)
+                team.append(n // w + 1 - team[i - w] if w else 1)
                 ans.append(str(team[-1]))
             else:
-                ans.append("(")
-                write(r-1)
-                ans.append(",")
-                write(r-1)
-                ans.append(")")
+                ans.append('(')
+                write(r - 1)
+                ans.append(',')
+                write(r - 1)
+                ans.append(')')
 
         write(int(math.log(n, 2)))
         return "".join(ans)
-        """
         
+# @lc code=end
 

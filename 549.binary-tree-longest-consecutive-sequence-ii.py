@@ -61,60 +61,58 @@
 
 class Solution:
     def longestConsecutive(self, root: TreeNode) -> int:
-
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         # def get_max(node):
-        #     if not node:
-        #         return 0, 0
-            
+        #     if not node: return 0, 0, 0
+
         #     inc, dec = 1, 1
-            
+
+        #     li, ld, lt = get_max(node.left)
+        #     ri, rd, rt = get_max(node.right)
+
         #     if node.left:
-        #         li, ld = get_max(node.left)
-        #         if node.val == node.left.val - 1:
+        #         if li and node.left.val - node.val == 1:
         #             inc = li + 1
-        #         elif node.val == node.left.val + 1:
+        #         if ld and node.left.val - node.val == -1:
         #             dec = ld + 1
-                    
+
         #     if node.right:
-        #         ri, rd = get_max(node.right)
-        #         if node.val == node.right.val - 1:
+        #         if ri and node.right.val - node.val == 1:
         #             inc = max(inc, ri + 1)
-        #         elif node.val == node.right.val + 1:
+        #         if rd and node.right.val - node.val == -1:
         #             dec = max(dec, rd + 1)
-                    
-        #     self.maxval = max(self.maxval, inc + dec - 1)
-        #     return inc, dec
-                    
-        
-        
-        # self.maxval = 0
-        # get_max(root)
-        # return self.maxval
+
+        #     return inc, dec, max(inc + dec - 1, lt, rt)
+
+        # return max(get_max(root))
 
 
         def get_max(node):
-            if not node:
-                return 0, 0, 0
+            if not node: return 0, 0
 
             inc, dec = 1, 1
-            li, ld, lt = get_max(node.left)
-            ri, rd, rt = get_max(node.right)
-
+            
             if node.left:
-                if li and node.left.val - node.val == 1:
+                li, ld = get_max(node.left)
+                if node.val == node.left.val - 1:
                     inc = li + 1
-                if ld and node.left.val - node.val == -1:
+                elif node.val == node.left.val + 1:
                     dec = ld + 1
 
             if node.right:
-                if ri and node.right.val - node.val == 1:
+                ri, rd = get_max(node.right)
+                if node.val == node.right.val - 1:
                     inc = max(inc, ri + 1)
-                if rd and node.right.val - node.val == -1:
+                elif node.val == node.right.val + 1:
                     dec = max(dec, rd + 1)
 
-            return inc, dec, max(inc + dec - 1, lt, rt)
+            self.maxval = max(self.maxval, inc + dec - 1)
+            return inc, dec
 
-        return max(get_max(root))
+        self.maxval = 0
+        get_max(root)
+        return self.maxval
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-genetic-mutation/description/
 #
 # algorithms
-# Medium (38.41%)
-# Likes:    264
-# Dislikes: 36
-# Total Accepted:    22.1K
-# Total Submissions: 57.6K
+# Medium (41.65%)
+# Likes:    418
+# Dislikes: 56
+# Total Accepted:    31.8K
+# Total Submissions: 75.9K
 # Testcase Example:  '"AACCGGTT"\n"AACCGGTA"\n["AACCGGTA"]'
 #
 # A gene string can be represented by an 8-character long string, with choices
@@ -78,12 +78,14 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
-
         queue = deque([(start, start, 0)])
+
         while queue:
             prev, curr, steps = queue.popleft()
             if curr == end:
@@ -91,7 +93,9 @@ class Solution:
 
             for b in bank:
                 if not b == prev and sum([not s1 == s2 for s1, s2 in zip(b, curr)]) == 1:
-                    queue.append([curr, b, steps+1])
+                    queue.append([curr, b, steps + 1])
 
         return -1
+        
+# @lc code=end
 

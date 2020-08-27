@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-the-derangement-of-an-array/description/
 #
 # algorithms
-# Medium (37.85%)
-# Likes:    87
-# Dislikes: 99
-# Total Accepted:    4.9K
-# Total Submissions: 13K
+# Medium (40.05%)
+# Likes:    135
+# Dislikes: 120
+# Total Accepted:    6.8K
+# Total Submissions: 17K
 # Testcase Example:  '1'
 #
 # 
@@ -41,21 +41,46 @@
 # n is in the range of [1, 10^6].
 # 
 #
+
+# @lc code=start
 class Solution:
     def findDerangement(self, n: int) -> int:
-        if n == 0:
-            return 1
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        # if n == 0: return 1
+        # if n == 1: return 0
+        # dp = [0] * (n + 1)
+        # dp[0] = 1; dp[1] = 0
 
-        if n == 1:
-            return 0
+        # for i in range(2, n + 1):
+        #     dp[i] = (i - 1) * (dp[i - 1] + dp[i - 2]) % (10**9 + 7)
 
-        dp = [0] * (n + 1)
-        dp[0] = 1
-        dp[1] = 0
+        # return dp[n]
 
-        for i in range(2, n+1):
-            dp[i] = (i - 1) * (dp[i-1] + dp[i-2]) % (10**9 + 7)
 
-        return dp[n]
+
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        if n == 0: return 1
+        if n == 1: return 0
+        first, second = 1, 0
+        for i in range(2, n + 1):
+            first, second = second, (i - 1) * (first + second) % (10**9 + 7)
+
+        return second
+
+
+        # n! - n!/1! + n!/2! - n!/3! + ... + (-1)^n x n!/n!
+        # mul, sum, M = 1, 0, 10**9 + 7
+        # for i in range(n, -1, -1):
+        #     if i % 2 == 0:
+        #         sum = (sum + M + mul) % M
+        #     else:
+        #         sum = (sum + M - mul) % M
+                
+        #     mul = (mul * i) % M
+            
+        # return sum
         
+# @lc code=end
 

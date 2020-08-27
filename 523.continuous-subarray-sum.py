@@ -56,21 +56,22 @@ class Solution:
 
         d = {}
         d[0] = -1
-        sum_ = 0
+        sums = 0
 
         for i, v in enumerate(nums):
-            sum_ += v
+            sums += v
 
             if k != 0:
-                sum_ %= k
+                sums = sums % k
 
-            if sum_ in d:
-                if i - d[sum_] > 1:
+            if sums in d:
+                if i - d[sums] > 1:
                     return True
             else:
-                d[sum_] = i
+                d[sums] = i
 
         return False
+
 
             
 

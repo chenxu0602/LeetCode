@@ -67,30 +67,31 @@ class Solution:
     def isPossible(self, nums: List[int]) -> bool:
 
 
-        """
-        count[i] counts the number of i that hasn't been placed yet.
-        tails[i] counts the number of consecutive subsequences that ends at number i
-        """
+        # count[i] counts the number of i that hasn't been placed yet.
+        # tails[i] counts the number of consecutive subsequences that ends before number i
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
 
         count = Counter(nums)
         tails = Counter()
 
         for x in nums:
             if count[x] == 0:
-                continue 
+                continue
             elif tails[x] > 0:
                 tails[x] -= 1
-                tails[x+1] += 1
-            elif count[x+1] > 0 and count[x+2] > 0:
-                count[x+1] -= 1
-                count[x+2] -= 1
-                tails[x+3] += 1
+                tails[x + 1] += 1
+            elif count[x + 1] > 0 and count[x + 2] > 0:
+                count[x + 1] -= 1
+                count[x + 2] -= 1
+                tails[x + 3] += 1
             else:
                 return False
 
             count[x] -= 1
 
         return True
+
 
         
 

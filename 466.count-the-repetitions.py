@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/count-the-repetitions/description/
 #
 # algorithms
-# Hard (27.36%)
-# Likes:    109
-# Dislikes: 83
-# Total Accepted:    8.1K
-# Total Submissions: 29.6K
+# Hard (27.85%)
+# Likes:    146
+# Dislikes: 117
+# Total Accepted:    9.5K
+# Total Submissions: 34K
 # Testcase Example:  '"acb"\n4\n"ab"\n2'
 #
 # Define S = [s,n] as the string S which consists of n connected strings s. For
@@ -39,46 +39,54 @@
 # @lc code=start
 class Solution:
     def getMaxRepetitions(self, s1: str, n1: int, s2: str, n2: int) -> int:
+        # Time  complexity: O(n1 * size(s1))
+        # Space complexity: O(1)
+        # index, repeat_count = 0, 0
+        # s1_size, s2_size = map(len, (s1, s2))
+        # for i in range(n1):
+        #     for j in range(s1_size):
+        #         if s1[j] == s2[index]:
+        #             index += 1
+        #         if index == s2_size:
+        #             index = 0
+        #             repeat_count += 1
 
-        """
-        index, repeat_count = 0, 0
-        s1_size, s2_size = len(s1), len(s2)
-        for i in range(n1):
-            for j in range(s1_size):
-                if s1[j] == s2[index]:
-                    index += 1
-                if index == s2_size:
-                    index = 0
-                    repeat_count += 1
-        return repeat_count // n2
-        """
+        # return repeat_count // n2
 
-        if n1 == 0: return 0
 
-        indexr = [0] * (len(s2) + 1)
-        countr = [0] * (len(s1) + 1)
+        # According to the Pigeonhole principle, we need to iterate over s1 only (size(s2) + 1) times at max.
+        # Time  complexity: O(size(s1) * size(s2))
+        # Space complexity: O(size(s2))
+        start = {}
+        s1_round, s2_round, s2_idx = 0, 0, 0
+        while s1_round < n1:
+            s1_round += 1
+            for ch in s1:
+                if ch == s2[s2_idx]:
+                    s2_idx += 1
+                    if s2_idx == len(s2):
+                        s2_round += 1
+                        s2_idx = 0
+                        
+            if s2_idx in start:
+                prev_s1_round, prev_s2_round = start[s2_idx]
+                circle_s1_round = s1_round - prev_s1_round
+                circle_s2_round = s2_round - prev_s2_round
+                res = int((n1 - prev_s1_round) / circle_s1_round) * circle_s2_round
+                left_s1_round = (n1 - prev_s1_round) % circle_s1_round + prev_s1_round
+                for key, val in start.items():
+                    if val[0] == left_s1_round:
+                        res += val[1]
+                        break
+                return int(res / n2)
+            else:
+                start[s2_idx] = (s1_round, s2_round)
+                
+        return int(s2_round / n2)
 
-        index, count = 0, 0
-        for i in range(n1):
-            for j in range(len(s1)):
-                if s1[j] == s2[index]:
-                    index += 1
-                if index == len(s2):
-                    index = 0
-                    count += 1
 
-            countr[i] = count
-            indexr[i] = index
 
-            for k in range(i):
-                if indexr[k] == index:
-                    prev_count = countr[k]
-                    pattern_count = (countr[i] - countr[k]) * ((n1 - 1 - k) // (i - k))
-                    remain_count = countr[k + (n1 - 1 - k) % (i - k)] - countr[k]
-                    return (prev_count + pattern_count + remain_count) // n2
 
-        return countr[n1 - 1] // n2
-        
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-permutation/description/
 #
 # algorithms
-# Medium (57.81%)
-# Likes:    197
-# Dislikes: 42
-# Total Accepted:    13.6K
-# Total Submissions: 23.5K
+# Medium (60.39%)
+# Likes:    361
+# Dislikes: 59
+# Total Accepted:    21.7K
+# Total Submissions: 34.3K
 # Testcase Example:  '"DDIIDI"'
 #
 # 
@@ -56,14 +56,17 @@
 # The length of input string is a positive integer and will not exceed 10,000
 # 
 #
+
+# @lc code=start
 class Solution:
     def findPermutation(self, s: str) -> List[int]:
-        
+        # Time complexity: O(n)
+        # Space complexity: O(n)
         res = [0] * (len(s) + 1)
         stack = []
 
         j = 0
-        for i in range(1, len(s)+1):
+        for i in range(1, len(s) + 1):
             if s[i-1] == 'I':
                 stack.append(i)
                 while stack:
@@ -76,7 +79,7 @@ class Solution:
         while stack:
             res[j] = stack.pop()
             j += 1
-
         return res
-
+        
+# @lc code=end
 

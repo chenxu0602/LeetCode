@@ -120,7 +120,9 @@ class Solution:
         :type robot: Robot
         :rtype: None
         """
-
+        # Time  complexity: O(4^(N-M))
+        # Space complexity: O(N-M)
+        # N is a number of cells in the room and MM is a number of obstacles
         def go_back():
             robot.turnRight()
             robot.turnRight()

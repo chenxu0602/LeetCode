@@ -54,6 +54,8 @@ from collections import defaultdict
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
 
+        # Time  complexity: O(2^n)
+        # Space complexity: O(n)
         # def dfs(cur, i, d={}):
         #     if i < len(nums) and (i, cur) not in d:
         #         d[i, cur] = dfs(cur + nums[i], i + 1) + dfs(cur - nums[i], i + 1)
@@ -61,17 +63,20 @@ class Solution:
 
         # return dfs(0, 0)
 
+
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         if len(nums) == 0: return 0
 
         prev = defaultdict(int)
         prev[nums[0]] += 1
         prev[-nums[0]] += 1
 
-        for i in nums[1:]:
+        for i in range(1, len(nums)):
             temp = defaultdict(int)
             for k, v in prev.items():
-                temp[k-i] += v
-                temp[k+i] += v
+                temp[k - nums[i]] += v
+                temp[k + nums[i]] += v
             prev = temp
 
         return prev[S]

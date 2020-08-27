@@ -42,18 +42,18 @@
 #
 class Solution:
     def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
-#        s = {w for w in words if w}
-#        f = lambda w: not w or any(w[:i+1] in s and f(w[i+1:]) for i in range(len(w), -1, -1)) 
-#        return [w for w in sorted(s, key=len)[::-1] if s.discard(w) or f(w)]
 
-        ret, s = [], {w for w in words if w}
-        f = lambda w: not w or any(w[:i+1] in s and f(w[i+1:]) for i in range(len(w), -1, -1)) 
+        res, s = [], {w for w in words if w}
+        f = lambda w: not w or any(w[:i+1] in s and f(w[i+1:]) for i in range(len(w)-1, -1, -1))
         for w in sorted(s, key=len, reverse=True):
             s.discard(w)
             if f(w):
-                ret.append(w)
+                res.append(w)
+        return res
 
-        return ret
+        s = {w for w in words if w}
+        f = lambda w: not w or any(w[:i+1] in s and f(w[i+1:]) for i in range(len(w)-1, -1, -1))
+        return [w for w in sorted(s, key=len)[::-1] if s.discard(w) or f(w)]
 
 
 

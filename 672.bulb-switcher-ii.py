@@ -67,6 +67,12 @@ import itertools
 
 class Solution:
     def flipLights(self, n: int, m: int) -> int:
+        # First, all these operations commute: doing operation A followed by operation B yields the same result as doing operation B followed by operation A. 
+        # Also, doing operation A followed by operation A again is the same as doing nothing. So really, we only needed to know the residues cand[i] = f[i] % 2. 
+        # There are only 16 different possibilities for the residues in total, so we can try them all.
+        # We'll loop cand through all 16 possibilities (0, 0, 0, 0), (0, 0, 0, 1), ..., (1, 1, 1, 1). 
+        # A necessary and sufficient condition for cand to be valid is that sum(cand) % 2 == m % 2 and sum(cand) <= m, 
+        # as only when these conditions are satisfied can we find some f with sum(f) == m and cand[i] = f[i] % 2.
         seen = set()
         for cand in itertools.product((0, 1), repeat=4):
             if sum(cand) % 2 == m % 2 and sum(cand) <= m:
@@ -81,14 +87,12 @@ class Solution:
                 seen.add(tuple(A))
 
         return len(seen)
-        """
 
-        n = min(n, 3)
-        if m == 0: return 1
-        if m == 1: return [2, 3, 4][n-1]
-        if m == 2: return [2, 4, 7][n-1]
-        return [2, 4, 8][n-1]
-        """
+
+        # Operations: O(flip odds), E(flip evens), A(flip all), T(flip 3k + 1), N(flip nothing)
+        # Relations: O + O = N, E + E = N, A + A = N, T + T = N O + E = A, O + A = E, E + A = O
+        # m, n = min(3, m), min(3, n)
+        # return 1 if m == 0 or n == 0 else self.flipLights(n - 1, m) + self.flipLights(n - 1, m - 1)
 
         
 

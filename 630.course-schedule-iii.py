@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/course-schedule-iii/description/
 #
 # algorithms
-# Hard (32.11%)
-# Likes:    432
-# Dislikes: 24
-# Total Accepted:    12.8K
-# Total Submissions: 39.6K
+# Hard (32.83%)
+# Likes:    569
+# Dislikes: 27
+# Total Accepted:    16.7K
+# Total Submissions: 51K
 # Testcase Example:  '[[100,200],[200,1300],[1000,1250],[2000,3200]]'
 #
 # There are n different online courses numbered from 1 to n. Each course has
@@ -50,10 +50,22 @@
 # 
 # 
 #
+
+# @lc code=start
 import heapq
 
 class Solution:
     def scheduleCourse(self, courses: List[List[int]]) -> int:
+        # Priority Queue
+        # The iteration over the sorted coursescourses remains the same as in the last approaches. 
+        # Whenver the current course_i can be taken(time + duration_i ≤ end_i), 
+        # it is added to the queuequeue and the value of the current time is updated to time + duration_itime+duration_i.
+        # If the current course can't be taken directly, as in the previous appraoches, 
+        # we need to find a course whose duration duration_j is maximum from amongst the courses taken till now. Now, since we are maintaing a Max-Heap, queuequeue, we can obtain this duration directly from this queuequeue. 
+        # If the duration duration_j > duration_i, we can replace the jth course, with the current one.
+        # Time  complexity: O(nlogn)
+        # Space complexity: O(n)
+
         pq, start = [], 0
 
         for t, end in sorted(courses, key=lambda x: x[1]):
@@ -61,7 +73,9 @@ class Solution:
             heapq.heappush(pq, -t)
             while start > end:
                 start += heapq.heappop(pq)
-        
+
         return len(pq)
+
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/design-excel-sum-formula/description/
 #
 # algorithms
-# Hard (29.42%)
-# Likes:    64
-# Dislikes: 70
-# Total Accepted:    3.1K
-# Total Submissions: 10.5K
+# Hard (31.51%)
+# Likes:    87
+# Dislikes: 91
+# Total Accepted:    4.2K
+# Total Submissions: 13.1K
 # Testcase Example:  '["Excel","get","set","get"]\n[[3,"C"],[1,"A"],[1,"A",1],[1,"A"]]'
 #
 # Your task is to design the basic function of Excel and implement the function
@@ -94,6 +94,8 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Excel:
@@ -101,22 +103,19 @@ class Excel:
     def __init__(self, H: int, W: str):
         self.M = [[{'v': 0, 'sum': None} for i in range(H)] for j in range(ord(W) - 64)]
         
-
     def set(self, r: int, c: str, v: int) -> None:
-        self.M[r-1][ord(c)-65] = {'v': v, 'sum': None}
+        self.M[r - 1][ord(c) - 65] = {'v': v, 'sum': None}
         
-
     def get(self, r: int, c: str) -> int:
-        cell = self.M[r-1][ord(c) - 65]
+        cell = self.M[r - 1][ord(c) - 65]
         if not cell['sum']:
             return cell['v']
         return sum(self.get(*pos) * cell['sum'][pos] for pos in cell['sum'])
         
-
     def sum(self, r: int, c: str, strs: List[str]) -> int:
-        self.M[r-1][ord(c)-65]['sum'] = self.parse(strs)
+        self.M[r - 1][ord(c) - 65]['sum'] = self.parse(strs)
         return self.get(r, c)
-        
+
     def parse(self, strs):
         c = Counter()
         for s in strs:
@@ -126,7 +125,7 @@ class Excel:
                     c[(i, chr(j + 64))] += 1
 
         return c
-
+        
 
 
 # Your Excel object will be instantiated and called as such:
@@ -134,4 +133,5 @@ class Excel:
 # obj.set(r,c,v)
 # param_2 = obj.get(r,c)
 # param_3 = obj.sum(r,c,strs)
+# @lc code=end
 

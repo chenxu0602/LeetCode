@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/circular-array-loop/description/
 #
 # algorithms
-# Medium (27.71%)
-# Likes:    161
-# Dislikes: 946
-# Total Accepted:    19.7K
-# Total Submissions: 71K
+# Medium (29.26%)
+# Likes:    381
+# Dislikes: 1326
+# Total Accepted:    35.1K
+# Total Submissions: 119.4K
 # Testcase Example:  '[2,-1,1,2,2]'
 #
 # You are given a circular array nums of positive and negative integers. If a
@@ -71,80 +71,28 @@
 # 
 # Could you solve it in O(n) time complexity and O(1) extra space complexity?
 #
+
+# @lc code=start
 class Solution:
-    def getIndex(self, i, nums):
-        n = len(nums)
-        if i + nums[i] >= 0:
-            return (i + nums[i]) % n
-        else:
-            return n - (abs(i + nums[i]) % n)
-
     def circularArrayLoop(self, nums: List[int]) -> bool:
-        """
-        n = len(nums)
-
-        if n == 1: return False
-
-        for i, v in enumerate(nums):
-            if v == 0:
-                continue
-
-
-            j, k = i, self.getIndex(i, nums)
-            while nums[k] * nums[i] > 0 and nums[self.getIndex(k, nums)] * nums[i] > 0:
-                if j == k:
-                    if j == self.getIndex(j, nums):
-                        break
-                    return True
-
-                j = self.getIndex(j, nums)
-                k = self.getIndex(self.getIndex(k, nums), nums)
-
-            j = i
-            val = nums[i]
-            while nums[j] * val > 0:
-                next = self.getIndex(j, nums) 
-                j = next
-
-        return False
-        """
-
-        """
-        N, i, bads = len(nums), 0, set()
-
-        def isLoop(i, visiting, direction):
-            if i in visiting:
-                return True
-            visiting.add(i)
-
-            if (i + nums[i]) % N == i or nums[i] // abs(nums[i]) != direction:
-                bads.update(visiting)
-                return False
-            return isLoop((i+nums[i])%N, visiting, direction)
-
-
-        for i, v in enumerate(nums):
-            if isLoop(i, set(), v//abs(v)):
-                return True
-        return False
-        """
 
         s, l = [], len(nums)
         for i, n in enumerate(nums):
             if i in s:
                 continue
+
             d = []
             while n * nums[i] > 0:
                 if i in d:
                     if d[-1] != i:
                         return True
                     break
+
                 d.append(i)
                 s.append(i)
                 i = (i + nums[i]) % l
+
         return False
-
         
-
-        
+# @lc code=end
 

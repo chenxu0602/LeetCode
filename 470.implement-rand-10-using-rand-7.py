@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/implement-rand10-using-rand7/description/
 #
 # algorithms
-# Medium (45.05%)
-# Likes:    199
-# Dislikes: 76
-# Total Accepted:    9.9K
-# Total Submissions: 21.9K
+# Medium (46.30%)
+# Likes:    444
+# Dislikes: 138
+# Total Accepted:    23.8K
+# Total Submissions: 51.4K
 # Testcase Example:  '1'
 #
 # Given a function rand7 which generates a uniform random integer in the range
@@ -71,6 +71,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # The rand7() API is already defined for you.
 # def rand7():
 # @return a random integer in the range 1 to 7
@@ -80,44 +82,11 @@ class Solution:
         """
         :rtype: int
         """
-
-        row, col, idx = 0, 0, 0
-        while idx >= 40:
-            row = rand7(); col = rand7()
-            idx = 7 * (row-1) + (col-1)
-
-        return 1 + idx % 10
-
-        """
-        i = 7
-        while i > 6:
-            i = rand7()
-
-        j = 6
-        while j > 5:
-            j = rand7()
-
-        if i % 2 == 0:
-            return j
-        else:
-            return j + 5
-        """
-
-        """
-        a = rand7(); b = rand7()
-        idx = b + (a-1) * 7
-        if idx <= 40:
-            return 1 + (idx-1) % 10
-        a = idx - 40
-        b = rand7()
-        idx = b + (a-1) * 7
-        if idx <= 60:
-            return 1 + (idx-1) % 60
-        a = idx - 60
-        b = rand7()
-        idx = b + (a-1) * 7
-        if idx <= 20:
-            return 1 + (idx-1) % 10
-        """
+        row, col, idx = 0, 0, 100
+        while idx > 40:
+            row, col = rand7(), rand7()
+            idx = col + (row - 1) * 7
+        return 1 + (idx - 1) % 10
         
+# @lc code=end
 

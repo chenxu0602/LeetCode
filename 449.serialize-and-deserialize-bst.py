@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/serialize-and-deserialize-bst/description/
 #
 # algorithms
-# Medium (50.27%)
-# Likes:    1032
-# Dislikes: 62
-# Total Accepted:    87.4K
-# Total Submissions: 173.2K
+# Medium (51.82%)
+# Likes:    1349
+# Dislikes: 70
+# Total Accepted:    106.4K
+# Total Submissions: 204.2K
 # Testcase Example:  '[2,1,3]'
 #
 # Serialization is the process of converting a data structure or object into a
@@ -43,27 +43,30 @@ class Codec:
     def serialize(self, root: TreeNode) -> str:
         """Encodes a tree to a single string.
         """
-
-        def postorder(node):
-            return postorder(node.left) + postorder(node.right) + [node.val] if node else []
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        def postorder(root):
+            return postorder(root.left) + postorder(root.right) + [root.val] if root else []
         return ' '.join(map(str, postorder(root)))
-        
+
     def deserialize(self, data: str) -> TreeNode:
         """Decodes your encoded data to tree.
         """
-
-        def dfs(lower=float("-inf"), upper=float("inf")):
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        def helper(lower=float("-inf"), upper=float("inf")):
             if not data or data[-1] < lower or data[-1] > upper:
                 return None
 
             val = data.pop()
             root = TreeNode(val)
-            root.right = dfs(val, upper)
-            root.left = dfs(lower, val)
+            root.right = helper(val, upper)
+            root.left = helper(lower, val)
             return root
 
         data = [int(x) for x in data.split(' ') if x]
-        return dfs()
+        return helper()
+            
         
 
 # Your Codec object will be instantiated and called as such:

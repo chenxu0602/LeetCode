@@ -54,13 +54,14 @@
 #
 class Solution:
     def splitLoopedString(self, strs: List[str]) -> str:
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n)
         max_strs = [max(x, x[::-1]) for x in strs]
         ans = ""
         for i, token in enumerate(max_strs):
             for start in (token, token[::-1]):
-                for j in range(len(start)+1):
+                for j in range(len(start) + 1):
                     ans = max(ans, start[j:] + "".join(max_strs[i+1:] + max_strs[:i]) + start[:j])
-
         return ans
 
         

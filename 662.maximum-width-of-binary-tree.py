@@ -99,9 +99,70 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+from collections import deque
 
 class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
+        # BFS Traversal
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if not root: return 0
+
+        # max_width = 0
+        # queue = deque([(root, 0)])
+
+        # while queue:
+        #     level_length = len(queue)
+        #     _, level_head_index = queue[0]
+
+        #     for _ in range(level_length):
+        #         node, col_index = queue.popleft()
+        #         if node.left:
+        #             queue.append((node.left, 2 * col_index))
+        #         if node.right:
+        #             queue.append((node.right, 2 * col_index + 1))
+
+        #     max_width = max(max_width, col_index - level_head_index + 1)
+
+        # return max_width
+
+
+        # queue = [(root, 0, 0)]
+        # cur_depth = left = ans = 0
+        # for node, depth, pos in queue:
+        #     if node:
+        #         queue.append((node.left, depth + 1, pos * 2))
+        #         queue.append((node.right, depth + 1, pos * 2 + 1))
+        #         if cur_depth != depth:
+        #             cur_depth = depth
+        #             left = pos
+        #         ans = max(pos - left + 1, ans)
+        # return ans
+
+        
+        # BFS Traversal
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # table contains the first col_index for each level
+        # first_col_index_table = {}
+        # max_width = 0
+
+        # def dfs(node, depth, col_index):
+        #     nonlocal max_width
+        #     if node is None: return
+        #     # if the entry is empty, set the value
+        #     if depth not in first_col_index_table:
+        #         first_col_index_table[depth] = col_index
+
+        #     max_width = max(max_width, col_index - first_col_index_table[depth] + 1)
+
+        #     # Preorder DFS, with the priority on the left child
+        #     dfs(node.left, depth + 1, 2 * col_index)
+        #     dfs(node.right, depth + 1, 2 * col_index + 1)
+
+        # dfs(root, 0, 0)
+        # return max_width
+
 
         self.ans = 0
         left = {}
@@ -115,6 +176,6 @@ class Solution:
 
         dfs(root)
         return self.ans
-        
+
 # @lc code=end
 

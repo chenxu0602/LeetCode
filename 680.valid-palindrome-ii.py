@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/valid-palindrome-ii/description/
 #
 # algorithms
-# Easy (34.45%)
-# Likes:    813
-# Dislikes: 54
-# Total Accepted:    82.7K
-# Total Submissions: 239.3K
+# Easy (35.73%)
+# Likes:    1140
+# Dislikes: 83
+# Total Accepted:    121.3K
+# Total Submissions: 339.4K
 # Testcase Example:  '"aba"'
 #
 # 
@@ -40,14 +40,27 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def validPalindrome(self, s: str) -> bool:
+        # Greedy 
+        # Time  Complexity: O(N)
+        # Space Complexity: O(1)
+        # def is_pali_range(i, j):
+        #     return all(s[k] == s[j - k + i] for k in range(i, j))
+
+        # for i in range(len(s) // 2):
+        #     if s[i] != s[~i]:
+        #         j = len(s) - 1 - i
+        #         return is_pali_range(i + 1, j) or is_pali_range(i, j - 1)
+        # return True
 
         for i in range(len(s) // 2):
             if s[i] != s[~i]:
                 t, u = s[:i] + s[i+1:], s[:-1-i] + s[len(s)-i:]
                 return t == t[::-1] or u == u[::-1]
         return True
-
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/boundary-of-binary-tree/description/
 #
 # algorithms
-# Medium (35.48%)
-# Likes:    251
-# Dislikes: 468
-# Total Accepted:    23.6K
-# Total Submissions: 66.5K
+# Medium (38.91%)
+# Likes:    537
+# Dislikes: 920
+# Total Accepted:    51.3K
+# Total Submissions: 131.6K
 # Testcase Example:  '[1,null,2,3,4]'
 #
 # Given a binary tree, return the values of its boundary in anti-clockwise
@@ -82,13 +82,14 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def boundaryOfBinaryTree(self, root: TreeNode) -> List[int]:
         def dfs_leftmost(node):
@@ -100,14 +101,6 @@ class Solution:
             else:
                 dfs_leftmost(node.right)
 
-        def dfs_leaves(node):
-            if not node:
-                return
-            dfs_leaves(node.left)
-            if node != root and not node.left and not node.right:
-                boundary.append(node.val)
-            dfs_leaves(node.right)
-
         def dfs_rightmost(node):
             if not node or not node.left and not node.right:
                 return
@@ -117,9 +110,15 @@ class Solution:
                 dfs_rightmost(node.left)
             boundary.append(node.val)
 
-        if not root:
-            return []
+        def dfs_leaves(node):
+            if not node: return
+            dfs_leaves(node.left)
+            if node != root and not node.left and not node.right:
+                boundary.append(node.val)
+            dfs_leaves(node.right)
 
+
+        if not root: return []
         boundary = [root.val]
         dfs_leftmost(root.left)
         dfs_leaves(root)
@@ -127,4 +126,5 @@ class Solution:
 
         return boundary
         
+# @lc code=end
 

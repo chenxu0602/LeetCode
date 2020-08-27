@@ -90,7 +90,8 @@ from collections import deque
 
 class Solution:
     def predictPartyVictory(self, senate: str) -> str:
-
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         queue = deque()
         people, bans = [0, 0], [0, 0]
 
@@ -105,48 +106,27 @@ class Solution:
                 bans[x] -= 1
                 people[x] -= 1
             else:
-                bans[x^1] += 1
-                queue.append(x)
-            
-        return "Radiant" if people[1] else "Dire"
-
-        """
-        queue = deque()
-        people, bans = [0, 0], [0, 0]
-
-        for person in senate:
-            x = person == 'R'
-            people[x] += 1
-            queue.append(x)
-
-        while all(people):
-            x = queue.popleft()
-            if bans[x]:
-                bans[x] -= 1
-                people[x] -= 1
-            else:
-                bans[x^1] += 1
+                bans[x ^ 1] += 1
                 queue.append(x)
 
         return 'Radiant' if people[1] else 'Dire'
-        """
 
-        """
-        l = len(senate)
-        R = [i for i in range(l) if senate[i] == 'R']
-        D = [i for i in range(l) if senate[i] == 'D']
 
-        while len(D) and len(R):
-            if D[0] > R[0]:
-                R.append(R[0] + l)
-            else:
-                D.append(D[0] + l)
+        # l = len(senate)
+        # R = [i for i in range(l) if senate[i] == 'R']
+        # D = [i for i in range(l) if senate[i] == 'D']
 
-            del D[0]
-            del R[0]
+        # while len(D) and len(R):
+        #     if D[0] > R[0]:
+        #         R.append(R[0] + l)
+        #     else:
+        #         D.append(D[0] + l)
 
-        return 'Dire' if len(D) != 0 else 'Radiant'
-        """
+        #     del D[0]
+        #     del R[0]
+
+        # return 'Dire' if len(D) != 0 else 'Radiant'
+
 
         # s = list(senate)
         # i = j = 0
@@ -155,14 +135,14 @@ class Solution:
         #         i += 1
         #     if i == len(s):
         #         return 'Dire'
-            
+
         #     while j < len(s) and s[j] != 'D':
         #         j += 1
         #     if j == len(s):
         #         return 'Radiant'
 
         #     if i < j:
-        #         s[j] = 'X'
+        #         s[j] = ['X']
         #         s.append('R')
         #     else:
         #         s[i] = 'X'
@@ -170,6 +150,7 @@ class Solution:
 
         #     i += 1
         #     j += 1
+            
             
 
         

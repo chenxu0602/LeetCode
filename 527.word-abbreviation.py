@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/word-abbreviation/description/
 #
 # algorithms
-# Hard (50.56%)
-# Likes:    149
-# Dislikes: 95
-# Total Accepted:    12K
-# Total Submissions: 23.6K
+# Hard (54.00%)
+# Likes:    207
+# Dislikes: 128
+# Total Accepted:    16.2K
+# Total Submissions: 29.8K
 # Testcase Example:  '["like","god","internal","me","internet","interval","intension","face","intrusion"]'
 #
 # Given an array of n distinct non-empty strings, you need to generate minimal
@@ -45,77 +45,59 @@
 # ⁠The return answers should be in the same order as the original array.
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def wordsAbbreviation(self, dict: List[str]) -> List[str]:
-        """
-        def abbrev(word, i = 0):
-            if (len(word) - i <= 3):
-                return word
-            return word[:i+1] + str(len(word) - i -2) + word[-1]
 
-        N = len(dict)
-        ans = list(map(abbrev, dict))
-        prefix = [0] * N
+        # Group + Least Common Prefix
+        # Time  complexity: O(ClogC) where CC is the number of characters across all words in the given array. The complexity is dominated by the sorting step.
+        # Space complexity: O(C)
+        # def longest_common_prefix(a, b):
+        #     i = 0
+        #     while i < len(a) and i < len(b) and a[i] == b[i]:
+        #         i += 1
+        #     return i
 
-        for i in range(N):
-            while True:
-                dupes = set()
-                for j in range(i+1, N):
-                    if ans[i] == ans[j]:
-                        dupes.add(j)
+        # ans = [None for _ in dict]
 
-                if not dupes: break
-                dupes.add(i)
-                for k in dupes:
-                    prefix[k] += 1
-                    ans[k] = abbrev(dict[k], prefix[k])
+        # groups = defaultdict(list)
+        # for idx, word in enumerate(dict):
+        #     groups[len(word), word[0], word[-1]].append((word, idx))
 
-        return ans
-        """
+        # for (size, first, last), enum_words in groups.items():
+        #     enum_words.sort() 
+        #     lcp = [0] * len(enum_words)
+        #     for i, (word, _) in enumerate(enum_words):
+        #         if i:
+        #             word2 = enum_words[i-1][0]
+        #             lcp[i] = longest_common_prefix(word, word2)
+        #             lcp[i-1] = max(lcp[i-1], lcp[i])
 
-        """
-        def longest_common_prefix(a, b):
-            i = 0
-            while i < len(a) and i < len(b) and a[i] == b[i]:
-                i += 1
-            return i
+        #     for (word, idx), p in zip(enum_words, lcp):
+        #         delta = size - 2 - p
+        #         if delta <= 1:
+        #             ans[idx] = word
+        #         else:
+        #             ans[idx] = word[:p+1] + str(delta) + last
 
-        ans = [None for _ in dict]
+        # return ans
 
+
+        # Group + Trie
+        # Time  complexity: O(C) where CC is the number of characters across all words in the given array.
+        # Space complexity: O(C)
         groups = defaultdict(list)
-
-        for index, word in enumerate(dict):
-            groups[len(word), word[0], word[-1]].append((word, index))
-
-        for (size, first, last), enum_words in groups.items():
-            enum_words.sort()
-            lcp = [0] * len(enum_words)
-            for i, (word, _) in enumerate(enum_words):
-                if i:
-                    word2 = enum_words[i-1][0]
-                    lcp[i] = longest_common_prefix(word, word2)
-                    lcp[i-1] = max(lcp[i-1], lcp[i])
-
-            for (word, index), p in zip(enum_words, lcp):
-                delta = size - 2 - p
-                if delta <= 1:
-                    ans[index] = word
-                else:
-                    ans[index] = word[:p+1] + str(delta) + last
-
-        return ans
-        """
-
-        groups = defaultdict(list)
-        for index, word in enumerate(dict):
-            groups[len(word), word[0], word[-1]].append((word, index))
+        for idx, word in enumerate(dict):
+            groups[len(word), word[0], word[-1]].append((word, idx))
 
         ans = [None] * len(dict)
         Trie = lambda: defaultdict(Trie)
         COUNT = False
-        for group in groups.values():
+
+        for _, group in groups.items():
             trie = Trie()
             for word, _ in group:
                 cur = trie
@@ -123,15 +105,19 @@ class Solution:
                     cur[COUNT] = cur.get(COUNT, 0) + 1
                     cur = cur[letter]
 
-            for word, index in group:
+            for word, idx in group:
                 cur = trie
                 for i, letter in enumerate(word[1:], 1):
                     if cur[COUNT] == 1: break
                     cur = cur[letter]
                 if len(word) - i - 1 > 1:
-                    ans[index] = word[:i] + str(len(word)-i-1) + word[-1]
+                    ans[idx] = word[:i] + str(len(word) - i - 1) + word[-1]
                 else:
-                    ans[index] = word
+                    ans[idx] = word
+
         return ans
         
+
+        
+# @lc code=end
 

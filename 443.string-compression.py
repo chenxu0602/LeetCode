@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/string-compression/description/
 #
 # algorithms
-# Easy (37.94%)
-# Likes:    379
-# Dislikes: 1199
-# Total Accepted:    56K
-# Total Submissions: 147.6K
+# Easy (41.14%)
+# Likes:    835
+# Dislikes: 2517
+# Total Accepted:    117.2K
+# Total Submissions: 283.6K
 # Testcase Example:  '["a","a","b","b","c","c","c"]'
 #
 # Given an array of characters, compress it in-place.
@@ -86,26 +86,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        walker, runner = 0, 0
-        while runner < len(chars):
+        anchor = write = 0
+        for read, c in enumerate(chars):
+            if read + 1 == len(chars) or chars[read + 1] != c:
+                chars[write] = chars[anchor]
+                write += 1
+                if read > anchor:
+                    for digit in str(read - anchor + 1):
+                        chars[write] = digit
+                        write += 1
+                anchor = read + 1
 
-            chars[walker] = chars[runner]
-            count = 1
-
-            while runner + 1 < len(chars) and chars[runner] == chars[runner+1]:
-                runner += 1
-                count += 1
-
-            if count > 1:
-                for c in str(count):
-                    chars[walker+1] = c
-                    walker += 1
-
-            runner += 1
-            walker += 1
-
-        return walker
+        return write
         
+# @lc code=end
 

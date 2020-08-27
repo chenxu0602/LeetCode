@@ -60,15 +60,35 @@
 
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        if not nums:
-            return None
+        # if not nums:
+        #     return None
 
-        i = nums.index(max(nums))
-        node = TreeNode(nums[i])
+        # i = nums.index(max(nums))
+        # node = TreeNode(nums[i])
 
-        node.left = self.constructMaximumBinaryTree(nums[:i])
-        node.right = self.constructMaximumBinaryTree(nums[i+1:])
+        # node.left = self.constructMaximumBinaryTree(nums[:i])
+        # node.right = self.constructMaximumBinaryTree(nums[i+1:])
 
-        return node
+        # return node
+
+
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n)
+        def calc_max(nums, l, r):
+            max_i = l
+            for i in range(l, r):
+                if nums[max_i] < nums[i]:
+                    max_i = i
+            return max_i
+
+        def construct(nums, l, r):
+            if l == r: return None
+            max_i = calc_max(nums, l, r)
+            node = TreeNode(nums[max_i])
+            node.left = construct(nums, l, max_i)
+            node.right = construct(nums, max_i + 1, r)
+            return node 
+
+        return construct(nums, 0, len(nums))
         
 

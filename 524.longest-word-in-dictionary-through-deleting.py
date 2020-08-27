@@ -61,15 +61,13 @@ class Solution:
 
 
     def findLongestWord(self, s: str, d: List[str]) -> str:
-        """
-        max_str = ""
-        for str in d:
-            if self.issubsequence(str, s):
-                if len(str) > len(max_str) or (len(str) == len(max_str) and str < max_str):
-                    max_str = str
+        # max_str = ""
+        # for str in d:
+        #     if self.issubsequence(str, s):
+        #         if len(str) > len(max_str) or (len(str) == len(max_str) and str < max_str):
+        #             max_str = str
 
-        return max_str
-        """
+        # return max_str
 
         for word in sorted(d, key=lambda w: (-len(w), w)):
             it = iter(s)

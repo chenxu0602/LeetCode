@@ -53,6 +53,7 @@
 #
 class Solution:
     def checkRecord(self, n: int) -> int:
+        # O(n)
         M = 1000000007
 
         f = [0] * 6
@@ -64,9 +65,11 @@ class Solution:
         f[2] = 4
         f[3] = 7
 
+        # The P and L cases
         for i in range(4, n+1):
             f[i] = ((2 * f[i-1]) % M + (M - f[i-4])) % M
         
+        # The A case
         sums = f[n]
         for i in range(1, n+1):
             sums += (f[i-1] * f[n-i]) % M

@@ -56,7 +56,9 @@
 #
 class Solution:
     def checkValidString(self, s: str) -> bool:
-
+        # Greedy
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         lo = hi = 0
         for c in s:
             lo += 1 if c == '(' else -1
@@ -64,6 +66,7 @@ class Solution:
             if hi < 0: break
             lo = max(lo, 0)
         return lo == 0
+
 
         
 

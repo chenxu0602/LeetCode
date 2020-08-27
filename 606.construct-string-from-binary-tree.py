@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/construct-string-from-binary-tree/description/
 #
 # algorithms
-# Easy (51.85%)
-# Likes:    555
-# Dislikes: 767
-# Total Accepted:    62.5K
-# Total Submissions: 120.3K
+# Easy (53.99%)
+# Likes:    798
+# Dislikes: 1084
+# Total Accepted:    85.5K
+# Total Submissions: 157.8K
 # Testcase Example:  '[1,2,3,4]'
 #
 # You need to construct a string consists of parenthesis and integers from a
@@ -52,22 +52,26 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def tree2str(self, t: TreeNode) -> str:
+        # Using Recursion 
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
         if not t:
             return ""
-        if not (t.left or t.right):
+        if not t.left and not t.right:
             return str(t.val)
         if not t.right:
-            return str(t.val) + "(" + self.tree2str(t.left) + ")"
-
-        return str(t.val) + "(" + self.tree2str(t.left) + ")(" + self.tree2str(t.right) + ")"
+            return str(t.val) + '(' + self.tree2str(t.left) + ')'
+        return str(t.val) + '(' + self.tree2str(t.left) + ')(' + self.tree2str(t.right) + ')'
         
+# @lc code=end
 

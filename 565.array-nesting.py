@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/array-nesting/description/
 #
 # algorithms
-# Medium (53.02%)
-# Likes:    592
-# Dislikes: 81
-# Total Accepted:    37.8K
-# Total Submissions: 71.2K
+# Medium (55.40%)
+# Likes:    861
+# Dislikes: 94
+# Total Accepted:    54.4K
+# Total Submissions: 98K
 # Testcase Example:  '[5,4,0,3,1,6,2]'
 #
 # A zero-indexed array A of length N contains all integers from 0 to N-1. Find
@@ -47,22 +47,35 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def arrayNesting(self, nums: List[int]) -> int:
-        n = len(nums)
-        visited = [False] * n
-        res = 0
-        for i in range(n):
-            if not visited[i]:
-                start = nums[i]
-                count = 0
-                while True:
-                    start = nums[start]
-                    count += 1
-                    visited[start] = True
-                    if start == nums[i]:
-                        break
-                res = max(res, count)
+        # O(n)
+        # n = len(nums)
+        # visited = [False] * n
+        # res = 0
+        # for i in range(n):
+        #     if not visited[i]:
+        #         start = nums[i]
+        #         count = 0
+        #         while True:
+        #             start = nums[start]
+        #             count += 1
+        #             visited[start] = True
+        #             if start == nums[i]:
+        #                 break
+        #         res = max(res, count)
+        # return res
+
+
+        seen, res = [0] * len(nums), 0
+        for i in nums:
+            count, j = 0, i
+            while not seen[j]:
+                seen[j], count, j = 1, count + 1, nums[j]
+            res = max(res, count)
         return res
         
+# @lc code=end
 

@@ -67,6 +67,7 @@ class Solution:
         for node in queue:
             queue += filter(None, (node.right, node.left))
         return node.val
+
         
 # @lc code=end
 

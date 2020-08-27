@@ -53,12 +53,22 @@
 #
 class Solution:
     def minSteps(self, n: int) -> int:
-        ans, d = 0, 2
-        while n > 1:
-            while n % d == 0:
-                ans += d
-                n /= d
-            d += 1
-        return ans
+        # Prime Factorization
+        # N = g_1 x g_2 x ... x g_n
+        # p + q <= pq for p >= 2 and q >= 2
+        # Time  complexity: O(sqrt(N))
+        # Space complexity: O(1)
+        # ans, d = 0, 2
+        # while n > 1:
+        #     while n % d == 0:
+        #         ans += d
+        #         n /= d
+        #     d += 1
+        # return ans
+
+        if n == 1: return 0
+        for i in range(2, n + 1):
+            if n % i == 0:
+                return self.minSteps(n // i) + i
         
 

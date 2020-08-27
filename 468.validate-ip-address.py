@@ -6,120 +6,102 @@
 # https://leetcode.com/problems/validate-ip-address/description/
 #
 # algorithms
-# Medium (21.44%)
-# Likes:    127
-# Dislikes: 776
-# Total Accepted:    29.1K
-# Total Submissions: 135.8K
+# Medium (24.01%)
+# Likes:    350
+# Dislikes: 1760
+# Total Accepted:    79.5K
+# Total Submissions: 330.4K
 # Testcase Example:  '"172.16.254.1"'
 #
+# Given a string IP. We need to check If IP is a valid IPv4 address, valid IPv6
+# address or not a valid IP address.
 # 
-# Write a function to check whether an input string is a valid IPv4 address or
-# IPv6 address or neither.
+# Return "IPv4" if IP is a valid IPv4 address, "IPv6" if IP is a valid IPv6
+# address or "Neither" if IP is not a valid IP of any type.
 # 
+# A valid IPv4 address is an IP in the form "x1.x2.x3.x4" where 0 <= xi <= 255
+# and xi cannot contain leading zeros. For example, "192.168.1.1" and
+# "192.168.1.0" are valid IPv4 addresses but "192.168.01.1", "192.168.1.00" and
+# "192.168@1.1" are invalid IPv4 adresses.
 # 
-# 
-# IPv4 addresses are canonically represented in dot-decimal notation, which
-# consists of four decimal numbers, each ranging from 0 to 255, separated by
-# dots ("."), e.g.,172.16.254.1;
-# 
-# 
-# 
-# Besides, leading zeros in the IPv4 is invalid. For example, the address
-# 172.16.254.01 is invalid.
-# 
+# A valid IPv6 address is an IP in the form "x1:x2:x3:x4:x5:x6:x7:x8"
+# where:
 # 
 # 
-# IPv6 addresses are represented as eight groups of four hexadecimal digits,
-# each group representing 16 bits. The groups are separated by colons (":").
-# For example, the address 2001:0db8:85a3:0000:0000:8a2e:0370:7334 is a valid
-# one. Also, we could omit some leading zeros among four hexadecimal digits and
-# some low-case characters in the address to upper-case ones, so
-# 2001:db8:85a3:0:0:8A2E:0370:7334 is also a valid IPv6 address(Omit leading
-# zeros and using upper cases).
+# 1 <= xi.length <= 4
+# xi is hexadecimal string whcih may contain digits, lower-case English letter
+# ('a' to 'f') and/or upper-case English letters ('A' to 'F').
+# Leading zeros are allowed in xi.
 # 
 # 
-# 
-# 
-# However, we don't replace a consecutive group of zero value with a single
-# empty group using two consecutive colons (::) to pursue simplicity. For
-# example, 2001:0db8:85a3::8A2E:0370:7334 is an invalid IPv6 address.
-# 
-# 
-# 
-# Besides, extra leading zeros in the IPv6 is also invalid. For example, the
-# address 02001:0db8:85a3:0000:0000:8a2e:0370:7334 is invalid.
-# 
-# 
-# 
-# Note:
-# You may assume there is no extra space or special characters in the input
-# string.
+# For example, "2001:0db8:85a3:0000:0000:8a2e:0370:7334" and
+# "2001:db8:85a3:0:0:8A2E:0370:7334" are valid IPv6 addresses but
+# "2001:0db8:85a3::8A2E:037j:7334" and
+# "02001:0db8:85a3:0000:0000:8a2e:0370:7334" are invalid IPv6 addresses.
 # 
 # 
 # Example 1:
 # 
-# Input: "172.16.254.1"
 # 
+# Input: IP = "172.16.254.1"
 # Output: "IPv4"
-# 
 # Explanation: This is a valid IPv4 address, return "IPv4".
-# 
-# 
 # 
 # 
 # Example 2:
 # 
-# Input: "2001:0db8:85a3:0:0:8A2E:0370:7334"
 # 
+# Input: IP = "2001:0db8:85a3:0:0:8A2E:0370:7334"
 # Output: "IPv6"
-# 
 # Explanation: This is a valid IPv6 address, return "IPv6".
-# 
 # 
 # 
 # Example 3:
 # 
-# Input: "256.256.256.256"
 # 
+# Input: IP = "256.256.256.256"
 # Output: "Neither"
-# 
 # Explanation: This is neither a IPv4 address nor a IPv6 address.
 # 
 # 
+# Example 4:
+# 
+# 
+# Input: IP = "2001:0db8:85a3:0:0:8A2E:0370:7334:"
+# Output: "Neither"
+# 
+# 
+# Example 5:
+# 
+# 
+# Input: IP = "1e1.4.5.6"
+# Output: "Neither"
+# 
+# 
+# 
+# Constraints:
+# 
+# 
+# IP consists only of English letters, digits and the characters '.' and ':'.
+# 
+# 
 #
+
+# @lc code=start
 class Solution:
     def validIPAddress(self, IP: str) -> str:
-        ip4, ip6 = '', ''
-        if '.' in IP and ':' not in IP:
-            ip4 = IP.split('.')
-            if len(ip4) != 4:
-                return "Neither"
-        elif ':' in IP and '.' not in IP:
-            ip6 = IP.split(':')
-            if len(ip6) != 8:
-                return "Neither"
-        else:
-            return "Neither"
+        # Time  complexity: O(1)
+        # Space complexity: O(1)
+        import re
+        chunk_IPv4 = r'([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
+        patten_IPv4 = re.compile(r'^(' + chunk_IPv4 + r'\.){3}' + chunk_IPv4 + r'$')
 
-        dic=['a','b','c','d','e','f','A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']
-        while ip4:
-            for ip in ip4:
-                if not ip.isdigit():
-                    return "Neither"
-                elif int(ip) > 255 or int(ip) < 0:
-                    return "Neither"
-                elif ip[0] == '0' and len(ip) > 1:
-                    return "Neither"
+        chunk_IPv6 = r'([0-9a-fA-F]{1,4})'
+        patten_IPv6 = re.compile(r'^(' + chunk_IPv6 + r'\:){7}' + chunk_IPv6 + r'$')
+
+        if patten_IPv4.match(IP):
             return "IPv4"
-
-        while ip6:
-            for ip in ip6:
-                if ip == '' or len(ip) > 4:
-                    return "Neither"
-                for i in ip:
-                    if i not in dic:
-                        return "Neither"
-            return "IPv6"
+        return "IPv6" if patten_IPv6.match(IP) else "Neither"
         
+# @lc code=end
 

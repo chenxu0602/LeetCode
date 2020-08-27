@@ -53,38 +53,38 @@ from functools import reduce
 
 class Solution:
     def replaceWords(self, roots: List[str], sentence: str) -> str:
-        """
-        rootset = set(dict)
+        # Prefix Hash
+        # Time  complexity: O(sum(w_i ^ 2)), where w_i is the length of the i-th word.
+        # Space complexity: O(N)
+        # rootset = set(roots)
 
-        def replace(word):
-            for i in range(1, len(word)):
-                if word[:i] in rootset:
-                    return word[:i]
-            return word
+        # def replace(word):
+        #     for i in range(1, len(word)):
+        #         if word[:i] in rootset:
+        #             return word[:i]
+        #     return word
         
-        return " ".join(map(replace, sentence.split()))
-        """
+        # return " ".join(map(replace, sentence.split()))
 
-        """
-        sentenceAsList = sentence.split(" ")
-        for i in range(len(sentenceAsList)):
-            for j in dict:
-                if sentenceAsList[i].startswith(j):
-                    sentenceAsList[i] = j
-        return " ".join(sentenceAsList)
-        """
 
+        # sentenceAsList = sentence.split(" ")
+        # for i in range(len(sentenceAsList)):
+        #     for j in roots:
+        #         if sentenceAsList[i].startswith(j):
+        #             sentenceAsList[i] = j
+        # return " ".join(sentenceAsList)
+
+        # Trie
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # suppose root = 'abc'
+        # trie['a']['b']['c'][END] = 'abc'
         Trie = lambda: defaultdict(Trie)
         trie = Trie()
         END = True
 
         for root in roots:
             reduce(dict.__getitem__, root, trie)[END] = root
-
-        """
-        suppose root = 'abc'
-        trie['a']['b']['c'][END] = 'abc'
-        """
 
         def replace(word):
             cur = trie
@@ -93,6 +93,8 @@ class Solution:
                     break
                 cur = cur[letter]
             return cur.get(END, word)
+
         return " ".join(map(replace, sentence.split()))
+
 
 

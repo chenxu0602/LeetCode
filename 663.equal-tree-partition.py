@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/equal-tree-partition/description/
 #
 # algorithms
-# Medium (38.20%)
-# Likes:    236
-# Dislikes: 18
-# Total Accepted:    14.5K
-# Total Submissions: 37.9K
+# Medium (38.91%)
+# Likes:    268
+# Dislikes: 22
+# Total Accepted:    16.8K
+# Total Submissions: 43.3K
 # Testcase Example:  '[5,10,10,null,null,2,3]'
 #
 # 
@@ -67,6 +67,8 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -76,7 +78,8 @@
 
 class Solution:
     def checkEqualTree(self, root: TreeNode) -> bool:
-
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         seen = []
 
         def sum_(node):
@@ -85,7 +88,9 @@ class Solution:
             return seen[-1]
 
         total = sum_(root)
-        seen.pop()   # in case of zero
+        seen.pop()
         return total / 2.0 in seen
+
         
+# @lc code=end
 

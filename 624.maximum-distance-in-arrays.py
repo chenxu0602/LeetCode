@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-distance-in-arrays/description/
 #
 # algorithms
-# Easy (37.48%)
-# Likes:    263
-# Dislikes: 39
-# Total Accepted:    15.6K
-# Total Submissions: 41.4K
+# Easy (38.83%)
+# Likes:    354
+# Dislikes: 50
+# Total Accepted:    19.9K
+# Total Submissions: 51.1K
 # Testcase Example:  '[[1,2,3],[4,5],[1,2,3]]'
 #
 # 
@@ -44,37 +44,14 @@
 # 
 # 
 #
-from collections import defaultdict
 
+# @lc code=start
 class Solution:
     def maxDistance(self, arrays: List[List[int]]) -> int:
-        """
-        min_nums = defaultdict(list)
-        max_nums = defaultdict(list)
-
-        i = 0
-        dist = 0
-
-        for array in arrays:
-            min_nums[array[0]].append(i)
-            max_nums[array[-1]].append(i)
-            i += 1
-
-        for i in min_nums:
-            for j in max_nums:
-                if j - i > dist:
-                    if min_nums[i] != max_nums[j]:
-                        dist = j - i
-                    elif len(min_nums[i]) > 1:
-                        dist = j - i
-
-        return dist
-        """
-
-        min_val = arrays[0][0]
-        max_val = arrays[0][-1]
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        min_val, max_val = arrays[0][0], arrays[0][-1]
         res = 0
-
         for i in range(1, len(arrays)):
             res = max(res, arrays[i][-1] - min_val, max_val - arrays[i][0])
             min_val = min(min_val, arrays[i][0])
@@ -82,7 +59,6 @@ class Solution:
 
         return res
 
-
         
-        
+# @lc code=end
 

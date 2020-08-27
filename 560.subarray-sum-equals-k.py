@@ -35,6 +35,7 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
 
+        # O(n)
         count, p, d = 0, 0, {0: 1}
         for i in nums:
             p += i

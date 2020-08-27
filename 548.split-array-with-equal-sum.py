@@ -44,28 +44,30 @@
 # ⁠Elements in the given array will be in range [-1,000,000, 1,000,000]. 
 # 
 #
+import itertools
+
 class Solution:
     def splitArray(self, nums: List[int]) -> bool:
+        # Time  complexity: O(n^2)
+        # Space complexity: O(n)
         n = len(nums)
-        if n < 7:
-            return False
+        if n < 7: return False
 
-        sums = [0] * n
-        sums[0] = nums[0]
-        for i in range(1, n):
-            sums[i] = sums[i-1] + nums[i]
+        sums = list(itertools.accumulate(nums))
 
         for j in range(3, len(nums)):
             cut = set()
-            for i in range(1, j-1):
-                if sums[i-1] == sums[j-1] - sums[i]:
-                    cut.add(sums[i-1])
+            for i in range(1, j - 1):
+                if sums[i - 1] == sums[j - 1] - sums[i]:
+                    cut.add(sums[i - 1])
 
-            for k in range(j+2, n-1):
-                if sums[n-1] - sums[k] == sums[k-1] - sums[j] and (sums[k-1]-sums[j]) in cut:
+            for k in range(j + 2, n - 1):
+                if sums[n - 1] - sums[k] == sums[k - 1] - sums[j] \
+                    and sums[k - 1] - sums[j] in cut:
                     return True
 
         return False
+
 
         
 

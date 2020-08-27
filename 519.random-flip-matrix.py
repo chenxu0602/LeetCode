@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/random-flip-matrix/description/
 #
 # algorithms
-# Medium (33.45%)
-# Likes:    100
-# Dislikes: 41
-# Total Accepted:    4.3K
-# Total Submissions: 12.8K
+# Medium (36.53%)
+# Likes:    191
+# Dislikes: 59
+# Total Accepted:    8.4K
+# Total Submissions: 22.9K
 # Testcase Example:  '["Solution", "flip", "flip", "flip", "flip"]\n[[2, 2], [], [], [], []]'
 #
 # You are given the number of rows n_rows and number of columns n_cols of a 2D
@@ -56,6 +56,8 @@
 # aren't any.
 # 
 #
+
+# @lc code=start
 from random import randint
 
 class Solution:
@@ -66,13 +68,12 @@ class Solution:
         self.r, self.c = n_rows, n_cols
         
     def flip(self) -> List[int]:
-        i = randint(0, self.total-1)
+        i = randint(0, self.total - 1)
         self.total -= 1
         res = self.d.get(i, i)
         self.d[i], self.d[self.total] = self.d.get(self.total, self.total), res
 
         return divmod(res, self.c)
-        
 
     def reset(self) -> None:
         self.total = self.r * self.c
@@ -83,4 +84,5 @@ class Solution:
 # obj = Solution(n_rows, n_cols)
 # param_1 = obj.flip()
 # obj.reset()
+# @lc code=end
 

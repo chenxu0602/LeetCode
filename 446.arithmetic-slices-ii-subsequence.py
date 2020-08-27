@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/arithmetic-slices-ii-subsequence/description/
 #
 # algorithms
-# Hard (30.38%)
-# Likes:    272
-# Dislikes: 40
-# Total Accepted:    15.1K
-# Total Submissions: 49.6K
+# Hard (31.81%)
+# Likes:    381
+# Dislikes: 49
+# Total Accepted:    18.3K
+# Total Submissions: 57.6K
 # Testcase Example:  '[2,4,6,8,10]'
 #
 # A sequence of numbers is called arithmetic if it consists of at least three
@@ -64,19 +64,24 @@
 # 
 # 
 #
+
+# @lc code=start
+from collections import defaultdict
+
 class Solution:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
 
         total = 0
-        dp = [{} for _ in A]
+        dp = [defaultdict(int) for _ in A]
         for i in range(len(A)):
             for j in range(i):
                 d = A[i] - A[j]
-                dp[i][d] = dp[i].get(d, 0) + 1
+                dp[i][d] += 1
                 if d in dp[j]:
                     dp[i][d] += dp[j][d]
                     total += dp[j][d]
+
         return total
-
-
+        
+# @lc code=end
 

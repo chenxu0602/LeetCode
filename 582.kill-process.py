@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/kill-process/description/
 #
 # algorithms
-# Medium (56.66%)
-# Likes:    352
-# Dislikes: 8
-# Total Accepted:    25.1K
-# Total Submissions: 44.1K
+# Medium (60.61%)
+# Likes:    487
+# Dislikes: 11
+# Total Accepted:    35.2K
+# Total Submissions: 57.8K
 # Testcase Example:  '[1,3,10,5]\n[3,0,5,3]\n5'
 #
 # Given n processes, each process has a unique PID (process id) and its PPID
@@ -54,21 +54,26 @@
 # 
 # 
 #
-from collections import deque, defaultdict
+
+# @lc code=start
+from collections import defaultdict, deque
 
 class Solution:
     def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
-
-        myTree = defaultdict(list)
+        # O(n)
+        hashMap = defaultdict(list)
         for i, parent in enumerate(ppid):
-            myTree[parent].append(pid[i])
+            hashMap[parent].append(pid[i])
 
-        deq = deque([kill])
+        queue = deque([kill])
         res = []
-        while deq:
-            cur = deq.popleft()
+        while queue:
+            cur = queue.popleft()
             res.append(cur)
-            deq.extend(myTree[cur])
+            queue.extend(hashMap[cur])
 
         return res
+
+        
+# @lc code=end
 

@@ -96,23 +96,20 @@ from itertools import zip_longest
 
 class Solution:
     def validWordSquare(self, words: List[str]) -> bool:
-        """
-        t = map(None, *words)
-        return t == map(None, *t)
-        """
 
-        """
-        try:
-            for i in range(len(words)):
-                for j in range(len(words[i])):
-                    if words[i][j] != words[j][i]:
-                        return False
-            return True
-        except IndexError:
-            return False
-        """
+        # try:
+        #     for i in range(len(words)):
+        #         for j in range(len(words[i])):
+        #             if words[i][j] != words[j][i]:
+        #                 return False
+        #     return True
+        # except IndexError:
+        #     return False
 
-        return list(map("".join, zip_longest(*words, fillvalue=''))) == words
+        return list(map(''.join, zip_longest(*words, fillvalue=''))) == words
+
+        # t = map(None, *words)
+        # return t == map(None, *t)
 
         
 

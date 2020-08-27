@@ -45,10 +45,11 @@
 # @lc code=start
 class Solution:
     def findNumberOfLIS(self, nums: List[int]) -> int:
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
         N = len(nums)
         if N <= 1: return N
-        lengths = [0] * N
-        counts = [1] * N
+        lengths, counts = [0] * N, [1] * N
 
         for j, num in enumerate(nums):
             for i in range(j):
@@ -61,7 +62,6 @@ class Solution:
 
         longest = max(lengths)
         return sum(c for i, c in enumerate(counts) if lengths[i] == longest)
-
         
 # @lc code=end
 

@@ -47,7 +47,20 @@ from itertools import groupby
 
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        """
+        # O(n) / O(1)
+        # i, count = 0, 0
+        # while i < len(flowerbed):
+        #     if flowerbed[i] == 0 and (i == 0 or flowerbed[i - 1] == 0) and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):
+        #         flowerbed[i] = 1
+        #         i += 1
+        #         count += 1
+        #     if count >= n:
+        #         return True
+
+        #     i += 1
+        # return False
+
+
         zero = 1
         for slot in flowerbed:
             if slot == 0:
@@ -58,14 +71,14 @@ class Solution:
 
         n -= zero // 2
         return n <= 0
-        """
 
-        groups = groupby([0] + flowerbed + [0])
-        count = 0
-        for i, v in groups:
-            if i == 0:
-                count += (len(list(v)) - 1) // 2
 
-        return count >= n
+        # groups = groupby([0] + flowerbed + [0])
+        # count = 0
+        # for i, v in groups:
+        #     if i == 0:
+        #         count += (len(list(v)) - 1) // 2
+
+        # return count >= n
         
 

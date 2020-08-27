@@ -66,32 +66,18 @@ import bisect
 class Solution:
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
 
-        houses.sort()
-        heaters.sort()
-        N, i, maxRadius = len(heaters), 0, 0
+        # heaters = sorted(heaters) + [float("inf")]
+        # i = r = 0
+        # for house in sorted(houses):
+        #     while house >= sum(heaters[i:i+2]) / 2.0:
+        #         i += 1
+        #     r = max(r, abs(heaters[i] - house))
+        # return r
 
-        for house in houses:
-            while i + 1 < N and heaters[i+1] < house:
-                i += 1
-            maxRadius = max(maxRadius, min([abs(h-house) for h in heaters[i:i+2]]))
-        return maxRadius
-
-        """
-        heaters = sorted(heaters) + [float("inf")]
-        i = r = 0
-        for house in sorted(houses):
-            while house >= sum(heaters[i:i+2]) / 2.0:
-                i += 1
-            r = max(r, abs(heaters[i] - house))
-        return r
-        """
-
-        """
         heaters.sort()
         return max(min(abs(house - heater)
-            for i in [bisect.bisect(heaters, house)]
-            for heater in heaters[i - (i > 0): i + 1])
-            for house in houses)
-        """
+                   for i in [bisect.bisect_right(heaters, house)]
+                   for heater in heaters[i - (i > 0): i + 1])
+                   for house in houses)
         
 

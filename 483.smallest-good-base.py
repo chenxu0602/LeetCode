@@ -64,7 +64,7 @@ class Solution:
     def smallestGoodBase(self, n: str) -> str:
         n = int(n)
         max_len = len(bin(n)) - 2
-        for m in range(max_len, 1, -1):
+        for m in range(max_len, 1, -1):  # Try all possible lengths
             lo, hi = 2, n - 1
             while lo <= hi:
                 mid = (lo + hi) // 2
