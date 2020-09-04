@@ -81,8 +81,9 @@ class Node:
 """
 class Solution:
     def insert(self, head: 'Node', insertVal: int) -> 'Node':
-
-        # if head is None:
+        # Time  Complexity: O(N)
+        # Space Complexity: O(1)
+        # if head == None:
         #     newNode = Node(insertVal, None)
         #     newNode.next = newNode
         #     return newNode
@@ -116,16 +117,15 @@ class Solution:
 
         cur = head
         while True:
-            a, b = cur.next.val, cur.val
-            if (a < b and (insertVal <= a or insertVal >= b)) or (b <= insertVal <= a) or cur.next == head:
+            a, b = cur.val, cur.next.val
+            if (b < a and (insertVal >= a or insertVal <= b)) or (a <= insertVal <= b) or cur.next == head:
                 p.next, cur.next = cur.next, p
                 return head
             cur = cur.next
 
         return head
-
-
         
+            
         
 # @lc code=end
 

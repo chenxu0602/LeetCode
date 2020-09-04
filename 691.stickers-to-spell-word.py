@@ -76,7 +76,9 @@ from collections import Counter
 
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-
+        # Time  complexity: O(2^T x S x T) where S is the total number of letters in all stickers,
+        # and T is the number of letters in the target word.
+        # Space complexity: O(2^T)
         t_count = Counter(target)
         A = [Counter(sticker) & t_count for sticker in stickers]
 
@@ -85,10 +87,8 @@ class Solution:
                 A.pop(i)
 
         stickers = ["".join(s_count.elements()) for s_count in A]
-
         dp = [-1] * (1 << len(target))
         dp[0] = 0
-
         for state in range(1 << len(target)):
             if dp[state] == -1: continue
             for sticker in stickers:
@@ -99,11 +99,11 @@ class Solution:
                         if c == letter:
                             now |= 1 << i
                             break
+
                 if dp[now] == -1 or dp[now] > dp[state] + 1:
                     dp[now] = dp[state] + 1
 
         return dp[-1]
-
 
         
 # @lc code=end

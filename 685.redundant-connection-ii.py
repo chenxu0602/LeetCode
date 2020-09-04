@@ -86,9 +86,7 @@ class Solution:
     def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
 
         def is_cycle(edge):
-            """
-                return True if from edge=x, y can get back to x
-            """
+            # return True if from edge=x, y can get back to x
             x, y = edge
             while x != y and x in parent:
                 x = parent[x]

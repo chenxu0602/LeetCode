@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/preimage-size-of-factorial-zeroes-function/description/
 #
 # algorithms
-# Hard (39.21%)
-# Likes:    113
-# Dislikes: 46
-# Total Accepted:    6K
-# Total Submissions: 15.3K
+# Hard (40.22%)
+# Likes:    181
+# Dislikes: 54
+# Total Accepted:    8.3K
+# Total Submissions: 20.6K
 # Testcase Example:  '0'
 #
 # Let f(x) be the number of zeroes at the end of x!. (Recall that x! = 1 * 2 *
@@ -39,21 +39,30 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def preimageSizeFZF(self, K: int) -> int:
+        # Binary Search
+        # Time  complexity: O((logK)^2). Our binary search is O(logK), and in each step of that
+        # binary search we do O(logK) work to evaluate the function zeta.
+        # Space complexity: O(logK), the size of our recursive call stack when calling zeta.
         def zeta(x):
             return x // 5 + zeta(x // 5) if x > 0 else 0
 
-        lo, hi = K, 10*K + 1
+        lo, hi = K, 10 * K + 1
         while lo < hi:
-            mi = (lo + hi) // 2
+            mi = (lo + hi) / 2
             zmi = zeta(mi)
-            if zmi == K:
+            if zmi == K: 
                 return 5
             elif zmi < K:
                 lo = mi + 1
             else:
-                hi = mi
+                hi = mi - 1
+
         return 0
+
         
+# @lc code=end
 

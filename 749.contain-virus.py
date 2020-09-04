@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/contain-virus/description/
 #
 # algorithms
-# Hard (41.63%)
-# Likes:    49
-# Dislikes: 168
-# Total Accepted:    3.2K
-# Total Submissions: 7.6K
+# Hard (44.30%)
+# Likes:    93
+# Dislikes: 238
+# Total Accepted:    4.8K
+# Total Submissions: 10.6K
 # Testcase Example:  '[[0,1,0,0,0,0,0,1],[0,1,0,0,0,0,0,1],[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0]]'
 #
 # 
@@ -89,10 +89,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def containVirus(self, grid: List[List[int]]) -> int:
-        R, C = len(grid), len(grid[0])
-
+        # Time  complexity: O((R x C) ^ (4 / 3))
+        # After time t, viral regions that are alive must have size at least t^2 + (t - 1)^2,
+        # so the total number removed across all time is Omega(t^3) <= R x C.
+        # Space complexity: O(R x C)
+        R, C = map(len, (grid, grid[0]))
         def neighbors(r, c):
             for nr, nc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
                 if 0 <= nr < R and 0 <= nc < C:
@@ -111,6 +116,7 @@ class Solution:
 
         ans = 0
         while True:
+            # Find all regions, with associated frontiers and perimeters.
             seen, regions, frontiers, perimeters = set(), [], [], []
             for r, row in enumerate(grid):
                 for c, val in enumerate(row):
@@ -119,12 +125,15 @@ class Solution:
                         frontiers.append(set())
                         perimeters.append(0)
                         dfs(r, c)
-        
+
+            # If there are no regions left, break.
             if not regions: break
 
+            # Add the perimeter of the region which will infect the most squares.
             triage_index = frontiers.index(max(frontiers, key=len))
             ans += perimeters[triage_index]
 
+            # Triage the most infectious region, and spread the rest of the regions.
             for i, reg in enumerate(regions):
                 if i == triage_index:
                     for r, c in reg:
@@ -136,7 +145,6 @@ class Solution:
                                 grid[nr][nc] = 1
 
         return ans
-
-
         
+# @lc code=end
 

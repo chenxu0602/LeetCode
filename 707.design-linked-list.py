@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-linked-list/description/
 #
 # algorithms
-# Easy (21.40%)
-# Likes:    339
-# Dislikes: 421
-# Total Accepted:    31.3K
-# Total Submissions: 147.8K
-# Testcase Example:  '["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]\n' +
+# Medium (24.31%)
+# Likes:    606
+# Dislikes: 728
+# Total Accepted:    72.1K
+# Total Submissions: 291.5K
+# Testcase Example:  '["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]\r' + '\n[[],[1],[3],[1,2],[1],[1],[1]]\r'
 #
 # Design your implementation of the linked list. You can choose to use the
 # singly linked list or the doubly linked list. A node in a singly linked list
@@ -34,16 +34,25 @@
 # addAtIndex(index, val) : Add a node of value val before the index-th node in
 # the linked list. If index equals to the length of linked list, the node will
 # be appended to the end of linked list. If index is greater than the length,
-# the node will not be inserted. If index is negative, the node will be
-# inserted at the head of the list.
+# the node will not be inserted.
 # deleteAtIndex(index) : Delete the index-th node in the linked list, if the
 # index is valid.
+# 
+# 
 # 
 # 
 # Example:
 # 
 # 
-# MyLinkedList linkedList = new MyLinkedList();
+# Input: 
+# 
+# ["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]
+# [[],[1],[3],[1,2],[1],[1],[1]]
+# Output:  
+# [null,null,null,null,2,null,3]
+# 
+# Explanation:
+# MyLinkedList linkedList = new MyLinkedList(); // Initialize empty LinkedList
 # linkedList.addAtHead(1);
 # linkedList.addAtTail(3);
 # linkedList.addAtIndex(1, 2);  // linked list becomes 1->2->3
@@ -52,122 +61,141 @@
 # linkedList.get(1);            // returns 3
 # 
 # 
-# Note:
+# 
+# Constraints:
 # 
 # 
-# All values will be in the range of [1, 1000].
-# The number of operations will be in the range of [1, 1000].
+# 0 <= index,val <= 1000
 # Please do not use the built-in LinkedList library.
+# At most 2000 calls will be made to get, addAtHead, addAtTail,  addAtIndex and
+# deleteAtIndex.
 # 
 # 
 #
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-        self.prev = None
+
+# @lc code=start
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next, self.prev = None, None
 
 class MyLinkedList:
+    # Doubly Linked List
+    # Time  complexity: O(1) for addAtHead and addAtTail. O(min(k, N-k)) for get, addAtIndex, and deleteAtIndex.
+    # Space complexity: O(1)
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.head = None
-        self.len = 0
+        self.size = 0
+        self.head, self.tail = ListNode(0), ListNode(0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     def get(self, index: int) -> int:
         """
         Get the value of the index-th node in the linked list. If the index is invalid, return -1.
         """
-        if index < 0 or index > self.len - 1: return -1        
-        cur = self.head
-        if 2*(index-1) > self.len:
-            for i in range(self.len - index):
-                cur = cur.prev
+        if index < 0 or index >= self.size:
+            return -1
+
+        # choose the fastest way: to move from the head
+        # or to move from the tail
+        if index + 1 < self.size - index:
+            curr = self.head
+            for _ in range(index + 1):
+                curr = curr.next
         else:
-            for i in range(index):
-                cur = cur.next
-        return cur.val
-        
+            curr = self.tail 
+            for _ in range(self.size - index):
+                curr = curr.prev
+
+        return curr.val
+
     def addAtHead(self, val: int) -> None:
         """
         Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
         """
-        if not self.head:
-            self.head = Node(val)
-        else:
-            p = Node(val)
-            if self.len == 1:
-                q = self.head
-            else:
-                q = self.head.prev
-            q.next, p.prev = p, q
-            self.head.prev, p.next = p, self.head
-            self.head = p
-        self.len += 1
+        pred, succ = self.head, self.head.next
+        self.size += 1
+        to_add = ListNode(val)
+        to_add.prev = pred
+        to_add.next = succ
+        pred.next = to_add
+        succ.prev = to_add
         
     def addAtTail(self, val: int) -> None:
         """
         Append a node of value val to the last element of the linked list.
         """
-        if not self.head:
-            self.head = Node(val)
-        else:
-            p = Node(val)
-            if self.len == 1:
-                q = self.head
-            else:
-                q = self.head.prev
-            q.next, p.prev = p, q
-            p.next, self.head.prev = self.head, p
-        self.len += 1
-        
+        succ, pred = self.tail, self.tail.prev
+
+        self.size += 1
+        to_add = ListNode(val)
+        to_add.prev = pred
+        to_add.next = succ
+        pred.next = to_add
+        succ.prev = to_add
+
     def addAtIndex(self, index: int, val: int) -> None:
         """
         Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.
         """
-        if index < 0 or index > self.len: return
-        if index == self.len: 
-            self.addAtTail(val)
-        elif not index:
-            self.addAtHead(val)
+        # If index is greater than the length, 
+        # the node will not be inserted.
+        if index > self.size:
+            return
+
+        # [so weird] If index is negative, 
+        # the node will be inserted at the head of the list.
+        if index < 0:
+            index = 0
+
+        # find predecessor and successor of the node to be added
+        if index < self.size - index:
+            pred = self.head
+            for _ in range(index):
+                pred = pred.next
+            succ = pred.next
         else:
-            cur = self.head
-            if 2 * (index - 1) > self.len:
-                for i in range(self.len - index):
-                    cur = cur.prev
-                else:
-                    for i in range(index):
-                        cur = cur.next
-            p = Node(val)
-            q = cur.prev
-            q.next, p.prev = p, q
-            p.next, cur.prev = cur, p
-            self.len += 1
+            succ = self.tail
+            for _ in range(self.size - index):
+                succ = succ.prev
+            pred = succ.prev
+
+        # insertion itself
+        self.size += 1
+        to_add = ListNode(val)
+        to_add.prev = pred
+        to_add.next = succ
+        pred.next = to_add
+        succ.prev = to_add
         
     def deleteAtIndex(self, index: int) -> None:
         """
         Delete the index-th node in the linked list, if the index is valid.
         """
-        if index < 0 or index > self.len - 1:
+        if index < 0 or index >= self.size:
             return
-        elif self.len == 1:
-            self.head, self.len = None, 0
+
+        # find predecessor and successor of the node to be deleted
+        if index < self.size - index:
+            pred = self.head
+            for _ in range(index):
+                pred = pred.next
+            succ = pred.next.next
         else:
-            cur = self.head
-            if 2 * (index - 1) > self.len:
-                for i in range(self.len - index):
-                    cur = cur.prev
-            else:
-                for i in range(index):
-                    cur = cur.next
+            succ = self.tail
+            for _ in range(self.size - index - 1):
+                succ = succ.prev
+            pred = succ.prev.prev
 
-            p = cur.prev
-            q = cur.next
-            p.next, q.prev = q, p
-            self.len -= 1
-
+        # delete pred.next
+        self.size -= 1
+        pred.next = succ
+        succ.prev = pred
 
 
         
@@ -180,4 +208,5 @@ class MyLinkedList:
 # obj.addAtTail(val)
 # obj.addAtIndex(index,val)
 # obj.deleteAtIndex(index)
+# @lc code=end
 

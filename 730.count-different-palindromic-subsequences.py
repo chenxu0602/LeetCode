@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/count-different-palindromic-subsequences/description/
 #
 # algorithms
-# Hard (39.34%)
-# Likes:    319
-# Dislikes: 34
-# Total Accepted:    9.5K
-# Total Submissions: 24K
+# Hard (41.63%)
+# Likes:    576
+# Dislikes: 47
+# Total Accepted:    15.5K
+# Total Submissions: 37K
 # Testcase Example:  '"bccb"'
 #
 # 
@@ -54,28 +54,33 @@
 # Each character S[i] will be in the set {'a', 'b', 'c', 'd'}.
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 
 class Solution:
     def countPalindromicSubsequences(self, S: str) -> int:
-
+        # O(N^2)
         @lru_cache(None)
         def dfs(start, end):
-            count = 0
-            segment = S[start:end]
-
             if end <= start + 2:
                 return end - start
 
-            for x in "abcd":
+            count = 0
+            segment = S[start:end]
+
+            for x in 'abcd':
                 try:
                     i = segment.index(x) + start
                     j = segment.rindex(x) + start
                 except:
                     continue
 
-                count += dfs(i+1, j) + 2 if i != j else 1
+                count += dfs(i + 1, j) + 2 if i != j else 1
 
             return count % (10**9 + 7)
 
         return dfs(0, len(S))
+        
+# @lc code=end
+

@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-hashmap/description/
 #
 # algorithms
-# Easy (56.55%)
-# Likes:    367
-# Dislikes: 61
-# Total Accepted:    41.4K
-# Total Submissions: 72.9K
-# Testcase Example:  '["MyHashMap","put","put","get","get","put","get", ' +
+# Easy (61.07%)
+# Likes:    941
+# Dislikes: 112
+# Total Accepted:    105.5K
+# Total Submissions: 171.6K
+# Testcase Example:  '["MyHashMap","put","put","get","get","put","get", ' + '"remove", "get"]\n' + '[[],[1,1],[2,2],[1],[3],[2,1],[2],[2],[2]]'
 #
 # Design a HashMap without using any built-in hash table libraries.
 # 
@@ -51,67 +51,66 @@
 # 
 # 
 #
-class ListNode:
-    def __init__(self, key, val):
-        self.pair = (key, val)
-        self.next = None
 
+# @lc code=start
 class MyHashMap:
+    # Time  complexity: O(N/K) where N is the number of all possible keys and K is the number of predefined buckets in the hashmap, which is 2069 in our case.
+    # Space complexity: O(K+M) 
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.m = 1000        
-        self.h = [None] * self.m
-
+        # better to be a prime number, less collision
+        self.key_space = 2069
+        self.hash_table = [Bucket() for i in range(self.key_space)]
+        
     def put(self, key: int, value: int) -> None:
         """
         value will always be non-negative.
         """
-        index = key % self.m
-        if self.h[index] is None:
-            self.h[index] = ListNode(key, value)
-        else:
-            cur = self.h[index]
-            while True:
-                if cur.pair[0] == key:
-                    cur.pair = (key, value)
-                    return
-                if cur.next is None: break
-                cur = cur.next
-            cur.next = ListNode(key, value)
+        hash_key = key % self.key_space
+        self.hash_table[hash_key].update(key, value)
 
     def get(self, key: int) -> int:
         """
         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
         """
-        index = key % self.m
-        cur = self.h[index]
-        while cur:
-            if cur.pair[0] == key:
-                return cur.pair[1]
-            else:
-                cur = cur.next
-        return -1
-        
+        hash_key = key % self.key_space
+        return self.hash_table[hash_key].get(key)
+
     def remove(self, key: int) -> None:
         """
         Removes the mapping of the specified value key if this map contains a mapping for the key
         """
-        index = key % self.m
-        cur = prev = self.h[index]
-        if not cur: return
-        if cur.pair[0] == key:
-            self.h[index] = cur.next
+        hash_key = key % self.key_space
+        self.hash_table[hash_key].remove(key)
+
+
+class Bucket:
+    def __init__(self):
+        self.bucket = []
+
+    def get(self, key):
+        for k, v in self.bucket:
+            if k == key:
+                return v
+        return -1
+
+    def update(self, key, value):
+        for i, kv in enumerate(self.bucket):
+            if key == kv[0]:
+                self.bucket[i] = (key, value)
+                break
         else:
-            cur = cur.next
-            while cur:
-                if cur.pair[0] == key:
-                    prev.next = cur.next
-                    break
-                else:
-                    cur, prev = cur.next, prev.next
+            self.bucket.append((key, value))
+
+    def remove(self, key):
+        for i, kv in enumerate(self.bucket):
+            if key == kv[0]:
+                del self.bucket[i]
+
+        
         
 
 
@@ -120,4 +119,5 @@ class MyHashMap:
 # obj.put(key,value)
 # param_2 = obj.get(key)
 # obj.remove(key)
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/special-binary-string/description/
 #
 # algorithms
-# Hard (52.62%)
-# Likes:    191
-# Dislikes: 74
-# Total Accepted:    5.4K
-# Total Submissions: 10.3K
+# Hard (54.55%)
+# Likes:    315
+# Dislikes: 105
+# Total Accepted:    8.2K
+# Total Submissions: 14.9K
 # Testcase Example:  '"11011000"'
 #
 # 
@@ -44,20 +44,26 @@
 # S is guaranteed to be a special binary string as defined above.
 # 
 #
+
+# @lc code=start
 class Solution:
     def makeLargestSpecial(self, S: str) -> str:
+        # 1. Split S into several special strings (as many as possible).
+        # 2. Special string starts with 1 and ends with 0. Recursion on the middle part.
+        # 3. Sort all special strings in lexicographically largest order.
+        # 4. Join and output all strings.
+        # Time  complexity: O(N^2)
+        # Space compleixty: O(N)
         if not S: return S
-        mountains = []
-        anchor = bal = 0
-        for i, v in enumerate(S):
-            bal += 1 if v == '1' else -1
+        mountains, anchor, bal = [], 0, 0
+        for i, x in enumerate(S):
+            bal += 1 if x == '1' else -1
             if bal == 0:
-                mountains.append("1{}0".format(
-                    self.makeLargestSpecial(S[anchor+1: i])))
+                mountains.append("1{}0".format(self.makeLargestSpecial(S[anchor + 1:i])))
                 anchor = i + 1
 
         mountains.sort(reverse=True)
         return "".join(mountains)
-            
         
+# @lc code=end
 

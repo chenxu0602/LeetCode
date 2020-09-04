@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/asteroid-collision/description/
 #
 # algorithms
-# Medium (38.99%)
-# Likes:    495
-# Dislikes: 63
-# Total Accepted:    29.1K
-# Total Submissions: 74.6K
+# Medium (41.03%)
+# Likes:    1128
+# Dislikes: 119
+# Total Accepted:    65.2K
+# Total Submissions: 158.8K
 # Testcase Example:  '[5,10,-5]'
 #
 # 
@@ -73,8 +73,11 @@
 # Each asteroid will be a non-zero integer in the range [-1000, 1000]..
 # 
 #
+
+# @lc code=start
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        # O(N)
         ans = []
         for new in asteroids:
             while ans and new < 0 < ans[-1]:
@@ -86,6 +89,9 @@ class Solution:
                 break
             else:
                 ans.append(new)
+
         return ans
+
         
+# @lc code=end
 

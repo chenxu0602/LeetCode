@@ -38,13 +38,49 @@
 # 
 # 
 #
-import math
-import heapq
+import math, heapq
 
 class Solution:
     def minmaxGasDist(self, stations: List[int], K: int) -> float:
+        # Dynamic Programming
+        # Time  complexity: O(N x K^2)
+        # Space complexity: O(N x K)
+        # N = len(stations)
+        # deltas = [stations[i + 1] - stations[i] for i in range(N - 1)]
+        # dp = [[0.0] * (K + 1) for _ in range(N - 1)]
+        # for i in range(K + 1):
+        #     dp[0][i] = deltas[0] / float(i + 1)
+
+        # for p in range(1, N - 1):
+        #     for k in range(K + 1):
+        #         dp[p][k] = min(max(deltas[p] / float(x + 1), dp[p - 1][k - x]) \
+        #                         for x in range(k + 1))
+
+        # return dp[-1][K]
+
+
+        # Heap
+        # Time  complexity: O(N + KlogN)
+        # Space complexity: O(N)
+        # pq = []
+        # for i in range(len(stations) - 1):
+        #     x, y = stations[i], stations[i + 1]
+        #     pq.append((x - y, y - x, 1))
+        # heapq.heapify(pq)
+
+        # for _ in range(K):
+        #     negnext, orig, parts = heapq.heappop(pq)
+        #     parts += 1
+        #     heapq.heappush(pq, (-(orig / float(parts)), orig, parts))
+
+        # return -pq[0][0]
+
+        
+        # Binary Search
+        # Time  complexity: O(NlogW)
+        # Space complexity: O(1)
         def possible(D):
-            return sum(((stations[i+1] - stations[i]) // D) for i in range(len(stations) - 1)) <= K
+            return sum(int((stations[i + 1] - stations[i]) // D) for i in range(len(stations) - 1)) <= K
 
         lo, hi = 0, 10**8
         while hi - lo > 1e-6:
@@ -53,39 +89,6 @@ class Solution:
                 hi = mi
             else:
                 lo = mi
+
         return lo
-
-        """
-        max_heap = []
-        for i in range(1, len(stations)):
-            heapq.heappush(max_heap, (-float(stations[i] - stations[i-1]), i, 1))
-
-        added = 0
-        while added < K:
-            cur_dist, i, cur_added = heapq.heappop(max_heap)
-            heapq.heappush(max_heap, (-float(stations[i] - stations[i-1]) / (cur_added + 1), i, cur_added + 1))
-            added += 1
-
-        return -max_heap[0][0]
-        """
-
-        """
-        bound = (stations[-1] - stations[0]) / (K + 1)
-        added = 0
-        max_heap = []
-
-        for i in range(1, len(stations)):
-            needed = math.ceil((stations[i] - stations[i-1]) / bound) - 1
-            heapq.heappush(max_heap, (-(stations[i] - stations[i-1]) / (needed + 1), i, needed))
-            added += needed
-
-        while added < K:
-            cur, i, needed = heapq.heappop(max_heap)
-            needed += 1
-            heapq.heappush(max_heap, (-(stations[i] - stations[i-1]) / (needed + 1), i, needed))
-            added += 1
-
-        return -max_heap[0][0]
-        """
-        
 

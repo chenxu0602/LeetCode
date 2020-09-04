@@ -52,21 +52,68 @@ import heapq
 
 class Solution:
     def networkDelayTime(self, times: List[List[int]], N: int, K: int) -> int:
+        # Depth-First Search
+        # Time  complexity: O(N^N + ElogE) where E is the length of times.
+        # Space compleixty: O(N + E), the size of graph O(E), plus the size of implicit call stack in our DFS O(N).
+        # graph = defaultdict(list)
+        # for u, v, w in times:
+        #     graph[u].append((w, v))
+
+        # dist = {node: float("inf") for node in range(1, N + 1)}
+
+        # def dfs(node, elapsed):
+        #     if elapsed > dist[node]: return
+        #     dist[node] = elapsed
+        #     for time, nei in sorted(graph[node]):
+        #         dfs(nei, elapsed + time)
+
+        # dfs(K, 0)
+        # ans = max(dist.values())
+        # return ans if ans < float("inf") else -1
+
+
+        # Dijkstra's Algorithm 
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N + E)
         graph = defaultdict(list)
         for u, v, w in times:
             graph[u].append((v, w))
 
-        pq = [(0, K)]
-        dist = {}
+        dist = {node: float("inf") for node in range(1, N + 1)}
+        seen = [False] * (N + 1)
+        dist[K] = 0
+
+        while True:
+            cand_node, cand_dist = -1, float("inf")
+            for i in range(1, N + 1):
+                if not seen[i] and dist[i] < cand_dist:
+                    cand_node, cand_dist = i, dist[i]
+
+            if cand_node < 0: break
+            seen[cand_node] = True
+            for nei, d in graph[cand_node]:
+                dist[nei] = min(dist[nei], dist[cand_node] + d)
+
+        ans = max(dist.values())
+        return ans if ans < float("inf") else -1
+        
+
+        # Dijkstra's Algorithm with Heap
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N + E)
+        graph = defaultdict(list)
+        for u, v, w in times:
+            graph[u].append((v, w))
+
+        pq, dist = [(0, K)], {}
         while pq:
             d, node = heapq.heappop(pq)
             if node in dist: continue
             dist[node] = d
             for nei, d2 in graph[node]:
                 if nei not in dist:
-                    heapq.heappush(pq, (d2 + d, nei))
+                    heapq.heappush(pq, (d + d2, nei))
 
         return max(dist.values()) if len(dist) == N else -1
-        
 # @lc code=end
 

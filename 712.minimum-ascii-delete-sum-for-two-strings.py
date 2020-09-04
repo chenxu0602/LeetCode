@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/description/
 #
 # algorithms
-# Medium (54.97%)
-# Likes:    603
-# Dislikes: 37
-# Total Accepted:    22.9K
-# Total Submissions: 41.5K
+# Medium (58.49%)
+# Likes:    999
+# Dislikes: 47
+# Total Accepted:    36.9K
+# Total Submissions: 63K
 # Testcase Example:  '"sea"\n"eat"'
 #
 # Given two strings s1, s2, find the lowest ASCII sum of deleted characters to
@@ -47,26 +47,33 @@
 # All elements of each string will have an ASCII value in [97, 122]. 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        # Dynamic Programming
+        # Let dp[i][j] be the answer to the problem for the strings s1[i:], s2[j:].
+        # Time  complexity: O(M x N)
+        # Space complexity: O(M x N)
         dp = [[0] * (len(s2) + 1) for _ in range(len(s1) + 1)]
-
         for i in range(len(s1) - 1, -1, -1):
-            dp[i][len(s2)] = dp[i+1][len(s2)] + ord(s1[i])
+            dp[i][len(s2)] = dp[i + 1][len(s2)] + ord(s1[i])
 
         for j in range(len(s2) - 1, -1, -1):
-            dp[len(s1)][j] = dp[len(s1)][j+1] + ord(s2[j])
+            dp[len(s1)][j] = dp[len(s1)][j + 1] + ord(s2[j])
+
 
         for i in range(len(s1) - 1, -1, -1):
             for j in range(len(s2) - 1, -1, -1):
                 if s1[i] == s2[j]:
-                    dp[i][j] = dp[i+1][j+1]
+                    dp[i][j] = dp[i + 1][j + 1]
                 else:
-                    dp[i][j] = min(dp[i+1][j] + ord(s1[i]),
-                                   dp[i][j+1] + ord(s2[j]))
+                    dp[i][j] = min(dp[i + 1][j] + ord(s1[i]),
+                                   dp[i][j + 1] + ord(s2[j]))
 
         return dp[0][0]
 
-
         
+        
+# @lc code=end
 

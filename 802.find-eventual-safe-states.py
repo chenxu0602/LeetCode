@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-eventual-safe-states/description/
 #
 # algorithms
-# Medium (44.90%)
-# Likes:    417
-# Dislikes: 64
-# Total Accepted:    21K
-# Total Submissions: 46.8K
+# Medium (48.83%)
+# Likes:    839
+# Dislikes: 160
+# Total Accepted:    41.4K
+# Total Submissions: 84.3K
 # Testcase Example:  '[[1,2],[2,3],[5],[0],[5],[],[]]'
 #
 # In a directed graph, we start at some node and every turn, walk along a
@@ -48,12 +48,46 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict, deque
+from functools import lru_cache
 
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        """
-        WHITE, GRAY, BLACK = 0, 1, 2
+        # Reverse Edges
+        # Time  complexity: O(N + E), where N is the number of nodes in the given graph,
+        # and E is the total number of edges.
+        # Space complexity: O(N) in additional space complexity.
+        # N = len(graph)
+        # safe = [False] * N
+
+        # graph = list(map(set, graph))
+        # rgraph = [set() for _ in range(N)]
+        # q = deque()
+
+        # for i, js in enumerate(graph):
+        #     if not js:
+        #         q.append(i)
+        #     for j in js:
+        #         rgraph[j].add(i)
+
+        # while q:
+        #     j = q.popleft()
+        #     safe[j] = True
+        #     for i in rgraph[j]:
+        #         graph[i].remove(j)
+        #         if len(graph[i]) == 0:
+        #             q.append(i)
+
+        # return [i for i, v in enumerate(safe) if v]
+        
+
+        # Depth-First Search
+        # Time  complexity: O(N + E), where N is the number of nodes in the given graph,
+        # and E is the total number of edges.
+        # Space complexity: O(N) in additional space complexity.
+        WHITE, GRAY, BLACK, = 0, 1, 2
         color = defaultdict(int)
 
         def dfs(node):
@@ -66,33 +100,10 @@ class Solution:
                     continue
                 if color[nei] == GRAY or not dfs(nei):
                     return False
+
             color[node] = BLACK
             return True
 
         return filter(dfs, range(len(graph)))
-        """
-
-        N = len(graph)
-        safe = [False] * N
-
-        graph = list(map(set, graph))
-        rgraph = [set() for _ in range(N)]
-        q = deque()
-
-        for i, js in enumerate(graph):
-            if not js:
-                q.append(i)
-            for j in js:
-                rgraph[j].add(i)
-
-        while q:
-            j = q.popleft()
-            safe[j] = True
-            for i in rgraph[j]:
-                graph[i].remove(j)
-                if len(graph[i]) == 0:
-                    q.append(i)
-
-        return [i for i, v in enumerate(safe) if v]
-        
+# @lc code=end
 

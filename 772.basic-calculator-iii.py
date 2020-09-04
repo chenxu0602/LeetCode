@@ -41,9 +41,10 @@
 #
 
 # @lc code=start
+import operator
+
 class Solution:
     def calculate(self, s: str) -> int:
-
         num, stack, sign = 0, [], '+'
         s += ' '
         i = 0
@@ -61,8 +62,7 @@ class Solution:
                 elif sign == '*':
                     stack.append(stack.pop() * num)
                 else:
-                    last = stack.pop()
-                    stack.append(last // num if last > 0 else -(-last // num))
+                    stack.append(int(operator.truediv(stack.pop(), num)))
 
                 if s[i] == ')':
                     return sum(stack), i + 1
@@ -73,6 +73,9 @@ class Solution:
             i += 1
 
         return sum(stack)
+
+                
+
         
 # @lc code=end
 

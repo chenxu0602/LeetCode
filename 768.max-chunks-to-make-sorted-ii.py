@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/max-chunks-to-make-sorted-ii/description/
 #
 # algorithms
-# Hard (46.60%)
-# Likes:    266
-# Dislikes: 10
-# Total Accepted:    13.5K
-# Total Submissions: 29K
+# Hard (48.57%)
+# Likes:    445
+# Dislikes: 20
+# Total Accepted:    21.7K
+# Total Submissions: 44.4K
 # Testcase Example:  '[5,4,3,2,1]'
 #
 # This question is the same as "Max Chunks to Make Sorted" except the integers
@@ -57,42 +57,57 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict, Counter
 
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
-        """
-        count = defaultdict(int)
-        ans = nonzero = 0
+        # Sliding Window
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
+        # count = defaultdict(int)
+        # ans = nonzero = 0
 
-        for x, y in zip(arr, sorted(arr)):
-            count[x] += 1
-            if count[x] == 0:
-                nonzero -= 1
-            if count[x] == 1:
-                nonzero += 1
+        # for x, y in zip(arr, sorted(arr)):
+        #     count[x] += 1
+        #     if count[x] == 0: nonzero -= 1
+        #     if count[x] == 1: nonzero += 1
 
-            count[y] -= 1
-            if count[y] == -1:
-                nonzero += 1
-            if count[y] == 0:
-                nonzero -= 1
+        #     count[y] -= 1
+        #     if count[y] == -1: nonzero += 1
+        #     if count[y] == 0: nonzero -= 1
 
-            if nonzero == 0:
-                ans += 1
+        #     if nonzero == 0: ans += 1
 
-        return ans
-        """
+        # return ans
+        
+
+        # Sorted Count Pairs
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
+        # count, counted = Counter(), []
+        # for x in arr:
+        #     count[x] += 1
+        #     counted.append((x, count[x]))
+
+        # ans, cur = 0, (0, 0)
+        # for X, Y in zip(counted, sorted(counted)):
+        #     cur = max(cur, X)
+        #     if cur == Y:
+        #         ans += 1
+        # return ans
+
 
         stack = []
         for e in arr:
             start = 0
             while stack and (stack[-1][0] > e or stack[-1][1] > e):
-                last = stack.pop() 
+                last = stack.pop()
                 start = max(start, last[0], last[1])
             stack.append((e, start))
         return len(stack)
 
 
-        
+# @lc code=end
 

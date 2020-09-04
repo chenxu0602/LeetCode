@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/random-pick-with-blacklist/description/
 #
 # algorithms
-# Hard (31.66%)
-# Likes:    175
-# Dislikes: 40
-# Total Accepted:    7.3K
-# Total Submissions: 22.8K
+# Hard (32.43%)
+# Likes:    328
+# Dislikes: 63
+# Total Accepted:    13.5K
+# Total Submissions: 41.7K
 # Testcase Example:  '["Solution", "pick", "pick", "pick"]\n[[1, []], [], [], []]'
 #
 # Given a blacklist B containing unique integers from [0, N), write a function
@@ -70,9 +70,15 @@
 # any.
 # 
 #
+
+# @lc code=start
 import random
 
 class Solution:
+    # Virtual Whitelist
+    # Re-map all blacklist numbers in [0,N−len(B)) to whitelist numbers such that when we randomly pick a number from [0,N−len(B)), we actually randomly pick amongst all whitelist numbers.
+    # Time  complexity: O(B) preprocessing. O(1) pick.
+    # Space complexity: O(B)
 
     def __init__(self, N: int, blacklist: List[int]):
         blacklist.sort()
@@ -85,9 +91,9 @@ class Solution:
             if i not in self.b:
                 self.m[blacklist[j]] = i
                 j += 1
-
+        
     def pick(self) -> int:
-        i = random.randint(0, self.length-1)
+        i = random.randint(0, self.length - 1)
         return self.m[i] if i in self.m else i
         
 
@@ -95,4 +101,5 @@ class Solution:
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(N, blacklist)
 # param_1 = obj.pick()
+# @lc code=end
 

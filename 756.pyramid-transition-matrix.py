@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/pyramid-transition-matrix/description/
 #
 # algorithms
-# Medium (52.57%)
-# Likes:    197
-# Dislikes: 276
-# Total Accepted:    14.9K
-# Total Submissions: 28.3K
-# Testcase Example:  '"ABC"\n["ABD","BCE","DEF","FFF"]'
+# Medium (54.53%)
+# Likes:    298
+# Dislikes: 347
+# Total Accepted:    21.1K
+# Total Submissions: 38.6K
+# Testcase Example:  '"BCD"\n["BCG","CDE","GEA","FFF"]'
 #
 # We are stacking blocks to form a pyramid. Each block has a color which is a
 # one letter string.
@@ -57,8 +57,7 @@
 # 
 # 
 # 
-# 
-# Note:
+# Constraints:
 # 
 # 
 # bottom will be a string with length in range [2, 8].
@@ -67,51 +66,51 @@
 # 'F', 'G'}.
 # 
 # 
-# 
-# 
 #
+
+# @lc code=start
 from collections import defaultdict
-from itertools import product
+import itertools
 
 class Solution:
     def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
-        """
-        T = defaultdict(set)
-        for u, v, w in allowed:
-            T[u, v].add(w)
+        # Time  complexity: O(A^N), where N is the length of bottom, 
+        # and A is the size of the alphabet.
+        # Space complexity: O(N^2)
+        # T = defaultdict(set)
+        # for u, v, w in allowed:
+        #     T[u, v].add(w)
 
-        seen = set()
-        def solve(A):
-            if len(A) == 1:
-                return True
-            if A in seen: 
-                return False
-            seen.add(A)
-            return any(solve(cand) for cand in build(A, []))
+        # # Comments can be used to cache intermediate results
+        # # seen = set()
+        # def solve(A):
+        #     if len(A) == 1: return True
+        #     return any(solve(cand) for cand in build(A, []))
 
-        def build(A, ans, i=0):
-            if i + 1 == len(A):
-                yield "".join(ans)
-            else:
-                for w in T[A[i], A[i+1]]:
-                    ans.append(w)
-                    for result in build(A, ans, i+1):
-                        yield result
-                    ans.pop()
+        # def build(A, ans, i=0):
+        #     if i + 1 == len(A):
+        #         yield "".join(ans)
+        #     else:
+        #         for w in T[A[i], A[i+1]]:
+        #             ans.append(w)
+        #             for result in build(A, ans, i+1):
+        #                 yield result
+        #             ans.pop()
 
-        return solve(bottom)
-        """
+        # return solve(bottom)
+
 
         f = defaultdict(lambda: defaultdict(list))
         for a, b, c in allowed: f[a][b].append(c)
 
         def pyramid(bottom):
             if len(bottom) == 1: return True
-            for i in product(*(f[a][b] for a, b in zip(bottom, bottom[1:]))):
+            for i in itertools.product(*(f[a][b] for a, b in zip(bottom, bottom[1:]))):
                 if pyramid(i): return True
             return False
+
         return pyramid(bottom)
 
-
         
+# @lc code=end
 

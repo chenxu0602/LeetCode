@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/flood-fill/description/
 #
 # algorithms
-# Easy (51.53%)
-# Likes:    494
-# Dislikes: 114
-# Total Accepted:    56.6K
-# Total Submissions: 109.8K
+# Easy (55.18%)
+# Likes:    1354
+# Dislikes: 198
+# Total Accepted:    179.4K
+# Total Submissions: 324K
 # Testcase Example:  '[[1,1,1],[1,1,0],[1,0,1]]\n1\n1\n2'
 #
 # 
@@ -52,31 +52,34 @@
 # 65535].
 # 
 #
+
+# @lc code=start
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
-        """
-        R, C = len(image), len(image[0])
-        color = image[sr][sc]
-        if color == newColor:
-            return image
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # R, C = map(len, (image, image[0]))
+        # color = image[sr][sc]
+        # if color == newColor: return image
+        # def dfs(r, c):
+        #     if image[r][c] == color:
+        #         image[r][c] = newColor
+        #         if r >= 1: dfs(r - 1, c)
+        #         if r + 1 < R: dfs(r + 1, c)
+        #         if c >= 1: dfs(r, c - 1)
+        #         if c + 1 < C: dfs(r, c + 1)
 
-        def dfs(r, c):
-            if image[r][c] == color:
-                image[r][c] = newColor
-                if r >= 1: dfs(r-1, c)
-                if r+1 < R: dfs(r+1, c)
-                if c >= 1: dfs(r, c-1)
-                if c+1 < C: dfs(r, c+1)
+        # dfs(sr, sc)
+        # return image
 
-        dfs(sr, sc)
-        return image
-        """
 
         if image[sr][sc] != newColor:
             old, image[sr][sc], m, n = image[sr][sc], newColor, len(image), len(image[0])
-            for i, j in zip((sr, sr+1, sr, sr-1), (sc+1, sc, sc-1, sc)):
+            for i, j in zip((sr + 1, sr - 1, sr, sr), (sc, sc, sc + 1, sc - 1)):
                 if 0 <= i < m and 0 <= j < n and image[i][j] == old:
                     self.floodFill(image, i, j, newColor)
+
         return image
         
+# @lc code=end
 

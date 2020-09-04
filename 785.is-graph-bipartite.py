@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/is-graph-bipartite/description/
 #
 # algorithms
-# Medium (44.22%)
-# Likes:    752
-# Dislikes: 94
-# Total Accepted:    54K
-# Total Submissions: 121.8K
+# Medium (45.78%)
+# Likes:    985
+# Dislikes: 127
+# Total Accepted:    79.5K
+# Total Submissions: 173.5K
 # Testcase Example:  '[[1,3],[0,2],[1,3],[0,2]]'
 #
 # Given an undirected graph, return true if and only if it is bipartite.
@@ -64,9 +64,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-
+        # Coloring by Depth-First Search
+        # Time  complexity: O(N + E), where N is the number of nodes in the graph,
+        # and E is the number of edges.
+        # Space complexity: O(N)
         # color = {}
         # for node in range(len(graph)):
         #     if node not in color:
@@ -80,34 +85,20 @@ class Solution:
         #                     color[nei] = color[node] ^ 1
         #                 elif color[nei] == color[node]:
         #                     return False
+
         # return True
 
-        # color = {}
-        # def dfs(pos):
-        #     for i in graph[pos]:
-        #         if i in color:
-        #             if color[i] == color[pos]:
-        #                 return False
-        #         else:
-        #             color[i] = 1 - color[pos]
-        #             if not dfs(i):
-        #                 return False
-        #     return True
-
-        # for i in range(len(graph)):
-        #     if i not in color:
-        #         color[i] = 0
-        #         if not dfs(i):
-        #             return False
-        # return True
 
         color = {}
         def dfs(x, c):
             if x in color:
                 return c == color[x]
             color[x] = c
-            return all(dfs(y, 1-c) for y in graph[x])
+            return all(dfs(y, 1 - c) for y in graph[x])
+
         return all(dfs(x, 0) for x in range(len(graph)) if x not in color)
 
+
         
+# @lc code=end
 

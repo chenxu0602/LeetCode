@@ -51,18 +51,38 @@
 #
 class Solution:
     def kthGrammar(self, N: int, K: int) -> int:
-        """
-        self.mapping = ((0, 1), (1, 0))
-        if N == 1:
-            return 0
-        return self.mapping[self.kthGrammar(N-1, K//2+K%2)][(K-1)%2]
-        """
+        # self.mapping = ((0, 1), (1, 0))
+        # if N == 1:
+        #     return 0
+        # return self.mapping[self.kthGrammar(N-1, K//2+K%2)][(K-1)%2]
 
-        """
-        if N == 1: return 0
-        return (1-K%2) ^ self.kthGrammar(N-1, (K+1)//2)
-        """
+        # if N == 1: return 0
+        # return (1-K%2) ^ self.kthGrammar(N-1, (K+1)//2)
 
-        return bin(K-1).count('1') % 2
+        # return bin(K-1).count('1') % 2
+
+
+        # In general, the Kth digit's parent is going to be (K+1) / 2. If the parent is 0, then the digit will be the same as 1 - (K%2). If the parent is 1, the digit will be the opposite, ie. K%2.
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # if N == 1: return 0
+        # return (1 - K % 2) ^ self.kthGrammar(N - 1, (K + 1) // 2)
+
+
+        # We notice a pattern: the second half is always the first half "flipped".
+        # This leads to the following algorithm idea: if K is in the second half, then we could put K -= (1 << N-2) so that it is in the first half, and flip the final answer.
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # if N == 1: return 0
+        # if K <= 2 ** (N - 2):
+        #     return self.kthGrammar(N - 1, K)
+        # return self.kthGrammar(N - 1, K - 2 ** (N - 2)) ^ 1
+
+
+        # When the indexes K are written in binary (now indexing from zero), indexes of the second half of a row are ones with the first bit set to 1.
+        # This means when applying the algorithm in Approach #3 virtually, the number of times we will flip the final answer is just the number of 1s in the binary representation of K-1.
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        return bin(K - 1).count('1') % 2
         
 

@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/design-hashset/description/
 #
 # algorithms
-# Easy (54.37%)
-# Likes:    153
-# Dislikes: 41
-# Total Accepted:    25.2K
-# Total Submissions: 45.8K
-# Testcase Example:  '["MyHashSet","add","add","contains","contains","add","contains","remove","contains"]\n' +
+# Easy (60.72%)
+# Likes:    511
+# Dislikes: 87
+# Total Accepted:    98.3K
+# Total Submissions: 153.2K
+# Testcase Example:  '["MyHashSet","add","add","contains","contains","add","contains","remove","contains"]\n' + '[[],[1],[2],[1],[3],[2],[2],[2],[2]]'
 #
 # Design a HashSet without using any built-in hash table libraries.
 # 
@@ -49,61 +49,155 @@
 # 
 # 
 #
-class ListNode:
-    def __init__(self, key, val):
-        self.key = key
-        self.val = val
-        self.next = None
 
+# @lc code=start
 class MyHashSet:
+    # LinkedList as Bucket
+    # Time  complexity: O(N/K) where N is the number of all possible values and K is the number of predefined buckets, which is a prime number 769.
+    # Space complexity: O(K+M) where K is the number of predefined buckets, and M is the number of unique values that have been inserted into the Hashset.
+
+    # Binary Search Tree (BST) as Bucket
+    # Time  complexity: O(log(N/K))
+    # Space complexity: O(K+M)
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.size = 1000
-        self.m = [None] * self.size
+        self.keyRange = 769
+        self.bucketArray = [Bucket() for i in range(self.keyRange)]
+
+    def _hash(self, key):
+        return key % self.keyRange
         
     def add(self, key: int) -> None:
-        index = key % self.size
-        if self.m[index] is None:
-            self.m[index] = ListNode(key, True)
-        else:
-            currNode = self.m[index]
-            tempHead = currNode
-            self.m[index] = ListNode(key, True)
-            self.m[index].next = currNode
-
-    def remove(self, key: int) -> None:
-        index = key % self.size
-        if self.m[index] is None:
-            return
-        else:
-            currNode = self.m[index]
-            while currNode:
-                if currNode.key == key:
-                    currNode.val = False
-                    break
-                currNode = currNode.next
+        bucketIndex = self._hash(key)
+        self.bucketArray[bucketIndex].insert(key)
         
+    def remove(self, key: int) -> None:
+        bucketIndex = self._hash(key)
+        self.bucketArray[bucketIndex].delete(key)
 
     def contains(self, key: int) -> bool:
         """
         Returns true if this set contains the specified element
         """
-        index = key % self.size
-        if self.m[index] is None:
-            return False
+        bucketIndex = self._hash(key)
+        return self.bucketArray[bucketIndex].exists(key)
+
+
+# class Node:
+#     def __init__(self, value, nextNode=None):
+#         self.value = value
+#         self.next = nextNode
+
+# class Bucket:
+#     def __init__(self):
+#         # a pseudo head
+#         self.head = Node(0)
+
+#     def insert(self, newValue):
+#         # if not existed, add the new element to the head.
+#         if not self.exists(newValue):
+#             newNode = Node(newValue, self.head.next)
+#             # set the new head.
+#             self.head.next = newNode
+
+#     def delete(self, value):
+#         prev, curr = self.head, self.head.next
+#         while curr is not None:
+#             if curr.value == value:
+#                 prev.next = curr.next
+#                 return
+#             prev, curr = curr, curr.next
+
+#     def exists(self, value):
+#         curr = self.head.next
+#         while curr is not None:
+#             if curr.value == value:
+#                 return True
+#             curr = curr.next
+#         return False
+
+
+class Bucket:
+    def __init__(self):
+        self.tree = BSTree()
+
+    def insert(self, value):
+        self.tree.root = self.tree.insertIntoBST(self.tree.root, value)
+
+    def delete(self, value):
+        self.tree.root = self.tree.deleteNode(self.tree.root, value)
+
+    def exists(self, value):
+        return (self.tree.searchBST(self.tree.root, value) is not None)
+
+class TreeNode:
+    def __init__(self, value):
+        self.val = value
+        self.left = None
+        self.right = None
+
+class BSTree:
+    def __init__(self):
+        self.root = None
+
+    def searchBST(self, root: TreeNode, val: int) -> TreeNode:
+        if root is None or val == root.val:
+            return root
+
+        return self.searchBST(root.left, val) if val < root.val else self.searchBST(root.right, val)
+
+    def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        if not root:
+            return TreeNode(val)
+
+        if val > root.val:
+            root.right = self.insertIntoBST(root.right, val)
+        elif val == root.val:
+            return root
         else:
-            currNode = self.m[index]
-            while currNode:
-                if currNode.key == key:
-                    if currNode.val is True:
-                        return True
-                    else:
-                        return False
-                currNode = currNode.next
-            return False
+            root.left = self.insertIntoBST(root.left, val)
+
+        return root
+
+    def successor(self, root):
+        root = root.right
+        while root.left:
+            root = root.left
+        return root.val
+
+    def predecessor(self, root):
+        root = root.left
+        while root.right:
+            root = root.right
+        return root.val
+
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root:
+            return None
+
+        if key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            if not (root.left or root.right):
+                root = None
+            elif root.right:
+                root.val = self.successor(root)
+                root.right = self.deleteNode(root.right, root.val)
+            else:
+                root.val = self.predecessor(root)
+                root.left = self.deleteNode(root.left, root.val)
+
+        return root
+
+        
+
+
+
         
 
 
@@ -112,4 +206,5 @@ class MyHashSet:
 # obj.add(key)
 # obj.remove(key)
 # param_3 = obj.contains(key)
+# @lc code=end
 

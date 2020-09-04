@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/similar-rgb-color/description/
 #
 # algorithms
-# Easy (60.17%)
-# Likes:    44
-# Dislikes: 285
-# Total Accepted:    8.5K
-# Total Submissions: 14.1K
+# Easy (61.31%)
+# Likes:    60
+# Dislikes: 374
+# Total Accepted:    10.4K
+# Total Submissions: 16.9K
 # Testcase Example:  '"#09f166"'
 #
 # In the following, every capital letter represents some hexadecimal digit from
@@ -48,13 +48,36 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def similarRGB(self, color: str) -> str:
+        # O(1)
+
+        # def similarity(hex1, hex2):
+        #     r1, g1, b1 = hex1 >> 16, (hex1 >> 8) % 256, hex1 % 256
+        #     r2, g2, b2 = hex2 >> 16, (hex2 >> 8) % 256, hex2 % 256
+        #     return -(r1 - r2)**2 - (g1 - g2)**2 - (b1 - b2)**2
+
+        # hex1 = int(color[1:], 16)
+        # ans = 0
+        # for r in range(16):
+        #     for g in range(16):
+        #         for b in range(16):
+        #             hex2 = 17 * r * (1 << 16) + 17 * g * (1 << 8) + 17 * b
+        #             if similarity(hex1, hex2) > similarity(hex1, ans):
+        #                 ans = hex2
+
+        # return '#{:06x}'.format(ans)
+
+
+        # Rounding By Component
         def f(comp):
             q, r = divmod(int(comp, 16), 17)
             if r > 8: q += 1
-            return "{:02x}".format(17 * q)
+            return '{:02x}'.format(17 * q)
 
         return '#' + f(color[1:3]) + f(color[3:5]) + f(color[5:])
         
+# @lc code=end
 

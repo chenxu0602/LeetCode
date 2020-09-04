@@ -39,38 +39,36 @@
 #
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        """
+        # O(N)
+
+        # dp = [[0] * 2 for _ in range(len(prices))]
+        # dp[0][0] = 0
+        # dp[0][1] = -prices[0]
+
+        # for i in range(1, len(prices)):
+        #     dp[i][1] = max(dp[i-1][0] - prices[i], dp[i-1][1])
+        #     dp[i][0] = max(dp[i-1][1] + prices[i] - fee, dp[i-1][0])
+
+        # return dp[-1][0]
+
+
+        # cash, hold = 0, -prices[0]
+        # for i in range(1, len(prices)):
+        #     cash = max(cash, hold + prices[i] - fee)
+        #     hold = max(hold, cash - prices[i])
+        # return cash
+
+
         n = len(prices)
-        if n < 2:
-            return 0
+        if n < 2: return 0
+
         ans = 0
-        minimum = prices[0]
-        for i in range(1, n):
-            if prices[i] < minimum:
-                minimum = prices[i]
-            elif prices[i] > minimum + fee:
-                ans += prices[i] - minimum - fee
-                minimum = prices[i] - fee
+        minimum = float("inf")
+        for p in prices:
+            minimum = min(minimum, p)
+            if p > minimum + fee:
+                ans += p - minimum - fee
+                minimum = p - fee
         return ans
-        """
-
-        """
-        cash, hold = 0, -prices[0]
-        for i in range(1, len(prices)):
-            cash = max(cash, hold + prices[i] - fee)
-            hold = max(hold, cash - prices[i])
-
-        return cash
-        """
-
-        dp = [[0] * 2 for _ in range(len(prices))]
-        dp[0][0] = 0
-        dp[0][1] = -prices[0]
-
-        for i in range(1, len(prices)):
-            dp[i][1] = max(dp[i-1][0] - prices[i], dp[i-1][1])
-            dp[i][0] = max(dp[i-1][1] + prices[i] - fee, dp[i-1][0])
-
-        return dp[-1][0]
         
 

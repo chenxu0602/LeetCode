@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/k-th-smallest-prime-fraction/description/
 #
 # algorithms
-# Hard (40.51%)
-# Likes:    245
-# Dislikes: 13
-# Total Accepted:    8.9K
-# Total Submissions: 22K
+# Hard (41.15%)
+# Likes:    392
+# Dislikes: 25
+# Total Accepted:    14.2K
+# Total Submissions: 34.5K
 # Testcase Example:  '[1,2,3,5]\n3'
 #
 # A sorted list A contains 1, plus some number of primes.  Then, for every p <
@@ -40,17 +40,54 @@
 # K will be between 1 and A.length * (A.length - 1) / 2.
 # 
 #
+
+# @lc code=start
 import heapq
+from fractions import Fraction
 
 class Solution:
     def kthSmallestPrimeFraction(self, A: List[int], K: int) -> List[int]:
-        pq = [(A[0] / float(A[i]), 0, i) for i in range(len(A)-1, 0, -1)]
-        for _ in range(K-1):
-            frac, i, j = heapq.heappop(pq)
-            i += 1
-            if i < j:
-                heapq.heappush(pq, (A[i] / float(A[j]), i, j))
+        # Heap
+        # Time  complexity: O(K x logN)
+        # Space complexity: O(N)
+        # pq = [(A[0] / float(A[i]), 0, i) for i in range(len(A) - 1, 0, -1)]
 
-        return A[pq[0][1]], A[pq[0][2]]
+        # for _ in range(K - 1):
+        #     frac, i, j = heapq.heappop(pq)
+        #     i += 1
+        #     if i < j:
+        #         heapq.heappush(pq, (A[i] / float(A[j]), i, j))
+
+        # return A[pq[0][1]], A[pq[0][2]]
+
+
+        # Binary Search
+        # Time  complexity: O(N x logW)
+        # Space complexity: O(1)
+        def under(x):
+            # Return the number of fractions below x, and the largest such fraction
+            count, best, i = 0, 0, -1
+            for j in range(1, len(A)):
+                while A[i + 1] < A[j] * x:
+                    i += 1
+                count += i + 1
+                if i >= 0:
+                    best = max(best, Fraction(A[i], A[j]))
+            return count, best
+
+        # Binary search for x such that there are K fractions below x.
+        lo, hi = 0.0, 1.0
+        while hi - lo > 1e-9:
+            mi = (lo + hi) / 2.0
+            count, best = under(mi)
+            if count < K:
+                lo = mi
+            else:
+                ans = best
+                hi = mi
+
+        return ans.numerator, ans.denominator
+
         
+# @lc code=end
 

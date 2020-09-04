@@ -59,25 +59,49 @@
 # @lc code=start
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        # Hash By Local Coordinates
+        # O(R x C)
+        # def explore(r, c, r0, c0):
+        #     if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] and (r, c) not in seen:
+        #         seen.add((r, c))
+        #         shape.add((r - r0, c - c0))
+        #         explore(r + 1, c, r0, c0)
+        #         explore(r - 1, c, r0, c0)
+        #         explore(r, c + 1, r0, c0)
+        #         explore(r, c - 1, r0, c0)
 
-        seen = set()
+        # seen, shapes = set(), set()
+        # for r in range(len(grid)):
+        #     for c in range(len(grid[0])):
+        #         shape = set()
+        #         explore(r, c, r, c)
+        #         if shape:
+        #             shapes.add(frozenset(shape))
 
-        def explore(r, c, r0, c0):
+        # return len(shapes)
+
+
+        # Hash By Path Signature
+        # Keeping in mind to record both when we enter and when we exit the function.
+        # O(R x C)
+        def explore(r, c, di=0):
             if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] and (r, c) not in seen:
                 seen.add((r, c))
-                shape.add((r - r0, c - c0))
-                explore(r + 1, c, r0, c0)
-                explore(r - 1, c, r0, c0)
-                explore(r, c + 1, r0, c0)
-                explore(r, c - 1, r0, c0)
+                shape.append(di)
+                explore(r + 1, c, 1)
+                explore(r - 1, c, 2)
+                explore(r, c + 1, 3)
+                explore(r, c - 1, 4)
+                shape.append(0)
 
-        shapes = set()
+        seen, shapes = set(), set()
         for r in range(len(grid)):
             for c in range(len(grid[0])):
-                shape = set()
-                explore(r, c, r, c)
+                shape = []
+                explore(r, c)
                 if shape:
-                    shapes.add(frozenset(shape))
+                    shapes.add(tuple(shape))
+
         return len(shapes)
         
 # @lc code=end

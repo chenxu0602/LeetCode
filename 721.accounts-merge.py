@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/accounts-merge/description/
 #
 # algorithms
-# Medium (41.24%)
-# Likes:    709
-# Dislikes: 193
-# Total Accepted:    39K
-# Total Submissions: 93.6K
+# Medium (48.44%)
+# Likes:    1575
+# Dislikes: 312
+# Total Accepted:    90.7K
+# Total Submissions: 184.9K
 # Testcase Example:  '[["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]'
 #
 # Given a list accounts, each element accounts[i] is a list of strings, where
@@ -51,43 +51,78 @@
 # 
 # 
 # Note:
-
 # The length of accounts will be in the range [1, 1000].
 # The length of accounts[i] will be in the range [1, 10].
 # The length of accounts[i][j] will be in the range [1, 30].
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class DSU:
-    def __init__(self):
-        self.p = list(range(10001))
-        self.r = [0] * 10001
+    def __init__(self, N=10001):
+        self.par = list(range(N))
+        self.rnk = [0] * N
 
     def find(self, x):
-        if self.p[x] == x:
-            return x
-        return self.find(self.p[x])
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
 
     def union(self, x, y):
-        xr, yr = self.find(x), self.find(y)
-        if xr == yr:
+        xr, yr = map(self.find, (x, y))
+        if xr == yr: 
             return False
-        elif self.r[xr] < self.r[yr]:
-            self.p[xr] = yr
-        elif self.r[xr] > self.r[yr]:
-            self.p[yr] = xr
+        elif self.rnk[xr] < self.rnk[yr]:
+            self.par[xr] = yr
+        elif self.rnk[xr] > self.rnk[yr]:
+            self.par[yr] = xr
         else:
-            self.p[yr] = xr
-            self.r[xr] += 1
-        return True
+            self.par[yr] = xr
+            self.rnk[xr] += 1
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        # Depth-First Search
+        # Time  complexity: O(sum(a_i x log(a_i))), where a_i is the length of accounts[i].
+        # Without the log factor, this is the complexity to build the graph and search for reach component.
+        # The log factor is for sorting each component at the end.
+        # Space complexity: O(sum(a_i)), the space used by our graph and our search.
+        # em_to_name = {}
+        # graph = defaultdict(set)
+        # for acc in accounts:
+        #     name = acc[0]
+        #     for email in acc[1:]:
+        #         graph[acc[1]].add(email)
+        #         graph[email].add(acc[1])
+        #         em_to_name[email] = name
 
+        # seen, ans = set(), []
+        # for email in graph:
+        #     if email not in seen:
+        #         seen.add(email)
+        #         stack, component = [email], []
+        #         while stack:
+        #             node = stack.pop()
+        #             component.append(node)
+        #             for nei in graph[node]:
+        #                 if nei not in seen:
+        #                     seen.add(nei)
+        #                     stack.append(nei)
+
+        #         ans.append([em_to_name[email]] + sorted(component))
+        # return ans
+
+
+        # Union-Find
+        # Time  complexity: O(AlogA), where A = sum(a_i) and a_i is the length of accounts[i].
+        # If we use union-by-rank, this complexity improves to O(A x a(A)) = O(A), 
+        # where a is the Inverse-Ackermann function.
+        # Space complexity: O(A), the space used by our DSU structure.
         dsu = DSU()
         em_to_name, em_to_id = {}, {}
-
+        
         i = 0
         for acc in accounts:
             name = acc[0]
@@ -105,5 +140,5 @@ class Solution:
         return [[em_to_name[v[0]]] + sorted(v) for v in ans.values()]
 
         
-        
+# @lc code=end
 

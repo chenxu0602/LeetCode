@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/description/
 #
 # algorithms
-# Medium (59.72%)
-# Likes:    159
-# Dislikes: 15
-# Total Accepted:    11.8K
-# Total Submissions: 19.5K
+# Medium (66.54%)
+# Likes:    344
+# Dislikes: 26
+# Total Accepted:    28.9K
+# Total Submissions: 43K
 # Testcase Example:  '[-1,0,3,5,9,12]\n9'
 #
 # Given an integer array sorted in ascending order, write a function to search
@@ -41,14 +41,25 @@
 # 
 # 
 # 
-# Note:
+# Constraints:
 # 
 # 
 # You may assume that all elements in the array are unique.
-# The value of each element in the array will be in the range [-9999, 9999].
+# The value of each element in the array will be in the range [-9999,
+# 9999].
+# The length of the array will be in the range [1, 10^4].
 # 
 # 
 #
+
+# @lc code=start
+# """
+# This is ArrayReader's API interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class ArrayReader:
+#    def get(self, index: int) -> int:
+
 class Solution:
     def search(self, reader, target):
         """
@@ -56,24 +67,28 @@ class Solution:
         :type target: int
         :rtype: int
         """
+        # Time  complexity: O(logT), where T is an index of target value.
+        # Space complexity: O(1)
+        if reader.get(0) == target: return 0
 
-        if reader.get(0) == 2147483647:
-            return -1
-        else:
-            start, end = 0, 1
-            while reader.get(end) < target:
-                start = end
-                end = end * 2
+        left, right = 0, 1
+        while reader.get(right) < target:
+            left = right
+            right <<= 1
 
-            while start <= end:
-                mid = (start + end) // 2
-                if reader.get(mid) == target:
-                    return mid
-                else:
-                    if target < reader.get(mid):
-                        end = mid - 1
-                    else:
-                        start = mid + 1
+        while left <= right:
+            mid = left + ((right - left) >> 1)
+            num = reader.get(mid)
+
+            if num == target:
+                return mid
+
+            if num > target:
+                right = mid - 1
+            else:
+                left = mid + 1
+
         return -1
-
+        
+# @lc code=end
 

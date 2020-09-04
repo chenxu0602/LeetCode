@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/parse-lisp-expression/description/
 #
 # algorithms
-# Hard (44.76%)
-# Likes:    169
-# Dislikes: 143
-# Total Accepted:    7.3K
-# Total Submissions: 16.3K
+# Hard (47.40%)
+# Likes:    278
+# Dislikes: 212
+# Total Accepted:    12.2K
+# Total Submissions: 25.6K
 # Testcase Example:  '"(add 1 2)"'
 #
 # 
@@ -105,6 +105,8 @@
 # fit in a 32-bit integer.
 # 
 #
+
+# @lc code=start
 def implicit_scope(func):
     def wrapper(*args):
         args[0].scope.append({})
@@ -134,16 +136,18 @@ class Solution:
             if expression[0].isdigit() or expression[0] == '-':
                 return int(expression)
             for local in reversed(self.scope):
-                if expression in local: return local[expression]
+                if expression in local:
+                    return local[expression]
 
         tokens = list(self.parse(expression[5 + (expression[1] == 'm'):-1]))
-        if expression.startswith('(add'):
+        if expression.startswith("(add"):
             return self.evaluate(tokens[0]) + self.evaluate(tokens[1])
-        elif expression.startswith('(mult'):
+        elif expression.startswith("(mult"):
             return self.evaluate(tokens[0]) * self.evaluate(tokens[1])
         else:
             for j in range(1, len(tokens), 2):
-                self.scope[-1][tokens[j-1]] = self.evaluate(tokens[j])
+                self.scope[-1][tokens[j - 1]] = self.evaluate(tokens[j])
             return self.evaluate(tokens[-1])
         
+# @lc code=end
 

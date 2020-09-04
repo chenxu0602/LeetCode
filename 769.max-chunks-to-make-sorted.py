@@ -56,15 +56,32 @@ import itertools
 
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
-        """
-        ans = ma = 0
-        for i, x in enumerate(arr):
-            ma = max(ma, x)
-            if ma == i:
-                ans += 1
-        return ans 
-        """
+        # O(N)
 
-        return sum(mx == i for i, mx in enumerate(itertools.accumulate(arr, max)))
+        # ans = ma = 0
+        # for i, x in enumerate(arr):
+        #     ma = max(ma, x)
+        #     if ma == i:
+        #         ans += 1
+        # return ans
+
+
+        # return sum(mx == i for i, mx in enumerate(itertools.accumulate(arr, max)))
+
+
+        i = targetSum = ans = 0
+        n = len(arr)
+        while i < n:
+            currentSum = arr[i]
+            while targetSum != currentSum:
+                i += 1
+                targetSum += i
+                currentSum += arr[i]
+            
+            ans += 1
+            i += 1
+            targetSum = i
+        return ans
+
         
 

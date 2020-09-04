@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
 #
 # algorithms
-# Medium (46.55%)
-# Likes:    722
-# Dislikes: 32
-# Total Accepted:    37.9K
-# Total Submissions: 81K
+# Medium (49.29%)
+# Likes:    1393
+# Dislikes: 49
+# Total Accepted:    67.1K
+# Total Submissions: 135.6K
 # Testcase Example:  '[1,2,3,2,1]\n[3,2,1,4,7]'
 #
 # Given two integer arrays A and B, return the maximum length of an subarray
@@ -39,31 +39,18 @@
 # 
 # 
 #
-from collections import defaultdict
 
+# @lc code=start
 class Solution:
     def findLength(self, A: List[int], B: List[int]) -> int:
-        """
-        ans = 0
-        Bstarts = defaultdict(list)
-        for j, y in enumerate(B):
-            Bstarts[y].append(j)
-
-        for i, x in enumerate(A):
-            for j in Bstarts[x]:
-                k = 0
-                while i + k < len(A) and j + k < len(B) and A[i+k] == B[j+k]:
-                    k += 1
-                ans = max(ans, k)
-        return ans
-        """
-
-        memo = [[0] * (len(B) + 1) for _ in range(len(A) + 1)]
+        # O(M x N)
+        dp = [[0] * (len(B) + 1) for _ in range(len(A) + 1)]
         for i in range(len(A) - 1, -1, -1):
             for j in range(len(B) - 1, -1, -1):
                 if A[i] == B[j]:
-                    memo[i][j] = memo[i+1][j+1] + 1
-        return max(max(row) for row in memo)
+                    dp[i][j] = dp[i + 1][j + 1] + 1
 
+        return max(max(row) for row in dp)
         
+# @lc code=end
 

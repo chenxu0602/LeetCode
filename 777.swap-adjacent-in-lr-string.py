@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/swap-adjacent-in-lr-string/description/
 #
 # algorithms
-# Medium (33.61%)
-# Likes:    237
-# Dislikes: 225
-# Total Accepted:    16.7K
-# Total Submissions: 49.6K
+# Medium (34.77%)
+# Likes:    407
+# Dislikes: 356
+# Total Accepted:    28.2K
+# Total Submissions: 81K
 # Testcase Example:  '"X"\n"L"'
 #
 # In a string composed of 'L', 'R', and 'X' characters, like "RXXLRXRXL", a
@@ -33,41 +33,77 @@
 # XRLXXRRLX
 # 
 # 
-# Note:
+# 
+# Constraints:
 # 
 # 
-# 1 <= len(start) = len(end) <= 10000.
+# 1 <= len(start) == len(end) <= 10000.
 # Both start and end will only consist of characters in {'L', 'R', 'X'}.
 # 
 # 
 #
+
+# @lc code=start
 import operator, itertools
 
 class Solution:
     def canTransform(self, start: str, end: str) -> bool:
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # if start.replace('X', '') != end.replace('X', ''):
+        #     return False
 
-        """
-        if start.replace('X', '') != end.replace('X', ''):
-            return False
+        # for sym, op in ('L', operator.ge), ('R', operator.le):
+        #     B = (i for i, c in enumerate(end) if c == sym)
+        #     for i, c in enumerate(start):
+        #         if c == sym and not op(i, next(B)):
+        #             return False
 
-        for (symbol, op) in (('L', operator.ge), ('R', operator.le)):
-            B = (i for i, c in enumerate(end) if c == symbol)
-            for i, c in enumerate(start):
-                if c == symbol and not op(i, next(B)):
-                    return False
-        return True
-        """
+        # return True
 
+
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # if start.count('X') != end.count('X'):
+        #     return False
+
+        # n = len(start)
+        # i = j = 0
+        # while i < n and j < n:
+        #     while i < n and start[i] == 'X':
+        #         i += 1
+        #     while j < n and end[j] == 'X':
+        #         j += 1
+
+        #     # i and j are the indices representing the next
+        #     # occurrences of non-X characters
+        #     if i == n or j == n:
+        #         return i == n and j == n
+
+        #     if start[i] != end[j]:
+        #         return False
+
+        #     if start[i] == 'L' and i < j:
+        #         return False
+
+        #     if start[i] == 'R' and i > j:
+        #         return False
+
+        #     i += 1; j += 1
+
+        # return True
+
+
+        
         for (i, x), (j, y) in itertools.zip_longest(
             ((i, x) for i, x in enumerate(start) if x != 'X'),
-            ((i, y) for i, y in enumerate(end) if y != 'X'),
-            fillvalue = (None, None)):
+            ((j, y) for j, y in enumerate(end) if y != 'X'), fillvalue = (None, None)):
+
             if x != y or (x == 'L' and i < j) or (x == 'R' and i > j):
                 return False
 
         return True
 
 
-        
-        
+# @lc code=end
 

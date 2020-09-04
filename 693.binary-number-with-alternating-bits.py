@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-number-with-alternating-bits/description/
 #
 # algorithms
-# Easy (58.09%)
-# Likes:    316
-# Dislikes: 72
-# Total Accepted:    45K
-# Total Submissions: 77.3K
+# Easy (59.35%)
+# Likes:    480
+# Dislikes: 78
+# Total Accepted:    63.4K
+# Total Submissions: 106.6K
 # Testcase Example:  '5'
 #
 # Given a positive integer, check whether it has alternating bits: namely, if
@@ -52,18 +52,21 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def hasAlternatingBits(self, n: int) -> bool:
-        """
-        bits = bin(n)
-        return all(bits[i] != bits[i+1] for i in range(len(bits)-1))
-        """
+        # O(1)
 
-        n , cur = divmod(n, 2)
+        # bits = bin(n)
+        # return all(bits[i] != bits[i+1] for i in range(len(bits)-1))
+
+
+        n, cur = divmod(n, 2)
         while n:
-            if cur == n % 2:
-                return False
+            if cur == n % 2: return False
             n, cur = divmod(n, 2)
         return True
         
+# @lc code=end
 

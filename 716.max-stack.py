@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/max-stack/description/
 #
 # algorithms
-# Easy (40.28%)
-# Likes:    384
-# Dislikes: 67
-# Total Accepted:    28.8K
-# Total Submissions: 71.1K
-# Testcase Example:  '["MaxStack","push","push","push","top","popMax","top","peekMax","pop","top"]\n' +
+# Easy (42.58%)
+# Likes:    742
+# Dislikes: 164
+# Total Accepted:    57K
+# Total Submissions: 133.9K
+# Testcase Example:  '["MaxStack","push","push","push","top","popMax","top","peekMax","pop","top"]\n' + '[[],[5],[1],[5],[],[],[],[],[],[]]'
 #
 # Design a max stack that supports push, pop, top, peekMax and popMax.
 # 
@@ -50,53 +50,49 @@
 # 
 #
 
+# @lc code=start
+import heapq
+
 class MaxStack:
+    # O(logn)
 
     def __init__(self):
         """
         initialize your data structure here.
         """
-        self.stack = []
-        self.maxstack = []
-        
+        self.ls, self.hp = [], []
+        self.lsd, self.hpd = set(), set()
+        self.id = 0
 
     def push(self, x: int) -> None:
-        self.stack.append(x)
-        if not self.maxstack:
-            self.maxstack.append(x)
-        else:
-            self.maxstack.append(max(x, self.maxstack[-1]))
-        
+        self.ls.append((self.id, x))
+        heapq.heappush(self.hp, (-x, -self.id))
+        self.id += 1
 
     def pop(self) -> int:
-        if self.stack:
-            self.maxstack.pop()
-            return self.stack.pop()
-        
+        x = self.top()
+        self.hpd.add(self.ls[-1][0])
+        self.ls.pop()
+        return x
 
     def top(self) -> int:
-        if self.stack:
-            return self.stack[-1]
-        
+        while self.ls[-1][0] in self.lsd:
+            self.lsd.remove(self.ls[-1][0])
+            self.ls.pop()
+        return self.ls[-1][1]
+
     def peekMax(self) -> int:
-        if self.maxstack:
-            return self.maxstack[-1]
+        while -self.hp[0][1] in self.hpd:
+            self.hpd.remove(-self.hp[0][1])
+            heapq.heappop(self.hp)
+        return -self.hp[0][0]
         
-
     def popMax(self) -> int:
-        m = self.peekMax()
-
-        tmp = []
-        while m != self.stack[-1]:
-            tmp.append(self.pop())
+        x = self.peekMax()
+        _, nid = heapq.heappop(self.hp)
+        self.lsd.add(-nid)
+        return x
         
-        ret = self.stack.pop()
-        self.maxstack.pop()
-
-        for i in range(len(tmp) - 1, -1, -1):
-            self.push(tmp[i])
-
-        return ret
 
 
 # Your MaxStack object will be instantiated and called as such:
@@ -106,4 +102,5 @@ class MaxStack:
 # param_3 = obj.top()
 # param_4 = obj.peekMax()
 # param_5 = obj.popMax()
+# @lc code=end
 

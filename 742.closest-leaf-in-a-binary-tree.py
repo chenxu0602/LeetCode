@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/closest-leaf-in-a-binary-tree/description/
 #
 # algorithms
-# Medium (40.08%)
-# Likes:    268
-# Dislikes: 73
-# Total Accepted:    11.7K
-# Total Submissions: 29.3K
+# Medium (41.94%)
+# Likes:    381
+# Dislikes: 84
+# Total Accepted:    16.7K
+# Total Submissions: 39.7K
 # Testcase Example:  '[1,3,2]\n1'
 #
 # Given a binary tree where every node has a unique value, and a target key k,
@@ -78,13 +78,14 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
 from collections import defaultdict, deque
 
 class Solution:
@@ -111,5 +112,6 @@ class Solution:
                     if nei not in seen:
                         seen.add(nei)
                         queue.append(nei)
-
+        
+# @lc code=end
 

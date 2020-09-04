@@ -51,11 +51,11 @@
 # @lc code=start
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], K: int) -> List[int]:
-        W = []
-        sum_ = 0
+        # O(N)
+        W, sum_ = [], 0
         for i, x in enumerate(nums):
             sum_ += x
-            if i >= K: sum_ -= nums[i-K]
+            if i >= K: sum_ -= nums[i - K]
             if i >= K - 1: W.append(sum_)
 
         left = [0] * len(W)
@@ -73,12 +73,13 @@ class Solution:
             right[i] = best
 
         ans = None
-        for j in range(K, len(W)-K):
-            i, k = left[j-K], right[j+K]
+        for j in range(K, len(W) - K):
+            i, k = left[j - K], right[j + K]
             if ans is None or (W[i] + W[j] + W[k] > W[ans[0]] + W[ans[1]] + W[ans[2]]):
                 ans = i, j, k
 
         return ans
+        
         
 # @lc code=end
 

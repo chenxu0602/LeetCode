@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/k-empty-slots/description/
 #
 # algorithms
-# Hard (34.34%)
-# Likes:    487
-# Dislikes: 510
-# Total Accepted:    39.5K
-# Total Submissions: 114.8K
+# Hard (35.61%)
+# Likes:    602
+# Dislikes: 580
+# Total Accepted:    46.6K
+# Total Submissions: 130.6K
 # Testcase Example:  '[1,3,2]\n1'
 #
 # You have N bulbs in a row numbered from 1 to N. Initially, all the bulbs are
@@ -65,38 +65,45 @@
 # 
 # 
 #
+
+# @lc code=start
 import bisect
 
 class Solution:
     def kEmptySlots(self, bulbs: List[int], K: int) -> int:
-        """
-        active = []
-        for day, bulb in enumerate(bulbs, 1):
-            i = bisect.bisect_left(active, bulb)
-            for nei in active[i-(i>0):i+1]:
-                if abs(nei-bulb) - 1 == K:
-                    return day
-            active.insert(i, bulb)
-        return -1
-        """
+        # Time  complexity: O(NlogN + N^2) = O(N^2)
+        # Space complexity: O(N)
+        # active = []
+        # for day, bulb in enumerate(bulbs, 1):
+        #     i = bisect.bisect(active, bulb)
+        #     for neighbor in active[i - (i > 0):i + 1]:
+        #         if abs(neighbor - bulb) - 1 == K:
+        #             return day
 
+        #     active.insert(i, bulb)
+        # return -1
+
+
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         days = [0] * len(bulbs)
         for day, position in enumerate(bulbs, 1):
-            days[position-1] = day
+            days[position - 1] = day
 
         ans = float("inf")
-        left, right = 0, K+1
+        left, right = 0, K + 1
         while right < len(days):
             for i in range(left + 1, right):
                 if days[i] < days[left] or days[i] < days[right]:
-                    left, right = i, i+K+1
+                    left, right = i, i + K + 1
                     break
             else:
                 ans = min(ans, max(days[left], days[right]))
                 left, right = right, right + K + 1
 
         return ans if ans < float("inf") else -1
+
+
         
-            
-        
+# @lc code=end
 

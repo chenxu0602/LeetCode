@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-univalue-path/description/
 #
 # algorithms
-# Easy (34.08%)
-# Likes:    1054
-# Dislikes: 268
-# Total Accepted:    64.2K
-# Total Submissions: 187.5K
+# Easy (35.06%)
+# Likes:    1328
+# Dislikes: 355
+# Total Accepted:    77.2K
+# Total Submissions: 220K
 # Testcase Example:  '[5,4,5,1,1,5]'
 #
 # Given a binary tree, find the length of the longest path where each node in
@@ -57,6 +57,8 @@
 # tree is not more than 1000.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -66,28 +68,13 @@
 
 class Solution:
     def longestUnivaluePath(self, root: TreeNode) -> int:
-        """
-        def dfs(node, prev_val):
-            if node is None:
-                return 0
-            left = dfs(node.left, node.val)
-            right = dfs(node.right, node.val)
-            self.max_val = max(self.max_val, left+right)
-            if node.val == prev_val:
-                return max(left, right) + 1
-            return 0
 
-        self.max_val = 0
-        if root is None:
-            return 0
-        dfs(root, root.val)
-        return self.max_val
-        """
-
+        # Time  complexity: O(N), where N is the number of nodes in the tree.
+        # Space complexity: O(H), where H is the height of the tree. 
+        # Our recursive call stack could be up to H layers deep.
         def dfs(node):
             if not node: return 0
-            left = dfs(node.left)
-            right = dfs(node.right)
+            left, right = map(dfs, (node.left, node.right))
             l = r = 0
             if node.left and node.left.val == node.val:
                 l = left + 1
@@ -99,5 +86,7 @@ class Solution:
         self.ans = 0
         dfs(root)
         return self.ans
+
         
+# @lc code=end
 

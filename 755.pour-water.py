@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/pour-water/description/
 #
 # algorithms
-# Medium (41.46%)
-# Likes:    133
-# Dislikes: 242
-# Total Accepted:    14.3K
-# Total Submissions: 34.6K
+# Medium (43.31%)
+# Likes:    201
+# Dislikes: 405
+# Total Accepted:    21.4K
+# Total Submissions: 49.3K
 # Testcase Example:  '[2,1,1,2,1,2,2]\n4\n3'
 #
 # 
@@ -69,16 +69,18 @@
 # K will be in range [0, heights.length - 1].
 # 
 #
+
+# @lc code=start
 class Solution:
     def pourWater(self, heights: List[int], V: int, K: int) -> List[int]:
+        # Time  complexity: O(V x N)
+        # Space complexity: O(1)
         for _ in range(V):
             for d in (-1, 1):
                 i = best = K
                 while 0 <= i + d < len(heights) and heights[i + d] <= heights[i]:
-                    if heights[i + d] < heights[i]:
-                        best = i + d
+                    if heights[i + d] < heights[i]: best = i + d
                     i += d
-
                 if best != K:
                     heights[best] += 1
                     break
@@ -87,6 +89,7 @@ class Solution:
 
         return heights
 
+
         
-        
+# @lc code=end
 

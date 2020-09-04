@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/champagne-tower/description/
 #
 # algorithms
-# Medium (34.55%)
-# Likes:    312
-# Dislikes: 21
-# Total Accepted:    10.7K
-# Total Submissions: 31.1K
+# Medium (35.58%)
+# Likes:    429
+# Dislikes: 27
+# Total Accepted:    15.1K
+# Total Submissions: 42K
 # Testcase Example:  '1\n1\n1'
 #
 # We stack glasses in a pyramid, where the first row has 1 glass, the second
@@ -67,17 +67,27 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
+        # Instead of keeping track of how much champagne should end up in a glass, 
+        # keep track of the total amount of champagne that flows through a glass. 
+        # For example, if poured = 10 cups are poured at the top, then the total 
+        # flow-through of the top glass is 10; the total flow-through of each glass 
+        # in the second row is 4.5, and so on.
+        # Time  complexity: O(R^2)
+        # Space complexity: O(1)
         A = [[0] * k for k in range(1, 102)]
         A[0][0] = poured
         for r in range(query_row + 1):
             for c in range(r + 1):
                 q = (A[r][c] - 1.0) / 2.0
                 if q > 0:
-                    A[r+1][c] += q
-                    A[r+1][c+1] += q
+                    A[r + 1][c] += q
+                    A[r + 1][c + 1] += q
 
         return min(1, A[query_row][query_glass])
         
+# @lc code=end
 

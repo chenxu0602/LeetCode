@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/count-binary-substrings/description/
 #
 # algorithms
-# Easy (53.79%)
-# Likes:    665
-# Dislikes: 123
-# Total Accepted:    33.4K
-# Total Submissions: 61.9K
+# Easy (55.88%)
+# Likes:    1014
+# Dislikes: 173
+# Total Accepted:    47.2K
+# Total Submissions: 84.1K
 # Testcase Example:  '"00110"'
 #
 # Give a string s, count the number of non-empty (contiguous) substrings that
@@ -48,23 +48,23 @@
 # 
 #
 
-import itertools
+# @lc code=start
+from itertools import groupby
 
 class Solution:
     def countBinarySubstrings(self, s: str) -> int:
-        """
-        groups = [len(list(v)) for _, v in itertools.groupby(s)]
-        return sum((min(a, b) for a, b in zip(groups, groups[1:])))
-        """
+        # groups = [len(list(v)) for _, v in groupby(s)]
+        # return sum(min(a, b) for a, b in zip(groups, groups[1:]))
 
-        ans, prev, cur = 0, 0, 1
-
+        ans, prev, curr = 0, 0, 1
         for i in range(1, len(s)):
             if s[i-1] != s[i]:
-                ans += min(prev, cur)
-                prev, cur = cur, 1
+                ans += min(prev, curr)
+                prev, curr = curr, 1
             else:
-                cur += 1
-        return ans + min(prev, cur)
+                curr += 1
+
+        return ans + min(prev, curr)
         
+# @lc code=end
 

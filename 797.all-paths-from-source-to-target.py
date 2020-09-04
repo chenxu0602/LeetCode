@@ -6,23 +6,23 @@
 # https://leetcode.com/problems/all-paths-from-source-to-target/description/
 #
 # algorithms
-# Medium (71.07%)
-# Likes:    455
-# Dislikes: 38
-# Total Accepted:    32.9K
-# Total Submissions: 46.2K
+# Medium (77.67%)
+# Likes:    1062
+# Dislikes: 74
+# Total Accepted:    84.8K
+# Total Submissions: 108.8K
 # Testcase Example:  '[[1,2],[3],[3],[]]'
 #
-# Given a directed, acyclic graph of N nodes.  Find all possible paths from
-# node 0 to node N-1, and return them in any order.
+# Given a directed acyclic graph of N nodes. Find all possible paths from node
+# 0 to node N-1, and return them in any order.
 # 
 # The graph is given as follows:  the nodes are 0, 1, ..., graph.length - 1.
 # graph[i] is a list of all nodes j for which the edge (i, j) exists.
 # 
 # 
 # Example:
-# Input: [[1,2], [3], [3], []] 
-# Output: [[0,1,3],[0,2,3]] 
+# Input: [[1,2],[3],[3],[]]
+# Output: [[0,1,3],[0,2,3]]
 # Explanation: The graph looks like this:
 # 0--->1
 # |    |
@@ -31,46 +31,63 @@
 # There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
 # 
 # 
-# Note:
+# 
+# Constraints:
 # 
 # 
 # The number of nodes in the graph will be in the range [2, 15].
 # You can print different paths in any order, but you should keep the order of
 # nodes inside one path.
 # 
+# 
 #
+
+# @lc code=start
+from collections import deque
+from functools import lru_cache
+
 class Solution:
-    def __init__(self):
-        self.memo = {}
-
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        """
-        N = len(graph)
+        # Backtracking
+        # Time  complexity: O(2^N x N)
+        # Space complexity: O(2^N x N)
+        # target, results = len(graph) - 1, []
 
-        def solve(node):
-            if node == N - 1:
-                return [[N - 1]]
-            ans = []
-            for nei in graph[node]:
-                for path in solve(nei):
-                    ans.append([node] + path)
-            return ans
+        # def backtrack(currNode, path):
+        #     if currNode == target:
+        #         results.append(list(path))
+        #         return
 
-        return solve(0)
-        """
+        #     for nextNode in graph[currNode]:
+        #         path.append(nextNode)
+        #         backtrack(nextNode, path)
+        #         path.pop()
 
-        self.memo = {len(graph) - 1: [[len(graph) - 1]]}
+        # path = deque([0])
+        # backtrack(0, path)
 
-        def calc(N):
-            if N in self.memo:
-                return self.memo[N]
-            ans = []
-            for n in graph[N]:
-                for path in calc(n):
-                    ans.append([N] + path)
-            self.memo[N] = ans
-            return ans
+        # return results
 
-        return calc(0)
+
+        # Top-Down Dynamic Programming
+        # Time  complexity: O(2^N x N)
+        # Space complexity: O(2^N x N)
+        target = len(graph) - 1
+
+        @lru_cache(None)
+        def allPathsToTarget(currNode):
+            if currNode == target:
+                return [[target]]
+
+            results = []
+            for nextNode in graph[currNode]:
+                for path in allPathsToTarget(nextNode):
+                    results.append([currNode] + path)
+                    
+            return results
+
+        return allPathsToTarget(0)
+
         
+# @lc code=end
 

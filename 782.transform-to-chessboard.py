@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/transform-to-chessboard/description/
 #
 # algorithms
-# Hard (40.03%)
-# Likes:    90
-# Dislikes: 99
-# Total Accepted:    3.3K
-# Total Submissions: 8.3K
+# Hard (40.91%)
+# Likes:    123
+# Dislikes: 139
+# Total Accepted:    6K
+# Total Submissions: 12.8K
 # Testcase Example:  '[[0,1,1,0],[0,1,1,0],[1,0,0,1],[1,0,0,1]]'
 #
 # An N x N board contains only 0s and 1s. In each move, you can swap any 2 rows
@@ -61,23 +61,37 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def movesToChessboard(self, board: List[List[int]]) -> int:
+        # Dimension Independence
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
         N, ans = len(board), 0
+        # For each count of lines from {rows, columns}...
         for count in (Counter(map(tuple, board)), Counter(zip(*board))):
-            if len(count) != 2 or sorted(count.values()) != [N//2, (N+1)//2]:
+            # If there are more than 2 kinds of lines,
+            # or if the number of kinds is not appropriate ...
+            if len(count) != 2 or sorted(count.values()) != [N // 2, (N + 1) // 2]:
                 return -1
 
+            # If the lines are not opposite each other, impossible
             line1, line2 = count
             if not all(x ^ y for x, y in zip(line1, line2)):
                 return -1
 
+            # starts = what could be the starting value of line1
+            # If N is odd, then we have to start with the more frequent element
             starts = [+(line1.count(1) * 2 > N)] if N % 2 else [0, 1]
 
-            ans += min(sum((i-x) % 2 for i, x in enumerate(line1, start))
-                       for start in starts) // 2
+            # To transform line1 into the ideal line [i%2 for i ...],
+            # we take the number of differences and divide by two
+            ans += min(sum((i - x) % 2 for i, x in enumerate(line1, start)) for start in starts) // 2
 
         return ans
+        
+# @lc code=end
 

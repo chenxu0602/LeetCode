@@ -56,6 +56,9 @@ class Solution:
         # ans[::2], ans[1::2] = A[N//2:], A[:N//2]
         # return "".join(ans)
 
+        # Greedy with Heap
+        # Time  complexity: O(NlogA), where N is the length of S and A is the size of the alphabet.
+        # Space complexity: O(A)
         pq = [(-S.count(x), x) for x in set(S)]
         heapq.heapify(pq)
         if any(-nc > (len(S) + 1) // 2 for nc, x in pq):

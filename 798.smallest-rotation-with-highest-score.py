@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/smallest-rotation-with-highest-score/description/
 #
 # algorithms
-# Hard (40.93%)
-# Likes:    180
-# Dislikes: 14
-# Total Accepted:    4.7K
-# Total Submissions: 11.4K
+# Hard (43.87%)
+# Likes:    231
+# Dislikes: 15
+# Total Accepted:    6.2K
+# Total Submissions: 14.1K
 # Testcase Example:  '[2,3,1,4,0]'
 #
 #  Given an array A, we may rotate it by a non-negative integer K so that the
@@ -59,32 +59,32 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def bestRotation(self, A: List[int]) -> int:
+        # Interval Stabbing
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # N = len(A)
+        # bad = [0] * N
+        # for i, x in enumerate(A):
+        #     left, right = (i - x + 1) % N, (i + 1) % N
+        #     bad[left] -= 1
+        #     bad[right] += 1
+        #     if left > right:
+        #         bad[0] -= 1
 
-        """
-        N = len(A)
-        bad = [0] * N
+        # best = -N
+        # ans = cur = 0
+        # for i, score in enumerate(bad):
+        #     cur += score
+        #     if cur > best:
+        #         best = cur
+        #         ans = i
 
-        for i, v in enumerate(A):
-            left, right = (i - v + 1) % N, (i + 1) % N
-            bad[left] -= 1
-            bad[right] += 1
-            if left > right:
-                bad[0] -= 1
+        # return ans
 
-        best = -N
-        ans = cur = 0
-        for i, score in enumerate(bad):
-            cur += score
-            if cur > best:
-                best = cur
-                ans = i
-
-        return ans
-        """
-
-        # change[k] = the number points got in k rotations
 
         N = len(A)
         change = [1] * N
@@ -92,9 +92,10 @@ class Solution:
             change[(i - A[i] + 1) % N] -= 1
 
         for i in range(1, N):
-            change[i] += change[i-1]
+            change[i] += change[i - 1]
 
         return change.index(max(change))
-            
         
+        
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/delete-and-earn/description/
 #
 # algorithms
-# Medium (46.17%)
-# Likes:    645
-# Dislikes: 55
-# Total Accepted:    24K
-# Total Submissions: 51.6K
+# Medium (48.61%)
+# Likes:    1117
+# Dislikes: 91
+# Total Accepted:    40.1K
+# Total Submissions: 82.4K
 # Testcase Example:  '[3,4,2]'
 #
 # Given an array nums of integers, you can perform operations on the array.
@@ -56,10 +56,15 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
+        # Dynamic Programming 
+        # Time  complexity: O(NlogN) dominated by the sorting step.
+        # Space complexity: O(N)
         count = Counter(nums)
         prev = None
         avoid = using = 0
@@ -68,7 +73,11 @@ class Solution:
                 avoid, using = max(avoid, using), k * count[k] + max(avoid, using)
             else:
                 avoid, using = max(avoid, using), k * count[k] + avoid
+
             prev = k
+
         return max(avoid, using)
+
         
+# @lc code=end
 

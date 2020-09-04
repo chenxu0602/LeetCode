@@ -73,39 +73,48 @@ class MyCalendarTwo:
         self.two = []
 
     def is_valid(self, start, end):
-        if end <= start:
-            return -1
+        if end <= start: return -1
 
         i = bisect.bisect_right(self.two, start)
-        if i % 2:
-            return -1
+        if i % 2: return -1
 
         j = bisect.bisect_left(self.two, end)
-        if i != j:
-            return -1
+        if i != j: return -1
 
         return i
         
 
     def book(self, start: int, end: int) -> bool:
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # for i, j in self.tw
+        #     if start < j and end > i:
+        #         return False
+        # for i, j in self.one:
+        #     if start < j and end > i:
+        #         self.two.append((max(start, i), min(end, j)))
+        # self.one.append((start, end))
+        # return True
 
-        """
+
+        # two is the intersect, one the union
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         t = self.is_valid(start, end)
-        if t == -1:
-            return False
+        if t == -1: return False
 
         i = bisect.bisect_right(self.one, start)
         j = bisect.bisect_left(self.one, end)
 
-        if i % 2:
-            if j % 2:
+        if i % 2 == 1:
+            if j % 2 == 1:
                 self.two[t:t] = [start] + self.one[i:j] + [end]
                 self.one[i:j] = []
             else:
                 self.two[t:t] = [start] + self.one[i:j]
                 self.one[i:j] = [end]
         else:
-            if j % 2:
+            if j % 2 == 1:
                 self.two[t:t] = self.one[i:j] + [end]
                 self.one[i:j] = [start]
             else:
@@ -113,19 +122,7 @@ class MyCalendarTwo:
                 self.one[i:j] = [start, end]
 
         return True
-        """
 
-        for i, j in self.two:
-            if start < j and end > i:
-                return False
-        for i, j in self.one:
-            if start < j and end > i:
-                self.two.append((max(start, i), min(end, j)))
-        self.one.append((start, end))
-        return True
-
-
-        
 
 
 # Your MyCalendarTwo object will be instantiated and called as such:

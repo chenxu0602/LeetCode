@@ -49,25 +49,16 @@
 #
 
 # @lc code=start
-from collections import Counter, defaultdict
+from collections import defaultdict
 
 class Solution:
     def customSortString(self, S: str, T: str) -> str:
-        # count = Counter(T)
-        # ans = []
+        #     return "".join(sorted(T, key=S.find))
 
-        # for c in S:
-        #     ans.append(c * count[c])
-        #     count[c] = 0
-        # for c in count:
-        #     ans.append(c * count[c])
-
-        # return "".join(ans)
-
-#        return "".join(sorted(T, key=S.find))
 
         ordering = defaultdict(lambda: -1, ((v, k) for k, v in enumerate(S)))
         return "".join(sorted(T, key=ordering.__getitem__))
+
 
         
 # @lc code=end

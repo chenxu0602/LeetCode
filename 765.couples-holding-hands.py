@@ -50,51 +50,61 @@
 # @lc code=start
 class Solution:
     def minSwapsCouples(self, row: List[int]) -> int:
-
+        # Greedy
+        # Time  complexity: O(N^2)
+        # Space complexity: O(1)
         # ans = 0
         # for i in range(0, len(row), 2):
         #     x = row[i]
-        #     if row[i+1] == x ^ 1:
+        #     if row[i + 1] == x ^ 1:
         #         continue
         #     ans += 1
-        #     for j in range(i+1, len(row)):
+        #     for j in range(i + 1, len(row)):
         #         if row[j] == x ^ 1:
-        #             row[i+1], row[j] = row[j], row[i+1]
+        #             row[i + 1], row[j] = row[j], row[i + 1]
         #             break
         # return ans
 
-        # pairs = {}
-        # for i in range(0, len(row), 2):
-        #     pairs[row[i]] = row[i+1]
-        #     pairs[row[i+1]] = row[i]
 
-        # res = 0
-        # for pos in range(0, len(row), 2):
-        #     if pairs[pos] != pos + 1:
-        #         right = pairs[pos]
-        #         left = pairs[pos+1]
-        #         pairs[left], pairs[right] = right, left
-        #         res += 1
-        # return res
+        # Cyclic Swapping
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        pairs = {}
+        for i in range(0, len(row), 2):
+            pairs[row[i]] = row[i + 1]
+            pairs[row[i + 1]] = row[i]
 
-        N = len(row)
-        d = [0] * N
+        res = 0
+        for pos in range(0, len(row), 2):
+            if pairs[pos] != pos + 1:
+                left, right = pairs[pos + 1], pairs[pos]
+                pairs[left], pairs[right] = right, left
+                res += 1
 
-        def find(a):
-            if d[a] != a:
-                d[a] = find(d[a])
-            return d[a]
+        return res
 
-        def union(a, b):
-            d[find(a)] = d[find(b)]
 
-        for i in range(0, N, 2):
-            d[i] = d[i+1] = i
+        # Union Find
+        # N = len(row)
+        # d = [0] * N
 
-        for i in range(0, N, 2):
-            union(row[i], row[i+1])
+        # def find(a):
+        #     if d[a] != a:
+        #         d[a] = find(d[a])
+        #     return d[a]
 
-        return (N // 2) - sum([1 for i in range(0, N, 2) if i == d[i] == d[i+1]])
+        # def union(a, b):
+        #     d[find(a)] = d[find(b)]
+
+        # for i in range(0, N, 2):
+        #     d[i] = d[i + 1] = i
+
+        # for i in range(0, N, 2):
+        #     union(row[i], row[i + 1])
+
+        # return (N // 2) - sum([1 for i in range(0, N, 2) if i == d[i] == d[i + 1]])
+
+
         
 # @lc code=end
 

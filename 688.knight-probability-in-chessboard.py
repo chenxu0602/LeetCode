@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/knight-probability-in-chessboard/description/
 #
 # algorithms
-# Medium (44.86%)
-# Likes:    398
-# Dislikes: 88
-# Total Accepted:    23.3K
-# Total Submissions: 51.6K
+# Medium (47.18%)
+# Likes:    581
+# Dislikes: 131
+# Total Accepted:    33.1K
+# Total Submissions: 70.1K
 # Testcase Example:  '3\n2\n0\n0'
 #
 # On an NxN chessboard, a knight starts at the r-th row and c-th column and
@@ -60,21 +60,25 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def knightProbability(self, N: int, K: int, r: int, c: int) -> float:
-
+        # Time  complexity: O(N^2 x K)
+        # Space complexity: O(N^2)
         dp = [[0] * N for _ in range(N)]
         dp[r][c] = 1
-
         for _ in range(K):
             dp2 = [[0] * N for _ in range(N)]
             for r, row in enumerate(dp):
                 for c, val in enumerate(row):
                     for dr, dc in (2, 1), (2, -1), (-2, 1), (-2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2):
                         if 0 <= r + dr < N and 0 <= c + dc < N:
-                            dp2[r+dr][c+dc] += (val / 8.0)
+                            dp2[r + dr][c + dc] += val / 8.0
+
             dp = dp2
 
         return sum(map(sum, dp))
         
+# @lc code=end
 

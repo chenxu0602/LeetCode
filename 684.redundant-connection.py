@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/redundant-connection/description/
 #
 # algorithms
-# Medium (52.42%)
-# Likes:    721
-# Dislikes: 196
-# Total Accepted:    56.2K
-# Total Submissions: 106.6K
+# Medium (57.16%)
+# Likes:    1444
+# Dislikes: 228
+# Total Accepted:    100.4K
+# Total Submissions: 174.2K
 # Testcase Example:  '[[1,2],[1,3],[2,3]]'
 #
 # 
@@ -65,11 +65,13 @@
 # Redundant Connection II). We apologize for any inconvenience caused.
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class DSU:
     def __init__(self):
-        self.par = list(range(1001))
+        self.par = list(range(10001))
         self.rnk = [0] * 1001
 
     def find(self, x):
@@ -78,42 +80,48 @@ class DSU:
         return self.par[x]
 
     def union(self, x, y):
-        xr, yr = self.find(x), self.find(y)
-        if xr == yr: return False
-        if self.rnk[xr] < self.rnk[yr]:
+        xr, yr = map(self.find, (x, y))
+        if xr == yr:
+            return False
+        elif self.rnk[xr] < self.rnk[yr]:
             self.par[xr] = yr
-        elif self.rnk[xr] > self.rnk[yr]:
+        elif self.rnk[yr] < self.rnk[xr]:
             self.par[yr] = xr
         else:
             self.par[yr] = xr
             self.rnk[xr] += 1
-        return True
 
+        return True
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        # DFS
+        # For each edge (u, v), traverse the graph with a depth-first search to see if we can connect u to v. If we can, then it must be the duplicate edge.
+        # Time  complexity: O(N^2) where N is the number of vertices.
+        # Space complexity: O(N)
+        # graph = defaultdict(set)
 
-        """
-        graph = defaultdict(set)
+        # def dfs(source, target):
+        #     if source not in seen:
+        #         seen.add(source)
+        #         if source == target: return True
+        #         return any(dfs(nei, target) for nei in graph[source])
 
-        def dfs(src, tar):
-            if src not in seen:
-                seen.add(src)
-                if src == tar: return True
-                return any(dfs(nei, tar) for nei in graph[src])
+        # for u, v in edges:
+        #     seen = set()
+        #     if u in graph and v in graph and dfs(u, v):
+        #         return u, v
+        #     graph[u].add(v)
+        #     graph[v].add(u)
 
 
-        for u, v in edges:
-            seen = set()
-            if u in graph and v in graph and dfs(u, v):
-                return u, v
-            graph[u].add(v)
-            graph[v].add(u)
-        """
-
+        # Union-Find
+        # Time  complexity: O(N x a(N)) = O(N), where N is the number of vertices and alpha is the Inverse-Ackermann function.
+        # Space complexity: O(N)
         dsu = DSU()
         for edge in edges:
             if not dsu.union(*edge):
                 return edge
         
+# @lc code=end
 

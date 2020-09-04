@@ -49,9 +49,21 @@
 #
 class Solution:
     def isOneBitCharacter(self, bits: List[int]) -> bool:
+        # O(N)
+
+        # If bits[i] == 1 the next character must have 2 bits.
         i = 0
         while i < len(bits) - 1:
             i += bits[i] + 1
         return i == len(bits) - 1
+
+
+        # The second-last 0 must be the end of a character.
+        # parity = bits.pop()
+        # while bits and bits.pop():
+        #     parity ^= 1
+        # return parity == 0
+
+
         
 

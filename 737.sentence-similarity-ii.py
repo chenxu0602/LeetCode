@@ -78,44 +78,53 @@ import itertools
 
 class Solution:
     def areSentencesSimilarTwo(self, words1: List[str], words2: List[str], pairs: List[List[str]]) -> bool:
+        # Depth-First Search
+        # Time  complexity: O(N x P), where N is the maximum length of words1 and words2,
+        # and P is the length of pairs. Each of N searches could search the entire graph.
+        # Space compleixty: O(P), the size of pairs.
+        # if len(words1) != len(words2): return False
+        # graph = defaultdict(list)
+        # for w1, w2 in pairs:
+        #     graph[w1].append(w2)
+        #     graph[w2].append(w1)
 
-        """
+        # for w1, w2 in zip(words1, words2):
+        #     stack, seen = [w1], {w1}
+        #     while stack:
+        #         word = stack.pop()
+        #         if word == w2: break
+        #         for nei in graph[word]:
+        #             if not nei in seen:
+        #                 seen.add(nei)
+        #                 stack.append(nei)
+        #     else:
+        #         return False
+
+        # return True
+
+
+        # Union-Find
+        # Time  complexity: O(NlogP + P), where N is the maximum length of words1 and words2,
+        # and P is the length of pairs. If we use union-by-rank, this complexity improves to
+        # O(N x a(P) + P) = O(N + P), where a is the Inverse-Ackermann function.
+        # Space complexity: O(P), the size of pairs.
         if len(words1) != len(words2): return False
-        graph = defaultdict(list)
-        for w1, w2 in pairs:
-            graph[w1].append(w2)
-            graph[w2].append(w1)
 
-        for w1, w2 in zip(words1, words2):
-            stack, seen = [w1], {w1}
-            while stack:
-                word = stack.pop()
-                if word == w2: break
-                for nei in graph[word]:
-                    if nei not in seen:
-                        seen.add(nei)
-                        stack.append(nei)
-            else:
-                return False
-        return True
-        """
-
-        if len(words1) != len(words2): return False
         index = {}
         count = itertools.count()
-        dsu = DSU(2  * len(pairs))
-
+        dsu = DSU(2 * len(pairs))
         for pair in pairs:
             for p in pair:
                 if p not in index:
                     index[p] = next(count)
             dsu.union(index[pair[0]], index[pair[1]])
 
-
-        return all(w1 == w2 or w1 in index and w2 in index and
+        return all(w1 == w2 or w1 in index and w2 in index and 
                    dsu.find(index[w1]) == dsu.find(index[w2])
                    for w1, w2 in zip(words1, words2))
 
+        
+            
 
 
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/global-and-local-inversions/description/
 #
 # algorithms
-# Medium (39.69%)
-# Likes:    224
-# Dislikes: 123
-# Total Accepted:    14.1K
-# Total Submissions: 35.5K
+# Medium (42.07%)
+# Likes:    405
+# Dislikes: 172
+# Total Accepted:    22.4K
+# Total Submissions: 53.2K
 # Testcase Example:  '[0]'
 #
 # We have some permutation A of [0, 1, ..., N - 1], where N is the length of
@@ -50,18 +50,32 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def isIdealPermutation(self, A: List[int]) -> bool:
-        """
-        N = len(A)
-        floor = N
-        for i in range(N-1, -1, -1):
-            floor = min(floor, A[i])
-            if i >= 2 and A[i-2] > floor:
-                return False
-        return True
-        """
+        # A local inversion is also a global inversion. 
+        # Thus, we only need to check if our permutation 
+        # has any non-local inversion (A[i] > A[j], i < j) with j - i > 1.
+        # Time  complexity: O(N^2)
+        # Space complexity: O(1)
+        # return all(x < A[j] for i, x in enumerate(A) for j in range(i + 2, len(A)))
 
-        return all(abs(i-x) <= 1 for i, x in enumerate(A))
+
+        # Same as checking for A[i] > min(A[i+2:]).
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # N = len(A)
+        # floor = N
+        # for i in range(N - 1, -1, -1):
+        #     floor = min(floor, A[i])
+        #     if i >= 2 and A[i - 2] > floor:
+        #         return False
+        # return True
+
+
+        # Linear Scan
+        return all(abs(i - x) <= 1 for i, x in enumerate(A))
         
+# @lc code=end
 

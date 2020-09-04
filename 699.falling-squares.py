@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/falling-squares/description/
 #
 # algorithms
-# Hard (40.18%)
-# Likes:    175
-# Dislikes: 30
-# Total Accepted:    9.5K
-# Total Submissions: 23.7K
+# Hard (41.69%)
+# Likes:    273
+# Dislikes: 52
+# Total Accepted:    13.6K
+# Total Submissions: 32.3K
 # Testcase Example:  '[[1,2],[2,3],[6,1]]'
 #
 # On an infinite number line (x-axis), we drop given squares in the order they
@@ -79,28 +79,31 @@
 # 
 #
 
-import bisect 
+# @lc code=start
+import bisect
 
 class Solution:
     def fallingSquares(self, positions: List[List[int]]) -> List[int]:
-        """
-        qans = [0] * len(positions)
-        for i, (left, size) in enumerate(positions):
-            right = left + size
-            qans[i] += size
-            for j in range(i+1, len(positions)):
-                left2, size2 = positions[j]
-                right2 = left2 + size2
-                if left2 < right and left < right2:
-                    qans[j] = max(qans[j], qans[i])
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # qans = [0] * len(positions)
+        # for i, (left, size) in enumerate(positions):
+        #     right = left + size
+        #     qans[i] += size
+        #     for j in range(i + 1, len(positions)):
+        #         left2, size2 = positions[j]
+        #         right2 = left2 + size2
+        #         if left2 < right and left < right2:
+        #             qans[j] = max(qans[j], qans[i])
 
-        ans = []
-        for x in qans:
-            ans.append(max(ans[-1], x) if ans else x)
+        # ans = []
+        # for x in qans:
+        #     ans.append(max(ans[-1], x) if ans else x)
+        # return ans
+        
 
-        return ans
-        """
-
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
         heights, pos, res = [0], [0], []
         max_h = 0
         for left, side in positions:
@@ -113,5 +116,5 @@ class Solution:
             res.append(max_h)
         return res
 
-        
+# @lc code=end
 

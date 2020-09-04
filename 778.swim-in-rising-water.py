@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/swim-in-rising-water/description/
 #
 # algorithms
-# Hard (48.61%)
-# Likes:    339
-# Dislikes: 32
-# Total Accepted:    14.2K
-# Total Submissions: 29.2K
+# Hard (50.53%)
+# Likes:    454
+# Dislikes: 38
+# Total Accepted:    19.1K
+# Total Submissions: 37.6K
 # Testcase Example:  '[[0,2],[1,3]]'
 #
 # On an N x N grid, each square grid[i][j] represents the elevation at that
@@ -64,50 +64,50 @@
 # 
 # 
 #
+
+# @lc code=start
 import heapq
 
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
+        # Heap
+        # Time  complexity: O(N^2 x logN)
+        # Space complexity: O(N^2)
+        N, seen, ans = len(grid), {(0, 0)}, 0
+        pq = [(grid[0][0], 0, 0)]
+        while pq:
+            d, r, c = heapq.heappop(pq)
+            ans = max(ans, d)
+            if r == c == N - 1: return ans
+            for cr, cc in (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1):
+                if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
+                    heapq.heappush(pq, (grid[cr][cc], cr, cc))
+                    seen.add((cr, cc))
+
+
+        # Binary Search and DFS
+        # Time  complexity: O(N^2 x logN)
+        # Space complexity: O(N^2)
+        # def possible(T):
+        #     stack, seen = [(0, 0)], {(0, 0)}
+        #     while stack:
+        #         r, c = stack.pop()
+        #         if r == c == N - 1: return True
+        #         for cr, cc in (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1):
+        #             if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen and grid[cr][cc] <= T:
+        #                 stack.append((cr, cc))
+        #                 seen.add((cr, cc))
+        #     return False
 
         # N = len(grid)
-        # seen = {(0, 0)}
-        # pq = [(grid[0][0], 0, 0)]
-        # ans = 0
-
-        # while pq:
-        #     d, r, c = heapq.heappop(pq)
-        #     ans = max(ans, d)
-        #     if r == c == N - 1: 
-        #         return ans
-        #     for cr, cc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
-        #         if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
-        #             heapq.heappush(pq, (grid[cr][cc], cr, cc))
-        #             seen.add((cr, cc))
-
-        N = len(grid)
-        l, r = grid[0][0], N * N - 1
-
-        def reachable(T):
-            bfs = [(0, 0)]
-            seen = set((0, 0))
-            for r, c in bfs:
-                if grid[r][c] <= T:
-                    if r == c == N - 1:
-                        return True
-                    for cr, cc in (r-1, c), (r+1, c), (r, c-1), (r, c+1):
-                        if 0 <= cr < N and 0 <= cc < N and (cr, cc) not in seen:
-                            seen.add((cr, cc))
-                            bfs.append((cr, cc))
-
-        while l < r:
-            m = (l + r) // 2
-            if reachable(m):
-                r = m
-            else:
-                l = m + 1
-
-        return r
-
-
+        # lo, hi = grid[0][0], N * N
+        # while lo < hi:
+        #     mi = (lo + hi) // 2
+        #     if not possible(mi):
+        #         lo = mi + 1
+        #     else:
+        #         hi = mi
+        # return lo
         
+# @lc code=end
 

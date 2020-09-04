@@ -50,31 +50,17 @@
 #
 class Solution:
     def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
-        """
-        intervals.sort(key=lambda x: (x[0], -x[1]))
-        todo = [2] * len(intervals)
-        ans = 0
-
-        while intervals:
-            (s, e), t = intervals.pop(), todo.pop()
-            for p in range(s, s+t):
-                for i, (s0, e0) in enumerate(intervals):
-                    if todo[i] and p <= e0:
-                        todo[i] -= 1
-                ans += 1
-        return ans
-        """
-
+        # O(N)
         intervals.sort(key=lambda x: x[1])
         ans, pre = 0, []
-        for (s, t) in intervals:
+
+        for s, t in intervals:
             if not pre or pre[1] < s:
                 ans += 2
-                pre = [t-1, t]
+                pre = [t - 1, t]
             elif pre[0] < s:
                 pre = [pre[1], t]
                 ans += 1
         return ans
-
         
 

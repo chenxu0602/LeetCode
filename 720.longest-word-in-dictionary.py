@@ -52,26 +52,20 @@ from functools import reduce
 
 class Solution:
     def longestWord(self, words: List[str]) -> str:
-        """
-        words.sort()
-        words_set, longest = set([""]), ""
-        for word in words:
-            if word[:-1] in words_set:
-                words_set.add(word)
-                if len(word) > len(longest):
-                    longest = word
-        return longest
-        """
 
-        """
+        # Time  complexity: O(Sum(w_i ^ 2)), where w_i is the length of word[i].
+        # Space complexity: O(sum(w_i ^ 2))
         wordset = set(words)
         words.sort(key=lambda c: (-len(c), c))
         for word in words:
             if all(word[:k] in wordset for k in range(1, len(word))):
                 return word
         return ""
-        """
 
+
+        # Trie + Depth-First Search
+        # Time  complexity: O(sum(w_i)), where w_i is the length of words[i].
+        # Space complexity: O(sum(w_i)), the space used by our trie.
         Trie = lambda: defaultdict(Trie)
         trie = Trie()
         END = True
@@ -79,7 +73,7 @@ class Solution:
         for i, word in enumerate(words):
             reduce(dict.__getitem__, word, trie)[END] = i
 
-        stack = list(trie.values())
+        stack = trie.values()
         ans = ""
         while stack:
             cur = stack.pop()

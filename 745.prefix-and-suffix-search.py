@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/prefix-and-suffix-search/description/
 #
 # algorithms
-# Hard (31.40%)
-# Likes:    220
-# Dislikes: 161
-# Total Accepted:    13.4K
-# Total Submissions: 42.8K
+# Hard (32.98%)
+# Likes:    269
+# Dislikes: 181
+# Total Accepted:    16.2K
+# Total Submissions: 49.2K
 # Testcase Example:  '["WordFilter","f"]\n[[["apple"]],["a","e"]]'
 #
 # Given many words, words[i] has weight i.
@@ -43,30 +43,63 @@
 # 
 # 
 #
+
+# @lc code=start
+from collections import defaultdict
+
+Trie = lambda: defaultdict(Trie)
+WEIGHT = False
+
 class WordFilter:
 
     def __init__(self, words: List[str]):
-        self.pre_suf_map = {}
-        for word in range(len(words)):
-            length = len(words[word])
-            for i in range(length+1):
-                for j in reversed(range(length+1)):
-                    if (i > 10 or (length - j) > 10) > length:
-                        continue
-                    comb = words[word][:i] + "." + words[word][j:]
-                    self.pre_suf_map[comb] = word
+        # Time  complexity: O(NK^2 + Q) where N is the number of words, K is the maximum length of a word,
+        # Q is the number of queries.
+        # Spase complexity: O(NK^2)
+        # self.pre_suf_map = {}
+        # for word in range(len(words)):
+        #     length = len(words[word])
+        #     for i in range(length + 1):
+        #         for j in reversed(range(length + 1)):
+        #             if i > 10 or (length - j) > 10:
+        #                 continue
+        #             comb = words[word][:i] + '.' + words[word][j:]
+        #             self.pre_suf_map[comb] = word
         
 
-    def f(self, prefix: str, suffix: str) -> int:
-        pref_suf = prefix + "." + suffix
-        if pref_suf in self.pre_suf_map:
-            return self.pre_suf_map[pref_suf]
+        # Trie of Suffix Wrapped Words
+        # Time  complexity: O(NK^2 + QK) where N is the number of words, K is the maximum length of a word,
+        # Q is the number of queries.
+        # Spase complexity: O(NK^2)
+        self.trie = Trie()
 
-        return -1
+        for weight, word in enumerate(words):
+            word += '#'
+            for i in range(len(word)):
+                cur = self.trie
+                cur[WEIGHT] = weight
+                for j in range(i, 2 * len(word) - 1):
+                    cur = cur[word[j % len(word)]]
+                    cur[WEIGHT] = weight
+
+    def f(self, prefix: str, suffix: str) -> int:
+        # pre_suf = prefix + '.' + suffix
+        # if pre_suf in self.pre_suf_map:
+        #     return self.pre_suf_map[pre_suf]
+        # return -1
+        
+
+        cur = self.trie
+        for letter in suffix + '#' + prefix:
+            if letter not in cur:
+                return -1
+            cur = cur[letter]
+        return cur[WEIGHT]
         
 
 
 # Your WordFilter object will be instantiated and called as such:
 # obj = WordFilter(words)
 # param_1 = obj.f(prefix,suffix)
+# @lc code=end
 

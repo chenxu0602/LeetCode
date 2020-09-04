@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/rotate-string/description/
 #
 # algorithms
-# Easy (49.20%)
-# Likes:    439
-# Dislikes: 39
-# Total Accepted:    45.9K
-# Total Submissions: 93.1K
+# Easy (49.69%)
+# Likes:    785
+# Dislikes: 53
+# Total Accepted:    73.3K
+# Total Submissions: 148K
 # Testcase Example:  '"abcde"\n"cdeab"'
 #
 # We are given two strings, A and B.
@@ -37,16 +37,52 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def rotateString(self, A: str, B: str) -> bool:
-        """
-        return (A in B * 2) and (len(A) == len(B))
-        """
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # return len(A) == len(B) and B in A + A
 
+        # Rolling Hash
+        # O(N)
+        # MOD = 10**9 + 7
+        # P = 113
+        # Pinv = pow(P, MOD-2, MOD)
+
+        # hb, power = 0, 1
+        # for x in B:
+        #     code = ord(x) - 96
+        #     hb = (hb + power * code) % MOD
+        #     power = power * P % MOD
+        
+        # ha, power = 0, 1
+        # for x in A:
+        #     code = ord(x) - 96
+        #     ha = (ha + power * code) % MOD
+        #     power = power * P % MOD
+
+        # if ha == hb and A == B: return True
+
+        # for i, x in enumerate(A):
+        #     code = ord(x) - 96
+        #     ha += power * code
+        #     ha -= code
+        #     ha *= Pinv
+        #     ha %= MOD
+        #     if ha == hb and A[i+1:] + A[:i+1] == B:
+        #         return True
+        # return False
+
+
+        # KMP (Knuth-Morris-Pratt)
+        # O(N)
         N = len(A)
         if N != len(B): return False
         if N == 0: return True
 
+        # Compute the shift table
         shifts = [1] * (N + 1)
         left = -1
         for right in range(N):
@@ -55,6 +91,7 @@ class Solution:
             shifts[right + 1] = right - left
             left += 1
 
+        # Find match of B in A + A
         match_len = 0
         for char in A + A:
             while match_len >= 0 and B[match_len] != char:
@@ -65,5 +102,5 @@ class Solution:
                 return True
 
         return False
-        
+# @lc code=end
 

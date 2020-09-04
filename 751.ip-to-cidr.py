@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/ip-to-cidr/description/
 #
 # algorithms
-# Easy (60.31%)
-# Likes:    76
-# Dislikes: 580
-# Total Accepted:    8.7K
-# Total Submissions: 14.4K
+# Medium (61.82%)
+# Likes:    100
+# Dislikes: 773
+# Total Accepted:    10.8K
+# Total Submissions: 17.5K
 # Testcase Example:  '"255.0.0.7"\n10'
 #
 # 
@@ -75,25 +75,31 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
-    def ipToInt(self, ip):
-        ans = 0
-        for x in ip.split('.'):
-            ans = 256 * ans + int(x)
-        return ans
-
-    def intToIP(self, x):
-        return ".".join(str((x >> i) % 256) for i in (24, 16, 8, 0))
-
     def ipToCIDR(self, ip: str, n: int) -> List[str]:
-        start = self.ipToInt(ip)
+        # Time  complexity: O(N) where N is the length of nums.
+        # Space compleixty: O(1)
+        def ipToInt(ip):
+            ans = 0
+            for x in ip.split('.'):
+                ans = 256 * ans + int(x)
+            return ans
+
+        def intToIP(x):
+            return '.'.join(str((x >> i) % 256) for i in (24, 16, 8, 0))
+
+        start = ipToInt(ip)
         ans = []
         while n:
             mask = max(33 - (start & -start).bit_length(),
                        33 - n.bit_length())
-            ans.append(self.intToIP(start) + '/' + str(mask))
+            mask = min(mask, 32)
+            ans.append(intToIP(start) + '/' + str(mask))
             start += 1 << (32 - mask)
             n -= 1 << (32 - mask)
         return ans
         
+# @lc code=end
 

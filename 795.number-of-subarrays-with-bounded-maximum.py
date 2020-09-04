@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum/description/
 #
 # algorithms
-# Medium (43.87%)
-# Likes:    378
-# Dislikes: 36
-# Total Accepted:    12.9K
-# Total Submissions: 29.4K
+# Medium (46.20%)
+# Likes:    605
+# Dislikes: 43
+# Total Accepted:    19.4K
+# Total Submissions: 41.8K
 # Testcase Example:  '[2,1,4,3]\n2\n3'
 #
 # We are given an array A of positive integers, and two positive integers L and
@@ -38,8 +38,12 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numSubarrayBoundedMax(self, A: List[int], L: int, R: int) -> int:
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         def count(bound):
             ans = cur = 0
             for x in A:
@@ -47,7 +51,7 @@ class Solution:
                 ans += cur
             return ans
 
-        return count(R) - count(L-1)
-
+        return count(R) - count(L - 1)
         
+# @lc code=end
 

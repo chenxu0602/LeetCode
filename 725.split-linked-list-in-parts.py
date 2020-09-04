@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/split-linked-list-in-parts/description/
 #
 # algorithms
-# Medium (49.27%)
-# Likes:    396
-# Dislikes: 83
-# Total Accepted:    30.7K
-# Total Submissions: 62K
+# Medium (51.98%)
+# Likes:    708
+# Dislikes: 137
+# Total Accepted:    50.6K
+# Total Submissions: 96.7K
 # Testcase Example:  '[1,2,3,4]\n5'
 #
 # Given a (singly) linked list with head node root, write a function to split
@@ -68,14 +68,17 @@
 # k will be an integer in the range [1, 50].
 # 
 #
+
+# @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:
+        # Time  complexity: O(N + k)
+        # Space compleixty: O(k)
         cur = root
         for N in range(1001):
             if not cur: break
@@ -83,25 +86,17 @@ class Solution:
         width, remainder = divmod(N, k)
 
         ans, cur = [], root
-
-        """
-        for i in range(k):
-            head = write = ListNode(None)
-            for j in range(width + (i < remainder)):
-                write.next = write = ListNode(cur.val)
-                if cur: 
-                    cur = cur.next
-            ans.append(head.next)
-        """
-
         for i in range(k):
             head = cur
-            for j in range(width + (i < remainder) -1):
+            for j in range(width + (i < remainder) - 1):
                 if cur: cur = cur.next
             if cur:
                 cur.next, cur = None, cur.next
             ans.append(head)
-            
+
         return ans
+
+
         
+# @lc code=end
 

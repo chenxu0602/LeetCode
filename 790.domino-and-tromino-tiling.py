@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/domino-and-tromino-tiling/description/
 #
 # algorithms
-# Medium (36.54%)
-# Likes:    269
-# Dislikes: 139
-# Total Accepted:    9.4K
-# Total Submissions: 25.6K
+# Medium (39.09%)
+# Likes:    426
+# Dislikes: 231
+# Total Accepted:    15.6K
+# Total Submissions: 39.7K
 # Testcase Example:  '3'
 #
 # We have two types of tiles: a 2x1 domino shape, and an "L" tromino shape.
@@ -51,45 +51,51 @@
 # 
 # 
 #
-import numpy as np
 
+# @lc code=start
 class Solution:
     def numTilings(self, N: int) -> int:
-        """
-        if N <= 1:
-            return 1
-        elif N == 2:
-            return 2
+        # https://leetcode.com/problems/domino-and-tromino-tiling/discuss/116612/Easy-to-understand-O(n)-solution-with-Drawing-Picture-Explanation!
+        # O(N)
+        # MOD = 10**9 + 7
+        # g, u = [0] * (1000 + 1), [0] * (1000 + 1)
+        # g[0], g[1], g[2] = 0, 1, 2
+        # u[0], u[1], u[2] = 0, 1, 2
 
-        x = np.array([2, 1, 1], dtype=np.int64)
-        A = np.array([[2, 1, 1], [3, 1, 1], [4, 2, 1]], dtype=np.int64)
-        y1 = np.array([1, 1, 2], dtype=np.int64)
-        y2 = np.array([2, 3, 4], dtype=np.int64)
+        # for i in range(3, N + 1):
+        #     u[i] = (u[i - 1] + g[i - 1]) % MOD
+        #     g[i] = (g[i - 1] + g[i - 2] + 2 * u[i - 2]) % MOD
 
-        if N % 2 == 1:
-            k = (N - 3) // 2
-            y = y1
-        else:
-            k = (N - 4) // 2
-            y = y2
+        # return g[N] % MOD
 
-        xA = x
-        while k > 0:
-            if k % 2 == 1:
-                xA = xA.dot(A) % 1000000007
 
-            k //= 2
-            A = A.dot(A) % 1000000007
-        return int(xA.dot(y) % 1000000007)
-        """
+        # O(logN)
+        MOD = 10**9 + 7
 
-        A = [0] * (N + 1)
-        B = [1, 1] + [0] * (N - 1)
-        for i in range(2, N + 1):
-            A[i] = (B[i - 2] + A[i - 1]) % int(1e9 + 7)
-            B[i] = (B[i - 1] + B[i - 2] + A[i - 1] * 2) % int(1e9 + 7)
-        return B[N]
+        def matrix_mult(A, B):
+            ZB = list(zip(*B))
+            return [[sum(a * b for a, b in zip(row, col)) % MOD
+                     for col in ZB] for row in A]
+
+        def matrix_expo(A, K):
+            if K == 0:
+                return [[+(i == j) for j in range(len(A))] for i in range(len(A))]
+
+            if K == 1: 
+                return A
+            elif K % 2:
+                return matrix_mult(matrix_expo(A, K - 1), A)
+
+            B = matrix_expo(A, K // 2)
+            return matrix_mult(B, B)
+
+        T = [[1, 0, 0, 1],
+             [1, 0, 1, 0],
+             [1, 1, 0, 0],
+             [1, 1, 1, 0]]
+
+        return matrix_expo(T, N)[0][0]
 
         
-        
+# @lc code=end
 

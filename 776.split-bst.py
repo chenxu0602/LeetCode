@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/split-bst/description/
 #
 # algorithms
-# Medium (52.93%)
-# Likes:    410
-# Dislikes: 24
-# Total Accepted:    11.5K
-# Total Submissions: 21.7K
+# Medium (55.71%)
+# Likes:    654
+# Dislikes: 46
+# Total Accepted:    18.6K
+# Total Submissions: 33.1K
 # Testcase Example:  '[4,2,6,1,3,5,7]\n2'
 #
 # Given a Binary Search Tree (BST) with root node root, and a target value V,
@@ -59,15 +59,18 @@
 # The BST is always valid and each node's value is different.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def splitBST(self, root: TreeNode, V: int) -> List[TreeNode]:
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         if not root:
             return None, None
         elif root.val <= V:
@@ -78,5 +81,6 @@ class Solution:
             bns = self.splitBST(root.left, V)
             root.left = bns[1]
             return bns[0], root
-        
+
+# @lc code=end
 

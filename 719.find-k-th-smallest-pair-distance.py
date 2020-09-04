@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
 #
 # algorithms
-# Hard (29.35%)
-# Likes:    584
-# Dislikes: 21
-# Total Accepted:    21.4K
-# Total Submissions: 72.5K
+# Hard (31.44%)
+# Likes:    1018
+# Dislikes: 35
+# Total Accepted:    34.6K
+# Total Submissions: 109.1K
 # Testcase Example:  '[1,3,1]\n1'
 #
 # Given an integer array, return the k-th smallest distance among all the
@@ -40,10 +40,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def smallestDistancePair(self, nums: List[int], k: int) -> int:
-
+        # Time  complexity: O(NlogW + NlogN)
+        # Space complexity: O(1)
         def possible(guess):
+            # Is there k or more pairs with distance <= guess?
             count = left = 0
             for right, x in enumerate(nums):
                 while x - nums[left] > guess:
@@ -53,14 +57,14 @@ class Solution:
 
         nums.sort()
         lo, hi = 0, nums[-1] - nums[0]
-
         while lo < hi:
-            mid = (lo + hi) // 2
-            if possible(mid):
-                hi = mid
+            mi = lo + (hi - lo) // 2
+            if possible(mi):
+                hi = mi
             else:
-                lo = mid + 1
+                lo = mi + 1
 
         return lo
         
+# @lc code=end
 

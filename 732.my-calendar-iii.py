@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/my-calendar-iii/description/
 #
 # algorithms
-# Hard (56.29%)
-# Likes:    247
-# Dislikes: 89
-# Total Accepted:    14K
-# Total Submissions: 25K
-# Testcase Example:  '["MyCalendarThree","book","book","book","book","book","book"]\n' +
+# Hard (59.80%)
+# Likes:    370
+# Dislikes: 99
+# Total Accepted:    21.5K
+# Total Submissions: 35.8K
+# Testcase Example:  '["MyCalendarThree","book","book","book","book","book","book"]\n' + '[[],[10,20],[50,60],[10,40],[5,15],[5,10],[25,55]]'
 #
 # Implement a MyCalendarThree class to store your events. A new event can
 # always be added.
@@ -62,6 +62,8 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class MyCalendarThree:
@@ -77,7 +79,7 @@ class MyCalendarThree:
         active = ans = 0
         for x in sorted(self.delta):
             active += self.delta[x]
-            if active > ans:
+            if ans < active:
                 ans = active
 
         return ans
@@ -87,4 +89,5 @@ class MyCalendarThree:
 # Your MyCalendarThree object will be instantiated and called as such:
 # obj = MyCalendarThree()
 # param_1 = obj.book(start,end)
+# @lc code=end
 

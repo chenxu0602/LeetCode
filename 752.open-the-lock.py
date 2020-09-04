@@ -86,31 +86,32 @@ from collections import deque
 
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
-
+        # Breadth-First Search 
+        # Time  complexity: O(N^2 x A^N + D) where A is the number of digits in our alphabet,
+        # N is the number digits in the lock, and D is the size of deadends.
+        # Space complexity: O(A^N + D) for the queue and the set dead.
         def neighbors(node):
-            for i in range(len(node)):
+            for i in range(4):
                 x = int(node[i])
                 for d in (-1, 1):
                     y = (x + d) % 10
                     yield node[:i] + str(y) + node[i+1:]
 
         dead = set(deadends)
-        queue = deque([("0000", 0)])
-        seen = {"0000"}
+        queue = deque([('0000', 0)])
+        seen = {'0000'}
 
         while queue:
             node, depth = queue.popleft()
             if node == target: return depth
-            if node in dead:
-                continue
+            if node in dead: continue
+
             for nei in neighbors(node):
                 if nei not in seen:
                     seen.add(nei)
                     queue.append((nei, depth + 1))
-        
+
         return -1
-
-
         
 # @lc code=end
 

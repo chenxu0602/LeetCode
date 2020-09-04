@@ -67,24 +67,20 @@ class MyCalendar:
 
     def book(self, start: int, end: int) -> bool:
 
-        """
-        for s, e in self.calendar:
-            if s < end and start < e:
-                return False
-        self.calendar.append((start, end))
-        return True
-        """
+        # for s, e in self.calendar:
+        #     if s < end and start < e:
+        #         return False
+        # self.calendar.append((start, end))
+        # return True
             
         if end <= start:
             return False
 
         i = bisect.bisect_right(self.calendar, start)
-        if i % 2:
-            return False
+        if i % 2: return False
 
         j = bisect.bisect_left(self.calendar, end)
-        if not i == j:
-            return False
+        if not i == j: return False
 
         self.calendar[i:i] = [start, end]
         return True
