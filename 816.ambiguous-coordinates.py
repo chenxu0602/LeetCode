@@ -74,6 +74,7 @@ import itertools
 
 class Solution:
     def ambiguousCoordinates(self, S: str) -> List[str]:
+        # O(N^3)
         def make(frag):
             N = len(frag)
             for d in range(1, N+1):

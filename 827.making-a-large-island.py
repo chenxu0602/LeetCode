@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/making-a-large-island/description/
 #
 # algorithms
-# Hard (43.70%)
-# Likes:    297
-# Dislikes: 9
-# Total Accepted:    11.1K
-# Total Submissions: 25.4K
+# Hard (45.49%)
+# Likes:    475
+# Dislikes: 15
+# Total Accepted:    19.4K
+# Total Submissions: 42.1K
 # Testcase Example:  '[[1,0],[0,1]]'
 #
 # In a 2D grid of 0s and 1s, we change at most one 0 to a 1.
@@ -54,12 +54,17 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
+        # Component Sizes
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N^2)
         N = len(grid)
 
         def neighbors(r, c):
-            for nr, nc in ((r-1, c), (r+1, c), (r, c-1), (r, c+1)):
+            for nr, nc in (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1):
                 if 0 <= nr < N and 0 <= nc < N:
                     yield nr, nc
 
@@ -71,22 +76,22 @@ class Solution:
                     ans += dfs(nr, nc, index)
             return ans
 
-        area = {}
-        index = 2
+        area, index = {}, 2
         for r in range(N):
             for c in range(N):
                 if grid[r][c] == 1:
                     area[index] = dfs(r, c, index)
                     index += 1
 
-        ans = max(area.values() or [0])
+        ans = max(area.values() or [0])     
         for r in range(N):
             for c in range(N):
                 if grid[r][c] == 0:
                     seen = {grid[nr][nc] for nr, nc in neighbors(r, c) if grid[nr][nc] > 1}
                     ans = max(ans, 1 + sum(area[i] for i in seen))
+
         return ans
-
-
         
+        
+# @lc code=end
 

@@ -64,10 +64,14 @@ import itertools
 
 class Solution:
     def expressiveWords(self, S: str, words: List[str]) -> int:
+        # Time  complexity: O(QK), where Q is the length of words and K is the maximum length of a word.
+        # Space complexity: O(K)
+        if not S: return 0
+
         def RLE(S):
             return zip(*([(k, len(list(grp))) for k, grp in itertools.groupby(S)]))
 
-        R, count = RLE(S)
+        R, count = RLE(S) 
         ans = 0
         for word in words:
             R2, count2 = RLE(word)

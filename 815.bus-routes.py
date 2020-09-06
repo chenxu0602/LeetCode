@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/bus-routes/description/
 #
 # algorithms
-# Hard (40.49%)
-# Likes:    484
-# Dislikes: 18
-# Total Accepted:    24.5K
-# Total Submissions: 60.1K
+# Hard (42.43%)
+# Likes:    822
+# Dislikes: 22
+# Total Accepted:    39.4K
+# Total Submissions: 92.3K
 # Testcase Example:  '[[1,2,7],[3,6,7]]\n1\n6'
 #
 # We have a list of bus routes. Each routes[i] is a bus route that the i-th bus
@@ -34,25 +34,31 @@
 # second bus to the bus stop 6.
 # 
 # 
-# Note: 
+# 
+# Constraints:
 # 
 # 
 # 1 <= routes.length <= 500.
-# 1 <= routes[i].length <= 500.
+# 1 <= routes[i].length <= 10^5.
 # 0 <= routes[i][j] < 10 ^ 6.
 # 
 # 
 #
-from collections import defaultdict, deque
+
+# @lc code=start
+from collections import defaultdict
 
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], S: int, T: int) -> int:
-
+        # Breadth First Search 
+        # Time  complexity: Let NN denote the number of buses, and b_i​	be the number of stops on the ith bus.
+        # Creating the graph is O(N x Sum(b_i)) and search is O(N^2)
+        # Space complexity: O(N^2 + sum(b_i))
         if S == T: return 0
         routes = list(map(set, routes))
         graph = defaultdict(set)
         for i, r1 in enumerate(routes):
-            for j in range(i+1, len(routes)):
+            for j in range(i + 1, len(routes)):
                 r2 = routes[j]
                 if any(r in r2 for r in r1):
                     graph[i].add(j)
@@ -69,10 +75,9 @@ class Solution:
             for nei in graph[node]:
                 if nei not in seen:
                     seen.add(nei)
-                    queue.append((nei, depth+1))
+                    queue.append((nei, depth + 1))
 
         return -1
         
-
-        
+# @lc code=end
 

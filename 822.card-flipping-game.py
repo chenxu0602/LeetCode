@@ -54,12 +54,17 @@ import itertools
 
 class Solution:
     def flipgame(self, fronts: List[int], backs: List[int]) -> int:
-        same = {x for i, x in enumerate(fronts) if x == backs[i]} 
-        ans = 9999
+        # O(N)
+        # same = {x for i, x in enumerate(fronts) if x == backs[i]} 
+        # ans = 9999
 
-        for x in itertools.chain(fronts, backs):
-            if x not in same:
-                ans = min(ans, x)
+        # for x in itertools.chain(fronts, backs):
+        #     if x not in same:
+        #         ans = min(ans, x)
 
-        return ans % 9999
+        # return ans % 9999
+
+
+        same = {x for x, y in zip(fronts, backs) if x == y}
+        return min([i for i in fronts + backs if i not in same] or [0])
 

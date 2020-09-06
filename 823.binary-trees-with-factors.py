@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-trees-with-factors/description/
 #
 # algorithms
-# Medium (33.04%)
-# Likes:    213
-# Dislikes: 28
-# Total Accepted:    8.1K
-# Total Submissions: 24.3K
+# Medium (35.62%)
+# Likes:    309
+# Dislikes: 36
+# Total Accepted:    11.8K
+# Total Submissions: 33K
 # Testcase Example:  '[2,4]'
 #
 # Given an array of unique integers, each integer is strictly greater than 1.
@@ -48,23 +48,27 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numFactoredBinaryTrees(self, A: List[int]) -> int:
-        """
-        A.sort()
-        dic = {num: 1 for num in A}
-        for i in range(1, len(A)):
-            for j in range(i):
-                q, res = divmod(A[i], A[j])
-                if res == 0 and q in dic:
-                    dic[A[i]] += dic[q] * dic[A[j]]
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # A.sort()
+        # dic = {num: 1 for num in A}
+        # for i in range(1, len(A)):
+        #     for j in range(i):
+        #         q, res = divmod(A[i], A[j])
+        #         if res == 0 and q in dic:
+        #             dic[A[i]] += dic[q] * dic[A[j]]
 
-        return sum(dic.values()) % (10 ** 9 + 7)
-        """
+        # return sum(dic.values()) % (10**9 + 7)
+
 
         dp = {}
         for a in sorted(A):
             dp[a] = sum(dp[b] * dp.get(a // b, 0) for b in dp if a % b == 0) + 1
         return sum(dp.values()) % (10**9 + 7)
         
+# @lc code=end
 

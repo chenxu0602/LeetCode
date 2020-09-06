@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/consecutive-numbers-sum/description/
 #
 # algorithms
-# Hard (33.91%)
-# Likes:    192
-# Dislikes: 288
-# Total Accepted:    13.5K
-# Total Submissions: 39.4K
+# Hard (36.92%)
+# Likes:    364
+# Dislikes: 488
+# Total Accepted:    25.8K
+# Total Submissions: 67.9K
 # Testcase Example:  '5'
 #
 # Given a positive integer N, how many ways can we write it as a sum of
@@ -40,25 +40,32 @@
 # Note: 1 <= N <= 10 ^ 9.
 # 
 #
+
+# @lc code=start
+import math
+
 class Solution:
     def consecutiveNumbersSum(self, N: int) -> int:
-        """
-        r = 1
+        # N = xk + k(k+1)/2
+        # x = N/k - (k+1)/2
+        # k <= sqrt(2N + 1/4) - 1/2
+        # Time  complexity: O(sqrt(N))
+        # Space compleixty: O(1)
+        # count = 0
+        # upper_limit = math.ceil((2 * N + 0.25)**0.5 - 0.5) + 1
+        # for k in range(1, upper_limit):
+        #     if (N - k * (k + 1) // 2) % k == 0:
+        #         count += 1
+        # return count
+
+
         count = 0
-        while r * (r-1) < 2 * N:
-            if (N - (r * (r-1)) // 2) % r == 0:
+        upper_limit = math.ceil((2 * N + 0.25) ** 0.5 - 0.5) + 1
+        for k in range(1, upper_limit):
+            N -= k
+            if N % k == 0:
                 count += 1
-            r += 1
         return count
-        """
-
-        res = 0
-        i = 1
-        while N > 0:
-            res += (N % i == 0)
-            N -= i
-            i += 1
-        return res
-
         
+# @lc code=end
 

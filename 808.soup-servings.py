@@ -58,13 +58,38 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def soupServings(self, N: int) -> float:
+        # Time  complexity: O(1)
+        # Space complexity: O(1)
+        # if N > 500 * 25: return 1
+
+        # memo = {}
+
+        # def dp(n1, n2, memo):
+        #     if n1 <= 0 and n2 <= 0:
+        #         return 0.5
+        #     if n1 <= 0:
+        #         return 1.0
+        #     if n2 <= 0:
+        #         return 0
+
+        #     if (n1, n2) in memo:
+        #         return memo[(n1, n2)]
+
+        #     memo[(n1, n2)] = 0.25 * (dp(n1-100, n2, memo) + dp(n1-75, n2-25, memo) + dp(n1-50, n2-50, memo) + dp(n1-25, n2-75, memo))
+        #     return memo[(n1, n2)]
+        
+        # prob = dp(N, N, memo)
+        # return round(prob, 5)
+
+
         if N > 500 * 25: return 1
 
-        memo = {}
-
-        def dp(n1, n2, memo):
+        @lru_cache(None)
+        def dp(n1, n2):
             if n1 <= 0 and n2 <= 0:
                 return 0.5
             if n1 <= 0:
@@ -72,13 +97,9 @@ class Solution:
             if n2 <= 0:
                 return 0
 
-            if (n1, n2) in memo:
-                return memo[(n1, n2)]
-
-            memo[(n1, n2)] = 0.25 * (dp(n1-100, n2, memo) + dp(n1-75, n2-25, memo) + dp(n1-50, n2-50, memo) + dp(n1-25, n2-75, memo))
-            return memo[(n1, n2)]
-        
-        prob = dp(N, N, memo)
+            return 0.25 * (dp(n1 - 100, n2) + dp(n1 - 75, n2 - 25) + dp(n1 - 50, n2 - 50) + dp(n1 - 25, n2 - 75))
+            
+        prob = dp(N, N)
         return round(prob, 5)
 
 

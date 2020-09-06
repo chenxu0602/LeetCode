@@ -36,6 +36,7 @@
 #
 class Solution:
     def shortestToChar(self, S: str, C: str) -> List[int]:
+        # O(N)
         prev = float("-inf")
         ans = []
         for i, x in enumerate(S):

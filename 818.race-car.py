@@ -68,36 +68,63 @@ class Solution:
         self.dp = {0: 0}
 
     def racecar(self, target: int) -> int:
-        """
+        # Dynamic Programming
+        # Time  complexity: O(TlogT)
+        # Space compleixty: O(T)
         dp = [0, 1, 4] + [float("inf")] * target
         for t in range(3, target + 1):
             k = t.bit_length()
             if t == 2 ** k - 1:
                 dp[t] = k
                 continue
-            for j in range(k-1):
-                dp[t] = min(dp[t], dp[t - 2 ** (k-1) + 2 ** j] + k - 1 + j + 2)
-            if 2 ** k - 1 - t < t:
-                dp[t] = min(dp[t], dp[2 ** k - 1 - t] + k + 1)
+
+            for j in range(k - 1):
+                dp[t] = min(dp[t], dp[t - 2 ** (k - 1) + 2 ** j] + k - 1 + j + 2)
+
+            dp[t] = min(dp[t], dp[2 ** k - 1 - t] + k + 1)
+
         return dp[target]
-        """
-
-        if target in self.dp:
-            return self.dp[target]
-
-        n = target.bit_length()
-
-        if 2 ** n - 1 == target:
-            self.dp[target] = n
-        else:
-            self.dp[target] = self.racecar(2**n-1-target) + n + 1
-            for m in range(n - 1):
-                self.dp[target] = min(self.dp[target], \
-                    self.racecar(target - 2**(n-1) + 2**m) + n + m + 1)
-
-        return self.dp[target]
 
 
+        # if target in self.dp:
+        #     return self.dp[target]
+
+        # n = target.bit_length()
+
+        # if 2 ** n - 1 == target:
+        #     self.dp[target] = n
+        # else:
+        #     self.dp[target] = self.racecar(2**n-1-target) + n + 1
+        #     for m in range(n - 1):
+        #         self.dp[target] = min(self.dp[target], \
+        #             self.racecar(target - 2**(n-1) + 2**m) + n + m + 1)
+
+        # return self.dp[target]
+
+
+        # Dijkstra's
+        # Time  complexity: O(TlogT). There are O(T) nodes, we process each one using O(logT) work.
+        # Space complexity: O(T)
+        # K = target.bit_length() + 1
+        # barrier = 1 << K
+        # pq = [(0, target)]
+        # dist = [float("inf")] * (2 * barrier + 1)
+        # dist[target] = 0
+
+        # while pq:
+        #     steps, targ = heapq.heappop(pq)
+        #     if dist[targ] > steps: continue
+
+        #     for k in range(K + 1):
+        #         walk = (1 << k) - 1
+        #         steps2, targ2 = steps + k + 1, walk - targ
+        #         if walk == targ: steps2 -= 1 # No "R" command if already exact
+
+        #         if abs(targ2) <= barrier and steps2 < dist[targ2]:
+        #             heapq.heappush(pq, (steps2, targ2))
+        #             dist[targ2] = steps2
+
+        # return dist[0]
         
 
 

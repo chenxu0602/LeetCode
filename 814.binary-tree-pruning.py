@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-pruning/description/
 #
 # algorithms
-# Medium (71.68%)
-# Likes:    637
-# Dislikes: 21
-# Total Accepted:    40.3K
-# Total Submissions: 56.3K
+# Medium (74.46%)
+# Likes:    1104
+# Dislikes: 44
+# Total Accepted:    68.4K
+# Total Submissions: 92.3K
 # Testcase Example:  '[1,null,0,0,1]'
 #
 # We are given the head node root of a binary tree, where additionally every
@@ -55,35 +55,26 @@
 # Note: 
 # 
 # 
-# The binary tree will have at most 100 nodes.
+# The binary tree will have at most 200 nodes.
 # The value of each node will only be 0 or 1.
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def pruneTree(self, root: TreeNode) -> TreeNode:
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
 
-        def containsOne(node):
-            if not node: return False
-            a1 = containsOne(node.left)
-            a2 = containsOne(node.right)
-            if not a1: node.left = None
-            if not a2: node.right = None
-            return node.val == 1 or a1 or a2
-
-        return root if containsOne(root) else None
-
-        """
         if root is None: return None
-        l = self.pruneTree(root.left)
-        r = self.pruneTree(root.right)
+        l, r = map(self.pruneTree, (root.left, root.right))
 
         if not l: root.left = None
         if not r: root.right = None
@@ -92,6 +83,6 @@ class Solution:
             return root
         else:
             return None
-        """
         
+# @lc code=end
 

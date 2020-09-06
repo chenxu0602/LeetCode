@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/number-of-lines-to-write-string/description/
 #
 # algorithms
-# Easy (63.50%)
-# Likes:    168
-# Dislikes: 682
-# Total Accepted:    30.7K
-# Total Submissions: 48.4K
-# Testcase Example:  '[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]\n' +
+# Easy (64.77%)
+# Likes:    250
+# Dislikes: 899
+# Total Accepted:    38.8K
+# Total Submissions: 59.7K
+# Testcase Example:  '[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]\n' + '"abcdefghijklmnopqrstuvwxyz"'
 #
 # We are to write the letters of a given string S, from left to right into
 # lines. Each line has maximum width 100 units, and if writing a letter would
@@ -64,6 +64,8 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numberOfLines(self, widths: List[int], S: str) -> List[int]:
         lines, width = 1, 0
@@ -73,6 +75,8 @@ class Solution:
             if width > 100:
                 lines += 1
                 width = w
+
         return lines, width
         
+# @lc code=end
 

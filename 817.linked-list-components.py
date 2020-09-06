@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/linked-list-components/description/
 #
 # algorithms
-# Medium (55.12%)
-# Likes:    243
-# Dislikes: 616
-# Total Accepted:    28.8K
-# Total Submissions: 52.1K
+# Medium (57.19%)
+# Likes:    392
+# Dislikes: 1065
+# Total Accepted:    45.8K
+# Total Submissions: 80K
 # Testcase Example:  '[0,1,2,3]\n[0,1,3]'
 #
 # We are given head, the head node of a linked list containing unique integer
@@ -55,33 +55,38 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def numComponents(self, head: ListNode, G: List[int]) -> int:
-        """
-        count, i = 0, head
-        while i:
-            if i.val in G:
-                count += 1
-                while i and i.val in G:
-                    i = i.next
-            else:
-                i = i.next
-        return count
-        """
-
+        # Grouping
+        # Time  complexity: O(N + G.length), where N is the length of the linked list with root node head.
+        # Space compleixty: O(G.length)
         Gset = set(G)
-        cur = head
-        ans = 0
+        cur, ans = head, 0
         while cur:
-            if cur.val in Gset and getattr(cur.next, "val", None) not in Gset:
+            if cur.val in Gset and getattr(cur.next, 'val', None) not in Gset:
                 ans += 1
             cur = cur.next
+
         return ans
+
+
+        # count, cur = 0, head
+        # while cur:
+        #     if cur.val in G:
+        #         count += 1
+        #         while cur and cur.val in G:
+        #             cur = cur.next
+        #     else:
+        #         cur = cur.next
+
+        # return count
         
+# @lc code=end
 
