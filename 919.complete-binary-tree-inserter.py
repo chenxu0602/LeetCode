@@ -76,7 +76,7 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
+from collections import deque
 
 class CBTInserter:
 
@@ -87,20 +87,49 @@ class CBTInserter:
                 self.tree.append(i.left)
             if i.right:
                 self.tree.append(i.right)
+        
+        # Time  complexity: O(N), each insertion operation is O(1).
+        # Space compleixty: O(N_{cur}) space complexity, 
+        # when the size of the tree during the current insertion operation is N_{cur}.
+        # self.deque = deque()
+        # self.root = root
 
+        # queue = deque([root,])
+        # while queue:
+        #     node = queue.popleft()
+        #     if not node.left or not node.right:
+        #         self.deque.append(node)
+        #     if node.left:
+        #         queue.append(node.left)
+        #     if node.right:
+        #         queue.append(node.right)
         
     def insert(self, v: int) -> int:
         n = len(self.tree)
         self.tree.append(TreeNode(v))
         if n % 2:
-            self.tree[(n-1)//2].left = self.tree[-1]
+            self.tree[(n - 1) // 2].left = self.tree[-1]
         else:
-            self.tree[(n-1)//2].right = self.tree[-1]
-        return self.tree[(n-1)//2].val
-        
+            self.tree[(n - 1) // 2].right = self.tree[-1]
+
+        return self.tree[(n - 1) // 2].val
+
+
+        # Time  complexity: O(N), each insertion operation is O(1).
+        # Space compleixty: O(N_{cur}) space complexity, 
+        # when the size of the tree during the current insertion operation is N_{cur}.
+        # node = self.deque[0]
+        # self.deque.append(TreeNode(v))
+        # if not node.left:
+        #     node.left = self.deque[-1]
+        # else:
+        #     node.right = self.deque[-1]
+        #     self.deque.popleft()
+        # return node.val
 
     def get_root(self) -> TreeNode:
         return self.tree[0]
+        # return self.root
         
 
 

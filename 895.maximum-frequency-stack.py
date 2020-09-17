@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/maximum-frequency-stack/description/
 #
 # algorithms
-# Hard (57.11%)
-# Likes:    591
-# Dislikes: 11
-# Total Accepted:    18.8K
-# Total Submissions: 32.6K
-# Testcase Example:  '["FreqStack","push","push","push","push","push","push","pop","pop","pop","pop"]\n' +
+# Hard (60.56%)
+# Likes:    1068
+# Dislikes: 19
+# Total Accepted:    39.1K
+# Total Submissions: 63.6K
+# Testcase Example:  '["FreqStack","push","push","push","push","push","push","pop","pop","pop","pop"]\n' + '[[],[5],[7],[5],[7],[4],[5],[],[],[],[]]'
 #
 # Implement FreqStack, a class which simulates the operation of a stack-like
 # data structure.
@@ -78,52 +78,47 @@
 # 
 # 
 #
-import queue 
+
+# @lc code=start
+import heapq 
 from collections import defaultdict, Counter
 
 class FreqStack:
 
     def __init__(self):
-       """
-       self.mem = {}
-       self.pq = queue.PriorityQueue()
-       self.count = 0
-       """
-
+       # Stack of Stacks    
+       # Time  complexity: O(1) for both push and pop operations.
+       # Space complexity: O(N), where N is the number of elements in the FreqStack.
        self.freq = Counter()
        self.group = defaultdict(list)
        self.maxfreq = 0
-        
 
+      # self.mem = {}
+      # self.pq = []
+      # self.count = 0
+        
     def push(self, x: int) -> None:
-       """
-       self.count += 1
-       self.mem[x] = self.mem.get(x, 0) + 1
-       self.pq.put((-self.mem[x], -self.count, x))
-       """
+        f = self.freq[x] + 1
+        self.freq[x] = f
+        if f > self.maxfreq:
+            self.maxfreq = f
+        self.group[f].append(x)
 
-       f  = self.freq[x] + 1
-       self.freq[x] = f
-       if f > self.maxfreq:
-          self.maxfreq = f
-       self.group[f].append(x)
-      
+      #   self.count += 1
+      #   self.mem[x] = self.mem.get(x, 0) + 1
+      #   heapq.heappush(self.pq, (-self.mem[x], -self.count, x))
         
-
     def pop(self) -> int:
-       """
-       _, _, val = self.pq.get()
-       self.mem[val] -= 1
-       return val
-       """
+        x = self.group[self.maxfreq].pop()   
+        self.freq[x] -= 1
+        if not self.group[self.maxfreq]:
+            self.maxfreq -= 1
 
-       x = self.group[self.maxfreq].pop()
-       self.freq[x] -= 1
-       if not self.group[self.maxfreq]:
-          self.maxfreq -= 1
-
-       return x
-
+        return x
+        
+      #   _, _, val = heapq.heappop(self.pq)
+      #   self.mem[val] -= 1
+      #   return val
         
 
 
@@ -131,4 +126,5 @@ class FreqStack:
 # obj = FreqStack()
 # obj.push(x)
 # param_2 = obj.pop()
+# @lc code=end
 

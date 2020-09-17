@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/snakes-and-ladders/description/
 #
 # algorithms
-# Medium (34.94%)
-# Likes:    176
-# Dislikes: 482
-# Total Accepted:    16K
-# Total Submissions: 45.1K
+# Medium (37.02%)
+# Likes:    252
+# Dislikes: 628
+# Total Accepted:    22.1K
+# Total Submissions: 59.6K
 # Testcase Example:  '[[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]'
 #
 # On an N x N board, the numbers from 1 to N*N are written boustrophedonically
@@ -83,31 +83,38 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
     def snakesAndLadders(self, board: List[List[int]]) -> int:
+        # Breadth-First Search
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N^2)
         N = len(board)
 
         def get(s):
-            quot, rem = divmod(s-1, N)
+            # Given a square num s, return board coordinates (r, c)
+            quot, rem = divmod(s - 1, N)
             row = N - 1 - quot
             col = rem if row % 2 != N % 2 else N - 1 - rem
             return row, col
 
-        dist = {1: 0}
-        queue = deque([1])
+        dist, queue = {1: 0}, deque([1])
         while queue:
-            s = queue.popleft()
-            if s == N*N:
+            s = queue.popleft() 
+            if s == N * N:
                 return dist[s]
-            for s2 in range(s+1, min(s+6, N*N) + 1):
+            for s2 in range(s + 1, min(s + 6, N * N) + 1):
                 r, c = get(s2)
                 if board[r][c] != -1:
                     s2 = board[r][c]
                 if s2 not in dist:
                     dist[s2] = dist[s] + 1
                     queue.append(s2)
+
         return -1
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-mountain-in-array/description/
 #
 # algorithms
-# Medium (34.77%)
-# Likes:    370
-# Dislikes: 14
-# Total Accepted:    21.2K
-# Total Submissions: 60.7K
+# Medium (37.11%)
+# Likes:    657
+# Dislikes: 27
+# Total Accepted:    37K
+# Total Submissions: 98.9K
 # Testcase Example:  '[2,1,4,7,3,2,5]'
 #
 # Let's call any (contiguous) subarray B (of A) a mountain if the following
@@ -59,22 +59,46 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def longestMountain(self, A: List[int]) -> int:
-        start, ans = None, 0
-        i, L = 0, len(A)
-        while i < L - 1:
-            if A[i] < A[i+1]:
-                start = i
-                while i + 1 < L and A[i] < A[i+1]:
-                    i += 1
-            elif A[i] == A[i+1]:
-                i += 1
-                start = None
-            else:
-                i += 1
-                if start != None:
-                    ans = max(ans, i - start + 1)
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # start, ans = None, 0
+        # i, L = 0, len(A)
+        # while i < L - 1:
+        #     if A[i] < A[i + 1]:
+        #         start = i
+        #         while i + 1 < L and A[i] < A[i + 1]:
+        #             i += 1
+        #     elif A[i] == A[i + 1]:
+        #         i += 1 
+        #         start = None
+        #     else:
+        #         i += 1
+        #         if start != None:
+        #             ans = max(ans, i - start + 1)
+
+        # return ans
+
+
+        N, ans, base = len(A), 0, 0
+
+        while base < N:
+            end = base
+            if end + 1 < N and A[end] < A[end + 1]:
+                while end + 1 < N and A[end] < A[end + 1]:
+                    end += 1
+
+                if end + 1 < N and A[end] > A[end + 1]:
+                    while end + 1 < N and A[end] > A[end + 1]:
+                        end += 1
+                    ans = max(ans, end - base + 1)
+
+            base = max(end, base + 1)
+
         return ans
         
+# @lc code=end
 

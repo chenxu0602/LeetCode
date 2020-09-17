@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/description/
 #
 # algorithms
-# Hard (22.53%)
-# Likes:    570
-# Dislikes: 15
-# Total Accepted:    15.9K
-# Total Submissions: 70.1K
+# Hard (23.20%)
+# Likes:    765
+# Dislikes: 23
+# Total Accepted:    21.9K
+# Total Submissions: 94.6K
 # Testcase Example:  '[1]\n1'
 #
 # Return the length of the shortest, non-empty, contiguous subarray of A with
@@ -61,12 +61,15 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 import itertools
 
 class Solution:
     def shortestSubarray(self, A: List[int], K: int) -> int:
-
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         N = len(A)
         P = [0] + list(itertools.accumulate(A))
 
@@ -81,11 +84,7 @@ class Solution:
                 ans = min(ans, y - monoq.popleft())
 
             monoq.append(y)
-
-        return ans if ans < N + 1 else -1
-
-
-
-
         
+        return ans if ans < N + 1 else -1
+# @lc code=end
 

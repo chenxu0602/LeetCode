@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/score-of-parentheses/description/
 #
 # algorithms
-# Medium (57.27%)
-# Likes:    663
-# Dislikes: 26
-# Total Accepted:    23.2K
-# Total Submissions: 40.2K
+# Medium (60.30%)
+# Likes:    1274
+# Dislikes: 41
+# Total Accepted:    40.8K
+# Total Submissions: 67.1K
 # Testcase Example:  '"()"'
 #
 # Given a balanced parentheses string S, compute the score of the string based
@@ -70,31 +70,59 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def scoreOfParentheses(self, S: str) -> int:
+        # Divide and Conquer
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # def F(i, j):
+        #     # Score of balanced string S[i:j]
+        #     ans = bal = 0
+        #     # Split string into primitives
+        #     for k in range(i, j):
+        #         bal += 1 if S[k] == '(' else -1
+        #         if bal == 0:
+        #             if k - i == 1:
+        #                 ans += 1
+        #             else:
+        #                 ans += 2 * F(i + 1, k)
+        #             i = k + 1
 
-        stack = [0]
+        #     return ans
 
-        for x in S:
-            if x == '(':
-                stack.append(0)
-            else:
-                v = stack.pop()
-                stack[-1] += max(2 * v, 1)
+        # return F(0, len(S))
 
-        return stack.pop()
 
-        """
+        # Stack
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # stack = [0]
+
+        # for x in S:
+        #     if x == '(':
+        #         stack.append(0)
+        #     else:
+        #         v = stack.pop()
+        #         stack[-1] += max(2 * v, 1)
+
+        # return stack.pop()
+
+
+        # Count Cores
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         ans = bal = 0
         for i, x in enumerate(S):
             if x == '(':
                 bal += 1
             else:
                 bal -= 1
-                if S[i-1] == '(':
+                if S[i - 1] == '(':
                     ans += 1 << bal
 
         return ans
-        """
         
+# @lc code=end
 

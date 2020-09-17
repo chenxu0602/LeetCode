@@ -50,22 +50,42 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+from functools import lru_cache
 
 class Solution:
     memo = {0: [], 1: [TreeNode(0)]}
 
+    @lru_cache(None)
     def allPossibleFBT(self, N: int) -> List[TreeNode]:
-        if N not in Solution.memo:
-            ans = []
-            for x in range(N):
-                y = N - 1 - x
-                for left in self.allPossibleFBT(x):
-                    for right in self.allPossibleFBT(y):
-                        bns = TreeNode(0)
-                        bns.left = left
-                        bns.right = right
-                        ans.append(bns)
-            Solution.memo[N] = ans
+        # Time  complexity: O(2^N)
+        # Space complexity: O(2^N)
+        # if N not in Solution.memo:
+        #     ans = []
+        #     for x in range(N):
+        #         y = N - 1 - x
+        #         for left in self.allPossibleFBT(x):
+        #             for right in self.allPossibleFBT(y):
+        #                 bns = TreeNode(0)
+        #                 bns.left = left
+        #                 bns.right = right
+        #                 ans.append(bns)
+        #     Solution.memo[N] = ans
 
-        return Solution.memo[N]
+        # return Solution.memo[N]
+
+
+        if N == 0: return []
+        if N == 1: return [TreeNode(0)]
+
+        ans = []
+        for x in range(N):
+            y = N - 1 - x
+            for left in self.allPossibleFBT(x):
+                for right in self.allPossibleFBT(y):
+                    bns = TreeNode(0)
+                    bns.left = left
+                    bns.right = right
+                    ans.append(bns)
+
+        return ans
 

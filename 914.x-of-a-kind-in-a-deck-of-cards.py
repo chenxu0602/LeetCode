@@ -98,15 +98,9 @@ from functools import reduce
 
 class Solution:
     def hasGroupsSizeX(self, deck: List[int]) -> bool:
-        """
-        count = Counter(deck)
-        N = len(deck)
-        for X in range(2, N+1):
-            if N % X == 0:
-                if all(v % X == 0 for v in count.values()):
-                    return True
-        return False
-        """
+        # Time  complexity: O(N x (logN)^2). If there are C_i cards with number i,
+        # then each gcd operation is natively O((logC_i)^2).
+        # Space complexity: O(N)
 
         vals = Counter(deck).values()
         return reduce(gcd, vals) >= 2

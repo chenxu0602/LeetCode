@@ -97,18 +97,31 @@
 #
 class Solution:
     def binaryGap(self, N: int) -> int:
+        # Store Indexes
+        # Time  complexity: O(logN)
+        # Space complexity: O(logN)
+        # A = [i for i in range(32) if (N >> i) & 1]
+        # if len(A) < 2: return 0
+        # return max(A[i + 1] - A[i] for i in range(len(A) - 1))
 
-        """
+
+        # One Pass
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
+        # last, ans = None, 0
+        # for i in range(32):
+        #     if (N >> i) & 1:
+        #         if last is not None:
+        #             ans = max(ans, i - last)
+        #         last = i
+        # return ans
+
+
         idxs = [i for i, x in enumerate(list(bin(N))) if x == '1']
         if len(idxs) > 1:
-            diffs = [abs(j-i) for i, j in zip(idxs, idxs[1:])]
+            diffs = [abs(j - i) for i, j in zip(idxs, idxs[1:])]
             return max(diffs)
         else:
             return 0
-        """
-
-        A = [i for i in range(32) if (N >> i) & 1]
-        if len(A) < 2: return 0
-        return max(A[i+1] - A[i] for i in range(len(A)-1))
         
 

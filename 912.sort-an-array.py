@@ -48,7 +48,9 @@ import random
 
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        return self.quicksort(nums)
+        # self.mergeSort(nums)
+        self.quicksort_inplace(nums, 0, len(nums)-1)
+        return nums
 
     def quicksort(self, nums):
         if len(nums) <= 1:
@@ -60,5 +62,48 @@ class Solution:
         gt = [v for v in nums if v > pivot]
 
         return self.quicksort(lt) + eq + self.quicksort(gt)
+
+    def quicksort_inplace(self, nums, low, high):
+        def partition(nums, low, high):
+            i = low
+            pivot = nums[high]
+            for j in range(low, high):
+                if nums[j] <= pivot:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    i += 1
+            nums[i], nums[high] = nums[high], nums[i]
+            return i
+
+        if low < high:
+            pi = partition(nums, low, high)
+            self.quicksort_inplace(nums, low, pi - 1)
+            self.quicksort_inplace(nums, pi + 1, high)
+
+
+    def mergeSort(self, nums):
+        if len(nums) > 1:
+            mid = len(nums) // 2
+            L = nums[:mid]; R = nums[mid:]
+            self.mergeSort(L); self.mergeSort(R)
+
+            i = j = k = 0
+
+            while i < len(L) and j < len(R):
+                if L[i] < R[j]:
+                    nums[k] = L[i]
+                    i += 1
+                else:
+                    nums[k] = R[j]
+                    j += 1
+                k += 1
+
+            while i < len(L):
+                nums[k] = L[i]
+                i += 1; k += 1
+
+            while j < len(R):
+                nums[k] = R[j]
+                j += 1; k += 1
+
         
 

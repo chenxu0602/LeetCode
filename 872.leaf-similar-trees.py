@@ -45,6 +45,21 @@
 
 class Solution:
     def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
+
+        # def find_leaves(root):
+        #     res = []
+        #     if root:
+        #         res = find_leaves(root.left)
+        #         if not root.left and not root.right:
+        #             res.append(root.val)
+        #         res = res + find_leaves(root.right)
+        #     return res
+        # return find_leaves(root1) == find_leaves(root2)
+
+
+        # Depth First Search
+        # Time  complexity: O(T1 + T2), where T1, T2 are the lengths of the given trees.
+        # Space compleixty: O(T1 + T2), the space used in storing the leaf values.
         def dfs(node):
             if node:
                 if not node.left and not node.right:
@@ -53,17 +68,5 @@ class Solution:
                 yield from dfs(node.right)
 
         return list(dfs(root1)) == list(dfs(root2))
-
-        """
-        def find_leaves(root):
-            res = []
-            if root:
-                res = find_leaves(root.left)
-                if not root.left and not root.right:
-                    res.append(root.val)
-                res = res + find_leaves(root.right)
-            return res
-        return find_leaves(root1) == find_leaves(root2)
-        """
         
 

@@ -84,6 +84,8 @@
 #
 class Solution:
     def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
+        # Time  complexity: O(A.length + B.length)
+        # Space compleixty: O(B.length)
         Sa, Sb = sum(A), sum(B)
         setB = set(B)
         for x in A:

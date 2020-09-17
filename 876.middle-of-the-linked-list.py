@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/middle-of-the-linked-list/description/
 #
 # algorithms
-# Easy (64.97%)
-# Likes:    630
-# Dislikes: 43
-# Total Accepted:    83.8K
-# Total Submissions: 128.6K
+# Easy (68.31%)
+# Likes:    1581
+# Dislikes: 65
+# Total Accepted:    250.7K
+# Total Submissions: 365.7K
 # Testcase Example:  '[1,2,3,4,5]'
 #
 # Given a non-empty, singly linked list with head node head, return a middle
@@ -54,18 +54,21 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         slow = fast = head
         while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+            slow, fast = slow.next, fast.next.next
         return slow
         
+# @lc code=end
 

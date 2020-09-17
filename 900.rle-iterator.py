@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/rle-iterator/description/
 #
 # algorithms
-# Medium (50.77%)
-# Likes:    149
-# Dislikes: 62
-# Total Accepted:    16.4K
-# Total Submissions: 31.8K
-# Testcase Example:  '["RLEIterator","next","next","next","next"]\n' +
+# Medium (53.34%)
+# Likes:    240
+# Dislikes: 84
+# Total Accepted:    23.8K
+# Total Submissions: 44.2K
+# Testcase Example:  '["RLEIterator","next","next","next","next"]\n' + '[[[3,8,0,9,2,5]],[2],[1],[1],[2]]'
 #
 # Write an iterator that iterates through a run-length encoded sequence.
 # 
@@ -68,33 +68,34 @@
 # 
 # 
 #
+
+# @lc code=start
 class RLEIterator:
 
     def __init__(self, A: List[int]):
-        self.raw = A[:]
-        self.next_index = 0
-        self.current_val = -1
+        # Store Exhausted Position and Quantity
+        # Time  complexity: O(N + Q), where N is the length of A, and Q is the number of calls to RLEIterator.next.
+        # Space complexity: O(N)
+        self.A = A
+        self.i = 0
+        self.q = 0
         
-
     def next(self, n: int) -> int:
-        while self.next_index < n and len(self.raw) > 0:
-            self.next_index += self.raw[0]
-            self.current_val = self.raw[1]
-            self.raw = self.raw[2:]
+        while self.i < len(self.A):
+            if self.q + n > self.A[self.i]:
+                n -= self.A[self.i] - self.q
+                self.q = 0
+                self.i += 2
+            else:
+                self.q += n
+                return self.A[self.i + 1]
 
-        if self.next_index < n:
-            res = -1
-        else:
-            res = self.current_val
-
-        self.next_index -= n
-
-        return res
-
+        return -1
         
 
 
 # Your RLEIterator object will be instantiated and called as such:
 # obj = RLEIterator(A)
 # param_1 = obj.next(n)
+# @lc code=end
 

@@ -51,19 +51,24 @@
 class Solution:
     def peakIndexInMountainArray(self, A: List[int]) -> int:
         
-        """
-        for i in range(len(A)):
-            if A[i] > A[i+1]:
-                return i
-        """
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # for i in range(len(A)):
+        #     if A[i] > A[i+1]:
+        #         return i
 
+
+
+        # Time  complexity: O(logN)
+        # Space complexity: O(1)
         lo, hi = 0, len(A) - 1
         while lo < hi:
             mi = (lo + hi) // 2
-            if A[mi] < A[mi+1]:
+            if A[mi] < A[mi + 1]:
                 lo = mi + 1
             else:
                 hi = mi
+
         return lo
 
 

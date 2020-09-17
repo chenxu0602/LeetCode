@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/spiral-matrix-iii/description/
 #
 # algorithms
-# Medium (65.42%)
-# Likes:    124
-# Dislikes: 189
-# Total Accepted:    12.1K
-# Total Submissions: 18.5K
+# Medium (67.61%)
+# Likes:    161
+# Dislikes: 229
+# Total Accepted:    15.9K
+# Total Submissions: 23.5K
 # Testcase Example:  '1\n4\n0\n0'
 #
 # On a 2 dimensional grid with R rows and C columns, we start at (r0, c0)
@@ -67,22 +67,43 @@
 # 
 # 
 # 
-# 
 #
+
+# @lc code=start
 class Solution:
     def spiralMatrixIII(self, R: int, C: int, r0: int, c0: int) -> List[List[int]]:
+        # Walk in a Spiral
+        # Time  complexity: O(max(R, C)^2)
+        # Space complexity: O(R x C)
+        # ans = [(r0, c0)]
+        # if R * C == 1: return ans
 
-        ans = [(r0, c0)]
-        if R * C == 1: return ans
+        # # For walk length k = 1, 3, 5 ...
+        # for k in range(1, 2 * (R + C), 2):
+        #     # For direction (dr, dc) = east, south, west, north;
+        #     # and walk length dk ...
+        #     for dr, dc, dk in (0, 1, k), (1, 0, k), (0, -1, k + 1), (-1, 0, k + 1):
+        #         # For each of dk units in the current direction ...
+        #         for _ in range(dk):
+        #             r0 += dr
+        #             c0 += dc
 
-        for k in range(1, 2 * (R + C), 2):
-            for dr, dc, dk in (0, 1, k), (1, 0, k), (0, -1, k + 1), (-1, 0, k + 1):
-                for _ in range(dk):
-                    r0, c0 = r0 + dr, c0 + dc
+        #             # If on the grid ...
+        #             if 0 <= r0 < R and 0 <= c0 < C:
+        #                 ans.append((r0, c0))
+        #                 if len(ans) == R * C:
+        #                     return ans
 
-                    if 0 <= r0 < R and 0 <= c0 < C:
-                        ans.append((r0, c0))
-                        if len(ans) == R * C:
-                            return ans
+
+        res = []
+        dr, dc, n = 0, 1, 0
+        while len(res) < R * C:
+            for i in range(n // 2 + 1):
+                if 0 <= r0 < R and 0 <= c0 < C:
+                    res.append([r0, c0])
+                r0, c0 = r0 + dr, c0 + dc
+            dr, dc, n = dc, -dr, n + 1
+        return res
         
+# @lc code=end
 

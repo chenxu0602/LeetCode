@@ -88,69 +88,91 @@ from collections import deque
 
 class Solution:
     def maxSubarraySumCircular(self, A: List[int]) -> int:
-        """
-        N = len(A)
-        ans = cur = float("-inf")
-        for i, x in enumerate(A):
-            cur = x + max(cur, 0)
-            ans = max(ans, cur)
+        # Next Array
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # N = len(A)
+        # ans = cur = float("-inf")
+        # for x in A:
+        #     cur = x + max(cur, 0)
+        #     ans = max(ans, cur)
 
-        rightsums = [None] * N
-        rightsums[-1] = A[-1]
+        # # ans is the answer for 1-interval subarrays.
+        # # Now, let's consider all 2-interval subarrays.
+        # # For each i, we want to know
+        # # the maximum of sum(A[j:]) with j >= i+2
+        # # rightsums[i] = sum(A[i:])
+        # rightsums = [None] * N
+        # rightsums[-1] = A[-1]
+        # for i in range(N - 2, -1, -1):
+        #     rightsums[i] = rightsums[i + 1] + A[i]
 
-        for i in range(N-2, -1, -1):
-            rightsums[i] = rightsums[i+1] + A[i]
+        # # maxright[i] = max_{j >= i} rightsums[j]
+        # maxright = [None] * N
+        # maxright[-1] = rightsums[-1]
+        # for i in range(N - 2, -1, -1):
+        #     maxright[i] = max(maxright[i + 1], rightsums[i])
 
-        maxright = [None] * N
-        maxright[-1] = rightsums[-1]
-        for i in range(N-2, -1, -1):
-            maxright[i] = max(maxright[i+1], rightsums[i])
+        # leftsum = 0
+        # for i in range(N - 2):
+        #     leftsum += A[i]
+        #     ans = max(ans, leftsum + maxright[i + 2])
 
-        leftsum = 0
-        for i in range(N-2):
-            leftsum += A[i]
-            ans = max(ans, leftsum + maxright[i+2])
-        return ans
-        """
+        # return ans
 
-        """
-        N = len(A)
-        P = [0]
-        for _ in range(2):
-            for x in A:
-                P.append(P[-1] + x)
 
-        ans = A[0]
-        queue = deque([0])
-        for j in range(1, len(P)):
-            if queue[0] < j - N:
-                queue.popleft()
+        # Prefix Sums + Monoqueue
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # N = len(A)
 
-            ans = max(ans, P[j] - P[queue[0]])
+        # # Compute P[j] = sum(B[:j]) for the fixed array B = A+A
+        # P = [0]
+        # for _ in range(2):
+        #     for x in A:
+        #         P.append(P[-1] + x)
 
-            while queue and P[j] <= P[queue[-1]]:
-                queue.pop()
+        # # Want largest P[j] - P[i] with 1 <= j-i <= N
+        # # For each j, want smallest P[i] with i >= j-N
+        # ans = A[0]
+        # queue = deque([0]) # i's, increasing by P[i]
+        # for j in range(1, len(P)):
+        #     # If the smallest i is too small, remove it.
+        #     if queue[0] < j - N:
+        #         queue.popleft()
 
-            queue.append(j)
-        return ans
-        """
+        #     # The optimal i is deque[0], for cand. answer P[j] - P[i].
+        #     ans = max(ans, P[j] - P[queue[0]])
 
-        """
-        def kadane(gen):
-            ans = cur = float("-inf")
-            for x in gen:
-                cur = x + max(cur, 0)
-                ans = max(ans, cur)
-            return ans
+        #     # Remove any i1's with P[i2] <= P[i1].
+        #     while queue and P[j] <= P[queue[-1]]:
+        #         queue.pop()
 
-        S = sum(A)
-        ans1 = kadane(iter(A))
-        ans2 = S + kadane(-A[i] for i in range(1, len(A)))
-        ans3 = S + kadane(-A[i] for i in range(len(A)-1))
+        #     queue.append(j)
 
-        return max(ans1, ans2, ans3)
-        """
+        # return ans
 
+
+        # Kadane's (Sign Variant)
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        # def kadane(gen):
+        #     ans = cur = float("-inf")
+        #     for x in gen:
+        #         cur = x + max(cur, 0)
+        #         ans = max(ans, cur)
+        #     return ans
+
+        # S = sum(A)
+        # ans1 = kadane(iter(A))
+        # ans2 = S + kadane(-A[i] for i in range(1, len(A)))
+        # ans3 = S + kadane(-A[i] for i in range(len(A) - 1))
+        # return max(ans1, ans2, ans3)
+
+
+        # Kadane's (Min Variant)
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         ans1 = cur = float("-inf")
         for x in A:
             cur = x + max(cur, 0)
@@ -159,20 +181,17 @@ class Solution:
         ans2 = cur = float("inf")
         for i in range(1, len(A)):
             cur = A[i] + min(cur, 0)
-            ans2 = min(ans2, cur)
+            ans2= min(ans2, cur)
         ans2 = sum(A) - ans2
 
         ans3 = cur = float("inf")
-        for i in range(len(A)-1):
+        for i in range(len(A) - 1):
             cur = A[i] + min(cur, 0)
-            ans3 = min(ans3, cur)
+            ans3 = min(ans3, 0)
         ans3 = sum(A) - ans3
 
         return max(ans1, ans2, ans3)
 
-
-        """
-        ****max*****|****min*******|*****max******
-        """
+        # ****max*****|****min*******|*****max******
 
 

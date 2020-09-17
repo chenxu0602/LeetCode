@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sum-of-distances-in-tree/description/
 #
 # algorithms
-# Hard (40.33%)
-# Likes:    516
-# Dislikes: 26
-# Total Accepted:    9.1K
-# Total Submissions: 22.5K
+# Hard (43.49%)
+# Likes:    884
+# Dislikes: 36
+# Total Accepted:    15K
+# Total Submissions: 33.9K
 # Testcase Example:  '6\n[[0,1],[0,2],[2,3],[2,4],[2,5]]'
 #
 # An undirected, connected tree with N nodes labelled 0...N-1 and N-1 edges are
@@ -40,10 +40,15 @@
 # Note: 1 <= N <= 10000
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def sumOfDistancesInTree(self, N: int, edges: List[List[int]]) -> List[int]:
+        # Subtree Sum and Count
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         graph = defaultdict(set)
         for u, v in edges:
             graph[u].add(v)
@@ -51,14 +56,13 @@ class Solution:
 
         count = [1] * N
         ans = [0] * N
-
         def dfs(node=0, parent=None):
             for child in graph[node]:
                 if child != parent:
                     dfs(child, node)
                     count[node] += count[child]
                     ans[node] += ans[child] + count[child]
-        
+
         def dfs2(node=0, parent=None):
             for child in graph[node]:
                 if child != parent:
@@ -68,4 +72,6 @@ class Solution:
         dfs()
         dfs2()
         return ans
+        
+# @lc code=end
 

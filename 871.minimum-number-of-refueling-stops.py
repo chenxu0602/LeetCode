@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-number-of-refueling-stops/description/
 #
 # algorithms
-# Hard (29.81%)
-# Likes:    413
-# Dislikes: 8
-# Total Accepted:    9.9K
-# Total Submissions: 32.9K
+# Hard (31.31%)
+# Likes:    779
+# Dislikes: 15
+# Total Accepted:    19.3K
+# Total Submissions: 61.5K
 # Testcase Example:  '1\n1\n[]'
 #
 # A car travels from a starting position to a destination which is target miles
@@ -85,41 +85,44 @@
 # 
 # 
 #
+
+# @lc code=start
 import heapq
 
 class Solution:
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        # Dynamic Programming
+        # Time  complexity: O(N^2), where N is the length of stations.
+        # Space complexity: O(N)
+        # dp = [startFuel] + [0] * len(stations)
+        # for i, (location, capacity) in enumerate(stations):
+        #     for t in range(i, -1, -1):
+        #         if dp[t] >= location:
+        #             dp[t + 1] = max(dp[t + 1], dp[t] + capacity)
 
-        """
-        dp = [startFuel] + [0] * len(stations)
-        for i, (location, capacity) in enumerate(stations):
-            for t in range(i, -1, -1):
-                if dp[t] >= location:
-                    dp[t+1] = max(dp[t+1], dp[t] + capacity)
+        # for i, d in enumerate(dp):
+        #     if d >= target: return i
+        # return -1
 
-        for i, d in enumerate(dp):
-            if d >= target:
-                return i
-        return -1
-        """
 
+        # Heap
+        # When we run out of fuel before reaching the next station, we'll retroactively fuel up: greedily choosing the largest gas stations first.
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         pq = []
         stations.append((target, float("inf")))
 
         ans = prev = 0
-        tank = startFuel
-
         for location, capacity in stations:
-            tank -= location - prev
-            while pq and tank < 0:
-                tank += -heapq.heappop(pq)
+            startFuel -= location - prev
+            while pq and startFuel < 0:
+                startFuel -= heapq.heappop(pq)
                 ans += 1
-            if tank < 0: return -1
+            if startFuel < 0: return -1
             heapq.heappush(pq, -capacity)
             prev = location
 
         return ans
-
-
         
+# @lc code=end
 

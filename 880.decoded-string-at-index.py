@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/decoded-string-at-index/description/
 #
 # algorithms
-# Medium (23.51%)
-# Likes:    298
-# Dislikes: 60
-# Total Accepted:    8.7K
-# Total Submissions: 36.9K
+# Medium (24.25%)
+# Likes:    507
+# Dislikes: 91
+# Total Accepted:    13.8K
+# Total Submissions: 56.9K
 # Testcase Example:  '"leet2code3"\n10'
 #
 # An encoded string S is given.  To find and write the decoded string to a
@@ -62,22 +62,28 @@
 # 
 # 
 # 
-# Note:
+# 
+# 
+# Constraints:
 # 
 # 
 # 2 <= S.length <= 100
 # S will only contain lowercase letters and digits 2 through 9.
 # S starts with a letter.
 # 1 <= K <= 10^9
+# It's guaranteed that K is less than or equal to the length of the decoded
+# string.
 # The decoded string is guaranteed to have less than 2^63 letters.
 # 
 # 
-# 
-# 
-# 
 #
+
+# @lc code=start
 class Solution:
     def decodeAtIndex(self, S: str, K: int) -> str:
+        # Work Backwards
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         size = 0
         for c in S:
             if c.isdigit():
@@ -91,8 +97,11 @@ class Solution:
                 return c
 
             if c.isdigit():
-                size /= int(c)
+                size //= int(c)
             else:
                 size -= 1
+
+
         
+# @lc code=end
 

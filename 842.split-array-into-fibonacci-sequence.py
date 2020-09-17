@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/split-array-into-fibonacci-sequence/description/
 #
 # algorithms
-# Medium (35.23%)
-# Likes:    296
-# Dislikes: 102
-# Total Accepted:    12.7K
-# Total Submissions: 36.1K
+# Medium (36.29%)
+# Likes:    485
+# Dislikes: 169
+# Total Accepted:    20.7K
+# Total Submissions: 57K
 # Testcase Example:  '"123456579"'
 #
 # Given a string S of digits, such as S = "123456579", we can split it into a
@@ -79,22 +79,36 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def splitIntoFibonacci(self, S: str) -> List[int]:
-        L, T, t = len(S), "", []
-        for i in range(1, L-2):
-            for j in range(1, L-i-1):
-                if (i > 1 and S[0] == '0') or (j > 1 and S[i] == '0'):
-                    continue
-                a, b = int(S[:i]), int(S[i:i+j])
-                T, t = S[:i+j], [a, b]
-                while len(T) < L:
-                    c = a + b
-                    T += str(c)
-                    t += [c]
-                    a, b = b, c
-                if len(T) == L and T == S and len(t) > 2 and t[-1] < 2**31 - 1:
-                    return t
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        for i in range(min(10, len(S))):
+            x = S[:i+1]
+            if x != '0' and x.startswith('0'): break
+            a = int(x)
+            for j in range(i+1, min(i+10, len(S))):
+                y = S[i+1:j+1]
+                if y != '0' and y.startswith('0'): break
+                b = int(y)
+                fib = [a, b]
+                k = j + 1
+                while k < len(S):
+                    nxt = fib[-1] + fib[-2]
+                    nxtS = str(nxt)
+                    if nxt <= 2**31 - 1 and S[k:].startswith(nxtS):
+                        k += len(nxtS)
+                        fib.append(nxt)
+                    else:
+                        break
+                else:
+                    if len(fib) >= 3:
+                        return fib
+
         return []
+
         
+# @lc code=end
 

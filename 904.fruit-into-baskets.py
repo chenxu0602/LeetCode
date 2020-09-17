@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/fruit-into-baskets/description/
 #
 # algorithms
-# Medium (41.79%)
-# Likes:    534
-# Dislikes: 836
-# Total Accepted:    65.9K
-# Total Submissions: 157.6K
+# Medium (42.50%)
+# Likes:    920
+# Dislikes: 1359
+# Total Accepted:    105.1K
+# Total Submissions: 247.1K
 # Testcase Example:  '[1,2,1]'
 #
 # In a row of trees, the i-th tree produces fruit with type tree[i].
@@ -88,23 +88,27 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def totalFruit(self, tree: List[int]) -> int:
-        ans = i = 0
-        count = Counter()
-        for j, x in enumerate(tree):
-            count[x] += 1
-            while len(count) >= 3:
-                count[tree[i]] -= 1
-                if count[tree[i]] == 0:
-                    del count[tree[i]]
-                i += 1
-            ans = max(ans, j - i + 1)
-        return ans
-        
-        """
+        # Sliding Window
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # ans = i = 0
+        # count = Counter()
+        # for j, x in enumerate(tree):
+        #     count[x] += 1
+        #     while len(count) >= 3:
+        #         count[tree[i]] -= 1
+        #         if count[tree[i]] == 0:
+        #             del count[tree[i]]
+        #         i += 1
+        #     ans = max(ans, j - i + 1)
+        # return ans
+
         res = cur = count_b = a = b = 0
         for c in tree:
             cur = cur + 1 if c in (a, b) else count_b + 1
@@ -112,6 +116,6 @@ class Solution:
             if b != c: a, b = b, c
             res = max(res, cur)
         return res
-        """
-
         
+# @lc code=end
+

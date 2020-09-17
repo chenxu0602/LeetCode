@@ -69,6 +69,8 @@
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
 
+        # Time  complexity: O(N + K), where N, K are the lengths of commands and obstacles respectively.
+        # Space complexity: O(K)
         dx = [0, 1, 0, -1]
         dy = [1, 0, -1, 0]
         x = y = di = 0

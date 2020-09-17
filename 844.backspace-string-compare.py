@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/backspace-string-compare/description/
 #
 # algorithms
-# Easy (46.50%)
-# Likes:    771
-# Dislikes: 49
-# Total Accepted:    72.9K
-# Total Submissions: 156.4K
+# Easy (47.19%)
+# Likes:    1044
+# Dislikes: 61
+# Total Accepted:    102.3K
+# Total Submissions: 216.6K
 # Testcase Example:  '"ab#c"\n"ad#c"'
 #
 # Given two strings S and T, return if they are equal when both are typed into
@@ -71,11 +71,14 @@
 # 
 # 
 #
-from itertools import zip_longest
+
+# @lc code=start
+import itertools
 
 class Solution:
     def backspaceCompare(self, S: str, T: str) -> bool:
-
+        # Time  complexity: O(M + N)
+        # Space complexity: O(M + N)
         # def build(S):
         #     ans = []
         #     for c in S:
@@ -86,6 +89,9 @@ class Solution:
         #     return "".join(ans)
         # return build(S) == build(T)
 
+
+        # Time  complexity: O(M + N)
+        # Space complexity: O(1)
         def F(S):
             skip = 0
             for x in reversed(S):
@@ -96,8 +102,8 @@ class Solution:
                 else:
                     yield x
 
-        return all(x == y for x, y in zip_longest(F(S), F(T)))
-
-
+        return all(x == y for x, y in itertools.zip_longest(F(S), F(T)))
         
+        
+# @lc code=end
 

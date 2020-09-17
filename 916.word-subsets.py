@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/word-subsets/description/
 #
 # algorithms
-# Medium (45.58%)
-# Likes:    203
-# Dislikes: 53
-# Total Accepted:    13.1K
-# Total Submissions: 28.6K
+# Medium (47.65%)
+# Likes:    387
+# Dislikes: 75
+# Total Accepted:    22.1K
+# Total Submissions: 46.3K
 # Testcase Example:  '["amazon","apple","facebook","google","leetcode"]\n["e","o"]'
 #
 # We are given two arrays A and B of words.  Each word is a string of lowercase
@@ -89,9 +89,13 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def wordSubsets(self, A: List[str], B: List[str]) -> List[str]:
-
+        # Reduce to Single Word in B
+        # Time  complexity: O(A + B) where A and B is the total amount of information in A and B respectively.
+        # Space complexity: O(A.length + B.length)
         def count(word):
             ans = [0] * 26
             for letter in word:
@@ -110,4 +114,5 @@ class Solution:
 
         return ans
         
+# @lc code=end
 

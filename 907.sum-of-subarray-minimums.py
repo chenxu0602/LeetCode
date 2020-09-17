@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sum-of-subarray-minimums/description/
 #
 # algorithms
-# Medium (28.73%)
-# Likes:    659
-# Dislikes: 46
-# Total Accepted:    14.6K
-# Total Submissions: 50.1K
+# Medium (32.14%)
+# Likes:    1386
+# Dislikes: 85
+# Total Accepted:    29.2K
+# Total Submissions: 89.2K
 # Testcase Example:  '[3,1,2,4]'
 #
 # Given an array of integers A, find the sum of min(B), where B ranges over
@@ -43,14 +43,47 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def sumSubarrayMins(self, A: List[int]) -> int:
-        """
-        MOD = 10 ** 9 + 7
+        # Prev/Next Array
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # MOD = 10**9 + 7
+        # N = len(A)
 
-        stack = []
-        ans = dot = 0
+        # # prev has i* - 1 in increasing order of A[i* - 1]
+        # # where i* is the answer to query j
+        # stack, prev = [], [None] * N
+        # for i in range(N):
+        #     while stack and A[i] <= A[stack[-1]]:
+        #         stack.pop()
+        #     prev[i] = stack[-1] if stack else -1
+        #     stack.append(i)
+
+        # # next has k* + 1 in increasing order of A[k* + 1]
+        # # where k* is the answer to query j
+        # stack = []
+        # next_ = [None] * N
+        # for k in range(N - 1, -1, -1):
+        #     while stack and A[k] < A[stack[-1]]:
+        #         stack.pop()
+        #     next_[k] = stack[-1] if stack else N
+        #     stack.append(k)
+
+        # # Use prev/next array to count answer
+        # return sum((i - prev[i]) * (next_[i] - i) * A[i] for i in range(N)) % MOD
+
+
+        # Maintain Stack of Minimums
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        MOD = 10**9 + 7
+
+        stack, ans, dot = [], 0, 0
         for j, y in enumerate(A):
+            # Add all answers for subarrays [i, j], i <= j
             count = 1
             while stack and stack[-1][0] >= y:
                 x, c = stack.pop()
@@ -62,28 +95,7 @@ class Solution:
             ans += dot
 
         return ans % MOD
-        """
 
-        MOD = 10 ** 9 + 7
-        N = len(A)
-
-        stack = []
-        prev = [None] * N
-        for i in range(N):
-            while stack and A[i] <= A[stack[-1]]:
-                stack.pop()
-            prev[i] = stack[-1] if stack else -1
-            stack.append(i)
-
-        stack = []
-        next_ = [None] * N
-        for k in range(N-1, -1, -1):
-            while stack and A[k] < A[stack[-1]]:
-                stack.pop()
-            next_[k] = stack[-1] if stack else N
-            stack.append(k)
-
-        return sum((i - prev[i]) * (next_[i] - i) * A[i]
-                    for i in range(N)) % MOD
         
+# @lc code=end
 

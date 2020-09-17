@@ -77,50 +77,48 @@ class Solution:
         :type master: Master
         :rtype: None
         """
+        # def similarity(word1, word2):
+        #     count = 0
+        #     for i in range(6):
+        #         if word1[i] == word2[i]:
+        #             count += 1
+        #     return count
+
+        # def heuristic(target, words):
+        #     freq = Counter([0, 1, 2, 3, 4, 5])
+        #     for k in freq.keys():
+        #         freq[k] += 1
+
+        #     for w in words:
+        #         if w != target:
+        #             s = similarity(w, target)
+        #             freq[s] += 1
+
+        #     return functools.reduce(lambda x, y: x * y, freq.values())
+
+        # def pick_word(words):
+        #     values = [0] * len(words)
+
+        #     for i in range(len(words)):
+        #         values[i] = heuristic(words[i], words)
+
+        #     argmax = 0
+        #     max_v = 0
+        #     for i in range(len(values)):
+        #         if max_v < values[i]:
+        #             argmax = i 
+        #             max_v = values[i]
+        #     return words[argmax]
+
+        # words = copy.copy(wordlist)
+        # for i in range(10):
+        #     cur_word = pick_word(words)
+        #     sim = master.guess(cur_word)
+        #     if sim == 6:
+        #         return
+        #     words = list(filter(lambda w: w != cur_word and sim == similarity(w, cur_word), words))
 
 
-        """
-        def similarity(word1, word2):
-            count = 0
-            for i in range(6):
-                if word1[i] == word2[i]:
-                    count += 1
-            return count
-
-        def heuristic(target, words):
-            freq = Counter([0, 1, 2, 3, 4, 5])
-            for k in freq.keys():
-                freq[k] += 1
-
-            for w in words:
-                if w != target:
-                    s = similarity(w, target)
-                    freq[s] += 1
-
-            return functools.reduce(lambda x, y: x * y, freq.values())
-
-        def pick_word(words):
-            values = [0] * len(words)
-
-            for i in range(len(words)):
-                values[i] = heuristic(words[i], words)
-
-            argmax = 0
-            max_v = 0
-            for i in range(len(values)):
-                if max_v < values[i]:
-                    argmax = i 
-                    max_v = values[i]
-            return words[argmax]
-
-        words = copy.copy(wordlist)
-        for i in range(10):
-            cur_word = pick_word(words)
-            sim = master.guess(cur_word)
-            if sim == 6:
-                return
-            words = list(filter(lambda w: w != cur_word and sim == similarity(w, cur_word), words))
-        """
 
         def pair_matches(a, b):
             return sum(c1 == c2 for c1, c2 in zip(a, b))

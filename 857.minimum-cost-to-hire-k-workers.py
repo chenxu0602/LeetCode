@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-cost-to-hire-k-workers/description/
 #
 # algorithms
-# Hard (48.04%)
-# Likes:    617
-# Dislikes: 65
-# Total Accepted:    21K
-# Total Submissions: 43.4K
+# Hard (49.52%)
+# Likes:    941
+# Dislikes: 96
+# Total Accepted:    31.2K
+# Total Submissions: 62.8K
 # Testcase Example:  '[10,20,5]\n[70,50,30]\n2'
 #
 # There are N workers.  The i-th worker has a quality[i] and a minimum wage
@@ -67,16 +67,42 @@
 # 
 # 
 #
-from fractions import Fraction 
+
+# @lc code=start
+from fractions import Fraction
 import heapq
 
 class Solution:
     def mincostToHireWorkers(self, quality: List[int], wage: List[int], K: int) -> float:
-        workers = sorted((Fraction(w, q), q, w) for q, w in zip(quality, wage))
-        ans = float("inf")
-        pool = []
-        sumq = 0
+        # Greedy
+        # Time  complexity: O(N^2 x logN), where N is the number of workers.
+        # Space complexity: O(N)
+        # ans, N = float("inf"), len(quality)
+        # for captain in range(N):
+        #     # Must pay at least wage[captain] / quality[captain] per qual
+        #     factor = Fraction(wage[captain], quality[captain])
+        #     prices = []
+        #     for worker in range(N):
+        #         price = factor * quality[worker]
+        #         if price < wage[worker]: continue
+        #         prices.append(price)
 
+        #     if len(prices) < K: continue
+        #     prices.sort()
+        #     ans = min(ans, sum(prices[:K]))
+
+        # return float(ans)
+
+
+        # Heap
+        # The key insight is to iterate over the ratio. Let's say we hire workers with a ratio R or lower. 
+        # Then, we would want to know the K workers with the lowest quality, and the sum of that quality. 
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
+        workers = sorted((Fraction(w, q), q, w) for q, w in zip(quality, wage))
+        ans, pool, sumq = float("inf"), [], 0
+
+        # Loop over from the lowest ratio to highest ratio
         for ratio, q, w in workers:
             heapq.heappush(pool, -q)
             sumq += q
@@ -88,6 +114,6 @@ class Solution:
                 ans = min(ans, ratio * sumq)
 
         return float(ans)
-
         
+# @lc code=end
 

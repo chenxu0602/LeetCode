@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/exam-room/description/
 #
 # algorithms
-# Medium (39.10%)
-# Likes:    370
-# Dislikes: 170
-# Total Accepted:    18.2K
-# Total Submissions: 46.2K
-# Testcase Example:  '["ExamRoom","seat","seat","seat","seat","leave","seat"]\n' +
+# Medium (43.01%)
+# Likes:    614
+# Dislikes: 252
+# Total Accepted:    32.4K
+# Total Submissions: 74.9K
+# Testcase Example:  '["ExamRoom","seat","seat","seat","seat","leave","seat"]\n' + '[[10],[],[],[],[],[4],[]]'
 #
 # In an exam room, there are N seats in a single row, numbered 0, 1, 2, ...,
 # N-1.
@@ -58,6 +58,8 @@
 # 
 # 
 #
+
+# @lc code=start
 import bisect 
 
 class ExamRoom:
@@ -65,28 +67,39 @@ class ExamRoom:
     def __init__(self, N: int):
         self.N = N
         self.students = []
-        
 
     def seat(self) -> int:
-        if not self.students:
-            student = 0
-        else:
-            dist, student = self.students[0], 0
-            for i, s in enumerate(self.students):
-                if i:
-                    prev = self.students[i-1]
-                    d = (s - prev) // 2
-                    if d > dist:
-                        dist, student = d, prev + d
 
+        # Let's determine student, the position of the next
+        # student to sit down.
+
+        if not self.students:
+            self.students = [0]
+            return 0
+
+        # Tenatively, dist is the distance to the closest student,
+        # which is achieved by sitting in the position 'student'.
+        # We start by considering the left-most seat.
+        dist, student = self.students[0], 0
+        for i, s in enumerate(self.students):
+            if i:
+                prev = self.students[i - 1]
+                # For each pair of adjacent students in positions (prev, s),
+                # d is the distance to the closest student;
+                # achieved at position prev + d.
+                d = (s - prev) // 2
+                if d > dist:
+                    dist, student = d, prev + d
+
+            # Considering the right-most seat.
             d = self.N - 1 - self.students[-1]
             if d > dist:
                 student = self.N - 1
 
+
+        # Add the student to our sorted list of positions.
         bisect.insort(self.students, student)
         return student
-        
-        
 
     def leave(self, p: int) -> None:
         self.students.remove(p)
@@ -97,4 +110,5 @@ class ExamRoom:
 # obj = ExamRoom(N)
 # param_1 = obj.seat()
 # obj.leave(p)
+# @lc code=end
 

@@ -80,37 +80,130 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def superEggDrop(self, K: int, N: int) -> int:
-        dp = [[0] * (K+1) for i in range(N+1)]
-        for m in range(1, N+1):
-            for k in range(1, K+1):
-                dp[m][k] = dp[m-1][k-1] + dp[m-1][k] + 1
-            if dp[m][K] >= N:
-                return m
+        # Dynamic Programming with Binary Search
+        # K eggs and N floors left. When we drop an egg from floor X, it either survives and we have state (K, N-X), or it breaks and we have state (K-1, X-1).
+        # This approach would lead to a O(K x N^2) algorithm, but this is not efficient enough for the given constraints. 
+        # dp(K-1, X-1) is an increasing function on X while dp(K, N-X) is a decreasing function on X.
+        # dp(K, N) = min_{1<=X<=N} (max(dp(K-1, X-1), dp(K, N-X))) means we don't need to check every X to find the minimum.
+        # Time  complexity: O(K x NlogN)
+        # Space complexity: O(K x N)
+        # @lru_cache(None)
+        # def dp(k, n):
+        #     if n == 0:
+        #         ans = 0
+        #     elif k == 1:
+        #         ans = n
+        #     else:
+        #         lo, hi = 1, n
+        #         # keep a gap of 2 X values to manually check later
+        #         while lo + 1 < hi:
+        #             x = (lo + hi) // 2
+        #             t1 = dp(k - 1, x - 1)
+        #             t2 = dp(k, n - x)
+
+        #             if t1 < t2:
+        #                 lo = x
+        #             elif t1 > t2:
+        #                 hi = x
+        #             else:
+        #                 lo = hi = x
+
+        #         ans = 1 + min(max(dp(k - 1, x - 1), dp(k, n - x)) for x in (lo, hi))
+
+        #     return ans
+
+        # return dp(K, N)
 
 
-        # dp = [[0] * (N + 1) for _ in range(K + 1)]
-
-        # for k in range(1, K + 1):
-        #     dp[k][1] = 1
-        #     dp[k][0] = 0
-
-        # for n in range(1, N + 1):
-        #     dp[1][n] = n
-
+        # Dynamic Programming with Optimality Criterion
+        # Time  complexity: O(K x N)
+        # Space complexity: O(N)
+        # Right now, dp[i] represents dp(1, i)
+        # dp = list(range(N + 1))
         # for k in range(2, K + 1):
-        #     for n in range(2, N + 1):
-        #         dp[k][n] = float("inf")
-        #         minimum = float("inf")
+        #     # Now, we will develop dp2[i] = dp(k, i)
+        #     dp2 = [0]
+        #     x = 1
+        #     for n in range(1, N + 1):
+        #         # Let's find dp2[n] = dp(k, n)
+        #         # Increase our optimal x while we can make our answer better.
+        #         # Notice max(dp[x-1], dp2[n-x]) > max(dp[x], dp2[n-x-1])
+        #         # is simply max(T1(x-1), T2(x-1)) > max(T1(x), T2(x)).
+        #         while x < n and max(dp[x - 1], dp2[n - x]) > max(dp[x] ,dp2[n - x - 1]):
+        #             x += 1
 
-        #         for x in range(1, n):
-        #             minimum = min(minimum, 1 + max(dp[k-1][x-1], dp[k][n-x]))
+        #         # The final answer happens at this x.
+        #         dp2.append(1 + max(dp[x - 1], dp2[n - x]))
 
-        #         dp[k][n] = minimum
+        #     dp = dp2
 
-        # return dp[K][N]
+        # return dp[-1]
 
 
-        
+        # Mathematical
+        # f(T, K) = 1 + f(T-1, K-1) + f(T-1, K)
+        # f(T, K-1) = 1 + f(T-1, K-2) + f(T-1, K-1)
+        # g(t,k) = f(t,k) - f(t, k-1) = g(t-1, k) + g(t-1, k-1) = C(t, k+1)
+        # f(t, k) = sum_{1<=x<=K} g(t, x) = sum_(0<=x<=K) C(t, x)
+        # Binary search for t that satisfies f(t, K) >= N.
+        # Time  complexity: O(K x logN)
+        # Space complexity: O(1)
+        # def f(x):
+        #     ans, r = 0, 1
+        #     for i in range(1, K + 1):
+        #         r *= x - i + 1
+        #         r //= i
+        #         ans += r
+        #         if ans >= N: break
+        #     return ans
+
+        # lo, hi = 1, N
+        # while lo < hi:
+        #     mi = (lo + hi) // 2
+        #     if f(mi) < N:
+        #         lo = mi + 1
+        #     else:
+        #         hi = mi
+        # return lo
+
+
+        # dp[k][m] means that given k eggs and m moves, the max number of floor that we can cover.
+        # dp[k][m] = 1 + dp[k-1][m-1] + dp[k][m-1]
+        # we take 1 move to a floor, if the egg breaks, we can check dp[k-1][m-1] floors,
+        # if the egg doesn't, we can check dp[k][m-1] floors.
+        # dp = [[0] * (N + 1) for _ in range(K + 1)]
+        # for m in range(1, N + 1):
+        #     for k in range(1, K + 1):
+        #         dp[k][m] = 1 + dp[k - 1][m - 1] + dp[k][m - 1]
+        #     if dp[k][m] >= N: 
+        #         return m
+
+        # 1-D version
+        # dp = [0, 0]
+        # m = 0
+        # while dp[-1] < N:
+        #     for i in range(len(dp) - 1, 0, -1):
+        #         dp[i] += 1 + dp[i - 1]
+        #     if len(dp) < K + 1:
+        #         dp.append(dp[-1]) 
+        #     m += 1
+        # return m
+
+
+        # Let floors[i] be the number of floors that can be checked with i eggs
+        # O(K x logN)
+        drops = 0
+        floors = [0] * (K + 1)
+        while floors[K] < N:
+            for eggs in range(K, 0, -1):
+                floors[eggs] += 1 + floors[eggs - 1]
+            print(floors)
+            drops += 1
+        return drops
+
+
 

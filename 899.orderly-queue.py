@@ -64,7 +64,9 @@
 #
 class Solution:
     def orderlyQueue(self, S: str, K: int) -> str:
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N^2)
         if K == 1:
             return min(S[i:] + S[:i] for i in range(len(S)))
-        return "".join(sorted(S)) 
+        return "".join(sorted(S))
 

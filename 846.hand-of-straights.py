@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/hand-of-straights/description/
 #
 # algorithms
-# Medium (49.83%)
-# Likes:    319
-# Dislikes: 47
-# Total Accepted:    22.6K
-# Total Submissions: 45.1K
+# Medium (54.01%)
+# Likes:    728
+# Dislikes: 85
+# Total Accepted:    51.9K
+# Total Submissions: 95.6K
 # Testcase Example:  '[1,2,3,6,2,3,4,7,8]\n3'
 #
 # Alice has a hand of cards, given as an array of integers.
@@ -41,33 +41,53 @@
 # 
 # 
 # 
-# Note:
+# Constraints:
 # 
 # 
 # 1 <= hand.length <= 10000
 # 0 <= hand[i] <= 10^9
 # 1 <= W <= hand.length
 # 
-# 
+# Note: This question is the same as 1296:
+# https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def isNStraightHand(self, hand: List[int], W: int) -> bool:
+        # Time  complexity: O(N x (N / W)), where N is the length of hand.
+        # Space complexity: O(N)
+        # count = Counter(hand)
+        # while count:
+        #     m = min(count)
+        #     for k in range(m, m + W):
+        #         v = count[k]
+        #         if not v: return False
+        #         if v == 1:
+        #             del count[k]
+        #         else:
+        #             count[k] = v - 1
+        # return True
 
-        if len(hand) % W:
-            return False
 
-        counter = Counter(hand)
+        if len(hand) % W: return False
+        count = Counter(hand)
 
-        while counter:
-            elem = min(counter)
-            for k in range(elem, elem+W):
-                if k not in counter:
-                    return False
-                counter[k] -= 1
-                if not counter[k]:
-                    del counter[k]
+        while count:
+            m = min(count)
+            num = count[m]
+            for k in range(m, m + W):
+                v = count[k]
+                if v < num: return False
+                if v == num:
+                    del count[k]
+                else:
+                    count[k] = v - num
+
         return True
+
         
+# @lc code=end
 

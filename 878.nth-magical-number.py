@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/nth-magical-number/description/
 #
 # algorithms
-# Hard (25.75%)
-# Likes:    126
-# Dislikes: 43
-# Total Accepted:    6.2K
-# Total Submissions: 23.8K
+# Hard (28.38%)
+# Likes:    220
+# Dislikes: 63
+# Total Accepted:    9.9K
+# Total Submissions: 34.6K
 # Testcase Example:  '1\n2\n3'
 #
 # A positive integer is magical if it is divisible by either A or B.
@@ -70,51 +70,41 @@
 # 
 # 
 #
+
+# @lc code=start
 from fractions import gcd
 
 class Solution:
     def nthMagicalNumber(self, N: int, A: int, B: int) -> int:
+        # Mathematical
+        # Let L be the least common multiple of A and B. 
+        # There are M = L/A + L/B - 1 magical numbers less than or equal to L.
+        # L/A of them are divisible by A, L/B of the m are divisible by B, and 1 of them is divisible by both.
+        # Time  complexity: O(A + B)
+        # Space complexity: O(1)
+        # MOD = 10**9 + 7
 
-        """
-        MAX_NUM = pow(10, 9) + 7
+        # L = A * B // gcd(A, B)
+        # M = L // A + L // B - 1
+        # q, r = divmod(N, M)
 
-        def gcd(A, B):
-            if A < B:
-                A, B = B, A
-            while B:
-                A, B = B, A % B
-            return A
+        # if r == 0: return q * L % MOD
 
-        def lcm(A, B):
-            return (A * B) // gcd(A, B)
+        # heads = [A, B]
+        # for _ in range(r - 1):
+        #     if heads[0] <= heads[1]:
+        #         heads[0] += A
+        #     else:
+        #         heads[1] += B
 
-        lcm_val = lcm(A, B)
-        unit_list = []
-        M = (lcm_val // A) + (lcm_val // B) - 1
+        # return (q * L + min(heads)) % MOD
 
-        i, j = 1, 1
-        while i <= lcm_val // A and j <= lcm_val // B:
-            if i * A < j * B:
-                unit_list.append(i * A)
-                i += 1
-            else:
-                unit_list.append(j * B)
-                j += 1
 
-        while i < lcm_val // A:
-            unit_list.append(i*A)
-            i += 1
-
-        while j < lcm_val // B:
-            unit_list.append(j*B)
-            j += 1
-
-        ret = (N // M)*lcm_val + unit_list[(N % M)-1] if N % M > 0 else (N // M)*lcm_val
-        return ret if ret < MAX_NUM else ret % MAX_NUM
-        """
-
+        # Binary Search
+        # Time  complexity: O(log(N x min(A, B)))
+        # Space complexity: O(1)
         MOD = 10**9 + 7
-        L = A / gcd(A, B) * B
+        L = A * B // gcd(A, B)
 
         def magic_below_x(x):
             return x // A + x // B - x // L
@@ -126,8 +116,8 @@ class Solution:
                 lo = mi + 1
             else:
                 hi = mi
-
         return lo % MOD
+
         
-        
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/description/
 #
 # algorithms
-# Medium (49.26%)
-# Likes:    1026
-# Dislikes: 18
-# Total Accepted:    34K
-# Total Submissions: 67.7K
+# Medium (52.59%)
+# Likes:    1415
+# Dislikes: 32
+# Total Accepted:    52.2K
+# Total Submissions: 99.3K
 # Testcase Example:  '[3,5,1,6,2,0,8,null,null,7,4]\n5\n2'
 #
 # We are given a binary tree (with root node root), a target node, and an
@@ -56,24 +56,21 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
 from collections import deque
 
 class Solution:
-    def distanceK(self, root, target, K):
-        """
-        :type root: TreeNode
-        :type target: TreeNode
-        :type K: int
-        :rtype: List[int]
-        """
-
+    def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+        # Annotate Parent
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         def dfs(node, par=None):
             if node:
                 node.par = par
@@ -88,15 +85,14 @@ class Solution:
         while queue:
             if queue[0][1] == K:
                 return [node.val for node, d in queue]
+
             node, d = queue.popleft()
-            for nei in (node.left, node.right, node.par):
-                if nei and not nei in seen:
+            for nei in node.left, node.right, node.par:
+                if nei and nei not in seen:
                     seen.add(nei)
                     queue.append((nei, d + 1))
 
         return []
-
-
-
         
+# @lc code=end
 

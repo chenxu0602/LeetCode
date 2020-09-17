@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/new-21-game/description/
 #
 # algorithms
-# Medium (32.14%)
-# Likes:    368
-# Dislikes: 190
-# Total Accepted:    10.5K
-# Total Submissions: 32.5K
+# Medium (34.54%)
+# Likes:    595
+# Dislikes: 356
+# Total Accepted:    18.8K
+# Total Submissions: 53.8K
 # Testcase Example:  '10\n1\n10'
 #
 # Alice plays the following game, loosely based on the card game "21".
@@ -57,20 +57,24 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def new21Game(self, N: int, K: int, W: int) -> float:
+        # O(N + W)
         dp = [0.0] * (N + W + 1)
+        # dp[x] = the answer when Alice has x points
         for k in range(K, N + 1):
             dp[k] = 1.0
 
-        S = min(N - K + 1, W)
+        S = min(N + 1 - K, W)
 
-        for k in range(K-1, -1, -1):
+        # S = dp[k+1] + dp[k+2] + ... + dp[k+W]
+        for k in range(K - 1, -1, -1):
             dp[k] = S / float(W)
             S += dp[k] - dp[k + W]
 
         return dp[0]
-
         
-        
+# @lc code=end
 

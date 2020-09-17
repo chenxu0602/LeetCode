@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-and-replace-pattern/description/
 #
 # algorithms
-# Medium (71.63%)
-# Likes:    443
-# Dislikes: 47
-# Total Accepted:    35.9K
-# Total Submissions: 49.9K
+# Medium (73.29%)
+# Likes:    736
+# Dislikes: 70
+# Total Accepted:    53.4K
+# Total Submissions: 72.6K
 # Testcase Example:  '["abc","deq","mee","aqq","dkd","ccc"]\n"abb"'
 #
 # You have a list of words and a pattern, and you want to know which words in
@@ -53,11 +53,45 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        # Two Maps
+        # Time  complexity: O(N x K), where N is the number of words,
+        # and K is the length of each word.
+        # Space complexity: O(N x K)
+        # def match(word):
+        #     m1, m2 = {}, {}
+        #     for w, p in zip(word, pattern):
+        #         if w not in m1: m1[w] = p
+        #         if p not in m2: m2[p] = w
+        #         if (m1[w], m2[p]) != (p, w):
+        #             return False
+        #     return True
+
+        # return filter(match, words)
+
+
+        # One Map
+        # Time  complexity: O(N x K), where N is the number of words,
+        # and K is the length of each word.
+        # Space complexity: O(N x K)
+        # def match(word):
+        #     P = {}
+        #     for x, y in zip(pattern, word):
+        #         if P.setdefault(x, y) != y:
+        #             return False
+        #     return len(set(P.values())) == len(P.values())
+
+        # return filter(match, words)
+
+
         return [word for word in words
                 if len(word) == len(pattern) and
                 len(set(word)) == len(set(pattern)) and
                 len(set(zip(word, pattern))) == len(set(word))]
+
         
+# @lc code=end
 

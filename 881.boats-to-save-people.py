@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/boats-to-save-people/description/
 #
 # algorithms
-# Medium (44.36%)
-# Likes:    316
-# Dislikes: 24
-# Total Accepted:    18.9K
-# Total Submissions: 42.3K
+# Medium (46.60%)
+# Likes:    647
+# Dislikes: 37
+# Total Accepted:    35.6K
+# Total Submissions: 75.8K
 # Testcase Example:  '[1,2]\n3'
 #
 # The i-th person has weight people[i], and each boat can carry a maximum
@@ -61,8 +61,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
+        # Greedy
+        # if the heaviest person can share a boat with the lightest person, then do so. Otherwise, the heaviest person can't pair with anyone, so they get their own boat.
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         people.sort()
         i, j = 0, len(people) - 1
         ans = 0
@@ -73,4 +79,5 @@ class Solution:
             j -= 1
         return ans
         
+# @lc code=end
 

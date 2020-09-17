@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/koko-eating-bananas/description/
 #
 # algorithms
-# Medium (46.73%)
-# Likes:    363
-# Dislikes: 36
-# Total Accepted:    17.4K
-# Total Submissions: 37K
+# Medium (49.38%)
+# Likes:    522
+# Dislikes: 57
+# Total Accepted:    28.2K
+# Total Submissions: 56.8K
 # Testcase Example:  '[3,6,7,11]\n8'
 #
 # Koko loves to eat bananas.  There are N piles of bananas, the i-th pile has
@@ -70,11 +70,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
-
+        # Binary Search
+        # Time  complexity: O(NlogW), where N is the number of piles, and W is the maximum size of a pile.
+        # Space complexity: O(1)
         def possible(K):
-            return sum((p-1) // K + 1 for p in piles) <= H
+            return sum((p - 1) // K + 1 for p in piles) <= H
 
         lo, hi = 1, max(piles)
         while lo < hi:
@@ -84,6 +88,6 @@ class Solution:
             else:
                 hi = mi
         return lo
-
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/score-after-flipping-matrix/description/
 #
 # algorithms
-# Medium (70.49%)
-# Likes:    303
-# Dislikes: 82
-# Total Accepted:    14.8K
-# Total Submissions: 21K
+# Medium (72.68%)
+# Likes:    518
+# Dislikes: 115
+# Total Accepted:    22.2K
+# Total Submissions: 30.5K
 # Testcase Example:  '[[0,0,1,1],[1,0,1,0],[1,1,0,0]]'
 #
 # We have a two dimensional matrix A where each value is 0 or 1.
@@ -50,10 +50,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def matrixScore(self, A: List[List[int]]) -> int:
-
-        R, C = len(A), len(A[0])
+        # Greedy
+        # Time  complexity: O(R x C)
+        # Space complexity: O(1)
+        R, C = map(len, (A, A[0]))
         ans = 0
         for c in range(C):
             col = 0
@@ -62,4 +66,5 @@ class Solution:
             ans += max(col, R - col) * 2 ** (C - 1 - c)
         return ans
         
+# @lc code=end
 

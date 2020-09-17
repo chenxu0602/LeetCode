@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/possible-bipartition/description/
 #
 # algorithms
-# Medium (41.25%)
-# Likes:    340
-# Dislikes: 16
-# Total Accepted:    15.8K
-# Total Submissions: 38.2K
+# Medium (44.03%)
+# Likes:    1053
+# Dislikes: 29
+# Total Accepted:    60.8K
+# Total Submissions: 137K
 # Testcase Example:  '4\n[[1,2],[1,3],[2,4]]'
 #
 # Given a set of N people (numbered 1, 2, ..., N), we would like to split
@@ -61,37 +61,41 @@
 # 
 # 
 # 
-# Note:
+# 
+# 
+# Constraints:
 # 
 # 
 # 1 <= N <= 2000
 # 0 <= dislikes.length <= 10000
+# dislikes[i].length == 2
 # 1 <= dislikes[i][j] <= N
 # dislikes[i][0] < dislikes[i][1]
 # There does not exist i != j for which dislikes[i] == dislikes[j].
 # 
-# 
-# 
-# 
-# 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
+        # Depth-First Search
+        # Time  complexity: O(N + E), where E is the length of dislikes.
+        # Time  complexity: O(N + E)
         graph = defaultdict(list)
         for u, v in dislikes:
             graph[u].append(v)
             graph[v].append(u)
 
         color = {}
-
         def dfs(node, c=0):
             if node in color:
                 return color[node] == c
             color[node] = c
             return all(dfs(nei, c ^ 1) for nei in graph[node])
 
-        return all(dfs(node) for node in range(1, N+1) if node not in color)
+        return all(dfs(node) for node in range(1, N + 1) if node not in color)
         
+# @lc code=end
 

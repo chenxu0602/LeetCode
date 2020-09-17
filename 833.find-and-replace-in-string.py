@@ -67,15 +67,13 @@
 #
 class Solution:
     def findReplaceString(self, S: str, indexes: List[int], sources: List[str], targets: List[str]) -> str:
-        lookup = {i: (src, tgt) for i, src, tgt in zip(indexes, sources, targets)}
-        i, result = 0, ""
-        while i < len(S):
-            if i in lookup and S[i:].startswith(lookup[i][0]):
-                result += lookup[i][1]
-                i += len(lookup[i][0])
-            else:
-                result += S[i]
-                i += 1
-        return result
+        # Time  complexity: O(N x Q)
+        # Space complexity: O(N)
+        S = list(S)
+        for i, x, y in sorted(zip(indexes, sources, targets), reverse=True):
+            if all(i + k < len(S) and S[i + k] == x[k] for k in range(len(x))):
+                S[i:i + len(x)] = list(y)
+
+        return "".join(S)
         
 

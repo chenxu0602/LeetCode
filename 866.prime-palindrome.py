@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/prime-palindrome/description/
 #
 # algorithms
-# Medium (20.37%)
-# Likes:    97
-# Dislikes: 282
-# Total Accepted:    8.3K
-# Total Submissions: 40.8K
+# Medium (24.81%)
+# Likes:    205
+# Dislikes: 567
+# Total Accepted:    19.3K
+# Total Submissions: 77.2K
 # Testcase Example:  '6'
 #
 # Find the smallest prime palindrome greater than or equal to N.
@@ -63,8 +63,13 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def primePalindrome(self, N: int) -> int:
+        # Brute Force with Mathematical Shortcut
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         def is_prime(n):
             return n > 1 and all(n % d for d in range(2, int(n**.5) + 1))
 
@@ -73,14 +78,14 @@ class Solution:
             while x:
                 ans = 10 * ans + x % 10
                 x //= 10
-            return ans 
+            return ans
 
         while True:
             if N == reverse(N) and is_prime(N):
                 return N
-
             N += 1
             if 10**7 < N < 10**8:
                 N = 10**8
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/loud-and-rich/description/
 #
 # algorithms
-# Medium (48.65%)
-# Likes:    189
-# Dislikes: 218
-# Total Accepted:    9.1K
-# Total Submissions: 18.5K
+# Medium (51.52%)
+# Likes:    275
+# Dislikes: 296
+# Total Accepted:    13.3K
+# Total Submissions: 25.7K
 # Testcase Example:  '[[1,0],[2,1],[3,1],[3,7],[4,3],[5,3],[6,3]]\n[3,2,5,4,6,1,7,0]'
 #
 # In a group of N people (labelled 0, 1, 2, ..., N-1), each person has
@@ -66,21 +66,44 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:
+        # Cached Depth-First Search
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N^2)
+        # N = len(quiet)
+        # graph = [[] for _ in range(N)]
+        # for u, v in richer:
+        #     graph[v].append(u)
 
-        g, loud = defaultdict(set), [-1]*len(quiet)
-        for u, v in richer:
-            g[v].add(u)
+        # answer = [None] * N
+        # def dfs(node):
+        #     # Want least quiet person in this subtree
+        #     if answer[node] is None:
+        #         answer[node] = node
+        #         for child in graph[node]:
+        #             cand = dfs(child)
+        #             if quiet[cand] < quiet[answer[node]]:
+        #                 answer[node] = cand
+        #     return answer[node]
+
+        # return map(dfs, range(N))
+
+
+        g, loud = defaultdict(set), [-1] * len(quiet)
+        for u, v in richer: g[v].add(u)
 
         def dfs(node):
             if loud[node] < 0:
-                loud[node] = min([dfs(nei) for nei in g[node]] + [node], key=lambda x: quiet[x])
+                loud[node] = min([dfs(nei) for nei in g[node]] + [node],
+                                  key=lambda x: quiet[x])
             return loud[node]
 
         return map(dfs, range(len(quiet)))
-
         
+# @lc code=end
 

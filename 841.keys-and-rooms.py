@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/keys-and-rooms/description/
 #
 # algorithms
-# Medium (60.92%)
-# Likes:    551
-# Dislikes: 44
-# Total Accepted:    42.5K
-# Total Submissions: 69.4K
+# Medium (64.16%)
+# Likes:    1104
+# Dislikes: 87
+# Total Accepted:    82.8K
+# Total Submissions: 128.2K
 # Testcase Example:  '[[1],[2],[3],[]]'
 #
 # There are N rooms and you start in room 0.  Each room has a distinct number
@@ -60,21 +60,25 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        """
-        seen = [False] * len(rooms)
-        seen[0] = True
-        stack = [0]
+        # Depth-First Search
+        # Time  complexity: O(N + E)
+        # Space compleixty: O(N)
+        # seen = [False] * len(rooms)
+        # seen[0] = True
+        # stack = [0]
+        # while stack:
+        #     node = stack.pop()
+        #     for nei in rooms[node]:
+        #         if not seen[nei]:
+        #             seen[nei] = True
+        #             stack.append(nei)
 
-        while stack:
-            node = stack.pop()
-            for nei in rooms[node]:
-                if not seen[nei]:
-                    seen[nei] = True
-                    stack.append(nei)
-        return all(seen)
-        """
+        # return all(seen)
+
 
         visited = set()
 
@@ -87,4 +91,5 @@ class Solution:
         dfs(0)
         return len(visited) == len(rooms)
         
+# @lc code=end
 

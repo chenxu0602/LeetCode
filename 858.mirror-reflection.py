@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/mirror-reflection/description/
 #
 # algorithms
-# Medium (52.13%)
-# Likes:    145
-# Dislikes: 237
-# Total Accepted:    7.3K
-# Total Submissions: 14K
+# Medium (53.61%)
+# Likes:    197
+# Dislikes: 306
+# Total Accepted:    9.9K
+# Total Submissions: 18.2K
 # Testcase Example:  '2\n1'
 #
 # There is a special square room with mirrors on each of the four walls.
@@ -36,7 +36,6 @@
 # 
 # 
 # 
-# 
 # Note:
 # 
 # 
@@ -46,14 +45,35 @@
 # 
 # 
 #
-from fractions import gcd
+
+# @lc code=start
+from fractions import Fraction
 
 class Solution:
     def mirrorReflection(self, p: int, q: int) -> int:
-        g = gcd(p, q)
-        p = (p / g) % 2
-        q = (q / g) % 2
+        # Time  complexity: O(P)
+        # Space complexity: O(1)
+        x = y = 0
+        rx, ry = p, q
+        targets = [(p, 0), (p, p), (0, p)]
 
-        return 1 if p and q else 0 if p else 2
+        while (x, y) not in targets:
+            # Want smallest t so that some x + rx, y + ry is 0 or p
+            # x + rxt = 0, then t = -x/rx etc.
+            t = float("inf")
+            for v in [Fraction(-x, rx), Fraction(-y, ry), Fraction(p - x, rx), Fraction(p - y, ry)]:
+                if v > 0: t = min(t, v)
+
+            x += rx * t
+            y += ry * t
+
+            # update rx, ry
+            if x == p or x == 0: # bounced from east/west wall, so reflect on y axis
+                rx *= -1
+            if y == p or y == 0:
+                ry *= -1
+
+        return 1 if x == y == p else 0 if x == p else 2
         
+# @lc code=end
 

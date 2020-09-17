@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/description/
 #
 # algorithms
-# Medium (46.63%)
-# Likes:    459
-# Dislikes: 20
-# Total Accepted:    19.5K
-# Total Submissions: 41.7K
+# Medium (47.73%)
+# Likes:    792
+# Dislikes: 32
+# Total Accepted:    31.8K
+# Total Submissions: 66.3K
 # Testcase Example:  '[1,2,3,4,5,6,7,8]'
 #
 # A sequence X_1, X_2, ..., X_n is fibonacci-like if:
@@ -65,10 +65,30 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def lenLongestFibSubseq(self, A: List[int]) -> int:
+        # Brute Force with Set
+        # Time  complexity: O(N^2 x logM), where N is the length of A, 
+        # and M is the maximum value of A.
+        # Space complexity: O(N)
+        # S, ans = set(A), 0
+        # for i in range(len(A)):
+        #     for j in range(i + 1, len(A)):
+        #         x, y, l = A[j], A[i] + A[j], 2
+        #         while y in S:
+        #             x, y = y, x + y
+        #             l += 1
+        #         ans = max(ans, l)
+        # return ans if ans >= 3 else 0
+
+
+        # Dynamic Programming
+        # Time  complexity: O(N^2)
+        # Space complexity: O(NlogM), where M is the largest element of A.
         index = {x: i for i, x in enumerate(A)}
         longest = defaultdict(lambda: 2)
 
@@ -82,4 +102,5 @@ class Solution:
 
         return ans if ans >= 3 else 0
         
+# @lc code=end
 

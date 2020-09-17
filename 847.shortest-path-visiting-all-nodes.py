@@ -72,53 +72,78 @@ from collections import defaultdict, deque
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:
 
-        """
-        N = len(graph)
+        # N = len(graph)
 
-        q = deque(Node(i, 1 << i) for i in range(N))
+        # q = deque(Node(i, 1 << i) for i in range(N))
 
-        distanceToThisNode = defaultdict(lambda: N * N)
+        # distanceToThisNode = defaultdict(lambda: N * N)
 
-        for i in range(N):
-            distanceToThisNode[Node(i, 1 << i)] = 0
+        # for i in range(N):
+        #     distanceToThisNode[Node(i, 1 << i)] = 0
 
-        endJournal = (1 << N) - 1
+        # endJournal = (1 << N) - 1
 
-        while q:
-            node = q.popleft()
-            dist = distanceToThisNode[node]
+        # while q:
+        #     node = q.popleft()
+        #     dist = distanceToThisNode[node]
 
-            if node.journal == endJournal:
-                return dist
+        #     if node.journal == endJournal:
+        #         return dist
 
-            neighboring_cities = graph[node.id]
+        #     neighboring_cities = graph[node.id]
 
-            for city in neighboring_cities:
-                newJournal = node.journal | (1 << city)
+        #     for city in neighboring_cities:
+        #         newJournal = node.journal | (1 << city)
 
-                neighbor_node = Node(city, newJournal)
+        #         neighbor_node = Node(city, newJournal)
 
-                if dist + 1 < distanceToThisNode[neighbor_node]:
-                    distanceToThisNode[neighbor_node] = dist + 1
-                    q.append(neighbor_node)
-        return -1
-        """
+        #         if dist + 1 < distanceToThisNode[neighbor_node]:
+        #             distanceToThisNode[neighbor_node] = dist + 1
+        #             q.append(neighbor_node)
+        # return -1
 
+
+        # Breadth First Search
+        # Time  complexity: O(N x 2^N)
+        # Space complexity: O(N x 2^N)
         N = len(graph)
         queue = deque((1 << x, x) for x in range(N))
-        dist = defaultdict(lambda: N*N)
+        dist = defaultdict(lambda: N * N)
         for x in range(N): dist[1 << x, x] = 0
 
         while queue:
             cover, head = queue.popleft()
             d = dist[cover, head]
-            if cover == 2**N - 1: return d
+            if cover == 2 ** N - 1:
+                return d
+            for child in graph[head]:
+                cover2 = cover | (1 << child)
+                if d + 1 < dist[cover2, child]:
+                    dist[cover2, child] = d + 1
+                    queue.append((cover2, child))
 
-            for nei in graph[head]:
-                cover2 = cover | (1 << nei)
-                if d + 1 < dist[cover2, nei]:
-                    dist[cover2, nei] = d + 1
-                    queue.append((cover2, nei))
 
+        # Dynamic Programming
+        # Time  complexity: O(N x 2^N)
+        # Space complexity: O(N x 2^N)
+        # N = len(graph)
+        # dist = [[float("inf")] * N for i in range(1 << N)]
+        # for x in range(N): dist[1 << x][x] = 0
+
+        # for cover in range(1 << N):
+        #     repeat = True
+        #     while repeat:
+        #         repeat = False
+        #         for head, d in enumerate(dist[cover]):
+        #             for nei in graph[head]:
+        #                 cover2 = cover | (1 << nei)
+        #                 if d + 1 < dist[cover2][nei]:
+        #                     dist[cover2][nei] = d + 1
+        #                     if cover == cover2:
+        #                         repeat = True
+
+        # return min(dist[2 ** N - 1])
+
+            
         
 

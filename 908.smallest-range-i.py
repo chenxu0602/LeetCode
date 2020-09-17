@@ -68,6 +68,8 @@
 #
 class Solution:
     def smallestRangeI(self, A: List[int], K: int) -> int:
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         return max(0, max(A) - min(A) - 2 * K)
         
 

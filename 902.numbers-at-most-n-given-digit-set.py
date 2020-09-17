@@ -6,41 +6,35 @@
 # https://leetcode.com/problems/numbers-at-most-n-given-digit-set/description/
 #
 # algorithms
-# Hard (28.83%)
-# Likes:    112
-# Dislikes: 27
-# Total Accepted:    5.1K
-# Total Submissions: 17.5K
+# Hard (31.44%)
+# Likes:    205
+# Dislikes: 35
+# Total Accepted:    8.1K
+# Total Submissions: 25.5K
 # Testcase Example:  '["1","3","5","7"]\n100'
 #
-# We have a sorted set of digits D, a non-empty subset of
-# {'1','2','3','4','5','6','7','8','9'}.  (Note that '0' is not included.)
+# Given an array of digits, you can write numbers using each digits[i] as many
+# times as we want.  For example, if digits = ['1','3','5'], we may write
+# numbers such as '13', '551', and '1351315'.
 # 
-# Now, we write numbers using these digits, using each digit as many times as
-# we want.  For example, if D = {'1','3','5'}, we may write numbers such as
-# '13', '551', '1351315'.
-# 
-# Return the number of positive integers that can be written (using the digits
-# of D) that are less than or equal to N.
-# 
+# Return the number of positive integers that can be generated that are less
+# than or equal to a given integer n.
 # 
 # 
 # Example 1:
 # 
 # 
-# Input: D = ["1","3","5","7"], N = 100
+# Input: digits = ["1","3","5","7"], n = 100
 # Output: 20
 # Explanation: 
 # The 20 numbers that can be written are:
-# 1, 3, 5, 7, 11, 13, 15, 17, 31, 33, 35, 37, 51, 53, 55, 57, 71, 73, 75,
-# 77.
-# 
+# 1, 3, 5, 7, 11, 13, 15, 17, 31, 33, 35, 37, 51, 53, 55, 57, 71, 73, 75, 77.
 # 
 # 
 # Example 2:
 # 
 # 
-# Input: D = ["1","4","9"], N = 1000000000
+# Input: digits = ["1","4","9"], n = 1000000000
 # Output: 29523
 # Explanation: 
 # We can write 3 one digit numbers, 9 two digit numbers, 27 three digit
@@ -48,34 +42,84 @@
 # 81 four digit numbers, 243 five digit numbers, 729 six digit numbers,
 # 2187 seven digit numbers, 6561 eight digit numbers, and 19683 nine digit
 # numbers.
-# In total, this is 29523 integers that can be written using the digits of
-# D.
+# In total, this is 29523 integers that can be written using the digits
+# array.
+# 
+# 
+# Example 3:
+# 
+# 
+# Input: digits = ["7"], n = 8
+# Output: 1
 # 
 # 
 # 
+# Constraints:
 # 
-# Note:
 # 
-# 
-# D is a subset of digits '1'-'9' in sorted order.
-# 1 <= N <= 10^9
+# 1 <= digits.length <= 9
+# digits[i].length == 1
+# digits[i] is a digit from '1' to '9'.
+# All the values in digits are unique.
+# 1 <= n <= 10^9
 # 
 # 
 #
+
+# @lc code=start
+import bisect
+
 class Solution:
-    def atMostNGivenDigitSet(self, D: List[str], N: int) -> int:
-       S = str(N)
-       K = len(S)
-       dp = [0] * K + [1]
-       # dp[i] = total number of valid integers if N was "N[i:]"
+    def atMostNGivenDigitSet(self, digits: List[str], n: int) -> int:
+        # Dynamic Programming + Counting    
+        # Time  complexity: O(logN)
+        # Space complexity: O(logN)
+        S = str(n)
+        K = len(S)
+        dp = [0] * K + [1]
+        # dp[i] = total number of valid integers if N was "N[i:]"
 
-       for i in range(K-1, -1, -1):
-          for d in D:
-             if d < S[i]:
-                dp[i] += len(D) ** (K - i - 1)
-             elif d == S[i]:
-                dp[i] += dp[i+1]
+        for i in range(K - 1, -1, -1):
+            # compute dp[i]
+            for d in digits:
+                if d < S[i]:
+                    dp[i] += len(digits) ** (K - i - 1)
+                elif d == S[i]:
+                    dp[i] += dp[i + 1]
 
-       return dp[0] + sum(len(D) ** i for i in range(1, K))
+        return dp[0] + sum(len(digits) ** i for i in range(1, K))
+
+
+        # Mathematical
+        # Time  complexity: O(logN)
+        # Space complexity: O(logN)
+      #   B = len(digits)
+      #   S = str(n)
+      #   K = len(S)
+      #   A = []
+
+      #   for c in S:
+      #       if c in digits:
+      #           A.append(digits.index(c) + 1)    
+      #       else:
+      #           i = bisect.bisect_right(digits, c)
+      #           A.append(i)
+      #           # i = 1 + (largest index j with c >= D[j], or -1 if impossible)
+      #           if i == 0:
+      #               # subtract 1
+      #               for j in range(len(A) - 1, 0, -1):
+      #                   if A[j]: break
+      #                   A[j] += B
+      #                   A[j - 1] -= 1
+      #           A.extend([B] * (K - len(A)))
+      #           break
+
+      #   ans = 0
+      #   for x in A:
+      #       ans = ans * B + x
+      #   return ans
+   
+
         
+# @lc code=end
 

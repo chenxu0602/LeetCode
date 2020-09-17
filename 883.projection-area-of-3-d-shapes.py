@@ -141,6 +141,7 @@
 #
 class Solution:
     def projectionArea(self, grid: List[List[int]]) -> int:
+        # O(N^2)
         return sum([1 for i in grid for j in i if j != 0]+[max(i) for i in grid]+[max(i) for i in list(zip(*grid))])
 		 
 

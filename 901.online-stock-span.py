@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/online-stock-span/description/
 #
 # algorithms
-# Medium (50.68%)
-# Likes:    269
-# Dislikes: 58
-# Total Accepted:    13.5K
-# Total Submissions: 26.3K
-# Testcase Example:  '["StockSpanner","next","next","next","next","next","next","next"]\n' +
+# Medium (60.02%)
+# Likes:    1030
+# Dislikes: 141
+# Total Accepted:    74.2K
+# Total Submissions: 122.8K
+# Testcase Example:  '["StockSpanner","next","next","next","next","next","next","next"]\n' + '[[],[100],[80],[60],[70],[60],[75],[85]]'
 #
 # Write a class StockSpanner which collects daily price quotes for some stock,
 # and returns the span of that stock's price for the current day.
@@ -62,17 +62,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class StockSpanner:
 
     def __init__(self):
+        # Stack
+        # Time  complexity: O(Q), where Q is the number of calls to StockSpanner.next.
+        # Space complexity: O(Q)
         self.stack = []
         
-
     def next(self, price: int) -> int:
         weight = 1
         while self.stack and self.stack[-1][0] <= price:
             weight += self.stack.pop()[1]
         self.stack.append((price, weight))
+
         return weight
         
 
@@ -80,4 +85,5 @@ class StockSpanner:
 # Your StockSpanner object will be instantiated and called as such:
 # obj = StockSpanner()
 # param_1 = obj.next(price)
+# @lc code=end
 

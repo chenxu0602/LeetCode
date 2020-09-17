@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shifting-letters/description/
 #
 # algorithms
-# Medium (41.70%)
-# Likes:    180
-# Dislikes: 37
-# Total Accepted:    15.5K
-# Total Submissions: 37K
+# Medium (44.49%)
+# Likes:    301
+# Dislikes: 60
+# Total Accepted:    24.9K
+# Total Submissions: 55.7K
 # Testcase Example:  '"abc"\n[3,5,9]'
 #
 # We have a string S of lowercase letters, and an integer array shifts.
@@ -45,12 +45,16 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def shiftingLetters(self, S: str, shifts: List[int]) -> str:
-
+        # Prefix Sum
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         ans = []
-
         X = sum(shifts) % 26
+
         for i, c in enumerate(S):
             index = ord(c) - ord('a')
             ans.append(chr(ord('a') + (index + X) % 26))
@@ -58,4 +62,5 @@ class Solution:
 
         return "".join(ans)
         
+# @lc code=end
 

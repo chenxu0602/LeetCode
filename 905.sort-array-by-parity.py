@@ -42,10 +42,20 @@
 #
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
-        """
-        A.sort(key=lambda x: x % 2)
-        return A
-        """
+        # Sort
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
+        # A.sort(key=lambda x: x % 2)
+        # return A
+
+        # Tow Pass
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # return [x for x in A if x % 2 == 0] + [x for x in A if x % 2 == 1]
+
+        # In-Place
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         i, j = 0, len(A) - 1
         while i < j:
             if A[i] % 2 > A[j] % 2:
@@ -53,6 +63,7 @@ class Solution:
 
             if A[i] % 2 == 0: i += 1
             if A[j] % 2 == 1: j -= 1
+
         return A
 
 
