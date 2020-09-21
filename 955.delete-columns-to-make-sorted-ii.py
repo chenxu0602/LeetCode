@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/delete-columns-to-make-sorted-ii/description/
 #
 # algorithms
-# Medium (32.13%)
-# Likes:    150
-# Dislikes: 33
-# Total Accepted:    6.8K
-# Total Submissions: 21.1K
+# Medium (33.13%)
+# Likes:    283
+# Dislikes: 50
+# Total Accepted:    10.5K
+# Total Submissions: 31.4K
 # Testcase Example:  '["ca","bb","ac"]'
 #
 # We are given an array A of N lowercase letter strings, all of the same
@@ -89,37 +89,55 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minDeletionSize(self, A: List[str]) -> int:
-        """
-        def is_sorted(A):
-            return all(A[i] <= A[i+1] for i in range(len(A) - 1))
+        # Greedy
+        # Time  complexity: O(N x W^2), where N is the length of A and W is the length of A[i].
+        # Space complexity: O(N x W)
+        # def is_sorted(A):
+        #     return all(A[i] <= A[i + 1] for i in range(len(A) - 1))
+
+        # ans = 0
+        # # cur : all rows we have written
+        # # For example, with A = ["abc","def","ghi"] we might have
+        # # cur = ["ab", "de", "gh"].
+        # cur = [""] * len(A)
+
+        # for col in zip(*A):
+        #     # cur2 : What we potentially can write, including the
+        #     #        newest column 'col'.
+        #     # Eg. if cur = ["ab","de","gh"] and col = ("c","f","i"),
+        #     # then cur2 = ["abc","def","ghi"].
+        #     cur2 = cur[:]
+        #     for i, letter in enumerate(col):
+        #         cur2[i] = cur2[i] + letter
+
+        #     if is_sorted(cur2):
+        #         cur = cur2
+        #     else:
+        #         ans += 1
+
+        # return ans
+
+
+        # Greedy with Optimizations
+        # Time  complexity: O(N x W)
+        # Space complexity: O(N)
+        # cuts[i] is True : we don't need to check col[i] <= col[i+1]
+        cuts = [False] * (len(A) - 1)
 
         ans = 0
-        cur = [""] * len(A)
-
         for col in zip(*A):
-            cur2 = cur[:]
-            for i, letter in enumerate(col):
-                cur2[i] += letter
-            if is_sorted(cur2):
-                cur = cur2
-            else:
-                ans += 1
-        return ans
-        """
-
-        cuts = [False] * (len(A)-1)
-
-        ans = 0
-        for col in zip(*A):
-            if all(cuts[i] or col[i] <= col[i+1] for i in range(len(col)-1)):
-                for i in range(len(col)-1):
-                    if col[i] < col[i+1]:
+            if all(cuts[i] or col[i] <= col[i + 1] for i in range(len(col) - 1)):
+                for i in range(len(col) - 1):
+                    if col[i] < col[i + 1]:
                         cuts[i] = True
             else:
                 ans += 1
-
         return ans
 
+        
+# @lc code=end
 

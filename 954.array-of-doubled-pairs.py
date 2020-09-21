@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/array-of-doubled-pairs/description/
 #
 # algorithms
-# Medium (35.08%)
-# Likes:    142
-# Dislikes: 23
-# Total Accepted:    11.9K
-# Total Submissions: 33.9K
+# Medium (35.53%)
+# Likes:    310
+# Dislikes: 51
+# Total Accepted:    20K
+# Total Submissions: 56.2K
 # Testcase Example:  '[3,1,3,6]'
 #
 # Given an array of integers A with even length, return true if and only if it
@@ -77,17 +77,30 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def canReorderDoubled(self, A: List[int]) -> bool:
-        count = Counter(A)
-        for x in sorted(A, key=abs):
-            if count[x] == 0: continue
-            if count[2*x] == 0: return False
-            count[x] -= 1
-            count[2*x] -= 1
-        return True
+        # Greedy
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
+        # count = Counter(A)
+        # for x in sorted(A, key=abs):
+        #     if count[x] == 0: continue
+        #     if count[2 * x] == 0: return False
+        #     count[x] -= 1
+        #     count[2 * x] -= 1
+        # return True
 
+
+        count = Counter(A)
+        for x in sorted(count, key=abs):
+            if count[x] > count[2 * x]:
+                return False
+            count[2 * x] -= count[x]
+        return True
         
+# @lc code=end
 

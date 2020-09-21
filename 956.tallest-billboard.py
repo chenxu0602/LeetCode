@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/tallest-billboard/description/
 #
 # algorithms
-# Hard (38.76%)
-# Likes:    212
-# Dislikes: 10
-# Total Accepted:    4.8K
-# Total Submissions: 12.5K
+# Hard (39.68%)
+# Likes:    356
+# Dislikes: 13
+# Total Accepted:    8.1K
+# Total Submissions: 20.4K
 # Testcase Example:  '[1,2,3,6]'
 #
 # You are installing a billboard and want it to have the largest height.  The
@@ -67,37 +67,39 @@
 # 
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 from collections import defaultdict
 
 class Solution:
     def tallestBillboard(self, rods: List[int]) -> int:
+        # Dynamic Programming
+        # Let dp[i][s] be the largest score we can get using rods[j] (j >= i), 
+        # after previously writing a sum of s.
+        # Time  complexity: O(N x S), where N is the length of rods and S is the maximum of sum(rods).
+        # Space complexity: O(N x S)
+        # @lru_cache(None)
+        # def dp(i, s):
+        #     if i == len(rods):
+        #         return 0 if s == 0 else float("-inf")
+        #     return max(dp(i + 1, s),
+        #                dp(i + 1, s - rods[i]),
+        #                dp(i + 1, s + rods[i]) + rods[i])
+        # return dp(0, 0)
 
-        """
-        @lru_cache(None)
-        def dp(i, s):
-            if i == len(rods):
-                return 0 if s == 0 else float("-inf")
-            return max(dp(i+1, s), 
-                       dp(i+1, s - rods[i]),
-                       dp(i+1, s + rods[i]) + rods[i])
 
-        return dp(0, 0)
-        """
-
-        """
-        dp[d] mean the maximum pair of sum we can get with pair difference d
-        For example, if have a pair of sum (a, b) with a > b, then dp[a - b] = b
-        If we have dp[diff] = a, it means we have a pair of sum (a, a + diff).
-        And this is the biggest pair with difference = a
-        """
-
+        # dp[d] mean the maximum pair of sum we can get with pair difference d
+        # For example, if have a pair of sum (a, b) with a > b, then dp[a - b] = b
+        # If we have dp[diff] = a, it means we have a pair of sum (a, a + diff).
+        # And this is the biggest pair with difference = a
         dp = defaultdict(int)
         dp[0] = 0
         for x in rods:
             for d, y in dp.copy().items():
-                dp[d+x] = max(dp[d+x], y)
-                dp[abs(d-x)] = max(dp[abs(d-x)], y + min(d, x))
+                dp[d + x] = max(dp[d + x], y)
+                dp[abs(d - x)] = max(dp[abs(d - x)], y + min(d, x))
         return dp[0]
         
+# @lc code=end
 

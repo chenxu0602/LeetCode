@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/three-equal-parts/description/
 #
 # algorithms
-# Hard (30.89%)
-# Likes:    112
-# Dislikes: 41
-# Total Accepted:    4.7K
-# Total Submissions: 15.3K
+# Hard (33.48%)
+# Likes:    229
+# Dislikes: 57
+# Total Accepted:    7.7K
+# Total Submissions: 22.7K
 # Testcase Example:  '[1,0,1,0,1]'
 #
 # Given an array A of 0s and 1s, divide the array into 3 non-empty parts such
@@ -61,38 +61,49 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def threeEqualParts(self, A: List[int]) -> List[int]:
+        # O(N)    
+        IMP = [-1, -1]
 
-       IMP = [-1, -1]
+        S = sum(A)
+        if S % 3: return IMP
+        T = S // 3
+        if T == 0:
+            return [0, len(A) - 1]    
 
-       S = sum(A)
-       if S % 3: return IMP
-       T = S // 3
-       if T == 0:
-          return [0, len(A) - 1]
+        breaks = []
+        su = 0
+        for i, x in enumerate(A):
+            if x:
+                su += x
+                if su in {1, T + 1, 2 * T + 1}:
+                    breaks.append(i)
+                if su in {T, 2 * T, 3 * T}:
+                    breaks.append(i)
 
-       breaks = []
-       su = 0
-       for i, x in enumerate(A):
-          if x:
-             su += x
-             if su in {1, T+1, 2*T+1}:
-                breaks.append(i)
-             if su in {T, 2*T, 3*T}:
-                breaks.append(i)
 
-       i1, j1, i2, j2, i3, j3 = breaks
-       if not A[i1:j1+1] == A[i2:j2+1] == A[i3:j3+1]:
-          return [-1, -1]
+        i1, j1, i2, j2, i3, j3 = breaks
 
-       x = i2 - j1 - 1
-       y = i3 - j2 - 1
-       z = len(A) - j3 - 1
+        # The array is in the form W [i1, j1] X [i2, j2] Y [i3, j3] Z
+        # where [i1, j1] is a block of 1s, etc.
+        if not A[i1:j1 + 1] == A[i2:j2 + 1] == A[i3:j3 + 1]:
+            return [-1, -1]
 
-       if x < z or y < z: return IMP
-       j1 += z
-       j2 += z
-       return [j1, j2+1]
+        # x, y, z: the number of zeros after part 1, 2, 3
+        x = i2 - j1 - 1
+        y = i3 - j2 - 1
+        z = len(A) - j3 - 1
+
+        if x < z or y < z: return IMP
+        j1 += z; j2 += z
+
+        return [j1, j2 + 1]
+
+         
+            
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/prison-cells-after-n-days/description/
 #
 # algorithms
-# Medium (37.46%)
-# Likes:    191
-# Dislikes: 351
-# Total Accepted:    22.6K
-# Total Submissions: 59.8K
+# Medium (40.96%)
+# Likes:    771
+# Dislikes: 1051
+# Total Accepted:    99.1K
+# Total Submissions: 245.1K
 # Testcase Example:  '[0,1,0,1,1,0,0,1]\n7'
 #
 # There are 8 prison cells in a row, and each cell is either occupied or
@@ -81,10 +81,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
+        # Simulation with Fast Forwarding
+        # Time  complexity: O(K x min(N, 2^K)), where K is the number of cells and N is the number of steps.
+        # Space compleixty: O(K x 2^K)
         def nextday(cells):
-            return [int(i > 0 and i < 7 and cells[i-1] == cells[i+1]) for i in range(8)]
+            return [int(i > 0 and i < 7 and cells[i - 1] == cells[i + 1]) for i in range(8)]
 
         seen = {}
         while N > 0:
@@ -93,12 +98,11 @@ class Solution:
                 N %= seen[c] - N
             seen[c] = N
 
-            if N > 0:
+            if N >= 1:
                 N -= 1
                 cells = nextday(cells)
 
         return cells
-
         
-        
+# @lc code=end
 

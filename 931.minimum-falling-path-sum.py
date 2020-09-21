@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-falling-path-sum/description/
 #
 # algorithms
-# Medium (59.18%)
-# Likes:    340
-# Dislikes: 37
-# Total Accepted:    24.8K
-# Total Submissions: 41.7K
+# Medium (60.73%)
+# Likes:    570
+# Dislikes: 50
+# Total Accepted:    41.3K
+# Total Submissions: 67.1K
 # Testcase Example:  '[[1,2,3],[4,5,6],[7,8,9]]'
 #
 # Given a square array of integers A, we want the minimum sum of a falling path
@@ -48,12 +48,18 @@
 # -100 <= A[i][j] <= 100
 # 
 #
+
+# @lc code=start
 class Solution:
     def minFallingPathSum(self, A: List[List[int]]) -> int:
+        # Dynamic Programming
+        # Time  complexity: O(N^2)
+        # Space complexity: O(1)
         while len(A) >= 2:
             row = A.pop()
             for i in range(len(row)):
-                A[-1][i] += min(row[max(0, i-1): min(len(row), i+2)])
+                A[-1][i] += min(row[max(0, i - 1):min(len(row), i + 2)])
         return min(A[0])
         
+# @lc code=end
 

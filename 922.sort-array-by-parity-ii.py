@@ -48,26 +48,31 @@
 #
 class Solution:
     def sortArrayByParityII(self, A: List[int]) -> List[int]:
-       """
-       odd = [x for x in A if x % 2 != 0]
-       even = [x for x in A if x % 2 == 0]
+       # Time  complexity: O(N)    
+       # Space complexity: O(N)    
+      #  odd = [x for x in A if x % 2 != 0]
+      #  even = [x for x in A if x % 2 == 0]
 
-       result = []
+      #  result = []
 
-       for x, y in zip(even, odd):
-          result.append(x)
-          result.append(y)
+      #  for x, y in zip(even, odd):
+      #     result.append(x)
+      #     result.append(y)
           
-       return result
-       """
+      #  return result
 
-       j = 1
-       for i in range(0, len(A), 2):
+
+      # Read / Write Heads
+      j = 1
+      for i in range(0, len(A), 2):
           if A[i] % 2:
-             while A[j] % 2:
-                j += 2
-             A[i], A[j] = A[j], A[i]
-       return A
+              while A[j] % 2:
+                  j += 2
+              A[i], A[j] = A[j], A[i]
+
+      return A
+      
+
          
         
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/reveal-cards-in-increasing-order/description/
 #
 # algorithms
-# Medium (72.22%)
-# Likes:    468
-# Dislikes: 92
-# Total Accepted:    21.5K
-# Total Submissions: 29.7K
+# Medium (74.41%)
+# Likes:    952
+# Dislikes: 172
+# Total Accepted:    38K
+# Total Submissions: 50.8K
 # Testcase Example:  '[17,13,11,2,3,5,7]'
 #
 # In a deck of cards, every card has a unique integer.  You can order the deck
@@ -71,11 +71,14 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
     def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
-        """
+        # Simulation
+        # Simulate the revealing process with a deck set to [0, 1, 2, ...]. If for example this deck is revealed in the order [0, 2, 4, ...] then we know we need to put the smallest card in index 0, the second smallest card in index 2, the third smallest card in index 4, etc.
         N = len(deck)
         index = deque(range(N))
         ans = [None] * N
@@ -86,12 +89,14 @@ class Solution:
                 index.append(index.popleft())
 
         return ans
-        """
 
-        L, Q, _ = len(deck)-1, deque(), deck.sort()
-        for _ in range(L):
-            Q.appendleft(deck.pop())
-            Q.appendleft(Q.pop())
-        return deck + list(Q)
+
+        # L, Q, _ = len(deck) - 1, deque(), deck.sort()
+        # for _ in range(L):
+        #     Q.appendleft(deck.pop())
+        #     Q.appendleft(Q.pop())
+        # return deck + list(Q)
+
         
+# @lc code=end
 

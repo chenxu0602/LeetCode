@@ -67,11 +67,11 @@ from collections import deque
 
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
+        # O(N)
 
         if not root: return True
 
-        res = []
-        queue = deque([(root, 1)])
+        res, queue = [], deque([(root, 1)])
         while queue:
             node, pos = queue.popleft()
             res.append(pos)

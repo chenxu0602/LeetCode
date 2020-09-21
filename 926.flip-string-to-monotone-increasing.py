@@ -65,11 +65,14 @@
 #
 class Solution:
     def minFlipsMonoIncr(self, S: str) -> int:
-        P = [0]
+        # Prefix Sums
+        # Then if we want x zeros followed by N-x ones, there are P[x] ones in the start that must be flipped, plus (N-x) - (P[N] - P[x]) zeros that must be flipped.
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        P = [0]        
         for x in S:
             P.append(P[-1] + int(x))
 
-        return min(P[j] + len(S)-j - (P[-1] - P[j]) for j in range(len(P)))
-        
+        return min(P[j] + len(S) - j - (P[-1] - P[j]) for j in range(len(P)))
         
 

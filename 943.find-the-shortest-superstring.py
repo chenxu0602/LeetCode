@@ -52,87 +52,50 @@
 # 
 # 
 #
-from functools import lru_cache
+from collections import deque
 
 class Solution:
     def shortestSuperstring(self, A: List[str]) -> str:
 
-        """
-        N = len(A)
+        def getDistance(s1, s2):
+            for i in range(1, len(s1)):
+                if s2.startswith(s1[i:]):
+                    return len(s1) - i
+            return 0
 
-        overlaps = [[0] * N for _ in range(N)]
-        for i, x in enumerate(A):
-            for j, y in enumerate(A):
-                if i != j:
-                    for ans in range(min(len(x), len(y)), -1, -1):
-                        if x.endswith(y[:ans]):
-                            overlaps[i][j] = ans
-                            break
-
-        dp = [[0] * N for _ in range(1 << N)]                            
-        parent = [[None] * N for _ in range(1 << N)]
-        for mask in range(1, 1 << N):
-            for bit in range(N):
-                if (mask >> bit) & 1:
-                    pmask = mask ^ (1 << bit)
-                    if pmask == 0: continue
-                    for i in range(N):
-                        if (pmask >> i) & 1:
-                            value = dp[pmask][i] + overlaps[i][bit]
-                            if value > dp[mask][bit]:
-                                dp[mask][bit] = value
-                                parent[mask][bit] = i
-
-        perm = []
-        mask = (1 << N) - 1
-        i = max(range(N), key=dp[-1].__getitem__)
-        while i is not None:
-            perm.append(i)
-            mask, i = mask ^ (1 << i), parent[mask][i]
-
-        perm = perm[::-1]
-        seen = [False] * N
-        for x in perm:
-            seen[x] = True
-        perm.extend([i for i in range(N) if not seen[i]])
-
-        ans = [A[perm[0]]]
-        for i in range(1, len(perm)):
-            overlap = overlaps[perm[i-1]][perm[i]]
-            ans.append(A[perm[i]][overlap:])
-
-        return "".join(ans)
-        """
+        def pathToStr(A, G, path):
+            res = A[path[0]]
+            for i in range(1, len(path)):
+                res += A[path[i]][G[path[i-1]][path[i]]:]
+            return res
 
         n = len(A)
-        graph = [[0] * n for _ in range(n)]
-        for i, word1 in enumerate(A):
-            for j, word2 in enumerate(A):
-                if i == j: continue
-                for k in range(min(len(word1), len(word2)))[::-1]:
-                    if word1[:-k] == word2[:k]:
-                        graph[i][j] = k
-                        break
+        G = [[0] * n for _ in range(n)]
+        for i in range(n):
+            for j in range(i + 1, n):
+                G[i][j] = getDistance(A[i], A[j])
+                G[j][i] = getDistance(A[j], A[i])
 
-                
-        @lru_cache(None)
-        def search(i, k):
-            if not (i & (1 << k)): return ""
-            if i == (1 << k): return A[k]
-            ans = ""
-            for j in range(n):
-                if j != k and i & (1 << j):
-                    candidate = search(i ^ (1 << k), j) + A[k][graph[j][k]:]
-                    if ans == "" or len(candidate) < len(ans):
-                        ans = candidate
-            return ans
-            
+        d = [[0] * n for _ in range(1 << n)]
+        Q = deque([(i, 1 << i, [i], 0) for i in range(n)])
+        l = -1 # record the maximum s_len
+        P = [] # record the path corresponding to maximum s_len
+        while Q:
+            node, mask, path, dis = Q.popleft()
+            if dis < d[mask][node]: continue
+            if mask == (1 << n) - 1 and dis > l:
+                P, l = path, dis
+                continue
+            for i in range(n):
+                nex_mask = mask | (1 << i)
+                # case1: make sure that each node is only traversed once
+                # case2: only if we can get larger save length, we consider it.
+                if nex_mask != mask and d[mask][node] + G[node][i] >= d[nex_mask][i]:
+                    d[nex_mask][i] = d[mask][node] + G[node][i]
+                    Q.append((i, nex_mask, path + [i], d[nex_mask][i]))
 
-        res = ""
-        for k in range(n):
-            candidate = search((1 << n) - 1, k)
-            if res == "" or len(candidate) < len(res):
-                res = candidate
-        return res
+        return pathToStr(A, G, P)
+
+
         
 

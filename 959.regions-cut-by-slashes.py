@@ -126,24 +126,35 @@
 #
 class DSU:
     def __init__(self, N):
-        self.p = list(range(N))
+        self.par = list(range(N))
+        self.rnk = [0] * N
+        self.siz = [1] * N
 
     def find(self, x):
-        if self.p[x] != x:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
 
     def union(self, x, y):
-        xr, yr = self.find(x), self.find(y)
-        self.p[xr] = yr
+        xr, yr = map(self.find, (x, y))
+        if xr == yr: return
+        if self.rnk[xr] < self.rnk[yr]:
+            xr, yr = yr, xr
+        if self.rnk[xr] == self.rnk[yr]:
+            self.rnk[xr] += 1
+
+        self.par[yr] = xr 
+        self.siz[xr] += self.siz[yr]
 
 class Solution:
     def regionsBySlashes(self, grid: List[str]) -> int:
+        # Time  complexity: O(N x N x a(N)) where a is the Inverse-Ackermann function (if we were to use union-find by rank.)
+        # Space complexity: O(N x N)
         N = len(grid)
         dsu = DSU(4 * N * N)
         for r, row in enumerate(grid):
             for c, val in enumerate(row):
-                root = 4 * (r*N + c)
+                root = 4 * (r * N + c)
                 if val in '/ ':
                     dsu.union(root + 0, root + 1)
                     dsu.union(root + 2, root + 3)
@@ -151,9 +162,10 @@ class Solution:
                     dsu.union(root + 0, root + 2)
                     dsu.union(root + 1, root + 3)
 
-                if r + 1 < N: dsu.union(root + 3, (root + 4*N) + 0)
-                if r - 1 >= 0: dsu.union(root + 0, (root - 4*N) + 3)
-
+                # north / south
+                if r + 1 < N: dsu.union(root + 3, (root + 4 * N) + 0)
+                if r - 1 >= 0: dsu.union(root + 0, (root - 4 * N) + 3)
+                # east / west
                 if c + 1 < N: dsu.union(root + 2, (root + 4) + 1)
                 if c - 1 >= 0: dsu.union(root + 1, (root - 4) + 2)
 

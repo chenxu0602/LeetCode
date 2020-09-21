@@ -61,6 +61,8 @@
 #
 class Solution:
     def diStringMatch(self, S: str) -> List[int]:
+        # O(N)
+
         lo, hi = 0, len(S)
         ans = []
         for x in S:

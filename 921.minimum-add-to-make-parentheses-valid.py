@@ -85,6 +85,16 @@
 # @lc code=start
 class Solution:
     def minAddToMakeValid(self, S: str) -> int:
+        # Balance
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        ans = bal = 0
+        for sym in S:
+            bal += 1 if sym == '(' else -1
+            if bal == -1:
+                ans += 1
+                bal += 1
+        return ans + bal
 
         # l = list(S)
         # if len(l) == 0: return 0
@@ -97,14 +107,6 @@ class Solution:
         #     else:
         #         temp.append(l[i])
         # return len(temp)
-
-        ans = bal = 0
-        for symbol in S:
-            bal += 1 if symbol == '(' else -1
-            if bal == -1:
-                ans += 1
-                bal += 1
-        return ans + bal
         
 # @lc code=end
 

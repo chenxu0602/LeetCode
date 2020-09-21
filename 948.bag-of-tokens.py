@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/bag-of-tokens/description/
 #
 # algorithms
-# Medium (39.54%)
-# Likes:    114
-# Dislikes: 101
-# Total Accepted:    7.8K
-# Total Submissions: 19.6K
+# Medium (40.72%)
+# Likes:    253
+# Dislikes: 197
+# Total Accepted:    13.9K
+# Total Submissions: 33.9K
 # Testcase Example:  '[100]\n50'
 #
 # You have an initial power P, an initial score of 0 points, and a bag of
@@ -72,10 +72,15 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import deque
 
 class Solution:
     def bagOfTokensScore(self, tokens: List[int], P: int) -> int:
+        # Greedy
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         tokens.sort()
         queue = deque(tokens)
         ans = bns = 0
@@ -88,7 +93,8 @@ class Solution:
             if queue and bns:
                 P += queue.pop()
                 bns -= 1
-        
+
         return ans
         
+# @lc code=end
 

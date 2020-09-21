@@ -52,7 +52,8 @@
 from collections import deque
 
 class RecentCounter:
-
+    # Time  complexity: O(Q) where Q is the number of queries made.
+    # Space complexity: O(W) where W = 3000 is the size of the window we should scan for recent calls.
     def __init__(self):
         self.q = deque()
 

@@ -81,17 +81,17 @@
 class Solution:
     def minDeletionSize(self, A: List[str]) -> int:
 
-        """
-        Let dp[k] be the number of columns that are kept in answering the question for input [row[k:] for row in A]. The above gives a simple recursion for dp[k].
-        """
-
-
+        # Dynamic Programming
+        # Let dp[k] be the number of columns that are kept in answering the question for input [row[k:] for row in A]. The above gives a simple recursion for dp[k].
+        # Time  complexity: O(N x W^2) where N is the length of A, and W is the length of each word in A.
+        # Space complexity: O(W)
         W = len(A[0])
         dp = [1] * W
-        for i in range(W-2, -1, -1):
-            for j in range(i+1, W):
+        for i in range(W - 2, -1, -1):
+            for j in range(i + 1, W):
                 if all(row[i] <= row[j] for row in A):
                     dp[i] = max(dp[i], 1 + dp[j])
+
         return W - max(dp)
 
         

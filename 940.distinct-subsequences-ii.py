@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/distinct-subsequences-ii/description/
 #
 # algorithms
-# Hard (40.22%)
-# Likes:    228
-# Dislikes: 11
-# Total Accepted:    7K
-# Total Submissions: 17.4K
+# Hard (41.53%)
+# Likes:    387
+# Dislikes: 15
+# Total Accepted:    11.1K
+# Total Submissions: 26.8K
 # Testcase Example:  '"abc"'
 #
 # Given a string S, count the number of distinct, non-empty subsequences of S
@@ -69,12 +69,34 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def distinctSubseqII(self, S: str) -> int:
+        # Dynamic Programming
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # dp, last = [1], {}
+        # for i, x in enumerate(S):
+        #     dp.append(dp[-1] * 2)
+        #     if x in last:
+        #         dp[-1] -= dp[last[x]]
+        #     last[x] = i
+
+        # return (dp[-1] - 1) % (10**9 + 7)
+
+
+        # dp, MOD = [0] * len(S), 10**9 + 7
+        # for i, char in enumerate(S):
+        #     ind = S.rfind(char, 0, i)
+        #     dp[i] = 1 + sum(dp[:i]) % MOD if ind == -1 else sum(dp[ind:i]) % MOD
+        # return sum(dp) % MOD
+
 
         end = [0] * 26
         for c in S:
             end[ord(c) - ord('a')] = sum(end) + 1
         return sum(end) % (10**9 + 7)
         
+# @lc code=end
 

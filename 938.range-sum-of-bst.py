@@ -64,21 +64,24 @@ class Solution:
         # if root.val < L: return self.rangeSumBST(root.right, L, R)
         # return root.val + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
 
+        
+        # Depth First Search
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
         # def dfs(node):
         #     if node:
         #         if L <= node.val <= R:
         #             self.ans += node.val
         #         if L < node.val:
         #             dfs(node.left)
-        #         if R > node.val:
+        #         if node.val < R:
         #             dfs(node.right)
 
         # self.ans = 0
         # dfs(root)
         # return self.ans
 
-        ans = 0
-        stack = [root,]
+        ans, stack = 0, [root,]
         while stack:
             node = stack.pop()
             if node:
@@ -86,9 +89,9 @@ class Solution:
                     ans += node.val
                 if L < node.val:
                     stack.append(node.left)
-                if R > node.val:
+                if node.val < R:
                     stack.append(node.right)
+
         return ans
-        
 # @lc code=end
 

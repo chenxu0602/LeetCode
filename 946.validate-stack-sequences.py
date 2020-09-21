@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/validate-stack-sequences/description/
 #
 # algorithms
-# Medium (58.27%)
-# Likes:    345
-# Dislikes: 9
-# Total Accepted:    19.2K
-# Total Submissions: 32.9K
+# Medium (61.59%)
+# Likes:    1022
+# Dislikes: 31
+# Total Accepted:    59.8K
+# Total Submissions: 95.3K
 # Testcase Example:  '[1,2,3,4,5]\n[4,5,3,2,1]'
 #
 # Given two sequences pushed and popped with distinct values, return true if
@@ -41,7 +41,8 @@
 # 
 # 
 # 
-# Note:
+# 
+# Constraints:
 # 
 # 
 # 0 <= pushed.length == popped.length <= 1000
@@ -50,18 +51,22 @@
 # pushed and popped have distinct values.
 # 
 # 
-# 
 #
+
+# @lc code=start
 class Solution:
     def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
-        j = 0
-        stack = []
+        # Greedy
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        j, stack = 0, []
         for x in pushed:
             stack.append(x)
             while stack and j < len(popped) and stack[-1] == popped[j]:
                 stack.pop()
                 j += 1
-        return j == len(popped)
 
+        return j == len(popped)
         
+# @lc code=end
 

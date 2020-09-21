@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/long-pressed-name/description/
 #
 # algorithms
-# Easy (44.49%)
-# Likes:    294
-# Dislikes: 40
-# Total Accepted:    21.9K
-# Total Submissions: 49.2K
+# Easy (40.92%)
+# Likes:    726
+# Dislikes: 125
+# Total Accepted:    49.8K
+# Total Submissions: 125K
 # Testcase Example:  '"alex"\n"aaleex"'
 #
 # Your friend is typing his name into a keyboard.  Sometimes, when typing a
@@ -22,14 +22,12 @@
 # being long pressed.
 # 
 # 
-# 
 # Example 1:
 # 
 # 
 # Input: name = "alex", typed = "aaleex"
 # Output: true
 # Explanation: 'a' and 'e' in 'alex' were long pressed.
-# 
 # 
 # 
 # Example 2:
@@ -41,13 +39,11 @@
 # output.
 # 
 # 
-# 
 # Example 3:
 # 
 # 
 # Input: name = "leelee", typed = "lleeelee"
 # Output: true
-# 
 # 
 # 
 # Example 4:
@@ -59,60 +55,34 @@
 # 
 # 
 # 
+# Constraints:
 # 
 # 
-# 
-# 
-# Note:
-# 
-# 
-# name.length <= 1000
-# typed.length <= 1000
+# 1 <= name.length <= 1000
+# 1 <= typed.length <= 1000
 # The characters of name and typed are lowercase letters.
 # 
 # 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
 #
-from itertools import groupby
+
+# @lc code=start
+import itertools
 
 class Solution:
     def isLongPressedName(self, name: str, typed: str) -> bool:
-        """
-        g1 = [(k, len(list(grp))) for k, grp in groupby(name)]
-        g2 = [(k, len(list(grp))) for k, grp in groupby(typed)]
-
+        # Group into Blocks
+        # Time  complexity: O(N + T), where N and T are the lengths of name and typed.
+        # Space complexity: O(N + T)
+        g1 = [(k, len(list(grp))) for k, grp in itertools.groupby(name)]
+        g2 = [(k, len(list(grp))) for k, grp in itertools.groupby(typed)]
         if len(g1) != len(g2):
             return False
 
         return all(k1 == k2 and v1 <= v2 for (k1, v1), (k2, v2) in zip(g1, g2))
-        """
 
-        j = 0
-        for c in name:
-            if j == len(typed):
-                return False
 
-            if typed[j] != c:
-                if (j == 0) or (typed[j-1] != typed[j]):
-                    return False
 
-                cur = typed[j]
-                while j < len(typed) and typed[j] == cur:
-                    j += 1
 
-                if j == len(typed) or typed[j] != c:
-                    return False
-
-            j += 1
-
-        return True
         
+# @lc code=end
 

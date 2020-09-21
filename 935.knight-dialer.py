@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/knight-dialer/description/
 #
 # algorithms
-# Medium (41.82%)
-# Likes:    306
-# Dislikes: 107
-# Total Accepted:    18.3K
-# Total Submissions: 43.6K
+# Medium (43.11%)
+# Likes:    388
+# Dislikes: 151
+# Total Accepted:    24.1K
+# Total Submissions: 55.8K
 # Testcase Example:  '1'
 #
 # A chess knight can move as indicated in the chess diagram below:
@@ -71,12 +71,16 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def knightDialer(self, N: int) -> int:
+        # Dynamic Programming
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         MOD = 10**9 + 7
-        moves = [[4, 6], [6, 8], [7, 9], [4, 8],
-                 [3, 9, 0], [], [1, 7, 0], [2, 6],
-                 [1, 3], [2, 4]]
+        moves = [[4,6],[6,8],[7,9],[4,8],[3,9,0],[],
+                     [1,7,0],[2,6],[1,3],[2,4]]
 
         dp = [1] * 10
         for hops in range(N - 1):
@@ -86,8 +90,8 @@ class Solution:
                     dp2[nei] += count
                     dp2[nei] %= MOD
             dp = dp2
+
         return sum(dp) % MOD
-
-
         
+# @lc code=end
 

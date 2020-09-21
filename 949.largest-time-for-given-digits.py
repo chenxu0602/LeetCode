@@ -55,6 +55,7 @@ from itertools import permutations
 
 class Solution:
     def largestTimeFromDigits(self, A: List[int]) -> str:
+        # O(1)
         ans = -1
         for h1, h2, m1, m2 in permutations(A):
             hours = 10 * h1 + h2
