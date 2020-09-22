@@ -48,6 +48,7 @@
 #
 class Solution:
     def sortedSquares(self, A: List[int]) -> List[int]:
+        # O(N)
         N = len(A)
 
         if A[0]*A[-1] >= 0:

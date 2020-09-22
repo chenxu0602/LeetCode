@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/flip-binary-tree-to-match-preorder-traversal/description/
 #
 # algorithms
-# Medium (43.16%)
-# Likes:    148
-# Dislikes: 72
-# Total Accepted:    7.9K
-# Total Submissions: 18.2K
+# Medium (45.50%)
+# Likes:    292
+# Dislikes: 133
+# Total Accepted:    13.5K
+# Total Submissions: 29.5K
 # Testcase Example:  '[1,2]\n[2,1]'
 #
 # Given a binary tree with N nodes, each node has a different value from {1,
@@ -78,22 +78,50 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def flipMatchVoyage(self, root: TreeNode, voyage: List[int]) -> List[int]:
+        # Depth-First Search
+        # If at any node, the node's value doesn't match the voyage, the answer is [-1].
+        # Otherwise, we know when to flip: the next number we are expecting in the voyage voyage[i] is different from the next child.
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # self.flipped = []
+        # self.i = 0
+
+        # def dfs(node):
+        #     if node:
+        #         if node.val != voyage[self.i]:
+        #             self.flipped = [-1]
+        #             return
+        #         self.i += 1
+
+        #         if self.i < len(voyage) and node.left and node.left.val != voyage[self.i]:
+        #             self.flipped.append(node.val)
+        #             dfs(node.right)
+        #             dfs(node.left)
+        #         else:
+        #             dfs(node.left)
+        #             dfs(node.right)
+
+        # dfs(root)
+        # if self.flipped and self.flipped[0] == -1:
+        #     self.flipped = [-1]
+        # return self.flipped
+
 
         res = []
         self.i = 0
 
         def dfs(node):
-            if not node:
-                return True
+            if not node: return True
 
             if node.val != voyage[self.i]:
                 return False
@@ -105,8 +133,7 @@ class Solution:
 
             return dfs(node.left) and dfs(node.right)
 
-
         return res if dfs(root) else [-1]
-
         
+# @lc code=end
 

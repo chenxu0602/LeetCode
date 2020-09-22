@@ -86,6 +86,7 @@
 #
 class Solution:
     def spellchecker(self, wordlist: List[str], queries: List[str]) -> List[str]:
+        # O(C) where C is the total content of wordlist and queries.
         
         def devowel(word):
             return "".join('*' if c in 'aeiou' else c for c in word)

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/powerful-integers/description/
 #
 # algorithms
-# Easy (39.46%)
-# Likes:    82
-# Dislikes: 184
-# Total Accepted:    14.5K
-# Total Submissions: 36.6K
+# Easy (39.81%)
+# Likes:    161
+# Dislikes: 312
+# Total Accepted:    23.6K
+# Total Submissions: 59K
 # Testcase Example:  '2\n3\n10'
 #
 # Given two positive integers x and y, an integer is powerful if it is equal to
@@ -60,8 +60,23 @@
 # 0 <= bound <= 10^6
 # 
 #
+
+# @lc code=start
 class Solution:
     def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
+        # Brute Force 
+        # Time  complexity: O(log(bound)^2)
+        # Space complexity: O(log(bound)^2)
+        # ans = set()
+        # # 2**18 > bound
+        # for i in range(18):
+        #     for j in range(18):
+        #         v = x**i + y**j
+        #         if v <= bound:
+        #             ans.add(v)
+        # return list(ans)
+
+
         xpow = []
         if x == 1:
             xpow = [1]
@@ -80,7 +95,8 @@ class Solution:
                 ypow.append(_y)
                 _y *= y
 
-        s = set([x+y for x in xpow for y in ypow if x+y <= bound])
+        s = set([x + y for x in xpow for y in ypow if x + y <= bound])
         return list(s)
         
+# @lc code=end
 

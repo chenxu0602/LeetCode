@@ -64,19 +64,34 @@
 # @lc code=start
 class Solution:
     def pancakeSort(self, A: List[int]) -> List[int]:
-
-        n = len(A)
+        # Find the index i of the next maximum number x.
+        # Reverse i + 1 numbers, so that the x will be at A[0]
+        # Reverse x numbers, so that x will be at A[x - 1].
+        # Repeat this process N times.
         res = []
-        for i in range(n):
-            cur_max = max(A[0:n-i])
-            j = 0
-            while A[j] != cur_max:
-                j += 1
-            A[:j+1] = reversed(A[:j+1])
-            res.append(j+1)
-            A[:n-i] = reversed(A[:n-i])
-            res.append(n-i)
+        for x in range(len(A), 1, -1):
+            i = A.index(x)
+            res.extend([i + 1, x])
+            A = A[:i:-1] + A[:i]
         return res
+
+        # n = len(A)
+        # res = []
+        # for i in range(n):
+        #     cur_max = max(A[0:n - i])
+        #     j = 0
+        #     while A[j] != cur_max:
+        #         j += 1
+        #     # should reverse j+1 elements
+        #     A[:j + 1] = reversed(A[:j + 1])
+        #     res.append(j + 1)
+        #     # reverse all
+        #     A[:n - i] = reversed(A[:n - i])
+        #     res.append(n - i)
+
+        # return res
+
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/equal-rational-numbers/description/
 #
 # algorithms
-# Hard (40.06%)
-# Likes:    34
-# Dislikes: 105
-# Total Accepted:    2.9K
-# Total Submissions: 7.3K
+# Hard (41.57%)
+# Likes:    47
+# Dislikes: 148
+# Total Accepted:    4.1K
+# Total Submissions: 9.9K
 # Testcase Example:  '"0.(52)"\n"0.5(25)"'
 #
 # Given two strings S and T, each of which represents a non-negative rational
@@ -85,12 +85,16 @@
 # 
 # 
 #
+
+# @lc code=start
 from fractions import Fraction
+
 class Solution:
     def isRationalEqual(self, S: str, T: str) -> bool:
         def convert(S):
             if '.' not in S:
                 return Fraction(int(S), 1)
+
             i = S.index('.')
             ans = Fraction(int(S[:i]), 1)
             S = S[i+1:]
@@ -105,11 +109,10 @@ class Solution:
             S = S[i+1:-1]
             j = len(S)
             ans += Fraction(int(S), 10**i * (10**j - 1))
+
             return ans
 
         return convert(S) == convert(T)
-
-            
-                
         
+# @lc code=end
 

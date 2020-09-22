@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/univalued-binary-tree/description/
 #
 # algorithms
-# Easy (66.96%)
-# Likes:    251
-# Dislikes: 37
-# Total Accepted:    50.6K
-# Total Submissions: 75.8K
+# Easy (67.74%)
+# Likes:    619
+# Dislikes: 42
+# Total Accepted:    98K
+# Total Submissions: 145K
 # Testcase Example:  '[1,1,1,1,1,null,1]'
 #
 # A binary tree is univalued if every node in the tree has the same value.
@@ -45,31 +45,40 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def isUnivalTree(self, root: TreeNode) -> bool:
+        # Depth-First Search
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # vals = []
 
-        """
-        vals = []
-        def dfs(node):
-            if node:
-                vals.append(node.val)
-                dfs(node.left)
-                dfs(node.right)
+        # def dfs(node):
+        #     if node:
+        #         vals.append(node.val)
+        #         dfs(node.left)
+        #         dfs(node.right)
 
-        dfs(root)
-        return len(set(vals)) == 1
-        """
+        # dfs(root)
+        # return len(set(vals)) == 1
 
-        left_correct = (not root.left or root.val == root.left.val and self.isUnivalTree(root.left))
-        right_correct = (not root.right or root.val == root.right.val and self.isUnivalTree(root.right))
+
+        # Recursion
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
+        left_correct = (not root.left or root.val == root.left.val
+                        and self.isUnivalTree(root.left))
+        right_correct = (not root.right or root.val == root.right.val
+                         and self.isUnivalTree(root.right))
 
         return left_correct and right_correct
         
+# @lc code=end
 

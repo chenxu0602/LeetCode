@@ -86,25 +86,70 @@
 
 # @lc code=start
 from collections import defaultdict
-from itertools import combinations
+import itertools
 
 class Solution:
     def minAreaFreeRect(self, points: List[List[int]]) -> float:
+        # Iterate Triangles
+        # Say the first 3 points are p1, p2, p3, and that p2 and p3 are opposite corners of the final rectangle. The 4th point must be p4 = p2 + p3 - p1 (using vector notation) because p1, p2, p4, p3 must form a parallelogram, and p1 + (p2 - p1) + (p3 - p1) = p4.
+        # Time  complexity: O(N^3)
+        # Space complexity: O(N)
+        # EPS = 1e-7
+        # points = set(map(tuple, points))
 
+        # ans = float("inf")
+        # for p1, p2, p3 in itertools.permutations(points, 3):
+        #     p4 = p2[0] + p3[0] - p1[0], p2[1] + p3[1] - p1[1]
+        #     if p4 in points:
+        #         v21 = complex(p2[0] - p1[0], p2[1] - p1[1])
+        #         v31 = complex(p3[0] - p1[0], p3[1] - p1[1])
+        #         if abs(v21.real * v31.real + v21.imag * v31.imag) < EPS:
+        #             area = abs(v21) * abs(v31)
+        #             if area < ans:
+        #                 ans = area
+        
+        # return ans if ans < float("inf") else 0
+
+
+        # Iterate Centers
+        # Consider opposite points AC and BD of a rectangle ABCD. They both have the same center O, which is the midpoint of AC and the midpoint of AB; and they both have the same radius dist(O, A) == dist(O, B) == dist(O, C) == dist(O, D). Notice that a necessary and sufficient condition to form a rectangle with two opposite pairs of points is that the points must have the same center and radius.
+        # For each pair of points, classify them by center and radius. We only need to record one of the points P, since the other point is P' = 2 * center - P (using vector notation).
+        # For each center and radius, look at every possible rectangle (two pairs of points P, P', Q, Q'). The area of this rectangle dist(P, Q) * dist(P, Q') is a candidate answer.
+        # Time  complexity: O(N^2 x logN). It can be shown that the number pairs of points with the same classification is bounded by logN.
+        # Space complexity: O(N)
         points = [complex(*z) for z in points]
         seen = defaultdict(list)
-
-        for P, Q in combinations(points, 2):
+        for P, Q in itertools.combinations(points, 2):
             center = (P + Q) / 2
             radius = abs(center - P)
             seen[center, radius].append(P)
 
         ans = float("inf")
         for (center, radius), candidates in seen.items():
-            for P, Q in combinations(candidates, 2):
+            for P, Q in itertools.combinations(candidates, 2):
                 ans = min(ans, abs(P - Q) * abs(P - (2 * center - Q)))
 
         return ans if ans < float("inf") else 0
+
+
+        # O(N^3)
+        # points = [complex(*z) for z in sorted(points)]
+        # seen = defaultdict(list)
+        # for P, Q in itertools.combinations(points, 2):
+        #     seen[P - Q].append((P + Q) / 2)
+        #     # Q-P, it is a vector that stores both the direction and the length of the edge
+        #     # (P+Q)/2 is the mid point of the edge 
+        #     # save the midpoints as a list for all edges with the same direction and length 
+
+        # ans = float("inf")
+        # for A, candidates in seen.items():
+        #     for P, Q in itertools.combinations(candidates, 2):
+        #         if A.real * (P - Q).real == -A.imag * (P - Q).imag:
+        #             ans = min(ans, abs(A) * abs(P - Q))
+
+        # return ans if ans < float("inf") else 0
+
+
         
 # @lc code=end
 

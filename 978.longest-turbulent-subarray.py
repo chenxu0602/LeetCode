@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-turbulent-subarray/description/
 #
 # algorithms
-# Medium (45.76%)
-# Likes:    143
-# Dislikes: 54
-# Total Accepted:    14.8K
-# Total Submissions: 32.4K
+# Medium (46.51%)
+# Likes:    430
+# Dislikes: 94
+# Total Accepted:    31.4K
+# Total Submissions: 67.5K
 # Testcase Example:  '[9,4,2,10,7,8,8,1,9]'
 #
 # A subarray A[i], A[i+1], ..., A[j] of A is said to be turbulent if and only
@@ -67,21 +67,40 @@
 # 0 <= A[i] <= 10^9
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxTurbulenceSize(self, A: List[int]) -> int:
+        # Sliding Window
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
+        def cmp(a, b):
+            return (a > b) - (a < b)
 
-        best = clen = 0
-        for i in range(len(A)):
-            if i >= 2 and (A[i-2] > A[i-1] < A[i] or A[i-2] < A[i-1] > A[i]):
-                clen += 1
-            elif i >= 1 and A[i-1] != A[i]:
-                clen = 2
-            else:
-                clen = 1
+        N, ans, anchor = len(A), 1, 0
 
-            best = max(best, clen)
-        return best
-                
+        for i in range(1, N):
+            c = cmp(A[i - 1], A[i])
+            if c == 0:
+                anchor = i
+            elif i == N - 1 or c * cmp(A[i], A[i + 1]) != -1:
+                ans = max(ans, i - anchor + 1)
+                anchor = i
 
+        return ans
+
+
+        # best = clen = 0
+        # for i in range(len(A)):
+        #     if i >= 2 and (A[i - 2] > A[i - 1] < A[i] or A[i - 2] < A[i - 1] > A[i]):
+        #         clen += 1
+        #     elif i >= 1 and A[i - 1] != A[i]:
+        #         clen = 2
+        #     else:
+        #         clen = 1
+
+        #     best = max(best, clen)
+        # return best
         
+# @lc code=end
 

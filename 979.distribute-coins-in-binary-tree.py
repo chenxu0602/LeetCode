@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/distribute-coins-in-binary-tree/description/
 #
 # algorithms
-# Medium (67.78%)
-# Likes:    763
-# Dislikes: 25
-# Total Accepted:    21.5K
-# Total Submissions: 31.6K
+# Medium (68.67%)
+# Likes:    1755
+# Dislikes: 66
+# Total Accepted:    45.3K
+# Total Submissions: 65.5K
 # Testcase Example:  '[3,0,0]'
 #
 # Given the root of a binary tree with N nodes, each node in the tree has
@@ -83,24 +83,29 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def distributeCoins(self, root: TreeNode) -> int:
+        # Depth First Search
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
         self.ans = 0
 
         def dfs(node):
             if not node: return 0
-            L, R = dfs(node.left), dfs(node.right)
+            L, R = map(dfs, (node.left, node.right))
             self.ans += abs(L) + abs(R)
             return node.val + L + R - 1
 
         dfs(root)
         return self.ans
         
+# @lc code=end
 

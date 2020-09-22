@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/least-operators-to-express-number/description/
 #
 # algorithms
-# Hard (41.26%)
-# Likes:    114
-# Dislikes: 38
-# Total Accepted:    3.3K
-# Total Submissions: 7.9K
+# Hard (43.67%)
+# Likes:    180
+# Dislikes: 50
+# Total Accepted:    5.5K
+# Total Submissions: 12.5K
 # Testcase Example:  '3\n19'
 #
 # Given a single positive integer x, we will write an expression of the form x
@@ -84,26 +84,29 @@
 # 
 # 
 #
+
+# @lc code=start
 from functools import lru_cache
 
 class Solution:
     def leastOpsExpressTarget(self, x: int, target: int) -> int:
-        """
-        cost = list(range(40))
-        cost[0] = 2
+        # Time  complexity: O(log_x^target)
+        # Space complexity: O(log target)
+        # cost = list(range(40))
+        # cost[0] = 2
 
-        @lru_cache(None)
-        def dp(i, targ):
-            if targ == 0: return 0
-            if target == 1: return cost[i]
-            if i >= 39: return float("inf")
+        # @lru_cache(None)
+        # def dp(i, targ):
+        #     if targ == 0: return 0
+        #     if targ == 1: return cost[i]
+        #     if i >= 39: return float("inf")
 
-            t, r = divmod(targ, x)
-            return min(r * cost[i] + dp(i+1, t),
-                       (x-r)*cost[i] + dp(i+1, t+1))
+        #     t, r = divmod(targ, x)
+        #     return min(r * cost[i] + dp(i + 1, t),
+        #                (x - r) * cost[i] + dp(i + 1, t + 1))
 
-        return dp(0, target) - 1
-        """
+        # return dp(0, target) - 1
+
 
         if x > target:
             return min(target * 2 - 1, (x - target) * 2)
@@ -125,5 +128,8 @@ class Solution:
         r = self.leastOpsExpressTarget(x, target - (sums // x)) + times - 1
 
         return min(l, r) + 1
+
         
+        
+# @lc code=end
 
