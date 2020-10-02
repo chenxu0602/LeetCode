@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/rotting-oranges/description/
 #
 # algorithms
-# Easy (46.43%)
-# Likes:    415
-# Dislikes: 34
-# Total Accepted:    20.9K
-# Total Submissions: 45.1K
+# Medium (47.65%)
+# Likes:    2461
+# Dislikes: 193
+# Total Accepted:    159.9K
+# Total Submissions: 323.9K
 # Testcase Example:  '[[2,1,1],[1,1,0],[0,1,1]]'
 #
 # In a given grid, each cell can have one of three values:
@@ -71,11 +71,17 @@
 # 
 # 
 # 
+# 
 #
+
+# @lc code=start
 from collections import deque
+
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        R, C = len(grid), len(grid[0])
+        # O(N)
+
+        R, C = map(len, (grid, grid[0]))
 
         queue = deque()
         for r, row in enumerate(grid):
@@ -84,7 +90,7 @@ class Solution:
                     queue.append((r, c, 0))
 
         def neighbors(r, c):
-            for nr, nc in ((r-1, c), (r, c-1), (r+1, c), (r, c+1)):
+            for nr, nc in (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1):
                 if 0 <= nr < R and 0 <= nc < C:
                     yield nr, nc
 
@@ -94,13 +100,12 @@ class Solution:
             for nr, nc in neighbors(r, c):
                 if grid[nr][nc] == 1:
                     grid[nr][nc] = 2
-                    queue.append((nr, nc, d+1))
+                    queue.append((nr, nc, d + 1))
 
         if any(1 in row for row in grid):
             return -1
 
         return d
-
-
         
+# @lc code=end
 

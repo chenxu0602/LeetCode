@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/add-to-array-form-of-integer/description/
 #
 # algorithms
-# Easy (44.18%)
-# Likes:    177
-# Dislikes: 34
-# Total Accepted:    23.4K
-# Total Submissions: 53.4K
+# Easy (44.19%)
+# Likes:    402
+# Dislikes: 69
+# Total Accepted:    48K
+# Total Submissions: 108K
 # Testcase Example:  '[1,2,0,0]\n34'
 #
 # For a non-negative integer X, the array-form of X is an array of its digits
@@ -76,17 +76,23 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:
+        # Schoolbook Addition
+        # Time  complexity: O(max(N, logK))
+        # Space complexity: O(max(N, logK))
         A[-1] += K
         for i in range(len(A) - 1, -1, -1):
             carry, A[i] = divmod(A[i], 10)
             if i:
-                A[i-1] += carry
+                A[i - 1] += carry
 
         if carry:
             A = list(map(int, str(carry))) + A
 
         return A
         
+# @lc code=end
 

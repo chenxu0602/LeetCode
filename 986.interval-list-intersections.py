@@ -57,6 +57,7 @@
 # @lc code=start
 class Solution:
     def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        # O(M + N)
         ans = []
         i = j = 0
         while i < len(A) and j < len(B):

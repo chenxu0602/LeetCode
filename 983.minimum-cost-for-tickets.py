@@ -78,13 +78,54 @@
 # 
 # 
 #
+from functools import lru_cache
+
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        # Dynamic Programming (Day Variant)
+        # Time  complexity: O(W), where W = 365
+        # Space complexity: O(W)
+        # dayset = set(days)
+        # durations = [1, 7, 30]
+
+        # @lru_cache(None)
+        # def dp(i):
+        #     if i > 365:
+        #         return 0
+        #     elif i in dayset:
+        #         return min(dp(i + d) + c for c, d in zip(costs, durations))
+        #     else:
+        #         return dp(i + 1)
+
+        # return dp(1)
+
+
+        # Dynamic Programming (Window Variant)
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # N = len(days)
+        # durations = [1, 7, 30]
+
+        # @lru_cache(None)
+        # def dp(i): # How much money to do days[i]+
+        #     if i >= N: return 0
+
+        #     ans = float("inf")
+        #     j = i
+        #     for c, d in zip(costs, durations):
+        #         while j < N and days[j] < days[i] + d:
+        #             j += 1
+        #         ans = min(ans, dp(j) + c)
+
+        #     return ans
+
+        # return dp(0)
+
 
         # n, plans, days = max(days) + 1, [1, 7, 30], set(days)
         # dp = [0] * n
         # for i in range(1, n):
-        #     dp[i] = min((dp[max(0, i-p)] + c for p, c in zip(plans, costs))) if i in days else dp[i-1]
+        #     dp[i] = min((dp[max(0, i - p)] + c for p, c in zip(plans, costs))) if i in days else dp[i - 1]
         # return dp[-1]
 
         dp, prev, plans = [0] * (max(days) + 1), 0, [1, 7, 30]
@@ -92,5 +133,6 @@ class Solution:
             dp[prev:curr] = [dp[prev]] * (curr - prev)
             dp[curr], prev = min(dp[max(curr - p, 0)] + c for p, c in zip(plans, costs)), curr
         return dp[-1]
-        
+
+
 

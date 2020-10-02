@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/broken-calculator/description/
 #
 # algorithms
-# Medium (41.08%)
-# Likes:    194
-# Dislikes: 54
-# Total Accepted:    8.6K
-# Total Submissions: 20.7K
+# Medium (45.41%)
+# Likes:    489
+# Dislikes: 91
+# Total Accepted:    19.8K
+# Total Submissions: 43.1K
 # Testcase Example:  '2\n3'
 #
 # On a broken calculator that has a number showing on its display, we can
@@ -69,8 +69,13 @@
 # 1 <= Y <= 10^9
 # 
 #
+
+# @lc code=start
 class Solution:
     def brokenCalc(self, X: int, Y: int) -> int:
+        # Work Backwards
+        # Time  complexity: O(logY)
+        # Space complexity: O(1)
         ans = 0
         while Y > X:
             ans += 1
@@ -79,6 +84,7 @@ class Solution:
             else:
                 Y //= 2
 
-        return ans + (X - Y)
+        return ans + X - Y
         
+# @lc code=end
 

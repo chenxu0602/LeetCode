@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-common-characters/description/
 #
 # algorithms
-# Easy (65.60%)
-# Likes:    439
-# Dislikes: 55
-# Total Accepted:    39.1K
-# Total Submissions: 59.6K
+# Easy (67.67%)
+# Likes:    1034
+# Dislikes: 119
+# Total Accepted:    79.6K
+# Total Submissions: 117.5K
 # Testcase Example:  '["bella","label","roller"]'
 #
 # Given an array A of strings made only from lowercase letters, return a list
@@ -51,25 +51,27 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def commonChars(self, A: List[str]) -> List[str]:
-        """
-        results = []
-        i = 0
-        while i <= len(A[0]) - 1:
-            if all(A[0][i] in item for item in A):
-                results.append(A[0][i])
-                A = [item.replace(A[0][i], "", 1) for item in A]
-                i -= 1
-            i += 1
-        return results
-        """
+        # results = []
+        # i = 0
+        # while i < len(A[0]):
+        #     if all(A[0][i] in item for item in A):
+        #         results.append(A[0][i])
+        #         A = [item.replace(A[0][i], "", 1) for item in A]
+        #         i -= 1
+        #     i += 1
+        # return results
 
         res = Counter(A[0])
         for a in A:
             res &= Counter(a)
-        return list(res.elements())
+        return res.elements()
+
         
+# @lc code=end
 

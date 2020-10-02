@@ -53,22 +53,38 @@
 #
 class Solution:
     def strWithout3a3b(self, A: int, B: int) -> str:
+        # Greedy
+        # Time  complexity: O(A + B)
+        # Space complexity: O(A + B)
+        # ans = []
 
-        ans = []
+        # while A or B:
+        #     if len(ans) >= 2 and ans[-1] == ans[-2]:
+        #         writeA = ans[-1] == 'b'
+        #     else:
+        #         writeA = A >= B
 
-        while A or B:
-            if len(ans) >= 2 and ans[-1] == ans[-2]:
-                writeA = ans[-1] == 'b'
-            else:
-                writeA = A >= B
+        #     if writeA:
+        #         A -= 1
+        #         ans.append('a')
+        #     else:
+        #         B -= 1
+        #         ans.append('b')
 
-            if writeA:
-                A -= 1
-                ans.append('a')
-            else:
-                B -= 1
-                ans.append('b')
+        # return "".join(ans)
 
-        return "".join(ans)
+
+        if A >= 2 * B:
+            return "aab" * B + "a" * (A - 2 * B)
+        elif A >= B:
+            return "aab" * (A - B) + "ab" * (2 * B - A)
+        elif B >= 2 * A:
+            return "bba" * A + "b" * (B - 2 * A)
+        else:
+            return "bba" * (B - A) + "ab" * (2 * A - B)
+        
+            
+
+
         
 

@@ -91,8 +91,10 @@
 
 class Solution:
     def insertIntoMaxTree(self, root: TreeNode, val: int) -> TreeNode:
+        # O(N)
 
-        # if not root: return TreeNode(val)
+        # if not root:
+        #     return TreeNode(val)
 
         # if val > root.val:
         #     node = TreeNode(val)
@@ -101,6 +103,7 @@ class Solution:
         # else:
         #     root.right = self.insertIntoMaxTree(root.right, val)
         #     return root
+
 
         if root.val < val:
             node = TreeNode(val)
@@ -119,7 +122,6 @@ class Solution:
             node.left = curr
 
         return root
-        
         
 # @lc code=end
 

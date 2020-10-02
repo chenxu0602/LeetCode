@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/time-based-key-value-store/description/
 #
 # algorithms
-# Medium (51.43%)
-# Likes:    347
-# Dislikes: 50
-# Total Accepted:    28.1K
-# Total Submissions: 54.6K
-# Testcase Example:  '["TimeMap","set","get","get","set","get","get"]\n' +
+# Medium (52.97%)
+# Likes:    855
+# Dislikes: 110
+# Total Accepted:    74.8K
+# Total Submissions: 140.7K
+# Testcase Example:  '["TimeMap","set","get","get","set","get","get"]\n' + '[[],["foo","bar",1],["foo",1],["foo",3],["foo","bar2",4],["foo",4],["foo",5]]'
 #
 # Create a timebased key-value store class TimeMap, that supports two
 # operations.
@@ -81,6 +81,8 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 import bisect
 
@@ -91,17 +93,19 @@ class TimeMap:
         Initialize your data structure here.
         """
         self.M = defaultdict(list)
-        
 
     def set(self, key: str, value: str, timestamp: int) -> None:
+        # Time  complexity: O(1)
+        # Space complexity: O(N)
         self.M[key].append((timestamp, value))
-        
 
     def get(self, key: str, timestamp: int) -> str:
+        # Time  complexity: O(logN)
+        # Space complexity: O(N)
         A = self.M.get(key, None)
         if A is None: return ""
         i = bisect.bisect_right(A, (timestamp, chr(127)))
-        return A[i-1][1] if i else ""
+        return A[i - 1][1] if i else ""
         
 
 
@@ -109,4 +113,5 @@ class TimeMap:
 # obj = TimeMap()
 # obj.set(key,value,timestamp)
 # param_2 = obj.get(key,timestamp)
+# @lc code=end
 

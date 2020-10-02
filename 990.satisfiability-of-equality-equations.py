@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/satisfiability-of-equality-equations/description/
 #
 # algorithms
-# Medium (40.85%)
-# Likes:    255
-# Dislikes: 3
-# Total Accepted:    10.2K
-# Total Submissions: 24.8K
+# Medium (44.82%)
+# Likes:    582
+# Dislikes: 5
+# Total Accepted:    21.3K
+# Total Submissions: 46.8K
 # Testcase Example:  '["a==b","b!=a"]'
 #
 # Given an array equations of strings that represent relationships between
@@ -88,10 +88,13 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def equationsPossible(self, equations: List[str]) -> bool:
-                    
-        """
+        # Connected Components
+        # Time  complexity: O(N) where N is the length of equations.
+        # Space complexity: O(1)
         graph = [[] for _ in range(26)]
 
         for eqn in equations:
@@ -118,41 +121,43 @@ class Solution:
             if eqn[1] == '!':
                 x = ord(eqn[0]) - ord('a')
                 y = ord(eqn[3]) - ord('a')
-                if x == y:
-                    return False
+                if x == y: return False
                 if color[x] is not None and color[x] == color[y]:
                     return False
 
         return True
-        """
 
-        p, rank = list(range(26)), [0] * 26
-        def find(x):
-            if x != p[x]:
-                p[x] = find(p[x])
-            return p[x]
 
-        def union(x, y):
-            xr, yr = find(x), find(y)
-            if xr != yr:
-                if rank[xr] < rank[yr]:
-                    xr, yr = yr, xr
-                p[yr], rank[xr] = xr, rank[xr]+1
+        # Union Rank
+        # p, rank = list(range(26)), [0] * 26
+        # def find(x):
+        #     if p[x] != x:
+        #         p[x] = find(p[x])
+        #     return p[x]
 
-        eqs, neqs = [], []
-        for a, e, _, b in equations:
-            a, b = ord(a) - 97, ord(b) - 97
-            if e == '=':
-                eqs.append((a, b))
-            else:
-                neqs.append((a, b))
+        # def union(x, y):
+        #     xr, yr = map(find, (x, y))
+        #     if xr != yr:
+        #         if rank[xr] < rank[yr]:
+        #             xr, yr = yr, xr
+        #         p[yr], rank[xr] = xr, rank[xr] + 1
 
-        for a, b in eqs:
-            union(a, b)
-        for a, b in neqs:
-            if find(a) == find(b):
-                return False
-        return True
+        # eqs, neqs = [], []
+        # for a, e, _, b in equations:
+        #     a, b = ord(a) - 97, ord(b) - 97
+        #     if e == '=':
+        #         eqs.append((a, b))
+        #     else:
+        #         neqs.append((a, b))
 
+        # for a, b in eqs:
+        #     union(a, b)
+
+        # for a, b in neqs:
+        #     if find(a) == find(b):
+        #         return False
+
+        # return True
         
+# @lc code=end
 

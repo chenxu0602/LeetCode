@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/smallest-string-starting-from-leaf/description/
 #
 # algorithms
-# Medium (45.33%)
-# Likes:    190
-# Dislikes: 40
-# Total Accepted:    14.9K
-# Total Submissions: 33.1K
+# Medium (45.90%)
+# Likes:    463
+# Dislikes: 90
+# Total Accepted:    29.3K
+# Total Submissions: 63K
 # Testcase Example:  '[0,1,2,3,4,3,4]'
 #
 # Given the root of a binary tree, each node has a value from 0 to 25
@@ -75,16 +75,19 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def smallestFromLeaf(self, root: TreeNode) -> str:
-        
+        # Brute Force
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         self.ans = "~"
 
         def dfs(node, A):
@@ -100,9 +103,7 @@ class Solution:
         dfs(root, [])
         return self.ans
 
-        """
-        if not root:
-            return ""
-        return min(self.smallestFromLeaf(root.left) + chr(root.val + ord('a')), self.smallestFromLeaf(root.right) + chr(root.val + ord('a')))
-        """
+
+
+# @lc code=end
 

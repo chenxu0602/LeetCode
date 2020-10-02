@@ -91,14 +91,15 @@ from collections import defaultdict
 
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
-
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(N)
         seen = defaultdict(lambda: defaultdict(list))
 
         def dfs(node, x=0, y=0):
             if node:
                 seen[x][y].append(node)
-                dfs(node.left, x-1, y+1)
-                dfs(node.right, x+1, y+1)
+                dfs(node.left, x - 1, y + 1)
+                dfs(node.right, x + 1, y + 1)
 
         dfs(root)
         ans = []
@@ -110,7 +111,6 @@ class Solution:
             ans.append(report)
 
         return ans
-
         
 # @lc code=end
 

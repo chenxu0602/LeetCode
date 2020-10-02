@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/description/
 #
 # algorithms
-# Hard (48.08%)
-# Likes:    162
-# Dislikes: 21
-# Total Accepted:    6.2K
-# Total Submissions: 13.2K
+# Hard (46.48%)
+# Likes:    203
+# Dislikes: 26
+# Total Accepted:    7.9K
+# Total Submissions: 17.1K
 # Testcase Example:  '[0,1,0]\n1'
 #
 # In an array A containing only 0s and 1s, a K-bit flip consists of choosing a
@@ -63,25 +63,42 @@
 # 1 <= K <= A.length
 # 
 #
+
+# @lc code=start
 class Solution:
     def minKBitFlips(self, A: List[int], K: int) -> int:
-
+        # Greedy + Events
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         N = len(A)
-        hint, ans, flip = [0] * N, 0, 0
+        hint = [0] * N
+        ans = flip = 0
 
+        # When we flip a subarray like A[i], A[i+1], ..., A[i+K-1]
+        # we can instead flip our current writing state, and put a hint at
+        # position i+K to flip back our writing state.
         for i, x in enumerate(A):
             flip ^= hint[i]
-            if x ^ flip == 0:
-                ans += 1
+            if x ^ flip == 0: # If we must flip the subarray starting here...
+                ans += 1 # We're flipping the subarray from A[i] to A[i+K-1]
 
-                if i + K > N:
-                    return -1
-
+                if i + K > N: return -1 # If we can't flip the entire subarray, its impossible
                 flip ^= 1
-
-                if i + K < N:
-                    hint[i + K] ^= 1
+                if i + K < N: hint[i + K] ^= 1
 
         return ans
+
+
+        # cur = res = 0
+        # for i in range(len(A)):
+        #     if i >= K and A[i - K] == 2:
+        #         cur -= 1
+        #     if cur % 2 == A[i]:
+        #         if i + K > len(A):
+        #             return -1
+        #         A[i] = 2
+        #         cur, res = cur + 1, res + 1
+        # return res
         
+# @lc code=end
 

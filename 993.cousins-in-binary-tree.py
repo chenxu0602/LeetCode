@@ -79,17 +79,31 @@
 
 class Solution:
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        # O(N)
 
-        parent = {}
-        depth = {}
-
-        def dfs(node, par=None):
+        def dfs(node, par, depth, mod):
             if node:
-                depth[node.val] = 1 + depth[par.val] if par else 0 
-                parent[node.val] = par
-                dfs(node.left, node)
-                dfs(node.right, node)
+                if node.val == mod:
+                    return depth, par
+                return dfs(node.left, node, depth + 1, mod) or \
+                    dfs(node.right, node, depth + 1, mod)
 
-        dfs(root)
-        return depth[x] == depth[y] and parent[x] != parent[y]
+        dx, px, dy, py = dfs(root, None, 0, x) + dfs(root, None, 0, y)
+        return dx == dy and px != py
+
+
+        # parent, depth = {}, {}
+        # def dfs(node, par=None):
+        #     if node:
+        #         depth[node.val] = 1 + depth[par.val] if par else 0
+        #         parent[node.val] = par
+        #         dfs(node.left, node)
+        #         dfs(node.right, node)
+
+        # dfs(root)
+        # return depth[x] == depth[y] and parent[x] != parent[y]
+
+
+            
+
 
