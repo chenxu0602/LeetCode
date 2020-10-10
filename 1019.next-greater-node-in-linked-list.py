@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/next-greater-node-in-linked-list/description/
 #
 # algorithms
-# Medium (57.09%)
-# Likes:    331
-# Dislikes: 22
-# Total Accepted:    20.9K
-# Total Submissions: 36.9K
+# Medium (57.45%)
+# Likes:    956
+# Dislikes: 59
+# Total Accepted:    54.5K
+# Total Submissions: 93.6K
 # Testcase Example:  '[2,1,5]'
 #
 # We are given a linked list with head as the first node.  Let's number the
@@ -66,16 +66,16 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def nextLargerNodes(self, head: ListNode) -> List[int]:
-        
-        """
+        # O(N)
         res, stack = [], []
         while head:
             while stack and stack[-1][1] < head.val:
@@ -84,17 +84,19 @@ class Solution:
             res.append(0)
             head = head.next
         return res
-        """
 
-        res, stack, idx = [], [], 0
-        while head:
-            while stack and stack[-1][0] < head.val:
-                _, i = stack.pop()
-                res[i] = head.val
 
-            res.append(0)
-            stack.append((head.val, idx))
-            idx += 1
-            head = head.next
-        return res
+        # res, stack, idx = [], [], 0
+        # while head:
+        #     while stack and stack[-1][0] < head.val:
+        #         _, i = stack.pop()
+        #         res[i] = head.val
+
+        #     res.append(0)
+        #     stack.append((head.val, idx))
+        #     idx += 1
+        #     head = head.next
+        # return res
+        
+# @lc code=end
 

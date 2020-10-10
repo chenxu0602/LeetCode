@@ -64,15 +64,14 @@
 class Solution:
     def prefixesDivBy5(self, A: List[int]) -> List[bool]:
 
-        """
         n = 0
         for i in range(len(A)):
-            A[i], n = (2*n + A[i]) % 5 == 0, (2*n + A[i]) % 5
+            A[i], n = (2 * n + A[i]) % 5 == 0, (2 * n + A[i]) % 5
         return A
-        """
 
-        for i in range(1, len(A)):
-            A[i] += A[i-1] * 2 % 5
-        return [a % 5 == 0 for a in A]
+        # for i in range(1, len(A)):
+        #     A[i] += A[i - 1] * 2 % 5
+        # return [a % 5 == 0 for a in A]
+
         
 

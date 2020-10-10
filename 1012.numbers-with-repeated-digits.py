@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/numbers-with-repeated-digits/description/
 #
 # algorithms
-# Hard (35.34%)
-# Likes:    105
-# Dislikes: 34
-# Total Accepted:    3.3K
-# Total Submissions: 9.3K
+# Hard (37.42%)
+# Likes:    223
+# Dislikes: 45
+# Total Accepted:    5.6K
+# Total Submissions: 14.9K
 # Testcase Example:  '20'
 #
 # Given a positive integer N, return the number of positive integers less than
@@ -57,13 +57,25 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numDupDigitsAtMostN(self, N: int) -> int:
-        L = list(map(int, str(N+1)))
+        # if N = 8765, L = [8,7,6,6],
+        # the number without repeated digit can the the following format:
+        # XXX
+        # XX
+        # X
+        # 1XXX ~ 7XXX
+        # 80XX ~ 86XX
+        # 870X ~ 875X
+        # 8760 ~ 8765
+        # Time  complexity: the number of permutations A(m,n) is O(1). We count digit by digit, so it's O(logN).
+        L = list(map(int, str(N + 1)))
         res, n = 0, len(L)
 
-        def A(m, n):
-            return 1 if n == 0 else A(m, n-1) * (m - n + 1)
+        def A(m, n): # the permuation of m x (m - 1) x ... x (m - (n - 1))
+            return 1 if n == 0 else A(m, n - 1) * (m - n + 1)
 
         for i in range(1, n):
             res += 9 * A(9, i - 1)
@@ -72,10 +84,11 @@ class Solution:
         for i, x in enumerate(L):
             for y in range(0 if i else 1, x):
                 if y not in s:
-                    res += A(9-i, n-i-1)
-            if x in s:
-                break
+                    res += A(9 - i, n - i - 1)
+            if x in s: break
             s.add(x)
+
         return N - res
         
+# @lc code=end
 

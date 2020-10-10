@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/distant-barcodes/description/
 #
 # algorithms
-# Medium (39.31%)
-# Likes:    161
-# Dislikes: 10
-# Total Accepted:    8.1K
-# Total Submissions: 20.2K
+# Medium (42.79%)
+# Likes:    432
+# Dislikes: 20
+# Total Accepted:    18.5K
+# Total Submissions: 42.3K
 # Testcase Example:  '[1,1,1,2,2,2]'
 #
 # In a warehouse, there is a row of barcodes, where the i-th barcode is
@@ -49,25 +49,26 @@
 # 
 # 
 #
+
+# @lc code=start
 from collections import Counter
 
 class Solution:
     def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
-        """
-        i, n = 0, len(barcodes)
-        res = [0] * n
-        for k, v in Counter(barcodes).most_common():
-            for _ in range(v):
-                res[i] = k
-                i += 2
-                if i >= n:
-                    i = 1
-        return res
-        """
+        # i, n = 0, len(barcodes)
+        # res = [0] * n
+        # for k, v in Counter(barcodes).most_common():
+        #     for _ in range(v):
+        #         res[i] = k
+        #         i += 2
+        #         if i >= n:
+        #             i = 1
+        # return res
 
         count = Counter(barcodes)
         barcodes.sort(key=lambda a: (count[a], a))
         barcodes[1::2], barcodes[::2] = barcodes[:len(barcodes)//2], barcodes[len(barcodes)//2:]
         return barcodes
         
+# @lc code=end
 

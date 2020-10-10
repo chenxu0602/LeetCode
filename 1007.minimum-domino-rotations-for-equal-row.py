@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/description/
 #
 # algorithms
-# Medium (48.89%)
-# Likes:    180
-# Dislikes: 90
-# Total Accepted:    23K
-# Total Submissions: 44.8K
+# Medium (50.28%)
+# Likes:    462
+# Dislikes: 138
+# Total Accepted:    56.6K
+# Total Submissions: 112.7K
 # Testcase Example:  '[2,1,2,4,2,2]\n[5,2,6,2,3,2]'
 #
 # In a row of dominoes, A[i] and B[i] represent the top and bottom halves of
@@ -60,24 +60,37 @@
 # 
 # 
 #
+
+# @lc code=start
+from functools import reduce
+
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
-        # candidates = set([A[0]] + [B[0]])
+        # Greedy
+        # Time  complexity: O(N)
+        # # Space complexity: O(1)
+        # def check(x):
+        #     # how many rotations should be done
+        #     # to have all elements in A equal to x
+        #     # and to have all elements in B equal to x
+        #     rotations_a = rotations_b = 0
+        #     for i in range(n):
+        #         if A[i] != x and B[i] != x:
+        #             return -1
+        #         elif A[i] != x:
+        #             rotations_a += 1
+        #         elif B[i] != x:
+        #             rotations_b += 1
+        #     # min number of rotations to have all
+        #     # elements equal to x in A or B
+        #     return min(rotations_a, rotations_b)
 
-        # for i in range(1, len(A)):
-        #     next_col = set([A[i]] + [B[i]])
-        #     candidates = candidates.intersection(next_col)
-        #     if not candidates:
-        #         return -1
-
-        # res = float("inf")
-        # for cand in candidates:
-        #     top, bottom = 0, 0
-        #     for i in range(len(A)):
-        #         top += A[i] == cand
-        #         bottom += B[i] == cand
-        #     res = min(res, len(A) - max(top, bottom))
-        # return res
+        # n = len(A)
+        # rotations = check(A[0])
+        # if rotations != -1 or A[0] == B[0]:
+        #     return rotations
+        # else:
+        #     return check(B[0])
 
 
         # for x in range(1, 7):
@@ -85,11 +98,13 @@ class Solution:
         #         return len(A) - max(A.count(x), B.count(x))
         # return -1
 
-
-        from functools import reduce
         s = reduce(set.__and__, [set(d) for d in zip(A, B)])
         if not s: return -1
         x = s.pop()
         return len(A) - max(A.count(x), B.count(x))
+
+
+            
         
+# @lc code=end
 

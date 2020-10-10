@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/max-consecutive-ones-iii/description/
 #
 # algorithms
-# Medium (54.27%)
-# Likes:    363
-# Dislikes: 7
-# Total Accepted:    19.1K
-# Total Submissions: 34.8K
+# Medium (56.39%)
+# Likes:    616
+# Dislikes: 14
+# Total Accepted:    32.7K
+# Total Submissions: 58K
 # Testcase Example:  '[1,1,1,0,0,0,1,1,1,1,0]\n2'
 #
 # Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
@@ -54,21 +54,26 @@
 # 
 # 
 # 
-# 
 #
+
+# @lc code=start
 class Solution:
     def longestOnes(self, A: List[int], K: int) -> int:
-
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         left = 0
         for right in range(len(A)):
+            # If we included a zero in the window we reduce the value of K.
+            # Since K is the maximum zeros allowed in a window.
             K -= 1 - A[right]
+            # A negative K denotes we have consumed all allowed flips and window has
+            # more than allowed zeros, thus increment left pointer by 1 to keep the window size same.
             if K < 0:
+                # If the left element to be thrown out is zero we increase K.
                 K += 1 - A[left]
                 left += 1
         return right - left + 1
 
-
-
-
         
+# @lc code=end
 

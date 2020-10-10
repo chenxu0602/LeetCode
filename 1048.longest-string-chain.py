@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-string-chain/description/
 #
 # algorithms
-# Medium (48.85%)
-# Likes:    226
-# Dislikes: 15
-# Total Accepted:    15.2K
-# Total Submissions: 30.1K
+# Medium (54.60%)
+# Likes:    1165
+# Dislikes: 80
+# Total Accepted:    76.2K
+# Total Submissions: 138.8K
 # Testcase Example:  '["a","b","ba","bca","bda","bdca"]'
 #
 # Given a list of words, each word consists of English lowercase letters.
@@ -50,11 +50,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def longestStrChain(self, words: List[str]) -> int:
         dp = {}
         for w in sorted(words, key=len):
-            dp[w] = max(dp.get(w[:i] + w[i+1:], 0) + 1 for i in range(len(w)))
+            dp[w] = max(dp.get(w[:i] + w[i + 1:], 0) + 1 for i in range(len(w)))
         return max(dp.values())
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/campus-bikes-ii/description/
 #
 # algorithms
-# Medium (49.04%)
-# Likes:    198
-# Dislikes: 11
-# Total Accepted:    8.3K
-# Total Submissions: 15.8K
+# Medium (54.29%)
+# Likes:    433
+# Dislikes: 33
+# Total Accepted:    23.4K
+# Total Submissions: 43.2K
 # Testcase Example:  '[[0,0],[2,1]]\n[[1,2],[3,3]]'
 #
 # On a campus represented as a 2D grid, there are N workers and M bikes, with N
@@ -26,10 +26,7 @@
 # and their assigned bike.
 # 
 # 
-# 
 # Example 1:
-# 
-# 
 # 
 # 
 # Input: workers = [[0,0],[2,1]], bikes = [[1,2],[3,3]]
@@ -42,8 +39,6 @@
 # Example 2:
 # 
 # 
-# 
-# 
 # Input: workers = [[0,0],[1,1],[2,0]], bikes = [[1,0],[2,2],[2,1]]
 # Output: 4
 # Explanation: 
@@ -52,39 +47,62 @@
 # Manhattan distances as 4.
 # 
 # 
+# Example 3:
 # 
 # 
-# Note:
+# Input: workers = [[0,0],[1,0],[2,0],[3,0],[4,0]], bikes =
+# [[0,999],[1,999],[2,999],[3,999],[4,999]]
+# Output: 4995
 # 
 # 
+# 
+# Constraints:
+# 
+# 
+# N == workers.length
+# M == bikes.length
+# 1 <= N <= M <= 10
+# workers[i].length == 2
+# bikes[i].length == 2
 # 0 <= workers[i][0], workers[i][1], bikes[i][0], bikes[i][1] < 1000
-# All worker and bike locations are distinct.
-# 1 <= workers.length <= bikes.length <= 10
+# All the workers and the bikes locations are unique.
+# 
 # 
 #
+
+# @lc code=start
 import heapq
+from functools import lru_cache
 
 class Solution:
     def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
-
-        def dis(i, j):
+        def dist(i, j):
             return abs(workers[i][0] - bikes[j][0]) + abs(workers[i][1] - bikes[j][1])
 
-        h = [[0, 0, 0]]
-        seen = set()
+        @lru_cache(None)
+        def dfs(i, assigned):
+            if i == len(workers): return 0
+            return min(dfs(i + 1, assigned | 1 << j) + dist(i, j)
+                for j in range(len(bikes)) if not assigned & (1 << j))
 
-        while True:
-            cost, i, taken = heapq.heappop(h)
+        return dfs(0, 0)
 
-            if (i, taken) in seen:
-                continue
 
-            seen.add((i, taken))
+        # h, seen = [[0, 0, 0]], set()
+        # while True:
+        #     cost, i, taken = heapq.heappop(h)
 
-            if i == len(workers):
-                return cost
+        #     if (i, taken) in seen:
+        #         continue
 
-            for j in range(len(bikes)):
-                if taken & (1 << j) == 0:
-                    heapq.heappush(h, [cost + dis(i, j), i + 1, taken | (1 << j)])
+        #     seen.add((i, taken))
+
+        #     if i == len(workers):
+        #         return cost
+
+        #     for j in range(len(bikes)):
+        #         if taken & (1 << j) == 0:
+        #             heapq.heappush(h, [cost + dist(i, j), i + 1, taken | 1 << j])
+        
+# @lc code=end
 

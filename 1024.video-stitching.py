@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/video-stitching/description/
 #
 # algorithms
-# Medium (46.88%)
-# Likes:    225
-# Dislikes: 16
-# Total Accepted:    12.2K
-# Total Submissions: 25.8K
+# Medium (49.08%)
+# Likes:    580
+# Dislikes: 28
+# Total Accepted:    25.9K
+# Total Submissions: 52.6K
 # Testcase Example:  '[[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]]\n10'
 #
 # You are given a series of video clips from a sporting event that lasted T
@@ -46,7 +46,7 @@
 # Input: clips = [[0,1],[1,2]], T = 5
 # Output: -1
 # Explanation: 
-# We can't cover [0,5] with only [0,1] and [0,2].
+# We can't cover [0,5] with only [0,1] and [1,2].
 # 
 # 
 # Example 3:
@@ -70,16 +70,17 @@
 # 
 # 
 # 
-# 
-# Note:
+# Constraints:
 # 
 # 
 # 1 <= clips.length <= 100
-# 0 <= clips[i][0], clips[i][1] <= 100
+# 0 <= clips[i][0] <= clips[i][1] <= 100
 # 0 <= T <= 100
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
         prev_end, end, cnt = -1, 0, 0
@@ -91,4 +92,5 @@ class Solution:
             end = max(end, j)
         return cnt if end >= T else -1
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/last-stone-weight-ii/description/
 #
 # algorithms
-# Medium (40.05%)
-# Likes:    233
-# Dislikes: 12
-# Total Accepted:    6.7K
-# Total Submissions: 16.3K
+# Medium (43.97%)
+# Likes:    842
+# Dislikes: 30
+# Total Accepted:    21.8K
+# Total Submissions: 49.3K
 # Testcase Example:  '[2,7,4,1,8,1]'
 #
 # We have a collection of rocks, each rock has a positive integer weight.
@@ -51,25 +51,35 @@
 # 1 <= stones[i] <= 100
 # 
 #
-from functools import reduce
 
+# @lc code=start
 class Solution:
     def lastStoneWeightII(self, stones: List[int]) -> int:
+        # Same problem as:
+        # Divide all numbers into two groups,
+        # what is the minimum difference between the sum of two groups.
+        # Now it's a easy classic knapsack problem.
+        # dp to record the achievable sum of the smaller group.
+        # Time  complexity: O(N x S) where S = sum(stones)
+        # Space complexity: O(S)
+
+        # dp = {0}
+        # sumA = sum(stones)
+        # for a in stones:
+        #     dp |= {a + i for i in dp}
+        # return min(abs(sumA - i * 2) for i in dp)
+
+
+        # dp, sumA = {0}, sum(stones)
+        # for a in stones:
+        #     dp = {a + x for x in dp} | {a - x for x in dp}
+        # return min(abs(x) for x in dp)
+
+
+        from functools import reduce
+        return min(reduce(lambda dp, y: {x + y for x in dp} | {abs(x - y) for x in dp}, stones, {0}))
+
+
         
-        """
-        dp = {0}
-        sumA = sum(stones)
-        for a in stones:
-            dp |= {a + i for i in dp}
-        return min(abs(sumA - i - i) for i in dp)
-        """
-
-        """
-        dp, sumA = {0}, sum(stones)
-        for a in stones:
-            dp = {a+x for x in dp} | {a-x for x in dp}
-        return min(abs(x) for x in dp)
-        """
-
-        return min(reduce(lambda dp, y: {x+y for x in dp} | {abs(x-y) for x in dp}, stones, {0}))
+# @lc code=end
 

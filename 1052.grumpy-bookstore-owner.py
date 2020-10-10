@@ -53,18 +53,36 @@
 #
 class Solution:
     def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
-        customers1 = [customers[i] if grumpy[i] == 0 else 0 for i in range(len(customers))]
+        # customers1 = [customers[i] if grumpy[i] == 0 else 0 for i in range(len(customers))]
         
-        i = 0
-        diff = sum(customers[i:i+X]) - sum(customers1[i:i+X])
-        max_diff = diff
-        non_grump_ind = 0
+        # i = 0
+        # diff = sum(customers[i:i+X]) - sum(customers1[i:i+X])
+        # max_diff = diff
+        # non_grump_ind = 0
 
-        for i in range(1, len(customers) - X + 1):
-            diff += customers[i+X-1] - customers1[i+X-1] - customers[i-1] + customers1[i-1]
-            if diff > max_diff:
-                max_diff = diff
-                non_grump_ind = i
-        return sum(customers1[:non_grump_ind]) + sum(customers[non_grump_ind:non_grump_ind+X]) + sum(customers1[non_grump_ind+X:])
+        # for i in range(1, len(customers) - X + 1):
+        #     diff += customers[i+X-1] - customers1[i+X-1] - customers[i-1] + customers1[i-1]
+        #     if diff > max_diff:
+        #         max_diff = diff
+        #         non_grump_ind = i
+        # return sum(customers1[:non_grump_ind]) + sum(customers[non_grump_ind:non_grump_ind+X]) + sum(customers1[non_grump_ind+X:])
+
+
+        m = s = tmp = 0
+
+        for i in range(len(customers)):
+            if not grumpy[i]:
+                s += customers[i]
+                customers[i] = 0
+            else:
+                tmp += customers[i]
+
+            if i >= X:
+                tmp -= customers[i - X]
+
+            m = max(m, tmp)
+
+        return s + m
+
         
 

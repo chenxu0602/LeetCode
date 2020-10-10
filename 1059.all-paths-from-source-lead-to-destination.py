@@ -6,16 +6,17 @@
 # https://leetcode.com/problems/all-paths-from-source-lead-to-destination/description/
 #
 # algorithms
-# Medium (45.17%)
-# Likes:    49
-# Dislikes: 12
-# Total Accepted:    2.7K
-# Total Submissions: 6K
+# Medium (44.83%)
+# Likes:    168
+# Dislikes: 28
+# Total Accepted:    10K
+# Total Submissions: 22.9K
 # Testcase Example:  '3\n[[0,1],[0,2]]\n0\n2'
 #
-# Given the edges of a directed graph, and two nodes source and destination of
+# Given the edges of a directed graph where edges[i] = [ai, bi] indicates there
+# is an edge between nodes ai and bi, and two nodes source and destination of
 # this graph, determine whether or not all paths starting from source
-# eventually end at destination, that is:
+# eventually, end at destination, that is:
 # 
 # 
 # At least one path exists from the source node to the destination node
@@ -27,10 +28,7 @@
 # Return true if and only if all roads from source lead to destination.
 # 
 # 
-# 
 # Example 1:
-# 
-# 
 # 
 # 
 # Input: n = 3, edges = [[0,1],[0,2]], source = 0, destination = 2
@@ -42,8 +40,6 @@
 # Example 2:
 # 
 # 
-# 
-# 
 # Input: n = 4, edges = [[0,1],[0,3],[1,2],[2,1]], source = 0, destination = 3
 # Output: false
 # Explanation: We have two possibilities: to end at node 3, or to loop over
@@ -53,15 +49,11 @@
 # Example 3:
 # 
 # 
-# 
-# 
 # Input: n = 4, edges = [[0,1],[0,2],[1,3],[2,3]], source = 0, destination = 3
 # Output: true
 # 
 # 
 # Example 4:
-# 
-# 
 # 
 # 
 # Input: n = 3, edges = [[0,1],[1,1],[1,2]], source = 0, destination = 2
@@ -74,37 +66,36 @@
 # Example 5:
 # 
 # 
-# 
-# 
 # Input: n = 2, edges = [[0,1],[1,1]], source = 0, destination = 1
 # Output: false
 # Explanation: There is infinite self-loop at destination node.
 # 
 # 
 # 
+# Constraints:
 # 
-# Note:
 # 
-# 
-# The given graph may have self loops and parallel edges.
-# The number of nodes n in the graph is between 1 and 10000
-# The number of edges in the graph is between 0 and 10000
-# 0 <= edges.length <= 10000
-# edges[i].length == 2
+# 1 <= n <= 10^4
+# 0 <= edges.length <= 10^4
+# edges.length == 2
+# 0 <= ai, bi <= n - 1
 # 0 <= source <= n - 1
 # 0 <= destination <= n - 1
+# The given graph may have self-loops and parallel edges.
 # 
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 
 class Solution:
     def leadsToDestination(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-
+        # O(E + V)
         def dfs(i):
             seen.add(i)
             for j in graph[i]:
-                if j == i or j in seen or not dfs(j):
+                if i == j or j in seen or not dfs(j):
                     return False
             seen.discard(i)
             return len(graph[i]) != 0 or i == destination
@@ -115,4 +106,5 @@ class Solution:
 
         return dfs(source)
         
+# @lc code=end
 

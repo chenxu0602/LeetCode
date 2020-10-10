@@ -45,6 +45,7 @@
 #
 class Solution:
     def queryString(self, S: str, N: int) -> bool:
+        # suppose that N > 2047 then S must contains substrings of length 11 that represents all 1024 numbers from 1024 to 2047. But it is not possible because S is 1000 long so it can have at most 989 substrings of length 11. So we just need to check if N <= 2047.
         return all(bin(i)[2:] in S for i in range(N, N//2, -1))
         
 

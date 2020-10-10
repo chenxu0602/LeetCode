@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/lexicographically-smallest-equivalent-string/description/
 #
 # algorithms
-# Medium (62.99%)
-# Likes:    29
-# Dislikes: 1
-# Total Accepted:    1.4K
-# Total Submissions: 2.3K
+# Medium (65.10%)
+# Likes:    108
+# Dislikes: 7
+# Total Accepted:    4.2K
+# Total Submissions: 6.4K
 # Testcase Example:  '"parker"\n"morris"\n"parser"'
 #
 # Given strings A and B of the same length, we say A[i] and B[i] are equivalent
@@ -77,50 +77,28 @@
 # String A and B are of the same length.
 # 
 #
+
+# @lc code=start
 import string 
-
-class UF:
-    def __init__(self, N):
-        self.p = list(range(N))
-
-    def find(self, x):
-        if self.p[x] != x:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
-
-    def union(self, x, y):
-        xr, yr = self.find(x), self.find(y)
-        if xr == yr:
-            return
-        if xr < yr:
-            self.p[yr] = xr
-        else:
-            self.p[xr] = yr
 
 class Solution:
     def smallestEquivalentString(self, A: str, B: str, S: str) -> str:
 
-        """
+        # Time  complexity: O(max(len(A), len(S)))
+        # Space complexity: O(1)
+
         def root(c):
             return c if parent[c] == c else root(parent[c])
 
         parent = {s: s for s in string.ascii_lowercase}
 
         for a, b in zip(A, B):
-            p1, p2 = root(a), root(b)
-            if p1 <= p2:
-                parent[p2] = p1
-            else:
-                parent[p1] = p2
+            p1, p2 = map(root, (a, b))
+            if p1 < p2:
+                p1, p2 = p2, p1
+            parent[p1] = p2
 
         return "".join(root(s) for s in S)
-        """
-
-        uf = UF(26)
-        for a, b in zip(A, B):
-            if not a == b:
-                uf.union(ord(a) - ord('a'), ord(b) - ord('a'))
-
-        return "".join([chr(uf.find(ord(c) - ord('a')) + ord('a')) for c in S])
         
+# @lc code=end
 

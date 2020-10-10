@@ -51,6 +51,8 @@
 #
 class Solution:
     def smallestRepunitDivByK(self, K: int) -> int:
+        # Time  complexity: O(K) since we at most run loop O(K) times.
+        # Space complexity: O(1)
         if K % 10 not in {1, 3, 7, 9}:
             return -1
 

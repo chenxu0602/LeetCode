@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/fixed-point/description/
 #
 # algorithms
-# Easy (77.09%)
-# Likes:    77
-# Dislikes: 27
-# Total Accepted:    10.3K
-# Total Submissions: 14.1K
+# Easy (66.51%)
+# Likes:    167
+# Dislikes: 42
+# Total Accepted:    19.4K
+# Total Submissions: 29.4K
 # Testcase Example:  '[-10,-5,0,3,7]'
 #
 # Given an array A of distinct integers sorted in ascending order, return the
@@ -57,9 +57,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def fixedPoint(self, A: List[int]) -> int:
-
         l, r = 0, len(A) - 1
         while l < r:
             m = (l + r) // 2
@@ -67,6 +68,8 @@ class Solution:
                 l = m + 1
             else:
                 r = m
+
         return l if A[l] == l else -1
         
+# @lc code=end
 

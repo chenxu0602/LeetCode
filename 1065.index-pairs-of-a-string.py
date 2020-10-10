@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/index-pairs-of-a-string/description/
 #
 # algorithms
-# Easy (57.35%)
-# Likes:    33
-# Dislikes: 29
-# Total Accepted:    3.2K
-# Total Submissions: 5.6K
+# Easy (60.55%)
+# Likes:    103
+# Dislikes: 49
+# Total Accepted:    8.4K
+# Total Submissions: 13.8K
 # Testcase Example:  '"thestoryofleetcodeandme"\n["story","fleet","leetcode"]'
 #
 # Given a text string and words (a list of strings), return all index pairs [i,
@@ -48,6 +48,8 @@
 # coordinate in case of ties sort them by their second coordinate).
 # 
 #
+
+# @lc code=start
 from collections import defaultdict
 from functools import reduce
 
@@ -55,22 +57,20 @@ Trie = lambda: defaultdict(Trie)
 
 class Solution:
     def indexPairs(self, text: str, words: List[str]) -> List[List[int]]:
-        """
-        res = []
-        for word in words:
-            i = text.find(word)
-            while i != -1:
-                res.append((i, i+len(word)-1))
-                i = text.find(word, i+1)
-        res.sort()
-        return [[i, j] for i, j in res]
-        """
+        # res = []
+        # for word in words:
+        #     i = text.find(word)
+        #     while i != -1:
+        #         res.append((i, i + len(word) - 1))
+        #         i = text.find(word, i + 1)
+        # res.sort()
+        # return [[i, j] for i, j in res]
+
 
         trie = Trie()
         END = True
-
         for word in words:
-            reduce(dict.__getitem__, word, trie)[END] = word
+            reduce(dict.__getitem__, word, trie)[END] = True
 
         output = []
         for i in range(len(text)):
@@ -82,6 +82,8 @@ class Solution:
                     break
                 if True in node:
                     output.append([i, j])
+
         return output
         
+# @lc code=end
 

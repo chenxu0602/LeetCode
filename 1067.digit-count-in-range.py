@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/digit-count-in-range/description/
 #
 # algorithms
-# Hard (37.27%)
-# Likes:    18
-# Dislikes: 3
-# Total Accepted:    753
-# Total Submissions: 2K
+# Hard (39.91%)
+# Likes:    39
+# Dislikes: 10
+# Total Accepted:    1.7K
+# Total Submissions: 4.2K
 # Testcase Example:  '1\n1\n13'
 #
 # Given an integer d between 0 and 9, and two positive integers low and high as
@@ -49,15 +49,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def digitsCount(self, d: int, low: int, high: int) -> int:
-
+        # O(logN)
         def count(N):
-            if N == 0:
-                return 0
-
-            if d == 0 and N <= 10:
-                return 0
+            if N == 0: return 0
+            if d == 0 and N <= 10: return 0
 
             res = 0
             if N % 10 > d:
@@ -69,8 +68,10 @@ class Solution:
             res += N // 10 if d else N // 10 - 1
 
             res += count(N//10) * 10
+
             return res
 
-        return count(high+1) - count(low)
+        return count(high + 1) - count(low)
         
+# @lc code=end
 

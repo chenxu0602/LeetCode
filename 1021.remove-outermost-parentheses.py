@@ -97,7 +97,7 @@ class Solution:
                 right_n += 1
 
             if left_n == right_n:
-                parts.append(S[j+1:i])
+                parts.append(S[j + 1:i])
                 j = i + 1
 
         return "".join(parts)

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/coloring-a-border/description/
 #
 # algorithms
-# Medium (42.93%)
-# Likes:    58
-# Dislikes: 148
-# Total Accepted:    6.1K
-# Total Submissions: 14.3K
+# Medium (44.65%)
+# Likes:    142
+# Dislikes: 280
+# Total Accepted:    11.3K
+# Total Submissions: 25.2K
 # Testcase Example:  '[[1,1],[1,2]]\n0\n0\n3'
 #
 # Given a 2-dimensional grid of integers, each value in the grid represents the
@@ -66,47 +66,47 @@
 # 1 <= color <= 1000
 # 
 #
+
+# @lc code=start
 class Solution:
     def colorBorder(self, grid: List[List[int]], r0: int, c0: int, color: int) -> List[List[int]]:
+        # seen, m, n = set(), len(grid), len(grid[0])
 
-        """
-        seen, m, n = set(), len(grid), len(grid[0])
+        # def dfs(x, y):
+        #     if (x, y) in seen:
+        #         return True
 
-        def dfs(x, y):
-            if (x, y) in seen:
-                return True
+        #     if not (0 <= x < m and 0 <= y < n and grid[x][y] == grid[r0][c0]):
+        #         return False
 
-            if not (0 <= x < m and 0 <= y < n and grid[x][y] == grid[r0][c0]):
-                return False
+        #     seen.add((x, y))
 
-            seen.add((x, y))
+        #     if dfs(x + 1, y) + dfs(x - 1, y) + dfs(x, y + 1) + dfs(x, y - 1) < 4:
+        #         grid[x][y] = color
 
-            if dfs(x+1, y) + dfs(x-1, y) + dfs(x, y+1) + dfs(x, y-1) < 4:
-                grid[x][y] = color
+        #     return True
 
-            return True
+        # dfs(r0, c0)
+        # return grid
 
-        dfs(r0, c0)
-        return grid
-        """
 
-        m, n = len(grid), len(grid[0])
+        m, n = map(len, (grid, grid[0]))
         bfs, component, border = [[r0, c0]], set([(r0, c0)]), set()
 
         for r0, c0 in bfs:
-            for i, j in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
+            for i, j in (0, 1), (1, 0), (-1, 0), (0, -1):
                 r, c = r0 + i, c0 + j
                 if 0 <= r < m and 0 <= c < n and grid[r][c] == grid[r0][c0]:
                     if (r, c) not in component:
-                        bfs.append([r, c])
+                        bfs.append((r, c))
                         component.add((r, c))
                 else:
                     border.add((r0, c0))
 
         for x, y in border:
             grid[x][y] = color
-        
-        return grid
 
+        return grid
         
+# @lc code=end
 

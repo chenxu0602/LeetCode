@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/moving-stones-until-consecutive-ii/description/
 #
 # algorithms
-# Medium (48.94%)
-# Likes:    83
-# Dislikes: 115
-# Total Accepted:    2.7K
-# Total Submissions: 5.4K
+# Medium (51.55%)
+# Likes:    117
+# Dislikes: 187
+# Total Accepted:    3.8K
+# Total Submissions: 7.3K
 # Testcase Example:  '[7,4,9]'
 #
 # On an infinite number line, the position of the i-th stone is given by
@@ -80,12 +80,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numMovesStonesII(self, stones: List[int]) -> List[int]:
         stones.sort()
+
         i, n, low = 0, len(stones), len(stones)
         high = max(stones[-1] - n + 2 - stones[1], stones[-2] - stones[0] - n + 2)
-        
+
         for j in range(n):
             while stones[j] - stones[i] >= n:
                 i += 1
@@ -94,7 +97,9 @@ class Solution:
                 low = min(low, 2)
             else:
                 low = min(low, n - (j - i + 1))
+
         return [low, high]
             
         
+# @lc code=end
 

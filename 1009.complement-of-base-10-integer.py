@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/complement-of-base-10-integer/description/
 #
 # algorithms
-# Easy (59.07%)
-# Likes:    90
-# Dislikes: 15
-# Total Accepted:    15.9K
-# Total Submissions: 26.9K
+# Easy (59.55%)
+# Likes:    323
+# Dislikes: 38
+# Total Accepted:    46.5K
+# Total Submissions: 76K
 # Testcase Example:  '5'
 #
 # Every non-negative integer N has a binary representation.  For example, 5 can
@@ -66,28 +66,55 @@
 # 
 # 
 # 0 <= N < 10^9
+# This question is the same as 476:
+# https://leetcode.com/problems/number-complement/
+# 
 # 
 # 
 # 
 # 
 #
+
+# @lc code=start
+import math
+
 class Solution:
     def bitwiseComplement(self, N: int) -> int:
-        """
-        binary = list(bin(N)[2:])
-        for i in range(len(binary)):
-            binary[i] = str(abs(int(binary[i]) - 1))
+        # Flip Bit By Bit
+        # Time  complexity: O(1), since we're doing not more than 32 iterations here.
+        # Space complexity: O(1)
+        # if N == 0:
+        #     return 1
+        # todo, bit = N, 1
+        # while todo:
+        #     N = N ^ bit
+        #     bit = bit << 1
+        #     todo = todo >> 1
+        # return N
 
-        return int(''.join(binary), 2)
-        """
 
-        """
-        X = 1
-        while N > X:
-            X = X * 2 + 1
-        return N ^ X
-        """
+        # Compute Bit Length and Construct 1-bits Bitmask
+        # O(1)
+        # if N == 0: 
+        #     return 1
+        # # l is a length of N in binary representation
+        # l = math.floor(math.log2(N)) + 1
+        # # bitmask has the same length as N and contains only ones 1...1
+        # bitmask = (1 << l) - 1
+        # # flip all bits
+        # return bitmask ^ N
 
-        return (1 << len(bin(N)) >> 2) - N - 1
+
+        # X = 1
+        # while N > X:
+        #     X = X * 2 + 1
+        # return N ^ X
+
+
+        return (1 << N.bit_length()) - N - 1 if N else 1
+
+
+
         
+# @lc code=end
 

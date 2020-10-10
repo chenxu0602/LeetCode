@@ -44,6 +44,8 @@
 #
 class Solution:
     def maxScoreSightseeingPair(self, A: List[int]) -> int:
+        # Count the current best score in all previous sightseeing spot.
+        # Note that, as we go further, the score of previous spot decrement.
         cur = res = 0
         for a in A:
             res = max(res, cur + a)

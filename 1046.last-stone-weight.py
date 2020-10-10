@@ -6,18 +6,18 @@
 # https://leetcode.com/problems/last-stone-weight/description/
 #
 # algorithms
-# Easy (62.03%)
-# Likes:    208
-# Dislikes: 12
-# Total Accepted:    24.7K
-# Total Submissions: 39.6K
+# Easy (62.18%)
+# Likes:    978
+# Dislikes: 33
+# Total Accepted:    145K
+# Total Submissions: 233K
 # Testcase Example:  '[2,7,4,1,8,1]'
 #
-# We have a collection of rocks, each rock has a positive integer weight.
+# We have a collection of stones, each stone has a positive integer weight.
 # 
-# Each turn, we choose the two heaviest rocks and smash them together.  Suppose
-# the stones have weights x and y with x <= y.  The result of this smash
-# is:
+# Each turn, we choose the two heaviest stones and smash them together.
+# Suppose the stones have weights x and y with x <= y.  The result of this
+# smash is:
 # 
 # 
 # If x == y, both stones are totally destroyed;
@@ -50,17 +50,21 @@
 # 1 <= stones.length <= 30
 # 1 <= stones[i] <= 1000
 # 
+# 
 #
-from heapq import heapify, heappush, heappop
+
+# @lc code=start
+import heapq
 
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         heap = list(map(lambda a: -a, stones))
-        heapify(heap)
+        heapq.heapify(heap)
         while len(heap) > 1:
-            r1, r2 = heappop(heap), heappop(heap)
+            r1, r2 = heapq.heappop(heap), heapq.heappop(heap)
             if r1 != r2:
-                heappush(heap, r1 - r2)
+                heapq.heappush(heap, r1 - r2)
         return -heap[0] if heap else 0
         
+# @lc code=end
 

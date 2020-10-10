@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-valid-subarrays/description/
 #
 # algorithms
-# Hard (73.12%)
-# Likes:    40
-# Dislikes: 5
-# Total Accepted:    1.6K
-# Total Submissions: 2.2K
+# Hard (70.92%)
+# Likes:    102
+# Dislikes: 8
+# Total Accepted:    3.9K
+# Total Submissions: 5.4K
 # Testcase Example:  '[1,4,2,5,3]'
 #
 # Given an array A of integers, return the number of non-empty continuous
@@ -56,9 +56,10 @@
 # 0 <= A[i] <= 100000
 # 
 #
+
+# @lc code=start
 class Solution:
     def validSubarrays(self, nums: List[int]) -> int:
-
         res, stack = 0, []
         for n in nums:
             while stack and stack[-1] > n:
@@ -66,6 +67,6 @@ class Solution:
             stack.append(n)
             res += len(stack)
         return res
-
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-arithmetic-sequence/description/
 #
 # algorithms
-# Medium (49.41%)
-# Likes:    295
-# Dislikes: 18
-# Total Accepted:    16.2K
-# Total Submissions: 31.9K
+# Medium (53.04%)
+# Likes:    462
+# Dislikes: 27
+# Total Accepted:    27.3K
+# Total Submissions: 51.3K
 # Testcase Example:  '[3,6,9,12]'
 #
 # Given an array A of integers, return the length of the longest arithmetic
@@ -62,15 +62,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def longestArithSeqLength(self, A: List[int]) -> int:
-
         dp = {}
         for i in range(len(A)):
-            for j in range(i+1, len(A)):
-                dp[j, A[j] - A[i]] = dp.get((i, A[j] - A[i]), 1) + 1
+            for j in range(i + 1, len(A)):
+                dp[j, A[j] - A[i]] = dp.get((i, A[j] - A[i]), 1) - 1
         return max(dp.values())
         
-
-        
+# @lc code=end
 

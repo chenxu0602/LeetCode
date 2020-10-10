@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays/description/
 #
 # algorithms
-# Medium (55.20%)
-# Likes:    249
-# Dislikes: 14
-# Total Accepted:    8.8K
-# Total Submissions: 15.9K
+# Medium (57.86%)
+# Likes:    803
+# Dislikes: 45
+# Total Accepted:    28.8K
+# Total Submissions: 49.3K
 # Testcase Example:  '[0,6,5,2,2,5,1,9,4]\n1\n2'
 #
 # Given an array A of non-negative integers, return the maximum sum of elements
@@ -76,22 +76,24 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxSumTwoNoOverlap(self, A: List[int], L: int, M: int) -> int:
-
         for i in range(1, len(A)):
-            A[i] += A[i-1]
+            A[i] += A[i - 1]
 
-        res, Lmax, Mmax = A[L+M-1], A[L-1], A[M-1]
+        res, Lmax, Mmax = A[L + M - 1], A[L - 1], A[M - 1]
 
-        for i in range(L+M, len(A)):
-            Lmax = max(Lmax, A[i-M] - A[i-L-M])
-            res = max(res, Lmax + A[i] - A[i-M])
+        for i in range(L + M, len(A)):
+            Lmax = max(Lmax, A[i - M] - A[i - M - L])
+            res = max(res, Lmax + A[i] - A[i - M])
 
-        for i in range(L+M, len(A)):
-            Mmax = max(Mmax, A[i-L] - A[i-L-M])
-            res = max(res, Mmax + A[i] - A[i-L])
+        for i in range(L + M, len(A)):
+            Mmax = max(Mmax, A[i - L] - A[i - L - M])
+            res = max(res, Mmax + A[i] - A[i - L])
 
         return res
         
+# @lc code=end
 

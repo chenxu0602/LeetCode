@@ -91,5 +91,6 @@ class Solution:
             result.append(rotation[c])
 
         return "".join(result) != S
+
         
 

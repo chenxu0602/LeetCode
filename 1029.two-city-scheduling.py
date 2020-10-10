@@ -49,13 +49,29 @@
 #
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
-        a = sorted(costs, key=lambda x: x[0] - x[1])
-        Sa, Sb = 0, 0
-        for i in range(len(a) // 2):
-            Sa += a[i][0]
-        for i in range(len(a) // 2, len(a)):
-            Sb += a[i][1]
+        # Greedy
+        # Time  complexity: O(NlogN)
+        # Space complexity: O(1)
+        # Sort by a gain which company has 
+        # by sending a person to city A and not to city B
+        costs.sort(key=lambda x: x[0] - x[1])
 
-        return Sa + Sb
+        total = 0
+        n = len(costs) // 2
+        # To optimize the company expenses,
+        # send the first n persons to the city A
+        # and the others to the city B
+        for i in range(n):
+            total += costs[i][0] + costs[i + n][1]
+        return total
+
+        # a = sorted(costs, key=lambda x: x[0] - x[1])
+        # Sa, Sb = 0, 0
+        # for i in range(len(a) // 2):
+        #     Sa += a[i][0]
+        # for i in range(len(a) // 2, len(a)):
+        #     Sb += a[i][1]
+
+        # return Sa + Sb
         
 

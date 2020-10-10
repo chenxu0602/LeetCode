@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/
 #
 # algorithms
-# Medium (42.91%)
-# Likes:    207
-# Dislikes: 24
-# Total Accepted:    4.6K
-# Total Submissions: 10.6K
+# Medium (48.90%)
+# Likes:    511
+# Dislikes: 62
+# Total Accepted:    11.7K
+# Total Submissions: 23.6K
 # Testcase Example:  '[1,2,3]'
 #
 # Given N, consider a convex N-sided polygon with vertices labelled A[0], A[i],
@@ -73,25 +73,27 @@
 # 
 # 
 #
+
+# @lc code=start
+from functools import lru_cache
+
 class Solution:
     def minScoreTriangulation(self, A: List[int]) -> int:
+        # If we pick a side of our polygon, it can form n - 2 triangles. Each such triangle forms 2 sub-polygons. We can analyze n - 2 triangles, and get the minimum score for sub-polygons using the recursion.
 
-        """
-        n = len(A)
-        dp = [[0] * n for i in range(n)]
-        for d in range(2, n):
-            for i in range(n-d):
-                j = i + d
-                dp[i][j] = min(dp[i][k] + dp[k][j] + A[i]*A[j]*A[k] for k in range(i+1, j))
-        return dp[0][n-1]
-        """
+        # n = len(A)
+        # dp = [[0] * n for _ in range(n)]
+        # for d in range(2, n):
+        #     for i in range(n - d):
+        #         j = i + d
+        #         dp[i][j] = min(dp[i][k] + dp[k][j] + A[i] * A[j] * A[k] for k in range(i + 1, j))
+        # return dp[0][n - 1]
 
-        memo = {}
+
+        @lru_cache(None)
         def dp(i, j):
-            if (i, j) not in memo:
-                memo[i, j] = min([dp(i, k) + dp(k, j) + A[i]*A[j]*A[k] for k in range(i+1, j)] or [0])
-            return memo[i, j]
-        return dp(0, len(A)-1)
-
+            return min([dp(i, k) + dp(k, j) + A[i] * A[k] * A[j] for k in range(i + 1, j)] or [0])
+        return dp(0, len(A) - 1)
         
+# @lc code=end
 

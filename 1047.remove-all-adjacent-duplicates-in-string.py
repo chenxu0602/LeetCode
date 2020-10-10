@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/description/
 #
 # algorithms
-# Easy (63.76%)
-# Likes:    272
-# Dislikes: 26
-# Total Accepted:    30.4K
-# Total Submissions: 47.1K
+# Easy (68.46%)
+# Likes:    1004
+# Dislikes: 76
+# Total Accepted:    97K
+# Total Submissions: 139.7K
 # Testcase Example:  '"abbaca"'
 #
 # Given a string S of lowercase letters, a duplicate removal consists of
@@ -44,14 +44,34 @@
 # S consists only of English lowercase letters.
 # 
 #
+
+# @lc code=start
+from string import ascii_lowercase
+
 class Solution:
     def removeDuplicates(self, S: str) -> str:
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # duplicates = {2 * ch for ch in ascii_lowercase}
+
+        # prev_length = -1
+        # while prev_length != len(S):
+        #     prev_length = len(S)
+        #     for d in duplicates:
+        #         S = S.replace(d, '')
+            
+        # return S
+        
+
+        # Time  complexity: O(N)
+        # Space complexity: O(N - D)
         output = []
         for ch in S:
             if output and ch == output[-1]:
                 output.pop()
             else:
                 output.append(ch)
-        return "".join(output)
-        
+
+        return ''.join(output)
+# @lc code=end
 

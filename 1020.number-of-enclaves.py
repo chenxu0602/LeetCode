@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-enclaves/description/
 #
 # algorithms
-# Medium (54.55%)
-# Likes:    126
-# Dislikes: 16
-# Total Accepted:    10K
-# Total Submissions: 18.2K
+# Medium (57.50%)
+# Likes:    359
+# Dislikes: 19
+# Total Accepted:    20.9K
+# Total Submissions: 35.8K
 # Testcase Example:  '[[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]'
 #
 # Given a 2D array A, each cell is 0 (representing sea) or 1 (representing
@@ -53,30 +53,35 @@
 # All rows have the same size.
 # 
 #
+
+# @lc code=start
 class Solution:
     def numEnclaves(self, A: List[List[int]]) -> int:
-        
-        m, n = len(A), len(A[0])
+        # O(m x n)
+        m, n = map(len, (A, A[0]))
 
         def sink(x, y):
             if x < 0 or y < 0 or x >= m or y >= n or A[x][y] == 0:
                 return
             A[x][y] = 0
-            for a, b in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
-                sink(x+a, y+b)
+            for a, b in (-1, 0), (1, 0), (0, -1), (0, 1):
+                sink(x + a, y + b)
 
         for x in range(m):
             sink(x, 0)
-            sink(x, n-1)
+            sink(x, n - 1)
 
         for y in range(n):
             sink(0, y)
-            sink(m-1, y)
+            sink(m - 1, y)
 
         res = 0
         for i in range(m):
             for j in range(n):
                 if A[i][j] == 1:
                     res += 1
+        
         return res
+        
+# @lc code=end
 

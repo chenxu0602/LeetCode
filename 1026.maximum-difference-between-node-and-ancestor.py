@@ -60,13 +60,32 @@
 
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
+        # mx = 0
+        # stack = [(root, root.val, root.val)]
+
+        # while stack:
+        #     tmp, cur_mx, cur_mn = stack.pop()
+        #     if tmp.val > cur_mx:
+        #         cur_mx = tmp.val
+        #     if tmp.val < cur_mn:
+        #         cur_mn = tmp.val
+        #     if cur_mx - cur_mn > mx:
+        #         mx = cur_mx - cur_mn
+
+        #     if tmp.left:
+        #         stack.append((tmp.left, cur_mx, cur_mn))
+
+        #     if tmp.right:
+        #         stack.append((tmp.right, cur_mx, cur_mn))
+
+        # return mx
+
 
         def dfs(node, low, high):
-            if not node:
-                return high - low
+            if not node: return high - low
             low, high = min(low, node.val), max(high, node.val)
             return max(dfs(node.left, low, high), dfs(node.right, low, high))
-        
+
         return dfs(root, float("inf"), float("-inf"))
         
 # @lc code=end

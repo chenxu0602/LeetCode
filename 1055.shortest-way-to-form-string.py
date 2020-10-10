@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-way-to-form-string/description/
 #
 # algorithms
-# Medium (58.93%)
-# Likes:    126
-# Dislikes: 7
-# Total Accepted:    8.1K
-# Total Submissions: 13.9K
+# Medium (56.98%)
+# Likes:    523
+# Dislikes: 35
+# Total Accepted:    36.3K
+# Total Submissions: 63.6K
 # Testcase Example:  '"abc"\n"abcbc"'
 #
 # From any string, we can form a subsequence of that string by deleting some
@@ -57,10 +57,12 @@
 # The lengths of source and target string are between 1 and 1000.
 # 
 #
+
+# @lc code=start
 class Solution:
     def shortestWay(self, source: str, target: str) -> int:
-        i, minimum = 0, 1
 
+        i, minimum = 0, 1
         for c in target:
             i = source.find(c, i)
             if i == -1:
@@ -68,10 +70,8 @@ class Solution:
                 minimum += 1
                 if i == -1:
                     return i
-
             i += 1
-
         return minimum
-
-
+        
+# @lc code=end
 

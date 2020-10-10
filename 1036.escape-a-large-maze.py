@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/escape-a-large-maze/description/
 #
 # algorithms
-# Hard (35.17%)
-# Likes:    119
-# Dislikes: 78
-# Total Accepted:    5.7K
-# Total Submissions: 16.2K
+# Hard (35.40%)
+# Likes:    241
+# Dislikes: 101
+# Total Accepted:    10.5K
+# Total Submissions: 29.7K
 # Testcase Example:  '[[0,1],[1,0]]\n[0,0]\n[0,2]'
 #
 # In a 1 million by 1 million grid, the coordinates of each grid square are (x,
@@ -59,14 +59,14 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def isEscapePossible(self, blocked: List[List[int]], source: List[int], target: List[int]) -> bool:
-
         blocked = set(map(tuple, blocked))
 
         def dfs(x, y, target, seen):
-            if not (0 <= x < 10**6 and 0 <= y < 10**6)  \
-                or (x, y) in blocked or (x, y) in seen:
+            if not (0 <= x < 10**6 and 0 <= y < 10**6) or (x, y) in blocked or (x, y) in seen:
                 return False
 
             seen.add((x, y))
@@ -74,31 +74,33 @@ class Solution:
             if len(seen) > 20000 or [x, y] == target:
                 return True
 
-            return dfs(x+1, y, target, seen) \
-                or dfs(x-1, y, target, seen) \
-                or dfs(x, y+1, target, seen) \
-                or dfs(x, y-1, target, seen)
+            return dfs(x + 1, y, target, seen) \
+                or dfs(x - 1, y, target, seen) \
+                or dfs(x, y + 1, target, seen) \
+                or dfs(x, y - 1, target, seen)
 
-        return dfs(source[0], source[1], target, set()) and dfs(target[0], target[1], source, set())
+        return dfs(source[0], source[1], target, set()) \
+           and dfs(target[0], target[1], source, set())
 
-        """
-        blocked = {tuple(p) for p in blocked}
 
-        def bfs(soruce, target):
-            bfs, seen = [source], {tuple(source)}
-            for x0, y0 in bfs:
-                for i, j in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
-                    x, y = x0 +i, y0 + j
-                    if 0 <= x < 10**6 and 0 <= y < 10**6 and (x, y) not in seen and (x, y) not in blocked:
-                        if [x, y] == target:
-                            return True
-                        bfs.append([x, y])
-                        seen.add((x, y))
-                if len(bfs) > 20000:
-                    return True
-            return False
+        # blocked = {tuple(p) for p in blocked}
 
-        return bfs(source, target) and bfs(target, source)
-        """
+        # def bfs(source, target):
+        #     bfs, seen = [source], {tuple(source)}
+        #     for x0, y0 in bfs:
+        #         for i, j in (0, 1), (1, 0), (-1, 0), (0, -1):
+        #             x, y = x0 + i, y0 + j
+        #             if 0 <= x < 10**6 and 0 <=y < 10**6 and (x, y) not in seen and (x, y) not in blocked:
+        #                 if [x, y] == target:
+        #                     return True
+        #                 bfs.append([x, y])
+        #                 seen.add((x, y))
+        #         if len(bfs) > 20000:
+        #             return True
+
+        #     return False
+
+        # return bfs(source, target) and bfs(target, source)
         
+# @lc code=end
 

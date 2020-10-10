@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/description/
 #
 # algorithms
-# Hard (69.90%)
-# Likes:    242
-# Dislikes: 9
-# Total Accepted:    10.3K
-# Total Submissions: 14.9K
+# Hard (69.94%)
+# Likes:    516
+# Dislikes: 21
+# Total Accepted:    21.1K
+# Total Submissions: 30K
 # Testcase Example:  '"1-2--3--4-5--6--7"'
 #
 # We run a preorder depth first search on the root of a binary tree.
@@ -71,13 +71,14 @@
 # 
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 import re
 
 class Solution:
@@ -89,9 +90,11 @@ class Solution:
                 return None
 
             node = TreeNode(vals.pop()[1])
-            node.left = dfs(level+1)
-            node.right = dfs(level+1)
+            node.left = dfs(level + 1)
+            node.right = dfs(level + 1)
             return node
 
         return dfs(0)
+        
+# @lc code=end
 

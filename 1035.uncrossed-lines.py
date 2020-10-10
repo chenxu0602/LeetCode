@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/uncrossed-lines/description/
 #
 # algorithms
-# Medium (51.98%)
-# Likes:    249
-# Dislikes: 7
-# Total Accepted:    8.1K
-# Total Submissions: 15.3K
+# Medium (56.06%)
+# Likes:    956
+# Dislikes: 21
+# Total Accepted:    47.9K
+# Total Submissions: 85.4K
 # Testcase Example:  '[1,4,2]\n[1,2,4]'
 #
 # We write the integers of A and B (in the order they are given) on two
@@ -70,13 +70,15 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxUncrossedLines(self, A: List[int], B: List[int]) -> int:
-
         dp = [[0] * (len(B) + 1) for _ in range(len(A) + 1)]
         for i in range(len(A)):
             for j in range(len(B)):
-                dp[i+1][j+1] = max(dp[i][j+1], dp[i+1][j], dp[i][j] + (A[i] == B[j]))
+                dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j], dp[i][j] + (A[i] == B[j]))
         return dp[-1][-1]
         
+# @lc code=end
 

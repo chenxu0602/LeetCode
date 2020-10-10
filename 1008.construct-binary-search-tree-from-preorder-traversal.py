@@ -53,36 +53,95 @@
 
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        # Construct binary tree from preorder and inorder traversal
+        # Time  complexity: O(NlogN). O(NlogN) to sort preorder array and O(N) to construct the binary tree.
+        # Space complexity: O(N) the inorder traversal and the tree.
+        # def helper(in_left=0, in_right=len(preorder)):
+        #     nonlocal pre_idx
+        #     if in_left == in_right:
+        #         return None
 
-        # root = TreeNode(preorder[0])
-        # stack = [root,]
-        # for val in preorder[1:]:
-        #     if val < stack[-1].val:
-        #         stack[-1].left = TreeNode(val)
-        #         stack.append(stack[-1].left)
-        #     else:
-        #         while stack and stack[-1].val < val:
-        #             last = stack.pop()
-        #         last.right = TreeNode(val)
-        #         stack.append(last.right)
-        # return root
+        #     # pick up pre_idx element as a root
+        #     root_val = preorder[pre_idx]
+        #     root = TreeNode(root_val)
 
-        def dfs(lower=float("-inf"), upper=float("inf")):
-            nonlocal idx
-            if idx == n: return None
+        #     # root splits inorder list
+        #     # into left and right subtrees
+        #     index = idx_map[root_val]
 
-            val = preorder[idx]
-            if val < lower or val > upper:
-                return None
+        #     # recursion
+        #     pre_idx += 1
+        #     root.left = helper(in_left, index)
+        #     root.right = helper(index + 1, in_right)
+        #     return root
 
-            idx += 1
-            root = TreeNode(val)
-            root.left = dfs(lower, val)
-            root.right = dfs(val, upper) 
-            return root
+        # inorder = sorted(preorder)
+        # # start from first preorder element
+        # pre_idx = 0
+        # # build a hashmap value -> its index
+        # idx_map = {val: idx for idx, val in enumerate(inorder)}
+        # return helper()
 
-        idx, n = 0, len(preorder)
-        return dfs()
+
+        # Recursion
+        # Time  complexity: O(N) since we visit each node exactly once.
+        # Space complexity: O(N) to keep the entire tree.
+        # def helper(lower=float("-inf"), upper=float("inf")):
+        #     nonlocal idx
+        #     # if all elements from preorder are used
+        #     # then the tree is constructed
+        #     if idx == n:
+        #         return None
+
+        #     val = preorder[idx]
+        #     # if the current element 
+        #     # couldn't be placed here to meet BST requirements
+        #     if val < lower or val > upper:
+        #         return None
+
+        #     # place the current element
+        #     # and recursively construct subtrees
+        #     idx += 1
+        #     root = TreeNode(val)
+        #     root.left = helper(lower, val)
+        #     root.right = helper(val, upper)
+        #     return root
+
+        # idx = 0
+        # n = len(preorder)
+        # return helper()
+
+
+        # Iteration
+        # Time  complexity: O(N) since we visit each node eactly once.
+        # Space complexity: O(N) to keep the stack and the tree.
+        n = len(preorder)
+        if not n:
+            return None
+
+        root = TreeNode(preorder[0])
+        stack = [root,]
+
+        for i in range(1, n):
+            # take the last element of the stack as a parent
+            # and create a child from the next preorder element
+            node, child = stack[-1], TreeNode(preorder[i])
+            # adjust the parent 
+            while stack and stack[-1].val < child.val:
+                node = stack.pop()
+
+            # follow BST logic to create a parent-child link
+            if node.val < child.val:
+                node.right = child
+            else:
+                node.left = child
+            # add the child into stack
+            stack.append(child)
+
+        return root
+
+
+
         
 # @lc code=end
 

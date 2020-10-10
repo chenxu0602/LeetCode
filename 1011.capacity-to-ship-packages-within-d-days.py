@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
 #
 # algorithms
-# Medium (53.90%)
-# Likes:    451
-# Dislikes: 12
-# Total Accepted:    17.5K
-# Total Submissions: 32K
+# Medium (58.01%)
+# Likes:    1406
+# Dislikes: 43
+# Total Accepted:    53.1K
+# Total Submissions: 90.3K
 # Testcase Example:  '[1,2,3,4,5,6,7,8,9,10]\n5'
 #
 # A conveyor belt has packages that must be shipped from one port to another
@@ -71,14 +71,16 @@
 # 
 # 
 # 
-# 
-# Note:
+# Constraints:
 # 
 # 
 # 1 <= D <= weights.length <= 50000
 # 1 <= weights[i] <= 500
 # 
+# 
 #
+
+# @lc code=start
 class Solution:
     def shipWithinDays(self, weights: List[int], D: int) -> int:
         left, right = max(weights), sum(weights)
@@ -93,6 +95,8 @@ class Solution:
                 left = mid + 1
             else:
                 right = mid
+
         return left
         
+# @lc code=end
 

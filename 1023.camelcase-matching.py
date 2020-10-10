@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/camelcase-matching/description/
 #
 # algorithms
-# Medium (56.23%)
-# Likes:    96
-# Dislikes: 86
-# Total Accepted:    10.6K
-# Total Submissions: 19.3K
+# Medium (55.50%)
+# Likes:    130
+# Dislikes: 109
+# Total Accepted:    13.5K
+# Total Submissions: 24.3K
 # Testcase Example:  '["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"]\n"FB"'
 #
 # A query word matches a given pattern if we can insert lowercase letters to
@@ -70,6 +70,8 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def camelMatch(self, queries: List[str], pattern: str) -> List[bool]:
         def u(s):
@@ -81,4 +83,5 @@ class Solution:
 
         return [u(pattern) == u(q) and issup(pattern, q) for q in queries]
         
+# @lc code=end
 
