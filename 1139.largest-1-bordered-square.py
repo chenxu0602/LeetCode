@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/largest-1-bordered-square/description/
 #
 # algorithms
-# Medium (43.05%)
-# Likes:    76
-# Dislikes: 22
-# Total Accepted:    5.1K
-# Total Submissions: 11.5K
+# Medium (47.34%)
+# Likes:    242
+# Dislikes: 54
+# Total Accepted:    11.2K
+# Total Submissions: 23.4K
 # Testcase Example:  '[[1,1,1],[1,0,1],[1,1,1]]'
 #
 # Given a 2D grid of 0s and 1s, return the number of elements in the largest
@@ -45,18 +45,22 @@
 # @lc code=start
 class Solution:
     def largest1BorderedSquare(self, grid: List[List[int]]) -> int:
-        m, n = len(grid), len(grid[0])
-        biggest, dp = 0, [[(0, 0) for _ in range(n+1)] for _ in range(m+1)]
+        m, n = map(len, (grid, grid[0]))
+        biggest, dp = 0, [[(0, 0) for _ in range(n + 1)] for _ in range(m + 1)]
+
         for r in range(m)[::-1]:
             for c in range(n)[::-1]:
                 if grid[r][c]:
                     dp[r][c] = (1 + dp[r+1][c][0], 1 + dp[r][c+1][1])
                     if min(dp[r][c]) > biggest:
-                        for side in range(biggest, 1+min(dp[r][c]))[::-1]:
-                            if side <= dp[r+side-1][c][1] and side <= dp[r][c+side-1][0]:
+                        for side in range(biggest, 1 + min(dp[r][c]))[::-1]:
+                            if side <= dp[r + side - 1][c][1] and side <= dp[r][c + side - 1][0]:
                                 biggest = side
                                 break
+
         return biggest ** 2
 
+
+        
 # @lc code=end
 

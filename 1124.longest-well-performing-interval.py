@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-well-performing-interval/description/
 #
 # algorithms
-# Medium (30.75%)
-# Likes:    215
-# Dislikes: 43
-# Total Accepted:    6.5K
-# Total Submissions: 20.5K
+# Medium (32.71%)
+# Likes:    483
+# Dislikes: 65
+# Total Accepted:    12.8K
+# Total Submissions: 38.9K
 # Testcase Example:  '[9,9,6,0,6,6,9]'
 #
 # We are given hours, a list of the number of hours worked per day for a given
@@ -46,26 +46,11 @@
 # @lc code=start
 class Solution:
     def longestWPI(self, hours: List[int]) -> int:
-
-        """
-        Sum, ans = 0, 0
-        cache = {}
-        for i, n in enumerate(hours):
-            Sum = Sum + 1 if n > 8 else Sum - 1
-            if Sum > 0:
-                ans = i + 1
-            if Sum - 1 in cache:
-                ans = max(ans, i - cache[Sum-1])
-            cache.setdefault(Sum, i)
-        return ans
-        """
-
         res = score = 0
         seen = {}
         for i, h in enumerate(hours):
             score = score + 1 if h > 8 else score - 1
-            if score > 0:
-                res = i + 1
+            if score > 0: res = i + 1
             seen.setdefault(score, i)
             if score - 1 in seen:
                 res = max(res, i - seen[score - 1])

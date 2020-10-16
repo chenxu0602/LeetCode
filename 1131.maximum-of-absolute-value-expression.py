@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-of-absolute-value-expression/description/
 #
 # algorithms
-# Medium (50.84%)
-# Likes:    63
-# Dislikes: 81
-# Total Accepted:    3.8K
-# Total Submissions: 7.3K
+# Medium (53.09%)
+# Likes:    218
+# Dislikes: 212
+# Total Accepted:    9.5K
+# Total Submissions: 18.2K
 # Testcase Example:  '[1,2,3,4]\n[-1,4,5,6]'
 #
 # Given two arrays of integers with equal lengths, return the maximum value
@@ -48,28 +48,25 @@
 # @lc code=start
 class Solution:
     def maxAbsValExpr(self, arr1: List[int], arr2: List[int]) -> int:
+        # res, n = 0, len(arr1)
+        # for p, q in (1, 1), (1, -1), (-1, 1), (-1, -1):
+        #     closest = p * arr1[0] + q * arr2[0] + 0
+        #     for i in range(n):
+        #         cur = p * arr1[i] + q * arr2[i] + i
+        #         res = max(res, cur - closest)
+        #         closest = min(closest, cur)
+        # return res
 
-        """
-        res, n = 0, len(arr1)
-        for p, q in [[1, 1], [1, -1], [-1, 1], [-1, -1]]:
-            closest = p * arr1[0] + q * arr2[0] + 0
-            for i in range(n):
-                cur = p * arr1[i] + q * arr2[i] + i
-                res = max(res, cur - closest)
-                closest = min(closest, cur)
-        return res
-        """
 
         M = 0
-        for c in [[1, 1], [1, -1], [-1, 1], [-1, -1]]:
+        for c in (1, 1), (1, -1), (-1, 1), (-1, -1):
             m = float("inf")
-            for i in [arr1[i]*c[0]+arr2[i]*c[1]+i for i in range(len(arr1))]:
+            for i in [arr1[i] * c[0] + arr2[i] * c[1] + i for i in range(len(arr1))]:
                 if i < m:
                     m = i
                 if i - m > M:
                     M = i - m
         return M
-
         
 # @lc code=end
 

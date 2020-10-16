@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/flip-columns-for-maximum-number-of-equal-rows/description/
 #
 # algorithms
-# Medium (58.07%)
-# Likes:    130
-# Dislikes: 13
-# Total Accepted:    6.3K
-# Total Submissions: 10.7K
+# Medium (60.82%)
+# Likes:    290
+# Dislikes: 27
+# Total Accepted:    11.4K
+# Total Submissions: 18.6K
 # Testcase Example:  '[[0,1],[1,1]]'
 #
 # Given a matrix consisting of 0s and 1s, we may choose any number of columns
@@ -67,25 +67,26 @@
 # 
 # 
 # 
+# 
 #
+
+# @lc code=start
 from collections import defaultdict, Counter
 
 class Solution:
     def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
+        # cache = defaultdict(int)
+        # for row in matrix:
+        #     vals, trans = [], []
+        #     for c in row:
+        #         vals.append(c)
+        #         trans.append(1 - c)
+        #     cache[str(vals)]  += 1
+        #     cache[str(trans)] += 1
+        # return max(cache.values())
 
-        """
-        cache = defaultdict(int)
-        for row in matrix:
-            vals = []
-            trans = []
-            for c in row:
-                vals.append(c)
-                trans.append(1-c)
-            cache[str(vals)] += 1
-            cache[str(trans)] += 1
-        return max(cache.values())
-        """
 
         return max(Counter(tuple(x ^ r[0] for x in r) for r in matrix).values())
         
+# @lc code=end
 

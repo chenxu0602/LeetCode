@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/delete-nodes-and-return-forest/description/
 #
 # algorithms
-# Medium (63.05%)
-# Likes:    381
-# Dislikes: 9
-# Total Accepted:    17.6K
-# Total Submissions: 27.8K
+# Medium (66.79%)
+# Likes:    1344
+# Dislikes: 47
+# Total Accepted:    74.2K
+# Total Submissions: 110.1K
 # Testcase Example:  '[1,2,3,4,5,6,7]\n[3,5]'
 #
 # Given the root of a binary tree, each node in the tree has a distinct value.
@@ -41,21 +41,21 @@
 # to_delete contains distinct values between 1 and 1000.
 # 
 #
+
+# @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:
         to_delete_set = set(to_delete)
         res = []
 
         def dfs(root, is_root):
-            if not root:
-                return None
+            if not root: return None
 
             root_deleted = root.val in to_delete_set
 
@@ -70,4 +70,5 @@ class Solution:
         dfs(root, True)
         return res
         
+# @lc code=end
 

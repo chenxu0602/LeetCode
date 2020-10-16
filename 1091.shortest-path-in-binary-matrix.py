@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-path-in-binary-matrix/description/
 #
 # algorithms
-# Medium (36.36%)
-# Likes:    129
-# Dislikes: 23
-# Total Accepted:    9.8K
-# Total Submissions: 27K
+# Medium (38.09%)
+# Likes:    602
+# Dislikes: 45
+# Total Accepted:    41.9K
+# Total Submissions: 109K
 # Testcase Example:  '[[0,1],[1,0]]'
 #
 # In an N by N square grid, each cell is either empty (0) or blocked (1).
@@ -64,6 +64,8 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
         n = len(grid)
@@ -72,12 +74,14 @@ class Solution:
 
         q = [(0, 0, 1)]
         for i, j, d in q:
-            if i == j == n-1:
+            if i == j == n - 1:
                 return d
-            for x, y in ((i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), (i, j+1), (i+1, j-1), (i+1, j), (i+1, j+1)):
+            for x, y in (i - 1, j - 1), (i - 1, j), (i - 1, j + 1), (i, j - 1), (i, j + 1), (i + 1, j - 1), (i + 1, j), (i + 1, j + 1):
                 if 0 <= x < n and 0 <= y < n and not grid[x][y]:
                     grid[x][y] = 1
-                    q.append((x, y, d+1))
+                    q.append((x, y, d + 1))
+
         return -1
         
+# @lc code=end
 

@@ -6,22 +6,21 @@
 # https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/description/
 #
 # algorithms
-# Medium (54.69%)
-# Likes:    59
+# Medium (59.21%)
+# Likes:    236
 # Dislikes: 0
-# Total Accepted:    2.4K
-# Total Submissions: 4.2K
+# Total Accepted:    6.8K
+# Total Submissions: 11.5K
 # Testcase Example:  '[1,0,1,0,1]'
 #
 # Given a binary array data, return the minimum number of swaps required to
 # group all 1’s present in the array together in any place in the array.
 # 
 # 
-# 
 # Example 1:
 # 
 # 
-# Input: [1,0,1,0,1]
+# Input: data = [1,0,1,0,1]
 # Output: 1
 # Explanation: 
 # There are 3 ways to group all 1's together:
@@ -34,7 +33,7 @@
 # Example 2:
 # 
 # 
-# Input: [0,0,0,1,0]
+# Input: data = [0,0,0,1,0]
 # Output: 0
 # Explanation: 
 # Since there is only one 1 in the array, no swaps needed.
@@ -43,19 +42,26 @@
 # Example 3:
 # 
 # 
-# Input: [1,0,1,0,1,0,0,1,1,0,1]
+# Input: data = [1,0,1,0,1,0,0,1,1,0,1]
 # Output: 3
 # Explanation: 
 # One possible solution that uses 3 swaps is [0,0,0,0,0,1,1,1,1,1,1].
 # 
 # 
+# Example 4:
 # 
 # 
-# Note:
+# Input: data =
+# [1,0,1,0,1,0,1,1,1,0,1,0,0,1,1,1,0,0,1,1,1,0,1,0,1,1,0,0,0,1,1,1,1,0,0,1]
+# Output: 8
+# 
+# 
+# 
+# Constraints:
 # 
 # 
 # 1 <= data.length <= 10^5
-# 0 <= data[i] <= 1
+# data[i] is 0 or 1.
 # 
 # 
 #
@@ -67,7 +73,7 @@ class Solution:
         mn = cur = data[:l].count(0)
         for i in range(l, len(data)):
             cur += not data[i]
-            cur -= not data[i-l]
+            cur -= not data[i - l]
             mn = min(mn, cur)
         return mn
         

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/parallel-courses/description/
 #
 # algorithms
-# Hard (59.05%)
-# Likes:    39
-# Dislikes: 3
-# Total Accepted:    2.2K
-# Total Submissions: 3.6K
+# Hard (60.46%)
+# Likes:    86
+# Dislikes: 6
+# Total Accepted:    4.3K
+# Total Submissions: 7.1K
 # Testcase Example:  '3\n[[1,3],[2,3]]'
 #
 # There are N courses, labelled from 1 to N.
@@ -67,26 +67,28 @@ from collections import defaultdict, deque
 
 class Solution:
     def minimumSemesters(self, N: int, relations: List[List[int]]) -> int:
-        indegree = [0] * (N+1)
+        # O(E + V)
+        indegree = [0] * N
         graph = defaultdict(list)
 
         for pre, post in relations:
-            indegree[post] += 1
+            indegree[post - 1] += 1
             graph[pre].append(post)
 
-        init = [(i, 1) for i, c in enumerate(indegree[1:], 1) if c == 0]
+        init = [(i, 1) for i, c in enumerate(indegree, 1) if c == 0]
         sem, completed, queue = 1, 0, deque(init)
+
         while queue:
             nxt, _sem = queue.popleft()
             sem = max(sem, _sem)
             for out in graph[nxt]:
-                indegree[out] -= 1
-                if indegree[out] == 0:
-                    queue.append((out, _sem+1))
+                indegree[out - 1] -= 1
+                if indegree[out - 1] == 0:
+                    queue.append((out, _sem + 1))
+
             completed += 1
 
         return sem if completed == N else -1
-
         
 # @lc code=end
 

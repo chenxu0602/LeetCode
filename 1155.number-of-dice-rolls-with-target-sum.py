@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/description/
 #
 # algorithms
-# Medium (50.18%)
-# Likes:    180
-# Dislikes: 14
-# Total Accepted:    10.9K
-# Total Submissions: 22.4K
+# Medium (49.16%)
+# Likes:    907
+# Dislikes: 45
+# Total Accepted:    52K
+# Total Submissions: 108.1K
 # Testcase Example:  '1\n6\n3'
 #
 # You have d dice, and each die has f faces numbered 1, 2, ..., f.
@@ -76,38 +76,33 @@
 #
 
 # @lc code=start
+from functools import lru_cache
+
 class Solution:
     def numRollsToTarget(self, d: int, f: int, target: int) -> int:
-        """
-        if target < d or target > d * f:
-            return 0
+        # @lru_cache(None)
+        # def dp(d, target):
+        #     if d == 0:
+        #         return 0 if target > 0 else 1
 
-        if target > d * (1 + f) // 2:
-            target = d * (1 + f) - target
+        #     if target > d * (1 + f) // 2:
+        #         return dp(d, d * (1 + f) - target)
 
-        dp = [0] * (target + 1)
-        for i in range(1, min(f, target) + 1):
-            dp[i] = 1
+        #     res = 0
+        #     for k in range(max(0, target - f), target):
+        #         res += dp(d - 1, k)
 
-        for i in range(2, d+1):
-            new_dp = [0] * (target + 1)
-            for j in range(i, min(target, i*f)+1):
-                new_dp[j] = new_dp[j-1] + dp[j-1]
-                if j - 1 > f:
-                    new_dp[j] -= dp[j-f-1]
-            dp = new_dp
+        #     return res
 
-        return dp[target] % (10**9 + 7)
-        """
+        # return dp(d, target) % (10**9 + 7)
 
-        dp = [1] + [0] * target
+
+        # Similar to #518 coins
+        dp = [1] + [0] * target 
         for i in range(d):
             for j in range(target, -1, -1):
-#                dp[j] = sum([dp[j-k] for k in range(1, 1+min(f,j))] or [0])
-                dp[j] = sum(dp[max(0, j-f):j])
-        return dp[target] % (10**9+7)
+                dp[j] = sum(dp[max(0, j - f):j])
+        return dp[target] % (10**9 + 7)
 
-        
-        
 # @lc code=end
 

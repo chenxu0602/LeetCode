@@ -56,19 +56,16 @@ from collections import Counter
 class Solution:
     def canDivideIntoSubsequences(self, nums: List[int], K: int) -> bool:
 
-        """
-        cur, groups = 1, 1
-        for i in range(1, len(nums)):
-            if nums[i] > nums[i-1]:
-                cur = 1
-            else:
-                cur += 1
-            groups = max(groups, cur)
-
-        return len(nums) >= K*groups
-        """
-
         return len(nums) >= K * max(Counter(nums).values())
+
+        # cur, groups = 1, 1
+        # for i in range(1, len(nums)):
+        #     if nums[i] > nums[i - 1]:
+        #         cur = 1
+        #     else:
+        #         cur += 1
+        #     groups = max(groups, cur)
+        # return len(nums) >= K * groups
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-k-length-substrings-with-no-repeated-characters/description/
 #
 # algorithms
-# Medium (71.34%)
-# Likes:    47
-# Dislikes: 4
-# Total Accepted:    3.6K
-# Total Submissions: 5K
+# Medium (72.49%)
+# Likes:    190
+# Dislikes: 5
+# Total Accepted:    12.7K
+# Total Submissions: 17.4K
 # Testcase Example:  '"havefunonleetcode"\n5'
 #
 # Given a string S, return the number of substrings of length K with no
@@ -49,9 +49,10 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def numKLenSubstrNoRepeats(self, S: str, K: int) -> int:
-        """
         res, i = 0, 0
         cur = set()
         for j in range(len(S)):
@@ -61,8 +62,8 @@ class Solution:
             cur.add(S[j])
             res += j - i + 1 >= K
         return res
-        """
 
-        return 0 if K > 26 else sum(len(set(S[i:i+K])) == K for i in range(len(S) - K + 1))
+        # return 0 if K > 26 else sum(len(set(S[i:i + K])) == K for i in range(len(S) - K + 1))
         
+# @lc code=end
 

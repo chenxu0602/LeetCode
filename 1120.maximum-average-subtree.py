@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-average-subtree/description/
 #
 # algorithms
-# Medium (60.51%)
-# Likes:    58
-# Dislikes: 3
-# Total Accepted:    4.2K
-# Total Submissions: 6.8K
+# Medium (62.12%)
+# Likes:    267
+# Dislikes: 9
+# Total Accepted:    18.2K
+# Total Submissions: 28.9K
 # Testcase Example:  '[5,6,1]'
 #
 # Given the root of a binary tree, find the maximum average value of any
@@ -52,15 +52,12 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def maximumAverageSubtree(self, root: TreeNode) -> float:
-
-        self.res = 0
 
         def dfs(node):
             if not node:
@@ -72,8 +69,10 @@ class Solution:
             n = n1 + n2 + 1
             s = s1 + s2 + node.val
             self.res = max(self.res, s / n)
+
             return n, s
 
+        self.res = 0
         dfs(root)
         return self.res
         

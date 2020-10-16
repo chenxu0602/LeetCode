@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/filling-bookcase-shelves/description/
 #
 # algorithms
-# Medium (54.89%)
-# Likes:    255
-# Dislikes: 11
-# Total Accepted:    6.7K
-# Total Submissions: 11.9K
+# Medium (58.16%)
+# Likes:    705
+# Dislikes: 41
+# Total Accepted:    18.4K
+# Total Submissions: 31.9K
 # Testcase Example:  '[[1,1],[2,3],[2,3],[1,1],[1,1],[1,1],[1,2]]\n4'
 #
 # We have a sequence of books: the i-th book has thickness books[i][0] and
@@ -55,16 +55,20 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def minHeightShelves(self, books: List[List[int]], shelf_width: int) -> int:
-        
         dp = [0]
         for i in range(len(books)):
             w, j = books[i][0], i
             while j >= 0 and w <= shelf_width:
                 j -= 1
                 w += books[j][0]
-            dp.append(min(dp[k] + max(books[x][1] for x in range(k, i+1)) for k in range(j+1,i+1)))
+
+            dp.append(min(dp[k] + max(books[x][1] for x in range(k, i + 1)) for k in range(j + 1, i + 1)))
+
         return dp[-1]
-            
+        
+# @lc code=end
 

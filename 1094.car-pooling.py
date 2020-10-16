@@ -85,10 +85,28 @@
 class Solution:
     def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
 
-        for i, v in sorted(x for n, i, j in trips for x in [[i, n], [j, -n]]):
-            capacity -= v
-            if capacity < 0:
-                return False
-        return True
+        # Time  complexity: O(NlogN)
+        # Space compelxity: O(N)
+        # for i, v in sorted(x for n, i, j in trips for x in [[i, n], [j, -n]]):
+        #     capacity -= v
+        #     if capacity < 0:
+        #         return False
+        # return True
         
+
+        # Bucket Sort
+        # Time  complexity: O(max(N, 1001))
+        # Space complexity: O(1001)
+        timestamp = [0] * 1001
+        for trip in trips:
+            timestamp[trip[1]] += trip[0]
+            timestamp[trip[2]] -= trip[0]
+
+        used_capacity = 0
+        for passenger_chagne in timestamp:
+            used_capacity += passenger_chagne
+            if used_capacity > capacity:
+                return False
+
+        return True
 

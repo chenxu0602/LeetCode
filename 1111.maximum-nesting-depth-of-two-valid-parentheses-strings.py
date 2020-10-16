@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/description/
 #
 # algorithms
-# Medium (65.42%)
-# Likes:    59
-# Dislikes: 258
-# Total Accepted:    4.6K
-# Total Submissions: 6.9K
+# Medium (70.32%)
+# Likes:    143
+# Dislikes: 671
+# Total Accepted:    11.1K
+# Total Submissions: 15.3K
 # Testcase Example:  '"(()())"'
 #
 # A string is a valid parentheses string (denoted VPS) if and only if it
@@ -70,21 +70,22 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def maxDepthAfterSplit(self, seq: str) -> List[int]:
-        """
-        A = B = 0
-        res = [0] * len(seq)
-        for i, c in enumerate(seq):
-            v = 1 if c == '(' else -1
-            if (v > 0) == (A < B):
-                A += v
-            else:
-                B += v
-                res[i] = 1
-        return res
-        """
+        # A = B = 0
+        # res = [0] * len(seq)
+        # for i, c in enumerate(seq):
+        #     v = 1 if c == '(' else -1
+        #     if (v > 0) and (A < B):
+        #         A += v
+        #     else:
+        #         B += v
+        #         res[i] = 1
+        # return res
 
         return [i & 1 ^ (seq[i] == '(') for i, c in enumerate(seq)]
         
+# @lc code=end
 

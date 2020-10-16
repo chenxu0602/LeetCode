@@ -66,6 +66,8 @@
 # @lc code=start
 class Solution:
     def minimumCost(self, N: int, connections: List[List[int]]) -> int:
+        # Kruskal’s Minimum Spanning Tree Algorithm with Union Find
+        # O((E + V) x logV)
         parents = list(range(N))
         ranks = [1] * N
 

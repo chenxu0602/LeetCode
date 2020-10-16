@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/binary-tree-coloring-game/description/
 #
 # algorithms
-# Medium (45.53%)
-# Likes:    143
-# Dislikes: 34
-# Total Accepted:    6.8K
-# Total Submissions: 14K
+# Medium (51.32%)
+# Likes:    513
+# Dislikes: 108
+# Total Accepted:    21.5K
+# Total Submissions: 41.9K
 # Testcase Example:  '[1,2,3,4,5,6,7,8,9,10,11]\n11\n3'
 #
 # Two players play a turn based game on a binary tree.  We are given the root
@@ -58,23 +58,32 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def btreeGameWinningMove(self, root: TreeNode, n: int, x: int) -> bool:
-        c = [0, 0]
+        # The first player colors a node, there are at most 3 nodes connected to this node.
+        # Its left, its right and its parent. Take this 3 nodes as the root of 3 subtrees.
+        # The second player just color any one root, and the whole subtree will be his.
+        # And this is also all he can take, since he cannot cross the node of the first player.
+        # count will recursively count the number of nodes, in the left and in the right.
+        # n - left - right will be the number of nodes in the "subtree" of parent.
+        # Now we just need to compare max(left, right, parent) and n / 2.
+        # Time  complexity: O(N)
+        # Space complexity: O(height) for recursion.
         def count(node):
-            if not node:
-                return 0
-            l, r = count(node.left), count(node.right)
+            if not node: return 0
+            l, r = map(count, (node.left, node.right))
             if node.val == x:
                 c[0], c[1] = l, r
             return l + r + 1
 
+        c = [0, 0]
         return count(root) // 2 < max(max(c), n - sum(c) - 1)
+
+
         
 # @lc code=end
 

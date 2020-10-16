@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/check-if-a-number-is-majority-element-in-a-sorted-array/description/
 #
 # algorithms
-# Easy (69.30%)
-# Likes:    35
-# Dislikes: 7
-# Total Accepted:    4.7K
-# Total Submissions: 7.6K
+# Easy (59.42%)
+# Likes:    135
+# Dislikes: 19
+# Total Accepted:    14.9K
+# Total Submissions: 25.4K
 # Testcase Example:  '[2,4,5,5,5,5,5,6,6]\n5'
 #
 # Given an array nums sorted in non-decreasing order, and a number target,
@@ -42,8 +42,7 @@
 # 
 # 
 # 
-# 
-# Note:
+# Constraints:
 # 
 # 
 # 1 <= nums.length <= 1000
@@ -54,14 +53,14 @@
 #
 
 # @lc code=start
-from bisect import bisect_left, bisect_right
+import bisect
 
 class Solution:
     def isMajorityElement(self, nums: List[int], target: int) -> bool:
         if nums[len(nums) // 2] != target:
             return False
 
-        return bisect_right(nums, target) - bisect_left(nums, target) > len(nums) // 2
+        return bisect.bisect_right(nums, target) - bisect.bisect_left(nums, target) > len(nums) // 2
         
 # @lc code=end
 

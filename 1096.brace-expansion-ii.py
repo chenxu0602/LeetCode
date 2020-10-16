@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/brace-expansion-ii/description/
 #
 # algorithms
-# Hard (54.74%)
-# Likes:    94
-# Dislikes: 72
-# Total Accepted:    4.7K
-# Total Submissions: 8.1K
+# Hard (62.18%)
+# Likes:    230
+# Dislikes: 143
+# Total Accepted:    11.9K
+# Total Submissions: 19.2K
 # Testcase Example:  '"{a,b}{c,{d,e}}"\r'
 #
 # Under a grammar given below, strings can represent a set of lowercase words.
@@ -83,37 +83,63 @@
 # Constraints:
 # 
 # 
-# 1 <= expression.length <= 50
+# 1 <= expression.length <= 60
 # expression[i] consists of '{', '}', ','or lowercase English letters.
 # The given expression represents a set of words based on the grammar given in
 # the description.
 # 
 # 
 # 
+# 
 #
+
+# @lc code=start
 import itertools
 
 class Solution:
     def braceExpansionII(self, expression: str) -> List[str]:
-        groups = [[]]
-        level = 0
+        # groups, level = [[]], 0
 
-        for i, c in enumerate(expression):
-            if c == '{':
-                if level == 0:
-                    start = i + 1
-                level += 1
-            elif c == '}':
-                level -= 1
-                if level == 0:
-                    groups[-1].append(self.braceExpansionII(expression[start:i]))
-            elif c == ',' and level == 0:
-                groups.append([])
-            elif level == 0:
-                groups[-1].append([c])
+        # for i, c in enumerate(expression):
+        #     if c == '{':
+        #         if level == 0:
+        #             start = i + 1
+        #         level += 1
+        #     elif c == '}':
+        #         level -= 1
+        #         if level == 0:
+        #             groups[-1].append(self.braceExpansionII(expression[start:i]))
+        #     elif c == ',' and level == 0:
+        #         groups.append([])
+        #     elif level == 0:
+        #         groups[-1].append([c])
 
-        word_set = set()
-        for group in groups:
-            word_set |= set(map("".join, itertools.product(*group)))
-        return sorted(word_set)
+        # word_set = set()
+        # for group in groups:
+        #     word_set |= set(map("".join, itertools.product(*group)))
+        # return sorted(word_set)
+
+
+        stack, res, cur = [], [], []
+        for i in range(len(expression)):
+            v = expression[i]
+            if v.isalpha():
+                cur = [c + v for c in cur or [""]]
+            elif v == '{':
+                stack.append(res)
+                stack.append(cur)
+                res, cur = [], []
+            elif v == '}':
+                pre = stack.pop()
+                preRes = stack.pop()
+                cur = [p + c for c in res + cur for p in pre or [""]]
+                res = preRes
+            elif v == ',':
+                res += cur
+                cur = []
+
+        return sorted(set(res + cur))
+
+        
+# @lc code=end
 

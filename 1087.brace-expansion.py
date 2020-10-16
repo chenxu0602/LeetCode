@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/brace-expansion/description/
 #
 # algorithms
-# Medium (58.92%)
-# Likes:    97
-# Dislikes: 9
-# Total Accepted:    7.5K
-# Total Submissions: 12.7K
+# Medium (62.73%)
+# Likes:    270
+# Dislikes: 31
+# Total Accepted:    22.7K
+# Total Submissions: 36.1K
 # Testcase Example:  '"{a,b}c{d,e}f"'
 #
 # A string S represents a list of words.
@@ -54,6 +54,8 @@
 # 
 # 
 #
+
+# @lc code=start
 import itertools
 
 class Solution:
@@ -62,4 +64,5 @@ class Solution:
         B = [sorted(a.split(',')) for a in A]
         return ["".join(c) for c in itertools.product(*B)]
         
+# @lc code=end
 

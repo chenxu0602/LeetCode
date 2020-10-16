@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/shortest-path-with-alternating-colors/description/
 #
 # algorithms
-# Medium (36.02%)
-# Likes:    140
-# Dislikes: 6
-# Total Accepted:    5.7K
-# Total Submissions: 15.3K
+# Medium (38.89%)
+# Likes:    481
+# Dislikes: 22
+# Total Accepted:    16.8K
+# Total Submissions: 42.5K
 # Testcase Example:  '3\n[[0,1],[1,2]]\n[]'
 #
 # Consider a directed graph, with nodes labelled 0, 1, ..., n-1.  In this
@@ -60,24 +60,23 @@ from collections import deque
 
 class Solution:
     def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -> List[int]:
-        """
-        G = [[[], []] for _ in range(n)]
-        for i, j in red_edges:
-            G[i][0].append(j)
-        for i, j in blue_edges:
-            G[i][1].append(j)
+        # G = [[[], []] for _ in range(n)]
+        # for i, j in red_edges:
+        #     G[i][0].append(j)
+        # for i, j in blue_edges:
+        #     G[i][1].append(j)
 
-        res = [[0, 0]] + [[n*2, n*2] for i in range(n-1)]
-        bfs = [[0, 0], [0, 1]]
+        # res = [[0, 0]] + [[n * 2, n * 2] for _ in range(n - 1)]
+        # bfs = [[0, 0], [0, 1]]
 
-        for i, c in bfs:
-            for j in G[i][c]:
-                if res[j][c] == n * 2:
-                    res[j][c] = res[i][1-c] + 1
-                    bfs.append([j, 1-c])
-            
-        return [x if x < n*2 else -1 for x in map(min, res)]
-        """
+        # for i, c in bfs:
+        #     for j in G[i][c]:
+        #         if res[j][c] == n * 2:
+        #             res[j][c] = res[i][1 - c] + 1
+        #             bfs.append([j, 1 - c])
+
+        # return [x if x < n * 2 else -1 for x in map(min, res)]
+
 
         graph = {i: [[], []] for i in range(n)}
         for i, j in red_edges:
@@ -89,10 +88,7 @@ class Solution:
         res[0] = 0
         min_len = 0
 
-        queue = deque()
-        queue.append((0, 'r'))
-        queue.append((0, 'b'))
-
+        queue = deque([(0, 'r'), (0, 'b')])
         seen = set()
 
         while queue:
@@ -109,7 +105,7 @@ class Solution:
                         for child in graph[node][1]:
                             queue.append((child, 'b'))
                             res[child] = min(min_len, res[child])
-                    
+
                     if color == 'b':
                         for child in graph[node][0]:
                             queue.append((child, 'r'))
@@ -120,9 +116,8 @@ class Solution:
                 res[i] = -1
 
         return res
-
-
-
+                            
+        
         
 # @lc code=end
 

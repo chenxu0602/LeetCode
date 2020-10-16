@@ -80,6 +80,8 @@ class Solution:
         their order in coins, so there can be no duplicates.
         """
 
+        # Similar to #1155
+
         dp = [1] + [0] * amount
         for i in coins:
             for j in range(i, amount + 1):

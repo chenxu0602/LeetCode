@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/description/
 #
 # algorithms
-# Medium (58.56%)
-# Likes:    254
-# Dislikes: 24
-# Total Accepted:    7.3K
-# Total Submissions: 11.9K
+# Medium (65.95%)
+# Likes:    1504
+# Dislikes: 117
+# Total Accepted:    40K
+# Total Submissions: 59.6K
 # Testcase Example:  '[6,2,4]'
 #
 # Given an array arr of positive integers, consider all binary trees such
@@ -60,6 +60,30 @@
 # @lc code=start
 class Solution:
     def mctFromLeafValues(self, arr: List[int]) -> int:
+        # res = 0
+        # while len(arr) > 1:
+        #     min_idx = arr.index(min(arr))
+
+        #     if 0 < min_idx < len(arr) - 1:
+        #         res += min(arr[min_idx - 1], arr[min_idx + 1]) * arr[min_idx]
+        #     else:
+        #         res += arr[1 if min_idx == 0 else min_idx - 1] * arr[min_idx]
+
+        #     arr.pop(min_idx)
+        # return res
+
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # res = 0
+        # while len(arr) > 1:
+        #     i = arr.index(min(arr))
+        #     res += min(arr[i-1:i] + arr[i+1:i+2]) * arr.pop(i)
+        # return res
+
+
+        # Just find the next greater element in the array, on the left and one right.
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
         res, n = 0, len(arr)
         stack = [float("inf")]
         for a in arr:
@@ -72,24 +96,6 @@ class Solution:
             res += stack.pop() * stack[-1]
 
         return res
-
-        """
-        res = 0
-        while len(arr) > 1:
-            min_idx = arr.index(min(arr))
-
-            if 0 < min_idx < len(arr) - 1:
-                res += min(arr[min_idx-1], arr[min_idx+1]) * arr[min_idx]
-            else:
-                res += arr[1 if min_idx == 0 else min_idx-1] * arr[min_idx]
-
-            arr.pop(min_idx)
-
-        return res
-        """
-
-
-
         
 # @lc code=end
 

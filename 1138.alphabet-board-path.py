@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/alphabet-board-path/description/
 #
 # algorithms
-# Medium (42.56%)
-# Likes:    67
-# Dislikes: 40
-# Total Accepted:    7.1K
-# Total Submissions: 16.1K
+# Medium (48.38%)
+# Likes:    248
+# Dislikes: 86
+# Total Accepted:    17.1K
+# Total Submissions: 34.8K
 # Testcase Example:  '"leet"'
 #
 # On an alphabet board, we start at position (0, 0), corresponding to character
@@ -58,7 +58,7 @@
 #
 
 # @lc code=start
-import string 
+import string
 
 class Solution:
     def alphabetBoardPath(self, target: str) -> str:
@@ -70,14 +70,16 @@ class Solution:
             subtract = [d[x][0] - prev[0], d[x][1] - prev[1]]
             prev = d[x]
 
-            if subtract[1] < 0: res += 'L'*abs(subtract[1])
-            if subtract[0] < 0: res += 'U'*abs(subtract[0])
-            if subtract[0] > 0: res += 'D'*subtract[0]
-            if subtract[1] > 0: res += 'R'*subtract[1]
+            if subtract[1] < 0: res += 'L' * abs(subtract[1])
+            if subtract[0] < 0: res += 'U' * abs(subtract[0])
+            if subtract[0] > 0: res += 'D' * subtract[0]
+            if subtract[1] > 0: res += 'R' * subtract[1]
 
             res += '!'
-        
+
         return res
+
+
         
 # @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/distribute-candies-to-people/description/
 #
 # algorithms
-# Easy (61.27%)
-# Likes:    105
-# Dislikes: 30
-# Total Accepted:    12.7K
-# Total Submissions: 21.2K
+# Easy (60.58%)
+# Likes:    436
+# Dislikes: 121
+# Total Accepted:    51.9K
+# Total Submissions: 81.7K
 # Testcase Example:  '7\n4'
 #
 # We distribute some number of candies, to a row of n = num_people people in
@@ -66,45 +66,36 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
-        """
-        dist = [0 for i in range(num_people)]
-        give_away = 1
-        i = 0
+        # res = [0] * num_people
+        # i = 0 
+        # while candies > 0:
+        #     res[i % num_people] += min(candies, i + 1)
+        #     candies -= i + 1
+        #     i += 1
+        # return res
 
-        while candies > 0:
-            if give_away <= candies:
-                dist[i] += give_away
-            else:
-                give_away = candies
-                dist[i] += give_away
+        # Time  complexity: O(N)
+        # Space complexity: O(N)
+        # how many people received complete gifts
+        p = int((2 * candies + 0.25)**0.5 - 0.5)
+        remaining = int(candies - (p + 1) * p * 0.5)
+        rows, cols = divmod(p, num_people)
 
-            candies -= give_away
-            give_away += 1
-
-            if i != len(dist) - 1:
-                i += 1
-            else:
-                i = 0
-
-        return dist
-        """
-
-        n = num_people
-        p = int((2 * candies + 0.25)**0.5 -  0.5)
-        remaining = int(candies - (p+1)*p*0.5)
-        rows, cols = divmod(p, n)
-
-        d = [0] * n
-        for i in range(n):
-            d[i] = (i+1)*rows + int(rows*(rows-1)*0.5)*n
-
+        d = [0] * num_people
+        for i in range(num_people):
+            # complete rows
+            d[i] = (i + 1) * rows + int(rows * (rows - 1) * 0.5) * num_people
+            # cols in the last row
             if i < cols:
-                d[i] += i + 1 + rows * n
-                
+                d[i] += i + 1 + rows * num_people
+
+        # remaining candies
         d[cols] += remaining
         return d
-
         
+# @lc code=end
 

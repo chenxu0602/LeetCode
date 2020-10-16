@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
 #
 # algorithms
-# Hard (58.71%)
-# Likes:    90
-# Dislikes: 8
-# Total Accepted:    5.3K
-# Total Submissions: 9K
+# Hard (58.59%)
+# Likes:    214
+# Dislikes: 12
+# Total Accepted:    10.4K
+# Total Submissions: 17.6K
 # Testcase Example:  '"ghiabcdefhelloadamhelloabcdefghi"'
 #
 # Return the largest possible k such that there exists a_1, a_2, ..., a_k such
@@ -68,16 +68,17 @@
 
 # @lc code=start
 class Solution:
+    res = 0
     def longestDecomposition(self, text: str, res: int = 0) -> int:
-        """
-        n = len(text)
-        for l in range(1, n//2+1):
-            if text[0] == text[n-l] and text[l-1] == text[n-1]:
-                if text[:l] == text[n-l:]:
-                    return self.longestDecomposition(text[l:n-l], res+2)
+        # Time  complexity: O(N x len(string))
+        # Space complexity: O(N)
+        # n = len(text)
+        # for l in range(1, n // 2 + 1):
+        #     if text[0] == text[n-l] and text[l-1] == text[n-1]:
+        #         if text[:l] == text[n-l:]:
+        #             return self.longestDecomposition(text[l:n - l], res + 2)
+        # return res + 1 if text else res
 
-        return res+1 if text else res
-        """
 
         S = text
         res, l, r = 0, "", ""
@@ -88,7 +89,7 @@ class Solution:
         return res
 
 
-        
+
         
 # @lc code=end
 

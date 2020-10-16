@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/swap-for-longest-repeated-character-substring/description/
 #
 # algorithms
-# Medium (46.37%)
-# Likes:    139
-# Dislikes: 7
-# Total Accepted:    4.9K
-# Total Submissions: 10.4K
+# Medium (48.81%)
+# Likes:    369
+# Dislikes: 27
+# Total Accepted:    12.7K
+# Total Submissions: 26.5K
 # Testcase Example:  '"ababa"'
 #
 # Given a string text, we are allowed to swap two of the characters in the
@@ -66,23 +66,24 @@
 # 1 <= text.length <= 20000
 # text consist of lowercase English characters only.
 # 
+# 
 #
 
 # @lc code=start
 from collections import Counter
-from itertools import groupby
+import itertools
 
 class Solution:
     def maxRepOpt1(self, text: str) -> int:
-
-        A = [[c, len(list(g))] for c, g in groupby(text)]
+        A = [[c, len(list(g))] for c, g in itertools.groupby(text)]
         count = Counter(text)
 
         res = max(min(k + 1, count[c]) for c, k in A)
 
-        for i in range(1, len(A)-1):
-            if A[i-1][0] == A[i+1][0] and A[i][1] == 1:
-                res = max(res, min(A[i-1][1] + A[i+1][1] + 1, count[A[i+1][0]]))
+        for i in range(1, len(A) - 1):
+            if A[i - 1][0] == A[i + 1][0] and A[i][1] == 1:
+                res = max(res, min(A[i - 1][1] + A[i + 1][1] + 1, count[A[i + 1][0]]))
+
         return res
         
 # @lc code=end

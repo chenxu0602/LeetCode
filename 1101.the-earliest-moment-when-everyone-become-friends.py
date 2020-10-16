@@ -6,12 +6,12 @@
 # https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends/description/
 #
 # algorithms
-# Medium (63.51%)
-# Likes:    39
-# Dislikes: 3
-# Total Accepted:    2.4K
-# Total Submissions: 3.7K
-# Testcase Example:  '[[20190101,0,1],[20190104,3,4],[20190107,2,3],[20190211,1,5],[20190224,2,4],[20190301,0,3],[20190312,1,2],[20190322,4,5]]\n' +
+# Medium (66.19%)
+# Likes:    122
+# Dislikes: 6
+# Total Accepted:    6.4K
+# Total Submissions: 9.6K
+# Testcase Example:  '[[20190101,0,1],[20190104,3,4],[20190107,2,3],[20190211,1,5],[20190224,2,4],[20190301,0,3],[20190312,1,2],[20190322,4,5]]\n' + '6'
 #
 # In a social group, there are N people, with unique integer ids from 0 to
 # N-1.
@@ -67,21 +67,23 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def earliestAcq(self, logs: List[List[int]], N: int) -> int:
         uf = {x: x for x in range(N)}
         self.groups = N
 
-        def merge(x, y):
-            x, y = find(x), find(y)
-            if x != y:
-                self.groups -= 1
-                uf[x] = y
-
         def find(x):
             if uf[x] != x:
                 uf[x] = find(uf[x])
             return uf[x]
+
+        def merge(x, y):
+            x, y = map(find, (x, y))
+            if x != y:
+                self.groups -= 1
+                uf[x] = y
 
         for t, x, y in sorted(logs):
             merge(x, y)
@@ -90,4 +92,5 @@ class Solution:
 
         return -1
         
+# @lc code=end
 

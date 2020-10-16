@@ -54,10 +54,42 @@
 #
 
 # @lc code=start
+from collections import defaultdict
+import heapq
+
+# Treat the wells as pipes from a virtual node 0.
+
 class Solution:
     def minCostToSupplyWater(self, n: int, wells: List[int], pipes: List[List[int]]) -> int:
+        # Minimum Spanning Tree
+        # graph = defaultdict(list)
+        # for u, v, w in pipes:
+        #     graph[u].append([w, u, v])
+        #     graph[v].append([w, v, u])
 
-        uf = {i: i for i in range(n+1)}
+        # for i in range(n):
+        #     graph[0].append([wells[i], 0, i + 1])
+
+        # visited, edges = {0}, graph[0]
+        # heapq.heapify(edges)
+        # res = 0
+
+        # while len(visited) < n + 1 and edges:
+        #     w, u, v = heapq.heappop(edges)
+        #     if v not in visited:
+        #         res += w
+        #         visited.add(v)
+        #         for edge in graph[v]:
+        #             if edge[2] not in visited:
+        #                 heapq.heappush(edges, edge)
+
+        # return res
+
+
+
+        # Time  complexity: O(ElogE)
+        # Space complexity: O(N)
+        uf = {i: i for i in range(n + 1)}
 
         def find(x):
             if x != uf[x]:
@@ -69,13 +101,16 @@ class Solution:
 
         res = 0
         for c, x, y in sorted(w + p):
-            x, y = find(x), find(y)
+            x, y = map(find, (x, y))
             if x != y:
                 uf[x] = y
                 res += c
                 n -= 1
+
             if n == 0:
                 return res
+
+
         
 # @lc code=end
 

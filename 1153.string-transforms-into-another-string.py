@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/string-transforms-into-another-string/description/
 #
 # algorithms
-# Hard (27.82%)
-# Likes:    65
-# Dislikes: 10
-# Total Accepted:    2.4K
-# Total Submissions: 7.4K
+# Hard (35.95%)
+# Likes:    421
+# Dislikes: 147
+# Total Accepted:    24.1K
+# Total Submissions: 67.3K
 # Testcase Example:  '"aabcc"\n"ccdee"'
 #
 # Given two strings str1 and str2 of the same length, determine whether you can
@@ -61,8 +61,8 @@ class Solution:
         for i, j in zip(str1, str2):
             if dp.setdefault(i, j) != j:
                 return False
-        return len(set(str2)) < 26
 
+        return len(set(str2)) < 26
         
 # @lc code=end
 

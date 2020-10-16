@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/path-with-maximum-minimum-value/description/
 #
 # algorithms
-# Medium (43.88%)
-# Likes:    90
-# Dislikes: 8
-# Total Accepted:    3K
-# Total Submissions: 6.5K
+# Medium (49.21%)
+# Likes:    549
+# Dislikes: 62
+# Total Accepted:    23.7K
+# Total Submissions: 47.6K
 # Testcase Example:  '[[5,4,5],[1,2,6],[7,4,6]]'
 #
 # Given a matrix of integers A with R rows and C columns, find the maximum
@@ -63,22 +63,26 @@
 # 
 # 
 #
-from heapq import heappush, heappop
+
+# @lc code=start
+import heapq
 
 class Solution:
     def maximumMinimumPath(self, A: List[List[int]]) -> int:
-        m, n = len(A), len(A[0])
-        pq, score, A[m-1][n-1] = [(-A[m-1][n-1], m-1, n-1)], A[0][0], -1
+        # O(MNlog(MN))
+        m, n = map(len, (A, A[0]))
+        pq, score, A[m - 1][n - 1] = [(-A[m - 1][n - 1], m - 1, n - 1)], A[0][0], -1
 
         while pq:
-            s, i, j = heappop(pq)
+            s, i, j = heapq.heappop(pq)
             score = min(-s, score)
-            for x, y in ((i-1, j), (i+1, j), (i, j-1), (i, j+1)):
+            for x, y in (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1):
                 if not (x or y):
                     return score
                 if 0 <= x < m and 0 <= y < n and A[x][y] >= 0:
-                    heappush(pq, (-A[x][y], x, y))
+                    heapq.heappush(pq, (-A[x][y], x, y))
                     A[x][y] = -1
 
         
+# @lc code=end
 

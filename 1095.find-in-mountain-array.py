@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/find-in-mountain-array/description/
 #
 # algorithms
-# Hard (34.09%)
-# Likes:    115
-# Dislikes: 15
-# Total Accepted:    4.9K
-# Total Submissions: 14.3K
+# Hard (35.79%)
+# Likes:    348
+# Dislikes: 28
+# Total Accepted:    17.6K
+# Total Submissions: 48.8K
 # Testcase Example:  '[1,2,3,4,5,3,1]\n3'
 #
 # (This problem is an interactive problem.)
@@ -72,7 +72,10 @@
 # 0 <= target <= 10^9
 # 0 <= mountain_arr.get(index) <= 10^9
 # 
+# 
 #
+
+# @lc code=start
 # """
 # This is MountainArray's API interface.
 # You should not implement it, or speculate about its implementation
@@ -83,13 +86,12 @@
 
 class Solution:
     def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -> int:
-        
         n = mountain_arr.length()
 
         l, r = 0, n - 1
         while l < r:
             m = (l + r) // 2
-            if mountain_arr.get(m) < mountain_arr.get(m+1):
+            if mountain_arr.get(m) < mountain_arr.get(m + 1):
                 l = peak = m + 1
             else:
                 r = m
@@ -114,5 +116,8 @@ class Solution:
             else:
                 return m
 
+
         return -1
+        
+# @lc code=end
 

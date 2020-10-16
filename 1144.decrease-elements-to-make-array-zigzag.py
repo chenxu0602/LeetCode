@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/decrease-elements-to-make-array-zigzag/description/
 #
 # algorithms
-# Medium (40.83%)
-# Likes:    47
-# Dislikes: 68
-# Total Accepted:    5.5K
-# Total Submissions: 12.9K
+# Medium (45.30%)
+# Likes:    139
+# Dislikes: 109
+# Total Accepted:    9.7K
+# Total Submissions: 21.3K
 # Testcase Example:  '[1,2,3]'
 #
 # Given an array nums of integers, a move consists of choosing any element and
@@ -57,11 +57,10 @@
 # @lc code=start
 class Solution:
     def movesToMakeZigzag(self, nums: List[int]) -> int:
-
         nums = [float("inf")] + nums + [float("inf")]
         res = [0, 0]
-        for i in range(1, len(nums)-1):
-            res[i % 2] += max(0, nums[i] - min(nums[i-1], nums[i+1]) + 1)
+        for i in range(1, len(nums) - 1):
+            res[i % 2] += max(0, nums[i] - min(nums[i - 1], nums[i + 1]) + 1)
         return min(res)
         
 # @lc code=end

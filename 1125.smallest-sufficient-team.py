@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/smallest-sufficient-team/description/
 #
 # algorithms
-# Hard (44.73%)
-# Likes:    172
-# Dislikes: 6
-# Total Accepted:    4.2K
-# Total Submissions: 9.5K
+# Hard (46.46%)
+# Likes:    393
+# Dislikes: 8
+# Total Accepted:    9.6K
+# Total Submissions: 20.5K
 # Testcase Example:  '["java","nodejs","reactjs"]\n[["java"],["nodejs"],["nodejs","reactjs"]]'
 #
 # In a project, you have a list of required skills req_skills, and a list of
@@ -56,29 +56,25 @@
 #
 
 # @lc code=start
-from collections import defaultdict
-
 class Solution:
     def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
-
-        n, m = len(req_skills), len(people)
-        keys = {v: i for i, v in enumerate(req_skills)}
+        n, m = map(len, (req_skills, people))
+        key = {v: i for i, v in enumerate(req_skills)}
         dp = {0: []}
+
         for i, p in enumerate(people):
             his_skill = 0
             for skill in p:
-                if skill in keys:
-                    his_skill |= 1 << keys[skill]
+                if skill in key:
+                    his_skill |= 1 << key[skill]
 
-            for skill_set, need in list(dp.items()):
+            for skill_set, need in dp.copy().items():
                 with_him = skill_set | his_skill
-                if with_him == skill_set:
-                    continue
+                if with_him == skill_set: continue
                 if with_him not in dp or len(dp[with_him]) > len(need) + 1:
                     dp[with_him] = need + [i]
+
         return dp[(1 << n) - 1]
-
-
         
 # @lc code=end
 

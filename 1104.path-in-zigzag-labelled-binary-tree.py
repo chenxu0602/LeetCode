@@ -56,9 +56,12 @@ class Solution:
             res.append(label)
             label //= 2
         res = res[::-1]
-        for i in range(len(res)-2, 0, -2):
-            res[i] = 2**(i+1) - 1 + 2**i - res[i]
+
+        for i in range(len(res) - 2, 0, -2):
+            res[i] = 2**(i + 1) - 1 + 2**i - res[i]
+
         return res
+
 
 
 

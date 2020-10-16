@@ -79,6 +79,7 @@ class Solution:
         dp = defaultdict(list)
         for t, u, w in sorted(zip(timestamp, username, website)):
             dp[u].append(w)
+
         count = sum([Counter(set(combinations(dp[u], 3))) for u in dp], Counter())
         return list(min(count, key=lambda k: (-count[k], k)))
         

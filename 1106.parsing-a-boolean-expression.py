@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/parsing-a-boolean-expression/description/
 #
 # algorithms
-# Hard (58.16%)
-# Likes:    136
-# Dislikes: 8
-# Total Accepted:    5.9K
-# Total Submissions: 10.2K
+# Hard (58.49%)
+# Likes:    283
+# Dislikes: 18
+# Total Accepted:    11.2K
+# Total Submissions: 19K
 # Testcase Example:  '"!(f)"'
 #
 # Return the result of evaluating a given boolean expression, represented as a
@@ -69,19 +69,20 @@
 # 
 # 
 #
+
+# @lc code=start
 class Solution:
     def parseBoolExpr(self, expression: str) -> bool:
-        """
-        t, f = True, False
-        return eval(expression.replace('!', 'not |').replace('&(', 'all([').replace('|(', 'any([').replace(')', '])'))
-        """
+        # S = expression
+        # t, f = True, False
+        # return eval(S.replace('!', 'not |').replace('&(', 'all([').replace('|(', 'any([').replace(')', '])'))
 
         if not expression:
             return True
 
         funcs, exprs = [], []
 
-        functions = {'|': any, '!': lambda x: x[0]^True, '&': all}
+        functions = {'|': any, '!': lambda x: x[0] ^ True, '&': all}
         bools = {'t': True, 'f': False}
 
         for c in expression:
@@ -99,4 +100,5 @@ class Solution:
 
         return exprs[-1][0]
         
+# @lc code=end
 

@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/stone-game-ii/description/
 #
 # algorithms
-# Medium (61.04%)
-# Likes:    135
-# Dislikes: 28
-# Total Accepted:    4.9K
-# Total Submissions: 8.2K
+# Medium (63.13%)
+# Likes:    576
+# Dislikes: 141
+# Total Accepted:    19.6K
+# Total Submissions: 30.3K
 # Testcase Example:  '[2,7,9,4,4]'
 #
 # Alex and Lee continue their games with piles of stones.  There are a number
@@ -47,6 +47,7 @@
 # 1 <= piles.length <= 100
 # 1 <= piles[i] <= 10 ^ 4
 # 
+# 
 #
 
 # @lc code=start
@@ -55,30 +56,18 @@ from functools import lru_cache
 class Solution:
     def stoneGameII(self, piles: List[int]) -> int:
 
-        """
-        @lru_cache(None)
-        def minimax(st, m, player):
-            if st >= len(piles):
-                return 0
-            if player:
-                return max([sum(piles[st:st+x]) + minimax(st+x, max(m, x), player ^ 1) for x in range(1, 2*m+1)])
-            else:
-                return min([minimax(st+x, max(m, x), player ^ 1) for x in range(1, 2*m+1)])
-
-        return minimax(0, 1, 1)
-        """
-
-        N = len(piles)
-        for i in range(N-2, -1, -1):
-            piles[i] += piles[i+1]
-
         @lru_cache(None)
         def dp(i, m):
             if i + 2 * m >= N:
                 return piles[i]
-            return piles[i] - min(dp(i+x, max(m, x)) for x in range(1, 2*m+1))
+            return piles[i] - min(dp(i + x, max(m, x)) for x in range(1, 2 * m + 1))
+
+        N = len(piles)
+        for i in range(N - 2, -1, -1):
+            piles[i] += piles[i + 1]
 
         return dp(0, 1)
+        
         
 # @lc code=end
 
