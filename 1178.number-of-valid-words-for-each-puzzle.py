@@ -57,13 +57,11 @@
 #
 
 # @lc code=start
-
 from collections import Counter
 from itertools import combinations
 
 class Solution:
     def findNumOfValidWords(self, words: List[str], puzzles: List[str]) -> List[int]:
-
         # count = Counter(frozenset(w) for w in words)
         # res = []
         # for p in puzzles:
@@ -74,6 +72,7 @@ class Solution:
         #     res.append(cur)
         # return res
 
+
         # count = Counter(frozenset(w) for w in words)
         # res = []
         # for p in puzzles:
@@ -83,9 +82,11 @@ class Solution:
         #     res.append(sum(count[frozenset(s)] for s in subs))
         # return res
 
+
         count = Counter()
         for w in words:
-            if len(set(w)) > 7: continue
+            if len(set(w)) > 7:
+                continue
             m = 0
             for c in w:
                 m |= 1 << (ord(c) - ord('a'))
@@ -97,7 +98,6 @@ class Solution:
             for c in p[1:]:
                 bfs += [m | 1 << ord(c) - ord('a') for m in bfs]
             res.append(sum(count[m] for m in bfs))
-
         return res
 
         

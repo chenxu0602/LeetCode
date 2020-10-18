@@ -42,7 +42,6 @@ from functools import reduce
 
 class Solution:
     def smallestCommonElement(self, mat: List[List[int]]) -> int:
-
         # c = Counter()
         # for row in mat:
         #     for a in row:

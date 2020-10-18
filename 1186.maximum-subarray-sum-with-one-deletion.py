@@ -60,13 +60,12 @@
 # @lc code=start
 class Solution:
     def maximumSum(self, arr: List[int]) -> int:
+        # Variation of Kadane's algorithm
         max1 = max0 = res = arr[0]
-
         for a in arr[1:]:
-            max1 = max(max1+a, max0, a)
+            max1 = max(max1 + a, max0, a)
             max0 = max(max0 + a, a)
             res = max(res, max1)
-
         return res
         
 # @lc code=end

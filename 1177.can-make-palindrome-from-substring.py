@@ -61,20 +61,34 @@
 #
 
 # @lc code=start
-
 from collections import Counter
 
 class Solution:
     def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
-        dp = [Counter()]
+        # dp = [Counter()]
+        # for i in s:
+        #     dp.append(dp[-1] + Counter(i))
+
+        # ans = []
+        # for l, r, k in queries:
+        #     c = dp[r + 1] - dp[l]
+        #     need = sum(v % 2 for v in c.values()) // 2
+        #     ans.append(need <= k)
+        # return ans
+
+        N = 26
+        dp = [[0] * N]
+
         for i in s:
-            dp.append(dp[-1] + Counter(i))
+            new = dp[-1][:]
+            new[ord(i) - ord('a')] += 1
+            dp.append(new)
 
         ans = []
         for l, r, k in queries:
-            c = dp[r+1] - dp[l]
-            need = sum(v % 2 for v in c.values()) // 2
-            ans.append(need <= k)
+            L, R = dp[l], dp[r + 1]
+            ans.append(sum((R[i] - L[i]) & 1 for i in range(N)) // 2 <= k)
+        
         return ans
         
 # @lc code=end

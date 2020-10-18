@@ -81,17 +81,13 @@ class DSU:
         return self.par[x]
 
     def union(self, x, y):
-        xr, yr = self.find(x), self.find(y)
+        xr, yr = map(self.find, (x, y))
         if xr == yr: return False
         if self.rnk[xr] < self.rnk[yr]:
-            self.par[xr] = yr
-        elif self.rnk[xr] > self.rnk[yr]:
-            self.par[yr] = xr
-        else:
-            self.par[yr] = xr
+            xr, yr = yr, xr
+        if self.rnk[xr] == self.rnk[yr]:
             self.rnk[xr] += 1
-        return True
-
+        self.par[yr] = xr
 
 class Solution:
     def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -> str:

@@ -35,27 +35,65 @@
 #
 
 # @lc code=start
+from collections import deque
 from functools import lru_cache
 
 class Solution:
     def countSteppingNumbers(self, low: int, high: int) -> List[int]:
+        # @lru_cache(None)
+        # def dfs(n):
+        #     if n > high:
+        #         return
+        #     if n >= low:
+        #         q.add(n)
+        #     d = n % 10
+        #     if d == 0:
+        #         dfs(n * 10 + 1)
+        #     elif d == 9:
+        #         dfs(n * 10 + 8)
+        #     else:
+        #         dfs(n * 10 + d + 1)
+        #         dfs(n * 10 + d - 1)
 
-        @lru_cache(None)
-        def dfs(n):
-            if n > high:
-                return
-            if n >= low:
-                q.add(n)
-            d = n % 10
-            if 0 <= d < 9:
-                dfs(n * 10 + d + 1)
-            if 0 < d <= 9:
-                dfs(n* 10 + d - 1)
-        
-        q = set()
+        # q = set()
+        # for i in range(10):
+        #     dfs(i)
+        # return sorted(q)
+
+
+        def bfs(low, high, num, lst):
+            q = deque([num])
+            while q:
+                neigh = []
+                for i in range(len(q)):
+                    cur = q.popleft()
+
+                    if low <= cur <= high:
+                        lst.append(cur)
+
+                    if cur == 0 or cur > high:
+                        continue
+
+                    lastD = cur % 10
+                    nei1 = cur * 10 + lastD - 1
+                    nei2 = cur * 10 + lastD + 1
+
+                    if lastD == 0:
+                        neigh.append(nei2)
+                    elif lastD == 9:
+                        neigh.append(nei1)
+                    else:
+                        neigh.append(nei1)
+                        neigh.append(nei2)
+
+                q.extend(neigh)
+
+
+        lst = []
         for i in range(10):
-            dfs(i)
-        return sorted(q)
-
+            bfs(low, high, i, lst)
+        lst.sort()
+        return lst
+        
 # @lc code=end
 

@@ -69,42 +69,44 @@
 class Solution:
     def getMaximumGold(self, grid: List[List[int]]) -> int:
         # BFS
-        # m, n, q, goldCellId, ans = len(grid), len(grid[0]), [], 0, 0
-        # oneCellTrace = [[0] * n for _ in range(m)]
+        # O(4^N)
 
-        # for i in range(m):
-        #     for j in range(n):
-        #         if grid[i][j]:
-        #             oneCellTrace[i][j] = 1 << goldCellId
-        #             goldCellId += 1
-        #             q.append((i, j, grid[i][j], oneCellTrace[i][j]))
+        m, n = map(len, (grid, grid[0]))
+        q, goldCellId, ans = [], 0, 0
+        oneCellTrace = [[0] * n for _ in range(m)]
 
-        # for i, j, s, trace in q:
-        #     ans = max(ans, s)
-        #     for dr, dc in (-1, 0), (1, 0), (0, -1), (0, 1):
-        #         r, c = i+dr, j+dc
-        #         if 0 <= r < m and 0 <= c < n and grid[r][c] and not(trace & oneCellTrace[r][c]):
-        #             q.append((r, c, grid[r][c] + s, trace | oneCellTrace[r][c]))
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]:
+                    oneCellTrace[i][j] = 1 << goldCellId
+                    goldCellId += 1
+                    q.append((i, j, grid[i][j], oneCellTrace[i][j]))
 
-        # return ans
+        for i, j, s, trace in q:
+            ans = max(ans, s)
+            for r, c in (i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1):
+                if 0 <= r < m and 0 <= c < n and grid[r][c] \
+                    and not (trace & oneCellTrace[r][c]):
+                    q.append((r, c, grid[r][c] + s, trace | oneCellTrace[r][c]))
+
+        return ans
 
 
-        def dfs(i, j, s, seen):
-            if i < 0 or i >= m or j < 0 or j >= n or not grid[i][j] or (i, j) in seen:
-                return s
-            seen.add((i, j))
-            s += grid[i][j]
+        # def dfs(i, j, s, seen):
+        #     if i < 0 or i >= m or j < 0 or j >= n or not grid[i][j] or (i, j) in seen:
+        #         return s
 
-            mx = 0
-            for x, y in (i, j+1), (i, j-1), (i+1, j), (i-1, j):
-                mx = max(dfs(x, y, s, seen), mx)
-            seen.discard((i, j))
-            return mx
+        #     seen.add((i, j))
+        #     s += grid[i][j]
+        #     mx = 0
+        #     for x, y in (i, j + 1), (i, j - 1), (i + 1, j), (i - 1, j):
+        #         mx = max(dfs(x, y, s, seen), mx)
 
-        m, n = len(grid), len(grid[0])
-        return max(dfs(i, j, 0, set()) for j in range(n) for i in range(m))
-                
+        #     seen.discard((i, j))
+        #     return mx
 
+        # m, n = map(len, (grid, grid[0]))
+        # return max(dfs(i, j, 0, set()) for j in range(n) for i in range(m))
         
 # @lc code=end
 

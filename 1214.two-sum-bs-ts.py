@@ -54,10 +54,21 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
-from functools import lru_cache
-
 class Solution:
     def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
+
+        # Recursive Inorder Traversal
+        # Time  complexity: O(N1 + N2)
+        # Space complexity: O(2 x N1 + N2), N1 to keep the hashset and up to N1 + N2 for the recursie stacks.
+        # def in_hashset(r):
+        #     return in_hashset(r.left) | {target - r.val} | in_hashset(r.right) if r else set()
+
+        # def in_check(r):
+        #     return in_check(r.left) or (r.val in s) or in_check(r.right) if r else False
+
+        # s = in_hashset(root1)
+        # return in_check(root2)
+
 
         # def dfs(node):
         #     return dfs(node.left) | dfs(node.right) | {node.val} if node else set()
@@ -65,19 +76,36 @@ class Solution:
         # q1 = dfs(root1)
         # return any(target - a in q1 for a in dfs(root2))
 
-        @lru_cache
-        def dfs(n1, n2):
-            if not n1 or not n2:
-                return False
 
-            if n1.val + n2.val < target:
-                return dfs(n1.right, n2) or dfs(n1, n2.right)
-            elif n1.val + n2.val > target:
-                return dfs(n1.left, n2) or dfs(n1, n2.left)
-            else:
+        # Iterative Inorder Traversal
+        # Time  complexity: O(N1 + N2)
+        # Space complexity: O(N1 + max(N1, N2)), N1 to keep the hashset and up to max(N1, N2) for the stack.
+        stack, s = [], set()
+        # traverse the first tree 
+        # and store node complements (target - val) in hashset
+        while stack or root1:
+            while root1:
+                stack.append(root1)
+                root1 = root1.left
+            root1 = stack.pop()
+            s.add(target - root1.val)
+            root1 = root1.right
+
+        # traverse the second tree 
+        # and check if one of the values exists in hashset
+        while stack or root2:
+            while root2:
+                stack.append(root2)
+                root2 = root2.left
+            root2 = stack.pop()
+            if root2.val in s:
                 return True
+            root2 = root2.right
 
-        return dfs(root1, root2)
+        return False
+
+
+
 
 
         

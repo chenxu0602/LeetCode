@@ -74,8 +74,7 @@
 #
 
 # @lc code=start
-import math
-from random import random
+import math, random
 
 class Node:
     __slots__ = "val", "levels"
@@ -86,7 +85,7 @@ class Node:
 class Skiplist:
 
     def __init__(self):
-       self.head = Node(-1, 16) 
+        self.head = Node(-1, 16) 
 
     def _iter(self, num):
         cur = self.head
@@ -101,12 +100,12 @@ class Skiplist:
 
     def search(self, target: int) -> bool:
         for prev, level in self._iter(target):
-            pass
+            pass 
         cur = prev.levels[0]
         return cur and cur.val == target
-        
+
     def add(self, num: int) -> None:
-        nodevls = min(16, 1+int(math.log2(1.0 / random())))
+        nodevls = min(16, 1 + int(math.log2(1.0 / random.random())))
         node = Node(num, nodevls)
 
         for cur, level in self._iter(num):
@@ -114,7 +113,7 @@ class Skiplist:
                 future = cur.levels[level]
                 cur.levels[level] = node
                 node.levels[level] = future
-        
+
     def erase(self, num: int) -> bool:
         ans = False
         for cur, level in self._iter(num):
@@ -122,6 +121,7 @@ class Skiplist:
             if future and future.val == num:
                 ans = True
                 cur.levels[level] = future.levels[level]
+
         return ans
         
 

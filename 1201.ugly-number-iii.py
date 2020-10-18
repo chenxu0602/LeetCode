@@ -63,7 +63,6 @@
 # @lc code=start
 class Solution:
     def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
-
         def gcd(a, b):
             if a == 0:
                 return b
@@ -73,9 +72,10 @@ class Solution:
             return a * b // gcd(a, b)
 
         def count(num, a, b, c):
-            return num//a + num//b + num//c - num//lcm(a, b) - num//lcm(b, c) - num//lcm(a, c) + num//lcm(lcm(a, b), c)
+            return num // a + num // b + num // c - num // lcm(a, b) - num // lcm(b, c) - num // lcm(a, c) + num // lcm(a, lcm(b, c))
 
-        left, right = 1, n * min(a, b, c)
+        left, right, result = 0, 20**9, 0
+
         while left < right:
             mid = left + (right - left) // 2
             if count(mid, a, b, c) < n:
@@ -84,6 +84,7 @@ class Solution:
                 right = mid
 
         return left
+
         
 # @lc code=end
 

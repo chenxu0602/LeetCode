@@ -52,7 +52,12 @@ from collections import defaultdict
 
 class Solution:
     def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
-
+        # An edge is a critical connection, if and only if it is not in a cycle.
+        # if we know how to find cycles, and discard all edges in the cycles, then the remaining connections are a complete collection of critical connections.
+        # Only the nodes on the current DFS path have non-special ranks. 
+        # if a node is not visited yet, it has a special rank -2; if we've fully completed the visit of a node, it has a special rank n.
+        # Time  complexity: O(E + V)
+        # Space complexity: O(graph) + O(rank) + O(connections) = O(E)
         # def makeGraph(connections):
         #     graph = defaultdict(list)
         #     for u, v in connections:
@@ -76,16 +81,19 @@ class Solution:
         #         back_depth = dfs(nei, depth + 1)
         #         if back_depth <= depth:
         #             connections.discard(tuple(sorted((node, nei))))
+
         #         min_back_depth = min(min_back_depth, back_depth)
+
         #     rank[node] = n
         #     return min_back_depth
 
         # dfs(0, 0)
         # return list(connections)
 
-        graph = [[] for _ in range(n)]
+
+        graph = [[] for _ in range(n)] # vertex i ==> [its neighbors]
         currentRank = 0
-        lowestRank = [i for i in range(n)]
+        lowestRank = [i for i in range(n)] # lowestRank[i] represents the lowest order of vertex that can reach this vertex i
         visited = [False for _ in range(n)]
 
         for u, v in connections:
@@ -104,12 +112,12 @@ class Solution:
                 if nextVertex == prevVertex:
                     continue
                 if not visited[nextVertex]:
-                    dfs(currentRank+1, currentVertex, nextVertex)
+                    dfs(currentRank + 1, currentVertex, nextVertex)
 
                 lowestRank[currentVertex] = min(lowestRank[currentVertex], lowestRank[nextVertex])
 
                 if lowestRank[nextVertex] >= currentRank + 1:
-                    res.append([currentVertex, nextVertex])
+                    res.append([currentVertex, nextVertex]) 
 
         dfs(currentRank, prevVertex, currentVertex)
         return res

@@ -61,7 +61,6 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
 from collections import OrderedDict
 
 class Solution:
@@ -78,6 +77,7 @@ class Solution:
                 seen.popitem()
             seen[prefix] = node
             node.next = cur = cur.next
+
         return dummy.next
         
 # @lc code=end

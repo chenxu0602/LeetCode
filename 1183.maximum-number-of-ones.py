@@ -61,7 +61,8 @@ class Solution:
         res = []
         for i in range(sideLength):
             for j in range(sideLength):
-                res += ((width - i - 1) // sideLength + 1) * ((height - j - 1) // sideLength + 1),
+                res += [((width - i - 1) // sideLength + 1) * ((height - j - 1) // sideLength + 1)]
+
         res.sort(reverse=True)
         return sum(res[:maxOnes])
         

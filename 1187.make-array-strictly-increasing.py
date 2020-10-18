@@ -58,13 +58,37 @@
 #
 
 # @lc code=start
-
 from collections import defaultdict
+from functools import lru_cache
 import bisect
 
 class Solution:
     def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:
+        # O(N^2 x logN)
 
+        # arr2 = sorted(set(arr2))
+
+        # @lru_cache(None)
+        # def dfs(i, prev):
+        #     if i >= len(arr1): return 0
+        #     j = bisect.bisect_right(arr2, prev)
+
+        #     swap, noswap = float("inf"), float("inf")
+        #     if j < len(arr2):
+        #         swap = 1 + dfs(i + 1, arr2[j])
+        #     if arr1[i] > prev:
+        #         noswap = dfs(i + 1, arr1[i])
+
+        #     return min(swap, noswap)
+
+        # swaps = dfs(0, float("-inf"))
+        # return swaps if swaps < float("inf") else -1
+
+
+        # dp is the data structure storing all promising current states. 
+        # A state here refers to a key-value pair, whose first element is the number we choose for current position. 
+        # This can be either chosen from the original arr1 or from a replacement action from arr2. 
+        # The second element is how many times we change the number. 
         dp = {-1: 0}
         arr2.sort()
         for i in arr1:
@@ -81,6 +105,8 @@ class Solution:
             return min(dp.values())
 
         return -1
+
+
 
         
 # @lc code=end

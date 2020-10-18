@@ -70,6 +70,43 @@
 # @lc code=start
 class Solution:
     def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -> List[int]:
+        def topSort(al, i, res, stat):
+            if stat[i] != 0:
+                return stat[i] == 2
+            stat[i] = 1
+            for n in al[i]:
+                if not topSort(al, n, res, stat):
+                    return False
+
+            stat[i] = 2
+            res.append(i)
+            return True
+
+        res = []
+        stat = [0] * (n + 2 * m)
+        al = [set() for _ in range(n + 2 * m)]
+
+        for i in range(n):
+            if group[i] != -1:
+                al[i].add(n + group[i])
+                al[n + m + group[i]].add(i)
+
+            for j in beforeItems[i]:
+                if group[i] != -1 and group[i] == group[j]:
+                    al[i].add(j)
+                else:
+                    if group[i] == -1:
+                        ig, jg = group[i], group[j]
+                    else:
+                        ig, jg = n + group[i], n + m + group[j]
+
+                    al[ig].add(jg)
+
+        for n in range(len(al) - 1, -1, -1):
+            if not topSort(al, n, res, stat):
+                return []
+
+        return res[:n]
         
 # @lc code=end
 

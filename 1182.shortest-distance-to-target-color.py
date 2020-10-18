@@ -54,33 +54,28 @@
 #
 
 # @lc code=start
-
 from collections import defaultdict
 import bisect
 
 class Solution:
     def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
-
-        d = defaultdict(list)
-        res = []
-
+        d, res = defaultdict(list), []
         for i in range(len(colors)):
             d[colors[i]].append(i)
 
-        for q in queries:
-            if q[1] not in d:
+        for i, c in queries:
+            if c not in d:
                 res.append(-1)
                 continue
 
-            l = d[q[1]]
-            t = bisect.bisect_left(l, q[0])
-
+            l = d[c]
+            t = bisect.bisect_left(l, i)
             if t == 0:
-                res.append(l[0] - q[0])
+                res.append(l[0] - i)
             elif t == len(l):
-                res.append(q[0] - l[-1])
+                res.append(i - l[-1])
             else:
-                res.append(min(l[t] - q[0], q[0] - l[t-1]))
+                res.append(min(l[t] - i, i - l[t - 1]))
 
         return res
         

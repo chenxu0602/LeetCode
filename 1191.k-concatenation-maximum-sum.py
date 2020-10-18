@@ -65,13 +65,12 @@ class Solution:
 
         def Kadane(arr, res=0, cur=0):
             for num in arr:
-                cur = max(cur+num, num)
+                cur = max(cur + num, num)
                 res = max(res, cur)
             return res
 
         # k-2 middle arrays
-
-        return ((k-2) * max(sum(arr), 0) + Kadane(arr*2)) % MOD if k > 1 else Kadane(arr) % MOD
+        return ((k - 2) * max(sum(arr), 0) + Kadane(arr * 2)) % MOD if k > 1 else Kadane(arr) % MOD
         
         
 # @lc code=end

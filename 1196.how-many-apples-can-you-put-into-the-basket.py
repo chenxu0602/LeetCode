@@ -48,8 +48,11 @@
 #
 
 # @lc code=start
+import bisect, itertools
+
 class Solution:
     def maxNumberOfApples(self, arr: List[int]) -> int:
+        return bisect.bisect_left(list(itertools.accumulate(sorted(arr))), 5000)
         
 # @lc code=end
 
