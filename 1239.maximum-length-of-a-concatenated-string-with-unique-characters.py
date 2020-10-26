@@ -68,6 +68,7 @@ class Solution:
                     continue
                 dp.append(a | c)
         return max(len(a) for a in dp)
+
         
 # @lc code=end
 

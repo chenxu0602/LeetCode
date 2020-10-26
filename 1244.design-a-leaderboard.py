@@ -11,8 +11,7 @@
 # Dislikes: 39
 # Total Accepted:    3.4K
 # Total Submissions: 6.2K
-# Testcase Example:  '["Leaderboard","addScore","addScore","addScore","addScore","addScore","top","reset","reset","addScore","top"]\n' +
-  '[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]'
+# Testcase Example:  '["Leaderboard","addScore","addScore","addScore","addScore","addScore","top","reset","reset","addScore","top"]\n' + '[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]'
 #
 # Design a Leaderboard class, which has 3 functions:
 # 
@@ -68,19 +67,19 @@
 #
 
 # @lc code=start
-from collections import Counter
+from collections import defaultdict
 
 class Leaderboard:
 
     def __init__(self):
-        self.scores = Counter()
+        self.scores = defaultdict(int)
         
 
     def addScore(self, playerId: int, score: int) -> None:
         self.scores[playerId] += score
         
     def top(self, K: int) -> int:
-        return sum(v for i, v in self.scores.most_common(K))
+        return sum(sorted(self.scores.values(), reverse=True)[:K])
         
 
     def reset(self, playerId: int) -> None:

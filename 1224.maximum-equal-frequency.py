@@ -71,6 +71,7 @@ class Solution:
     def maxEqualFreq(self, nums: List[int]) -> int:
         count = Counter()
         freq = [0] * (len(nums) + 1)
+
         res = 0
 
         for n, a in enumerate(nums, 1):
@@ -83,10 +84,11 @@ class Solution:
                 res = n + 1
 
             d = n - freq[c] * c
-            if d in [c+1, 1] and freq[d] == 1:
+            if d in [c + 1, 1] and freq[d] == 1:
                 res = n
 
         return res
-        
+
+
 # @lc code=end
 

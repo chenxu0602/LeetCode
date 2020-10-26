@@ -62,14 +62,27 @@ class Solution:
         #     3.2) if the a-th person gets n-th seat (with probability 1/(n-1)), game over.
         #     3.3) if the a-th person gets a seat which is not 1st or n-th, (with probability (n-1-2)/(n-1)), we jump into a loop.
         # Therefore the dp pattern is dp[i] = 1.0 / (i+1) + 0.0 / (i+1) + dp[i-1] * (i-1) / (i+1), with dp[0]=1 for the case there's only one person. If you manually calculate it you'll find dp[i] is always 1/2 except the base condition.
-
         dp = [0] * n
         dp[0] = 1.0
         for i in range(1, n):
-            dp[i] = 1.0 / (i + 1) + dp[i-1] * (i - 1) / (i + 1)
-
+            dp[i] = 1.0 / (i + 1) + dp[i - 1] * (i - 1) / (i + 1)
         return dp[-1]
 
+
+        # f(n) = 1/n                                    -> 1st person picks his own seat
+        #         + 1/n * 0                                 -> 1st person picks last one's seat
+        #     	+ (n-2)/n * (                            ->1st person picks one of seat from 2nd to (n-1)th
+        #         1/(n-2) * f(n-1)                   -> 1st person pick 2nd's seat
+        #         1/(n-2) * f(n-2)                  -> 1st person pick 3rd's seat
+        #         ......
+        #         1/(n-2) * f(2)                     -> 1st person pick (n-1)th's seat
+    	#     )
+	
+        # => f(n) = 1/n * ( f(n-1) + f(n-2) + f(n-3) + ... + f(1) )
+
+        # if n == 1:
+        #     return 1.0
+        # return 1.0 / n + (n - 2.0) / n * self.nthPersonGetsNthSeat(n - 1)
         
 # @lc code=end
 

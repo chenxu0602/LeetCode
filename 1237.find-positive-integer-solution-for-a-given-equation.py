@@ -91,8 +91,10 @@ class Solution:
                     l = y + 1
                 else:
                     r = y
+            
             if customfunction.f(x, l) == z:
-                ans += [x, l],
+                ans += [[x, l]]
+
         return ans
         
 # @lc code=end

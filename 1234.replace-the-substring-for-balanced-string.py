@@ -75,7 +75,6 @@ class Solution:
     def balancedString(self, s: str) -> int:
         count = Counter(s)
         res = n = len(s)
-
         i = 0
         for j, c in enumerate(s):
             count[c] -= 1

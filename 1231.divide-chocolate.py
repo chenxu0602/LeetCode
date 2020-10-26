@@ -65,7 +65,8 @@
 # @lc code=start
 class Solution:
     def maximizeSweetness(self, sweetness: List[int], K: int) -> int:
-
+        # Time  complexity: O(Nlog(10^9))
+        # Space complexity: O(1)
         def divide(target):
             sum_, count = 0, 0
             for l in sweetness:
@@ -82,7 +83,6 @@ class Solution:
                 hi = target - 1
             else:
                 lo = target
-
         return lo
         
 # @lc code=end

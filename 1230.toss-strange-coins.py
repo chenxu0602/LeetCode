@@ -43,14 +43,14 @@
 # @lc code=start
 class Solution:
     def probabilityOfHeads(self, prob: List[float], target: int) -> float:
-
         # dp[c][k] is the prob of tossing c first coins and get k faced up.
         # dp[c][k] = dp[c - 1][k] * (1 - p) + dp[c - 1][k - 1] * p)
 
         dp = [1] + [0] * target
         for p in prob:
             for k in range(target, -1, -1):
-                dp[k] = (dp[k-1] if k else 0) * p + dp[k] * (1-p)
+                dp[k] = (dp[k - 1] if k else 0) * p + dp[k] * (1 - p)
+
         return dp[target]
         
 # @lc code=end

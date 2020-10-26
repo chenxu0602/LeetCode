@@ -56,10 +56,14 @@
 # @lc code=start
 class Solution:
     def circularPermutation(self, n: int, start: int) -> List[int]:
+        # O(2^N)
 
-        graycode = [i ^ i >> 1 for i in range(1 << n)]
-        index = graycode.index(start)
-        return graycode[index:] + graycode[:index]
+        # graycode = [i ^ i >> 1 for i in range(1 << n)]
+        # index = graycode.index(start)
+        # return graycode[index:] + graycode[:index]
+
+        return [start ^ i ^ i >> 1 for i in range(1 << n)]
+
         
 # @lc code=end
 
