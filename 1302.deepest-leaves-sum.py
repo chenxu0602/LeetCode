@@ -40,13 +40,29 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+from collections import defaultdict
 
 class Solution:
     def deepestLeavesSum(self, root: TreeNode) -> int:
+        # Time  complexity: O(N)
+        # Space complexity: O(H)
+        # cache = defaultdict(list)
 
-        q = [root]
+        # def dfs(node, depth=0):
+        #     if node:
+        #         cache[depth].append(node.val)
+        #         dfs(node.left, depth + 1)
+        #         dfs(node.right, depth + 1)
+
+        # dfs(root)
+        # max_depth = max(cache.keys())
+        # return sum(cache[max_depth])
+
+
+        # O(N)
+        q = [root,]
         while q:
-            pre, q = q, [child for p in q for child in (p.left, p.right) if child]
+            pre, q = q, [child for p in q for child in [p.left, p.right] if child]
         return sum(node.val for node in pre)
         
 # @lc code=end

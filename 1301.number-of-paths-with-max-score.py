@@ -50,23 +50,22 @@
 class Solution:
     def pathsWithMaxScore(self, board: List[str]) -> List[int]:
         n, MOD = len(board), 10**9 + 7
-        dp = [[[-10**5, 0] for j in range(n+1)] for i in range(n+1)]
-        dp[n-1][n-1] = [0, 1]
+        dp = [[[float("-inf"), 0] for _ in range(n + 1)] for _ in range(n + 1)]
+        dp[n - 1][n - 1] = [0, 1]
 
-        for x in range(n-1, -1, -1):
-            for y in range(n-1, -1, -1):
-                if board[x][y] in 'XS':
+        for x in range(n - 1, -1, -1):
+            for y in range(n - 1, -1, -1):
+                if board[x][y] in "XS":
                     continue
                 for i, j in (0, 1), (1, 0), (1, 1):
-                    if dp[x][y][0] < dp[x+i][y+j][0]:
-                        dp[x][y] = [dp[x+i][y+j][0], 0]
-                    if dp[x][y][0] == dp[x+i][y+j][0]:
-                        dp[x][y][1] += dp[x+i][y+j][1]
+                    if dp[x][y][0] < dp[x + i][y + j][0]:
+                        dp[x][y] = [dp[x + i][y + j][0], 0]
+                    if dp[x][y][0] == dp[x + i][y + j][0]:
+                        dp[x][y][1] += dp[x + i][y + j][1]
 
                 dp[x][y][0] += int(board[x][y]) if x or y else 0
 
         return [dp[0][0][0] if dp[0][0][1] else 0, dp[0][0][1] % MOD]
-
         
 # @lc code=end
 

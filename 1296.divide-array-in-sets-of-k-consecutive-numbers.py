@@ -69,7 +69,7 @@ class Solution:
             return False
 
         count = Counter(nums)
-        keys = sorted(count)
+        keys = sorted(count.keys())
 
         for n in keys:
             if count[n] > 0:
@@ -78,7 +78,7 @@ class Solution:
                     if count[i] < minus:
                         return False
                     count[i] -= minus
-    
+        
         return True
         
 # @lc code=end

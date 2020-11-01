@@ -98,18 +98,23 @@ class Solution:
 
         # return -1
 
-        m, n = len(grid), len(grid[0])
+
+        # A* search is often faster than a BFS like the Lee algorithm because it prioritizes steps with the shortest estimated distance to the target. To accomplish that A* search requires a heuristic that returns a distance that is always lower than or equal to the optimal distance. For a problem like this (2D grid with neighbors at the top, right, bottom and left) the Manhattan distance to the target can be used as such a heuristic as it always returns the minimum distance to the target without obstacles. Using a priority queue adds log(n) complexity per step compared to BFS, but the reduction in exploration steps usually makes up for it.
+        # Positions may be visited if less than k + 1 obstacles have been eliminated on the way. They may also be revisited if they can be reached by eliminating less obstacles than before. A defaultdict with a default value of k + 1 elegantly handles those two requirements.
+        # The overall runtime should be O(m*n*k * log(m*n*k)). 
+        # Space complexity should be O(m*n*k).
+        m, n = map(len, (grid, grid[0]))
         if m + n - 2 <= k:
             return m + n - 2
 
         manhattan_distance = lambda y, x: m + n - y - x - 2
         neighborhood = lambda y, x: [
-            (y, x) for y, x in [(y-1, x), (y, x+1), (y+1, x), (y, x-1)]
+            (y, x) for y, x in [(y - 1, x), (y, x + 1), (y + 1, x), (y, x - 1)]
             if 0 <= y < m and 0 <= x < n
         ]
 
         fringe_heap = [(manhattan_distance(0, 0), 0, 0, 0, 0)]
-        min_eliminations = defaultdict(lambda: k + 1, {(0, 0): 0})
+        min_eliminations = defaultdict(lambda: k + 1, {(0, 0) : 0})
 
         while fringe_heap:
             estimation, steps, eleminations, y, x = heapq.heappop(fringe_heap)
@@ -123,7 +128,7 @@ class Solution:
                 if next_eliminations < min_eliminations[(y, x)]:
                     heapq.heappush(fringe_heap, (steps + 1 + manhattan_distance(y, x), steps + 1, next_eliminations, y, x))
                     min_eliminations[(y, x)] = next_eliminations
-
+            
         return -1
 
         
