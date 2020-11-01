@@ -75,11 +75,18 @@
 
 class Solution:
     def getDecimalValue(self, head: ListNode) -> int:
-        ans = 0
-        while head:
-            ans = (ans << 1) | head.val
+        # num = head.val
+        # while head.next:
+        #     num = num * 2 + head.next.val
+        #     head = head.next
+        # return num
+
+
+        num = head.val
+        while head.next:
+            num = (num << 1) | head.next.val
             head = head.next
-        return ans
+        return num
         
 # @lc code=end
 

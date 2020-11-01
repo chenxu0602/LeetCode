@@ -42,20 +42,8 @@
 # @lc code=start
 class Solution:
     def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
-
-        # index = 0
-        # intervals.sort()
-        # res = 0
-
-        # while index < len(intervals):
-        #     index_t = index
-        #     res += 1
-
-        #     while index < len(intervals) and intervals[index_t][1] >= intervals[index][1]:
-        #         index += 1
-
-        # return res
-
+        # Greedy
+        # O(NlogN)
         res = right = 0
         for i, j in sorted(intervals, key=lambda a: [a[0], -a[1]]):
             res += j > right

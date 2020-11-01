@@ -62,6 +62,7 @@ class Solution:
         for a in nums:
             for i in seen[:]:
                 seen[(i + a) % 3] = max(seen[(i + a) % 3], i + a)
+
         return seen[0]
 
         

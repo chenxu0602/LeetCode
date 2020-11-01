@@ -72,23 +72,18 @@ class Solution:
 
         # @lru_cache(None)
         # def dfs(i, pos):
-        #     if i == steps:
-        #         if pos == 0:
-        #             return 1
-        #         else:
-        #             return 0
-
+        #     if i == steps: return pos == 0
         #     if pos < 0 or pos >= arrLen:
         #         return 0
-
-        #     return (dfs(i+1, pos) + dfs(i+1, pos-1) + dfs(i+1, pos+1)) % MOD
+        #     return (dfs(i + 1, pos) + dfs(i + 1, pos - 1) + dfs(i + 1, pos + 1)) % MOD
 
         # return dfs(0, 0)
+
 
         A = [0, 1]
         r = min(arrLen, steps // 2 + 1)
         for t in range(steps):
-            A[1:] = [sum(A[i-1:i+2]) % MOD for i in range(1, min(r+1, t+3))]
+            A[1:] = [sum(A[i - 1:i + 2]) % MOD for i in range(1, min(r + 1, t + 3))]
         return A[1] % MOD
         
 # @lc code=end

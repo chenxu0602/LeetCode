@@ -11,8 +11,7 @@
 # Dislikes: 22
 # Total Accepted:    2.4K
 # Total Submissions: 3.9K
-# Testcase Example:  '[["happy","joy"],["sad","sorrow"],["joy","cheerful"]]\n' +
-  '"I am happy today but was sad yesterday"'
+# Testcase Example:  '[["happy","joy"],["sad","sorrow"],["joy","cheerful"]]\n' + '"I am happy today but was sad yesterday"'
 #
 # Given a list of pairs of equivalent words synonyms and a sentence text,
 # Return all possible synonymous sentences sorted lexicographically.

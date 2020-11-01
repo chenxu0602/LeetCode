@@ -55,12 +55,11 @@
 #
 
 # @lc code=start
-from itertools import accumulate
+import itertools
 from collections import Counter
 
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-
         # def atMost(k):
         #     res = i = 0
         #     for j in range(len(nums)):
@@ -70,11 +69,12 @@ class Solution:
         #             i += 1
         #         res += j - i + 1
         #     return res
-        
-        # return atMost(k) - atMost(k-1)
+
+        # return atMost(k) - atMost(k - 1)
+
 
         mask = map(lambda v: 1 if v % 2 != 0 else 0, nums)
-        acc = [0] + list(accumulate(mask))
+        acc = [0] + list(itertools.accumulate(mask))
         seen = Counter()
         res = 0
 

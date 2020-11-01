@@ -61,6 +61,7 @@
 # @lc code=start
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        # O(log(Max(nums)))
         l, r = 1, max(nums)
         while l < r:
             m = (l + r) // 2
@@ -68,7 +69,9 @@ class Solution:
                 l = m + 1
             else:
                 r = m
+
         return l
+
         
 # @lc code=end
 

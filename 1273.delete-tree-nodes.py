@@ -50,11 +50,9 @@
 # @lc code=start
 class Solution:
     def deleteTreeNodes(self, nodes: int, parent: List[int], value: List[int]) -> int:
-
         # sons = {i: set() for i in range(nodes)}
         # for i, p in enumerate(parent):
-        #     if i:
-        #         sons[p].add(i)
+        #     if i: sons[p].add(i)
 
         # def dfs(x):
         #     total, count = value[x], 1
@@ -67,10 +65,10 @@ class Solution:
         # return dfs(0)[1]
 
         res = [1] * nodes
-        for i in range(nodes-1, 0, -1):
+        for i in range(nodes - 1, -1, -1):
             value[parent[i]] += value[i]
             res[parent[i]] += res[i] if value[i] else 0
         return res[0] if value[0] else 0
-        
+
 # @lc code=end
 

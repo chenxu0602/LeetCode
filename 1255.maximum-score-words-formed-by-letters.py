@@ -79,18 +79,17 @@ from collections import Counter
 
 class Solution:
     def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
-
         self.max_score = 0
         word_score = [sum(score[ord(c) - ord('a')] for c in word) for word in words]
         word_count = [Counter(word) for word in words]
 
         def dfs(i, curr_score, count):
-            if curr_score + sum(word_score[i:]) <= self.max_score:
+            if curr_score + sum(word_score[1:]) <= self.max_score:
                 return
             self.max_score = max(self.max_score, curr_score)
             for j, w_cnt in enumerate(word_count[i:], i):
                 if all(n <= count.get(c, 0) for c, n in w_cnt.items()):
-                    dfs(j+1, curr_score + word_score[j], {c: n - w_cnt.get(c, 0) for c, n in count.items()})
+                    dfs(j + 1, curr_score + word_score[j], {c: n - w_cnt.get(c, 0) for c, n in count.items()})
 
         dfs(0, 0, Counter(letters))
         return self.max_score

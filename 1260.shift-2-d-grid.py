@@ -78,17 +78,23 @@ class Solution:
 
         # return grid
 
-        num_rows, num_cols = len(grid), len(grid[0])
-        new_grid = [[0] * num_cols for _ in range(num_rows)]
+        # num_rows, num_cols = len(grid), len(grid[0])
+        # new_grid = [[0] * num_cols for _ in range(num_rows)]
 
-        for row in range(num_rows):
-            for col in range(num_cols):
-                new_col = (col + k) % num_cols
-                wrap_around_count = (col + k) // num_cols
-                new_row = (row + wrap_around_count) % num_rows
-                new_grid[new_row][new_col] = grid[row][col]
+        # for row in range(num_rows):
+        #     for col in range(num_cols):
+        #         new_col = (col + k) % num_cols
+        #         wrap_around_count = (col + k) // num_cols
+        #         new_row = (row + wrap_around_count) % num_rows
+        #         new_grid[new_row][new_col] = grid[row][col]
 
-        return new_grid
+        # return new_grid
+
+
+        r, c = map(len, (grid, grid[0]))
+        temp = [j for i in grid for j in i]
+        temp = temp[-k % len(temp):] + temp[:-k % len(temp)]
+        return [[temp[i * c + j] for j in range(c)] for i in range(r)]
 
 
         

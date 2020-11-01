@@ -80,17 +80,29 @@
 #
 
 # @lc code=start
+import bisect
+
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        # products.sort()
+        # res, prefix, i = [], "", 0
+        # for c in searchWord:
+        #     prefix += c
+        #     i = bisect.bisect_left(products, prefix)
+        #     res.append([w for w in products[i:i + 3] if w.startswith(prefix)])
+        # return res
+
+
         products.sort()
-        start, end, res = 0, len(products)-1, []
+        start, end, res = 0, len(products) - 1, []
         for i, c in enumerate(searchWord):
             while start <= end and (products[start][i] < c if len(products[start]) > i else True):
                 start += 1
             while start <= end and (products[end][i] > c if len(products[end]) > i else True):
                 end -= 1
 
-            res.append(products[start:start+3] if end > start+1 else products[start:end+1])
-        return res 
+            res.append(products[start:start + 3] if end > start + 1 else products[start:end + 1])
+        return res
+        
 # @lc code=end
 

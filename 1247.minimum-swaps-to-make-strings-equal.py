@@ -68,6 +68,21 @@
 # @lc code=start
 class Solution:
     def minimumSwap(self, s1: str, s2: str) -> int:
+        # x1 = y1 = 0
+
+        # for i in range(len(s1)):
+        #     if s1[i] != s2[i] and s1[i] == 'x':
+        #         x1 += 1
+
+        #     if s1[i] != s2[i] and s1[i] == 'y':
+        #         y1 += 1
+
+        # if (x1 + y1) % 2 == 1:
+        #     return -1
+
+        # return x1 // 2 + y1 // 2 + 2 * (x1 % 2)
+
+
         xy = yx = 0
         for a, b in zip(s1, s2):
             xy += a == 'x' and b == 'y'

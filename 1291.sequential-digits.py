@@ -39,16 +39,18 @@
 # @lc code=start
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
-        s = "123456789"
-        res = []
+        # O(1)
+        sample = "123456789"
+        n = 10
+        nums = []
 
-        for k in range(1, len(s) + 1):
-            for i in range(len(s) - k + 1):
-                x = int(s[i:i+k])
-                if x >= low and x <= high:
-                    res.append(x)
+        for length in range(len(str(low)), len(str(high)) + 1):
+            for start in range(n - length):
+                num = int(sample[start:start + length])
+                if low <= num <= high:
+                    nums.append(num)
 
-        return res
+        return nums
         
 # @lc code=end
 

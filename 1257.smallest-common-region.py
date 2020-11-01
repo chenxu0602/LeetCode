@@ -56,7 +56,6 @@
 # @lc code=start
 class Solution:
     def findSmallestRegion(self, regions: List[List[str]], region1: str, region2: str) -> str:
-
         parent = {}
         for region in regions:
             for child in region[1:]:

@@ -46,7 +46,8 @@
 # @lc code=start
 class Solution:
     def encode(self, num: int) -> str:
-        return bin(num+1)[3:]
+        # return bin(num+1)[3:]
+        return self.encode((num - 1) // 2) + '10'[num % 2] if num else ""
         
 # @lc code=end
 

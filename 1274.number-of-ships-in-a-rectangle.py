@@ -70,5 +70,20 @@
 
 class Solution(object):
     def countShips(self, sea: 'Sea', topRight: 'Point', bottomLeft: 'Point') -> int:
+        res = 0
+
+        if topRight.x >= bottomLeft.x and topRight.y >= bottomLeft.y and sea.hasShips(topRight, bottomLeft):
+            if topRight.x == bottomLeft.x and topRight.y == bottomLeft.y:
+                return 1
+
+            mx, my = (topRight.x + bottomLeft.x) // 2, (topRight.y + bottomLeft.y) // 2
+            res += self.countShips(sea, topRight, Point(mx + 1, my + 1))
+            res += self.countShips(sea, Point(mx, topRight.y), Point(bottomLeft.x, my + 1))
+            res += self.countShips(sea, Point(mx, my), bottomLeft)
+            res += self.countShips(sea, Point(topRight.x, my), Point(mx + 1, bottomLeft.y))
+
+        return res
+
+            
 # @lc code=end
 

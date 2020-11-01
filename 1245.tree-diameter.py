@@ -66,13 +66,12 @@ class Solution:
             graph[y].add(x)
 
         level = 0
-
-        curr_level = {(u, None) for u, neighbors in graph.items() if len(neighbors) == 1}
+        curr_level = {(u, None) for u, neighbors in graph.items() if len(neighbors)}
         while curr_level:
             next_level = set()
-            for u, pre in curr_level:
+            for u, prev in curr_level:
                 for v in graph[u]:
-                    if v != pre:
+                    if v != prev:
                         next_level.add((v, u))
             curr_level = next_level
             level += 1

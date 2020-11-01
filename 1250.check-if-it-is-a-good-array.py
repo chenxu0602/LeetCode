@@ -63,6 +63,12 @@ from functools import reduce
 class Solution:
     def isGoodArray(self, nums: List[int]) -> bool:
         return True if reduce(gcd, nums) == 1 else False
+
+        # gcd = nums[0]
+        # for a in nums:
+        #     while a:
+        #         gcd, a = a, gcd % a
+        # return gcd == 1
         
 # @lc code=end
 

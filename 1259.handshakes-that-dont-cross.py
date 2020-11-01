@@ -74,18 +74,44 @@
 #     @lru_cache(None)
 #     def numberOfWays(self, num_people: int) -> int:
 #         return (sum(self.numberOfWays(i) * self.numberOfWays(num_people - 2 - i) for i in range(0, num_people, 2)) % (10**9 + 7)) if num_people else 1
+from functools import lru_cache
         
 class Solution:
     def numberOfWays(self, num_people: int) -> int:
-        d = {0: 1, 2: 1, 4: 2}
-        for i in range(6, num_people + 1, 2):
-            s = 0
-            for j in range(i // 2):
-                left = j * 2
-                right = i - left - 2
-                s += d[left] * d[right]
-            d[i] = s
-        return d[num_people] % (10**9 + 7)
+        # d = {0: 1, 2: 1, 4: 2}
+        # for i in range(6, num_people + 1, 2):
+        #     s = 0
+        #     for j in range(i // 2):
+        #         left = j * 2
+        #         right = i - left - 2
+        #         s += d[left] * d[right]
+        #     d[i] = s
+        # return d[num_people] % (10**9 + 7)
+
+        # res = 1
+        # for i in range(1, num_people // 2 + 1):
+        #     res *= num_people - i + 1
+        #     res //= i
+        # return res // (num_people // 2 + 1) % (10**9 + 7)
+
+
+        # dp[n] is the number of shaking ways of n pairs people
+        # In the the view of first people in these n pairs,
+        # he/she can choose anyone, split i pairs on his left and n - 1 - i pairs on his right.
+        # So here comes the equation of dynamic programme:
+        # dp[n + 1] = dp[0] * dp[n] + dp[1] * dp[n - 1] + ..... + dp[n] * dp[0]        
+        # Time  complexity: O(N^2)
+        # Space complexity: O(N)
+        # return sum(self.numberOfWays(i) * self.numberOfWays(num_people - i - 2) for i in range(0, num_people, 2)) if num_people else 1
+
+        MOD = 10**9 + 7
+        dp = [0] * (num_people // 2 + 1)
+        dp[0] = 1
+        for k in range(1, num_people // 2 + 1):
+            for i in range(k):
+                dp[k] = (dp[k] + dp[i] * dp[k - i - 1]) % MOD
+
+        return dp[num_people // 2]
 
         
 # @lc code=end

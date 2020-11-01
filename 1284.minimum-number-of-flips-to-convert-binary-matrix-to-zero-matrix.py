@@ -72,58 +72,52 @@
 #
 
 # @lc code=start
+from collections import deque
+
 class Solution:
     def minFlips(self, mat: List[List[int]]) -> int:
-        board = mat
-        M, N = len(board), len(board[0])
-        coeff = [[0] * (M * N) for _ in range(M * N)]
-        y = [0] * (M * N)
-
-        def zadd(coeff, y, i, j):
-            for k in range(M * N):
-                coeff[j][k] = (coeff[j][k] + coeff[i][k]) & 1
-            y[j] = (y[i] + y[j]) & 1
-
-        if not board or not board[0]: return -1
-
-        for i, row in enumerate(board):
-            for j, val in enumerate(row):
-                index = i * N + j
-                if val == 1: y[index] = 1
-                for ni, nj in (i-1, j), (i, j-1), (i, j), (i+1, j), (i, j+1):
-                    if 0 <= ni < M and 0 <= nj < N:
-                        coeff[index][ni * N + nj] = 1
-
-        for i in range(i, M * N - 1):
-            for j in range(i, M * N):
-                if coeff[j][i] == 1:
-                    coeff[j], coeff[i] = coeff[i], coeff[j] 
-                    y[j], y[i] = y[i], y[j]
-                    break
-            else:
-                continue
-            for j in range(i+1, M * N):
-                if coeff[j][i] == 1:
-                    zadd(coeff, y, i, j)
+        # BFS
+        # Time  complexity: O(m x n x 2^(m x n))
+        # Space complexity: O(2^(m x n))
+        m, n = map(len, (mat, mat[0]))
+        start = sum(cell << (i * n + j) for i, row in enumerate(mat) for j, cell in enumerate(row))
+        queue = deque([(start, 0)])
+        seen = {start}
+        while queue:
+            cur, step = queue.popleft()
+            if not cur: return step
+            for i in range(m):
+                for j in range(n):
+                    nxt = cur
+                    for r, c in (i, j), (i, j + 1), (i, j - 1), (i + 1, j), (i - 1, j):
+                        if m > r >= 0 <= c < n:
+                            nxt ^= 1 << (r * n + c)
+                    if nxt not in seen:
+                        seen.add(nxt)
+                        queue.append((nxt, step + 1))
+        return -1
 
 
-        for i in range(M * N - 1, 0, -1):
-            for j in range(i - 1, -1, -1):
-                if coeff[j][i] == 1:
-                    zadd(coeff, y, i, j)
+        # DFS
+        # Time  complexity: O(m x n x 2^(m x n))
+        # Space complexity: O(2^(m x n))
+        # m, n = map(len, (mat, mat[0]))
+        # start = sum(cell << i * n + j for i, row in enumerate(mat) for j, cell in enumerate(row))
+        # stack = [(start, 0)]
+        # seenSteps = {start : 0}
+        # while stack:
+        #     cur, step = stack.pop()
+        #     for i in range(m):
+        #         for j in range(n):
+        #             nxt = cur
+        #             for r, c in (i, j), (i, j + 1), (i, j - 1), (i + 1, j), (i - 1, j):
+        #                 if m > r >= 0 <= c < n:
+        #                     nxt ^= 1 << r * n + c
+        #             if seenSteps.get(nxt, float("inf")) > step + 1:
+        #                 seenSteps[nxt] = step + 1
+        #                 stack.append((nxt, step + 1))
+        # return seenSteps.get(0, -1)
 
-        clicks = []
-        res = 0
-        for i in range(M * N):
-            if y[i] == 1:
-                if coeff[i][i] == 1:
-                    res += 1
-                    clicks.append((i // N, i % N))
-                else:
-                    return -1
-
-        return res
-        
         
 # @lc code=end
 

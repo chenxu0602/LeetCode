@@ -71,7 +71,10 @@
 class Solution:
     def countServers(self, grid: List[List[int]]) -> int:
         X, Y = list(map(sum, grid)), list(map(sum, zip(*grid)))
-        return sum(X[i] + Y[j] > 2 for i in range(len(grid)) for j in range(len(grid[0])) if grid[i][j] == 1)
+        return sum(X[i] + Y[j] > 2 \
+                   for i in range(len(grid)) \
+                   for j in range(len(grid[0])) \
+                   if grid[i][j] == 1)
         
 # @lc code=end
 

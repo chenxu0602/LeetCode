@@ -48,17 +48,17 @@ import heapq
 
 class Solution:
     def minFallingPathSum(self, arr: List[List[int]]) -> int:
-        for i in range(1, len(arr)):
-            r = heapq.nsmallest(2, arr[i-1])
-            for j in range(len(arr[i])):
-                arr[i][j] += r[1] if arr[i-1][j] == r[0] else r[0]
-        return min(arr[-1])
+        # for i in range(1, len(arr)):
+        #     r = heapq.nsmallest(2, arr[i - 1])
+        #     for j in range(len(arr[0])):
+        #         arr[i][j] += r[1] if arr[i - 1][j] == r[0] else r[0]
+        # return min(arr[-1])
 
-        # r = [(0, -1)]
-        # for row in arr:
-        #     r = heapq.nsmallest(2, ((a + r[i == r[0][1]][0], i)
-        #                         for i, a in enumerate(row)))
-        # return r[0][0]
+
+        r = [(0, -1)]
+        for row in arr:
+            r = heapq.nsmallest(2, ((a + r[i == r[0][1]][0], i) for i, a in enumerate(row)))
+        return r[0][0]
         
 # @lc code=end
 

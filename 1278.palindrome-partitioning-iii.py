@@ -64,17 +64,17 @@ from functools import lru_cache
 
 class Solution:
     def palindromePartition(self, s: str, k: int) -> int:
-        def cost(w):
+        def num_change(w):
             return sum(a != b for a, b in zip(w, w[::-1])) // 2
 
         @lru_cache(None)
         def dp(i, k):
             if k == 1:
-                return cost(s[:i+1])
+                return num_change(s[:i + 1])
             else:
-                return min(dp(j, k-1) + cost(s[j+1:i+1]) for j in range(k-2, i))
+                return min(dp(j, k - 1) + num_change(s[j + 1:i + 1]) for j in range(k - 2, i))
 
-        return dp(len(s)-1, k)
+        return dp(len(s) - 1, k)
         
 # @lc code=end
 

@@ -80,6 +80,10 @@
 # @lc code=start
 class Solution:
     def numOfBurgers(self, tomatoSlices: int, cheeseSlices: int) -> List[int]:
+        # x + y = c
+        # 4x + 2y = t
+        t, c = tomatoSlices, cheeseSlices
+        return [t // 2 - c, c * 2 - t // 2] if t % 2 == 0 and c * 2 <= t <= c * 4 else []
         
 # @lc code=end
 
