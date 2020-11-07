@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/jump-game-iii/description/
 #
 # algorithms
-# Medium (61.08%)
-# Likes:    168
-# Dislikes: 4
-# Total Accepted:    11.5K
-# Total Submissions: 18.8K
+# Medium (60.36%)
+# Likes:    673
+# Dislikes: 27
+# Total Accepted:    39.5K
+# Total Submissions: 65.4K
 # Testcase Example:  '[4,2,3,0,3,1,2]\n5'
 #
 # Given an array of non-negative integers arr, you are initially positioned at
@@ -57,6 +57,7 @@
 # 0 <= arr[i] < arr.length
 # 0 <= start < arr.length
 # 
+# 
 #
 
 # @lc code=start
@@ -64,25 +65,27 @@ from collections import deque
 
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
-        # if 0 <= start < len(arr) and arr[start] >= 0:
-        #     arr[start] = -arr[start]
-        #     return arr[start] == 0 or self.canReach(arr, start+arr[start]) or self.canReach(arr, start-arr[start])
+        # O(N)
+
+        # n, q, visited = len(arr), deque([start]), set()
+
+        # while q:
+        #     idx = q.popleft()
+        #     if arr[idx] == 0:
+        #         return True
+        #     for x in (idx - arr[idx], idx + arr[idx]):
+        #         if 0 <= x < n and x not in visited:
+        #             visited.add(idx)
+        #             q.append(x)
+
         # return False
 
-        n, q, visited = len(arr), deque(), set()
-        q.append(start); visited.add(start)
 
-        while q:
-            idx = q.popleft()
-            if arr[idx] == 0:
-                return True
-            for x in (idx - arr[idx], idx + arr[idx]):
-                if 0 <= x < n and x not in visited:
-                    visited.add(x)
-                    q.append(x)
-
+        if 0 <= start < len(arr) and arr[start] >= 0:
+            arr[start] = -arr[start]
+            return arr[start] == 0 or self.canReach(arr, start + arr[start]) \
+                or self.canReach(arr, start - arr[start])
         return False
-        
         
 # @lc code=end
 

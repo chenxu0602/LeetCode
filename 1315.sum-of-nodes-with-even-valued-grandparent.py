@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/sum-of-nodes-with-even-valued-grandparent/description/
 #
 # algorithms
-# Medium (83.63%)
-# Likes:    142
-# Dislikes: 6
-# Total Accepted:    10.3K
-# Total Submissions: 12.3K
+# Medium (83.72%)
+# Likes:    657
+# Dislikes: 29
+# Total Accepted:    47.3K
+# Total Submissions: 56.5K
 # Testcase Example:  '[6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]'
 #
 # Given a binary tree, return the sum of values of nodes with even-valued
@@ -43,30 +43,19 @@
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def sumEvenGrandparent(self, root: TreeNode) -> int:
-        self.res = 0
-        def dfs(node, parent_even=False):
-            if not node: return
-            if parent_even:
-                if node.left:
-                    self.res += node.left.val
-                if node.right:
-                    self.res += node.right.val
-            if node.val % 2 == 0:
-                dfs(node.left, parent_even=True)
-                dfs(node.right, parent_even=True)
-            else:
-                dfs(node.left)
-                dfs(node.right)
+        # O(N) / O(H)
+        def dfs(node, par=1, grandpar=1):
+            return dfs(node.left, node.val, par) \
+                + dfs(node.right, node.val, par) \
+                + node.val * (1 - grandpar % 2) if node else 0
 
-        dfs(root)
-        return self.res
+        return dfs(root)
         
 # @lc code=end
 

@@ -45,23 +45,22 @@
 # @lc code=start
 class Solution:
     def matrixBlockSum(self, mat: List[List[int]], K: int) -> List[List[int]]:
-        m, n = len(mat), len(mat[0]) if mat else 0
-        sums = [[0] * (n+1) for _ in range(m+1)]
-
-        for i in range(1, m+1):
-            for j in range(1, n+1):
-                sums[i][j] = mat[i-1][j-1] + sums[i][j-1] + sums[i-1][j] - sums[i-1][j-1]
+        m, n = map(len, (mat, mat[0]))
+        sums = [[0] * (n + 1) for _ in range(m + 1)]
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                sums[i][j] = mat[i - 1][j - 1] + sums[i][j - 1] + sums[i - 1][j] - sums[i - 1][j - 1]
 
         answers = [[0] * n for _ in range(m)]
         for i in range(m):
             for j in range(n):
                 row1 = max(0, i - K)
                 col1 = max(0, j - K)
-                row2 = min(m-1, i + K)
-                col2 = min(n-1, j + K)
-                answers[i][j] = sums[row2+1][col2+1] - sums[row2+1][col1] - sums[row1][col2+1] + sums[row1][col1]
+                row2 = min(m - 1, i + K)
+                col2 = min(n - 1, j + K)
+                answers[i][j] = sums[row2 + 1][col2 + 1] - sums[row2 + 1][col1] - sums[row1][col2 + 1] + sums[row1][col1]
 
         return answers
-        
+
 # @lc code=end
 

@@ -82,31 +82,33 @@ class Solution:
         #         yield from gen(node.right)
         # return list(heapq.merge(gen(root1), gen(root2)))
 
-        def dfs(node):
-            return dfs(node.left) + [node.val] + dfs(node.right) if node else []
 
-        r1, r2 = dfs(root1), dfs(root2)
+        # O(M + N)
+        stack1, stack2, output = [], [], []
 
-        results = []
+        while root1 or root2 or stack1 or stack2:
+            # update both stacks
+            # by going left till possible
+            while root1:
+                stack1.append(root1)
+                root1 = root1.left
+            while root2:
+                stack2.append(root2)
+                root2 = root2.left
 
-        l = r = 0
-        while l < len(r1) and r < len(r2):
-            if r1[l] <= r2[r]:
-                results.append(r1[l])
-                l += 1
+            # Add the smallest value into output,
+            # pop it from the stack,
+            # and then do one step right
+            if not stack2 or stack1 and stack1[-1].val <= stack2[-1].val:
+                root1 = stack1.pop()
+                output.append(root1.val)
+                root1 = root1.right
             else:
-                results.append(r2[r])
-                r += 1
+                root2 = stack2.pop()
+                output.append(root2.val)
+                root2 = root2.right
 
-        while l < len(r1):
-            results.append(r1[l])
-            l += 1
+        return output
 
-        while r < len(r2):
-            results.append(r2[r])
-            r += 1
-
-        return results
-        
 # @lc code=end
 
