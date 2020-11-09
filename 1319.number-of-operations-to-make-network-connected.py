@@ -78,6 +78,13 @@
 class Solution:
     def makeConnected(self, n: int, connections: List[List[int]]) -> int:
 
+        # if len(connections) < n - 1:
+        #     return False
+        # s = "".join(map(chr, range(n)))
+        # for a, b in connections:
+        #     s = s.replace(s[a], s[b])
+        # return len(set(s)) - 1
+
         if len(connections) < n - 1:
             return -1
 
@@ -97,6 +104,7 @@ class Solution:
             return 1
 
         return sum(dfs(i) for i in range(n)) - 1
+
         
 # @lc code=end
 

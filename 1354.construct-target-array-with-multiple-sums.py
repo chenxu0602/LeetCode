@@ -67,21 +67,57 @@
 
 # @lc code=start
 import heapq
+import bisect
 
 class Solution:
     def isPossible(self, target: List[int]) -> bool:
-        q = [-x for x in target]
-        heapq.heapify(q)
-        sum_ = sum(target)
-        while True:
-            high, rest = -q[0], sum_ + q[0]
-            if high == 1 or rest == 1:
-                return True
-            original = high % rest
-            if rest >= high or not original:
-                return False
-            sum_ -= (high - original)
-            heapq.heapreplace(q, -original)
+        # Time  complexity: O(n + klogn), k is the max of target array.
+        # Space complexity: O(n)
+        # if len(target) == 1:
+        #     return target == [1]
+
+        # total_sum = sum(target)
+        # target = [-num for num in target]
+        # heapq.heapify(target)
+
+        # while -target[0] > 1:
+        #     largest = -target[0]
+        #     x = largest - (total_sum - largest)
+        #     if x < 1:
+        #         return False
+
+        #     heapq.heapreplace(target, -x)
+        #     total_sum = total_sum - largest + x
+
+        # return True
+
         
+        # Time  complexity: O(n + logk x logn)
+        # Space complexity: O(n)
+        if len(target) == 1:
+            return target == [1]
+
+        total_sum = sum(target)
+
+        target = [-num for num in target]
+        heapq.heapify(target)
+        while -target[0] > 1:
+            largest = -target[0]
+            rest = total_sum - largest
+
+            if rest == 1:
+                return True
+
+            x = largest % rest
+
+            if x == 0 or x == largest:
+                return False
+
+            heapq.heapreplace(target, -x)
+            total_sum = total_sum - largest + x
+
+        return True
+            
+
 # @lc code=end
 

@@ -74,5 +74,21 @@
 
 class Solution:
     def maxProduct(self, root: TreeNode) -> int:
+
+        # O(N)
+        def tree_sum(node):
+            if node is None: return 0
+            left_sum, right_sum = map(tree_sum, (node.left, node.right))
+            total_sum = left_sum + right_sum + node.val
+            all_sums.append(total_sum)
+            return total_sum
+
+        all_sums = []
+        total_sum = tree_sum(root)
+        best = 0
+        for s in all_sums:
+            best = max(best, s * (total_sum - s))
+        return best % (10 ** 9 + 7)
+
 # @lc code=end
 

@@ -87,7 +87,7 @@ class Solution:
     def minimumDistance(self, word: str) -> int:
 
         # def dist(a, b):
-        #     return a and abs(a//6 - b//6) + abs(a % 6 - b % 6)
+        #     return a and abs(a // 6 - b // 6) + abs(a % 6 - b % 6)
 
         # dp, dp2 = {(0, 0): 0}, {}
         # for c in [ord(c) + 1 for c in word]:
@@ -97,19 +97,21 @@ class Solution:
         #     dp, dp2 = dp2, {}
         # return min(dp.values())
 
+
         # Instead of moving right finger from b to c with distance d(b, c),
         # we try moving left finger from a to c with distance d(a, c).
         # Hopely this will save d(b, c) - d(a, c).
-
+        # In our dynamic programming, dp[a] means that, if our left finger ends at character a,
+        # the maximum we can save is dp[a].
         def dist(a, b):
-            return abs(a//6 - b//6) + abs(a%6 - b%6)
+            return abs(a // 6 - b // 6) + abs(a % 6 - b % 6)
 
         A = [ord(c) - ord('A') for c in word]
         dp = [0] * 26
         for b, c in zip(A, A[1:]):
             dp[b] = max(dp[a] + dist(b, c) - dist(a, c) for a in range(26))
-
         return sum(dist(b, c) for b, c in zip(A, A[1:])) - max(dp)
+
         
 # @lc code=end
 

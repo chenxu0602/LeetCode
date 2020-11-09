@@ -48,20 +48,26 @@
 class Solution:
     def distinctEchoSubstrings(self, text: str) -> int:
 
-        res, n = set(), len(text)
+        # res, n = set(), len(text)
 
-        def check(i, j):
-            l = j - i
-            if l % 2 == 0 and text[i:i+l//2] == text[i+l//2:j]:
-                return True
-            return False
+        # def check(i, j):
+        #     l = j - i
+        #     if l % 2 == 0 and text[i:i+l//2] == text[i+l//2:j]:
+        #         return True
+        #     return False
 
-        for i in range(n):
-            for j in range(i+1, n+1):
-                if check(i, j):
-                    res.add(text[i:j])
+        # for i in range(n):
+        #     for j in range(i+1, n+1):
+        #         if check(i, j):
+        #             res.add(text[i:j])
 
-        return len(res)
+        # return len(res)
+
+
+        return len(set(text[i:i + k]
+                    for k in range(1, len(text) // 2 + 1)
+                    for i in range(k, len(text))
+                    if text[i - k:i] == text[i:i + k]))
 
         
         

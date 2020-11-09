@@ -79,7 +79,39 @@
 #
 
 # @lc code=start
+from functools import lru_cache
+
 class Solution:
     def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:
+        # dfs help find the minimumu difficulty if start work at ith join with d days left.
+        # Time  complexity: O(nnd)
+        # Space complexity: O(nd)
+        @lru_cache(None)
+        def dfs(i, d):
+            if d == 1:
+                return max(jobDifficulty[i:])
+            res, maxd = float("inf"), 0
+            for j in range(i, n - d + 1):
+                maxd = max(maxd, jobDifficulty[j])
+                res = min(res, maxd + dfs(j + 1, d - 1))
+
+            return res
+
+        n = len(jobDifficulty)
+        if n < d: return -1
+        return dfs(0, d)
+
+
+        # n = len(jobDifficulty)
+        # dp = [[float("inf")] * n + [0] for i in range(d + 1)]
+
+        # for d in range(1, d + 1):
+        #     for i in range(n - d + 1):
+        #         maxd = 0
+        #         for j in range(i, n - d + 1):
+        #             maxd = max(maxd, jobDifficulty[j])
+        #             dp[d][i] = min(dp[d][i], maxd + dp[d - 1][j + 1])
+
+        # return dp[d][0] if dp[d][0] < float("inf") else -1
 # @lc code=end
 

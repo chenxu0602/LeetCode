@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/description/
 #
 # algorithms
-# Hard (55.23%)
-# Likes:    143
-# Dislikes: 5
-# Total Accepted:    5.7K
-# Total Submissions: 10.4K
+# Hard (58.65%)
+# Likes:    525
+# Dislikes: 6
+# Total Accepted:    16.9K
+# Total Submissions: 28.7K
 # Testcase Example:  '"zzazz"'
 #
 # Given a string s. In one step you can insert any character at any index of
@@ -68,6 +68,7 @@
 # 1 <= s.length <= 500
 # All characters of s are lower case English letters.
 # 
+# 
 #
 
 # @lc code=start
@@ -75,21 +76,23 @@ from functools import lru_cache
 
 class Solution:
     def minInsertions(self, s: str) -> int:
+        # O(N^2)
 
-        # @lru_cache(None)
-        # def dp(i, j):
-        #     if j - i <= 0: return 0
-        #     return dp(i+1, j-1) if s[i] == s[j] else 1 + min(dp(i+1, j), dp(i, j-1))
+        # n = len(s)
+        # dp = [[0] * (n + 1) for i in range(n + 1)]
+        # for i in range(n):
+        #     for j in range(n):
+        #         dp[i + 1][j + 1] = dp[i][j] + 1 if s[i] == s[~j] else max(dp[i][j + 1], dp[i + 1][j])
+        # return n - dp[n][n]
 
-        # return dp(0, len(s)-1)
+        @lru_cache(None)
+        def dp(i, j):
+            if j - i <= 0: return 0
+            return dp(i + 1, j - 1) if s[i] == s[j] else min(dp(i + 1, j), dp(i, j - 1)) + 1
+        return dp(0, len(s) - 1)
 
-        n = len(s)
-        dp = [[0] * (n+1) for i in range(n+1)]
-        for i in range(n):
-            for j in range(n):
-                dp[i+1][j+1] = dp[i][j] + 1 if s[i] == s[~j] else max(dp[i][j+1], dp[i+1][j])
 
-        return n - dp[n][n]
+
         
 # @lc code=end
 
