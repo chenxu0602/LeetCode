@@ -57,7 +57,22 @@ from collections import Counter
 
 class Solution:
     def numIdenticalPairs(self, nums: List[int]) -> int:
-        return sum(k * (k - 1) // 2 for k in Counter(nums).values())
+        # return sum(k * (k - 1) // 2 for k in Counter(nums).values())
+
+
+        repeat, num = {}, 0
+
+        for v in nums:
+            if v in repeat:
+                num += repeat[v]
+                repeat[v] += 1
+            else:
+                repeat[v] = 1
+
+        return num
+
+
+
         
 # @lc code=end
 

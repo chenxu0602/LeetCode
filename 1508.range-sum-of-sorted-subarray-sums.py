@@ -76,7 +76,7 @@ class Solution:
             if k >= left:
                 ans += x
             if i + 1 < n:
-                heapq.heappush(heap, (x + nums[i+1], i + 1))
+                heapq.heappush(heap, (x + nums[i + 1], i + 1))
 
         return ans % (10**9 + 7)
 

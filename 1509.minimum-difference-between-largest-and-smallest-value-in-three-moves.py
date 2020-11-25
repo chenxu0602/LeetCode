@@ -65,10 +65,15 @@ import heapq
 
 class Solution:
     def minDifference(self, nums: List[int]) -> int:
-        # nums.sort()
-        # return min(b - a for a, b in zip(nums[:4], nums[-4:]))
+        # We have 4 plans:
+        # kill 3 biggest elements
+        # kill 2 biggest elements + 1 smallest elements
+        # kill 1 biggest elements + 2 smallest elements
+        # kill 3 smallest elements
+        nums.sort()
+        return min(b - a for a, b in zip(nums[:4], nums[-4:]))
 
-        return min(a - b for a, b in zip(heapq.nlargest(4, nums), heapq.nsmallest(4, nums)[::-1]))
+        # return min(a - b for a, b in zip(heapq.nlargest(4, nums), heapq.nsmallest(4, nums)[::-1]))
         
 # @lc code=end
 

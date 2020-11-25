@@ -81,13 +81,38 @@
 #
 
 # @lc code=start
+from functools import lru_cache
+import math
+
 class Solution:
     def winnerSquareGame(self, n: int) -> bool:
         # if there is any k that dp[i - k * k] == false, it means we can make the other lose the game
+        # Time  complexity: O(N x sqrt(N))
+        # Space complexity: O(N)
         dp = [False] * (n + 1)
         for i in range(1, n + 1):
             dp[i] = not all(dp[i - k * k] for k in range(1, int(math.sqrt(i) + 1)))
         return dp[-1]
+
+
+        # DFS with memorization
+        # Time  complexity: O(N x sqrt(N))
+        # Space complexity: O(N)
+        # @lru_cache(None)
+        # def dfs(remain):
+        #     if remain == 0:
+        #         return False
+
+        #     sqrt_root = int(remain ** 0.5)
+        #     for i in range(1, sqrt_root + 1):
+        #         # if there is any chance to make the opponent lose the game in the next round,
+        #         #  then the current player will win.
+        #         if not dfs(remain - i * i):
+        #             return True
+
+        #     return False
+
+        # return dfs(n)
         
 # @lc code=end
 
