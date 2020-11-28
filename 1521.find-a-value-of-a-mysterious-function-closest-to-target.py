@@ -66,13 +66,20 @@
 # @lc code=start
 class Solution:
     def closestToTarget(self, arr: List[int], target: int) -> int:
-        # s, ans = set(), float("inf")
-        # for a in arr:
-        #     s = {a & b for b in s} | {a}
-        #     for c in s:
-        #         ans = min(ans, abs(c - target))
+        # Let AND(i, j) denote arr[i] & arr[i+1] & ... & arr[j].
+        # For a fixed j, let s(j) record all the results of AND(i, j) where 0 <= i <= j.
+        # Then s(j + 1) = {arr[j + 1]} | {arr[j + 1] & a} for all a in s(j).
+        # Therefore we can get all s(0), s(1), ..., s(n-1) and find the answer.
+        # O(N^2)
+        # ans, seen = float("inf"), set()
+        # for x in arr:
+        #     seen = {ss & x for ss in seen} | {x}
+        #     ans = min(ans, min(abs(ss - target) for ss in seen))
         # return ans
 
+
+        # Bitwise And
+        # O(N)
         ans, seen = float("inf"), set()
         for x in arr:
             tmp = set()
@@ -84,6 +91,8 @@ class Solution:
                     tmp.add(ss)
             seen = tmp
         return ans
+            
+
         
 # @lc code=end
 

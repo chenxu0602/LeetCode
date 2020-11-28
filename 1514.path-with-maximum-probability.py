@@ -78,17 +78,20 @@ import heapq
 
 class Solution:
     def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
-        # g, queue = defaultdict(list), deque([start])
+        # Bellman Ford Algorithm
+        # Time  complexity: O(E x V)
+        # Space complexity: O(E + V)
+        # graph, queue = defaultdict(list), deque([start])
         # for i, (a, b) in enumerate(edges):
-        #     g[a].append([b, i])
-        #     g[b].append([a, i])
+        #     graph[a].append([b, i])
+        #     graph[b].append([a, i])
 
         # p = [0.0] * n
         # p[start] = 1.0
 
         # while queue:
         #     cur = queue.popleft()
-        #     for nei, i in g.get(cur, []):
+        #     for nei, i in graph.get(cur, []):
         #         if p[cur] * succProb[i] > p[nei]:
         #             p[nei] = p[cur] * succProb[i]
         #             queue.append(nei)
@@ -96,25 +99,30 @@ class Solution:
         # return p[end]
 
 
-        p, g = [0] * n, defaultdict(list)
+        # Dijkstra
+        # Time  complexity: O(V + E x logV)
+        # Space complexity: O(V + E)
+        graph = defaultdict(list)
         for i, (a, b) in enumerate(edges):
-            g[a].append((b, i))
-            g[b].append((a, i))
+            graph[a].append([b, i])
+            graph[b].append([a, i])
 
+        p = [0.0] * n
         p[start] = 1.0
-        heap = [(-p[start], start)]
 
+        heap = [(-p[start], start)]
         while heap:
-            prob, curr = heapq.heappop(heap)
-            if curr == end:
+            prob, cur = heapq.heappop(heap)
+            if cur == end:
                 return -prob
 
-            for nei, i in g.get(curr, []):
+            for nei, i in graph.get(cur, []):
                 if -prob * succProb[i] > p[nei]:
                     p[nei] = -prob * succProb[i]
                     heapq.heappush(heap, (-p[nei], nei))
 
         return 0.0
+
         
 # @lc code=end
 

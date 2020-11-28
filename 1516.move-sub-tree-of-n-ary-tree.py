@@ -126,40 +126,72 @@ class Node:
 
 class Solution:
     def moveSubTree(self, root: 'Node', p: 'Node', q: 'Node') -> 'Node':
-        if not root or p in q.children: 
+        # if not root or p in q.children: 
+        #     return root
+        # pparent, qparent = None, None
+
+        # def dfs(node, foundp):
+        #     if not node: return
+        #     nonlocal pparent; nonlocal qparent
+
+        #     if node == p: 
+        #         foundp = True
+
+        #     for i, c in enumerate(node.children):
+        #         if c is p:
+        #             pparent = (node, i)
+        #         if foundp and c is q:
+        #             qparent = (node, i)
+
+        #         dfs(c, foundp)
+
+        # dfs(root, False)
+
+        # if pparent:
+        #     del pparent[0].children[pparent[1]]
+
+        # q.children.append(p)
+
+        # if qparent:
+        #     del qparent[0].children[qparent[1]]
+        #     if pparent:
+        #         pparent[0].children.insert(pparent[1], q)
+        #     else:
+        #         root = q
+
+        # return root
+
+
+        def dfs_parent(node, tar):
+            if tar in node.children:
+                return node
+            for x in node.children:
+                ans = dfs_parent(x, tar)
+                if ans:
+                    return ans
+            return None
+
+        if p in q.children:
             return root
-        pparent, qparent = None, None
 
-        def dfs(node, foundp):
-            if not node: return
-            nonlocal pparent; nonlocal qparent
+        dummy = Node()
+        dummy.children.append(root)
 
-            if node == p: 
-                foundp = True
+        p_parent = dfs_parent(dummy, p)
+        q_in_p = dfs_parent(p, q)
 
-            for i, c in enumerate(node.children):
-                if c is p:
-                    pparent = (node, i)
-                if foundp and c is q:
-                    qparent = (node, i)
-
-                dfs(c, foundp)
-
-        dfs(root, False)
-
-        if pparent:
-            del pparent[0].children[pparent[1]]
+        # Remove p from p's parent
+        p_index = p_parent.children.index(p)
+        p_parent.children.pop(p_index)
 
         q.children.append(p)
+        if q_in_p:
+            q_in_p.children.remove(q)
+            p_parent.children.insert(p_index, q)
 
-        if qparent:
-            del qparent[0].children[qparent[1]]
-            if pparent:
-                pparent[0].children.insert(pparent[1], q)
-            else:
-                root = q
+        return dummy.children[0]
 
-        return root
+
             
 
 

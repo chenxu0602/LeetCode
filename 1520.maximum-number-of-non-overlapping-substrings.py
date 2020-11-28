@@ -77,9 +77,11 @@
 class Solution:
     def maxNumOfSubstrings(self, s: str) -> List[str]:
 
+        # Greedy
+
         fst = { c : s.index(c) for c in set(s) }
         lst = { c : s.rindex(c) for c in set(s) }
-        
+
         intervals = []
         for c in set(s):
             b, e = fst[c], lst[c]
@@ -90,15 +92,16 @@ class Solution:
                 i += 1
             if b == fst[c]:
                 intervals.append((e, b))
-        
+
         intervals.sort()
         ans, prev = [], -1
         for e, b in intervals:
             if b > prev:
                 ans.append(s[b:e + 1])
                 prev = e
-        
+
         return ans
+
 
         
 

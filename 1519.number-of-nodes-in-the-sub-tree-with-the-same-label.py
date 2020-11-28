@@ -6,11 +6,11 @@
 # https://leetcode.com/problems/number-of-nodes-in-the-sub-tree-with-the-same-label/description/
 #
 # algorithms
-# Medium (34.04%)
-# Likes:    148
-# Dislikes: 171
-# Total Accepted:    7.7K
-# Total Submissions: 22.5K
+# Medium (36.24%)
+# Likes:    204
+# Dislikes: 223
+# Total Accepted:    10.6K
+# Total Submissions: 29.2K
 # Testcase Example:  '7\r\n[[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]]\r\n"abaedcd"\r'
 #
 # Given a tree (i.e. a connected, undirected graph that has no cycles)
@@ -89,18 +89,20 @@
 # labels.length == n
 # labels is consisting of only of lower-case English letters.
 # 
-# 
 #
 
 # @lc code=start
-from collections import Counter, defaultdict
+from collections import defaultdict, Counter
 
 class Solution:
     def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -> List[int]:
-
-        # def dfs(node):
+        # cnt[i] is the total number of corresponding char.
+        # Use DFS to traverse the tree and count each label and sum it in the return array.
+        # Time  complexity: O(n)
+        # Space complexity: O(n)
+        # def dfs(node: int):
         #     cnt = Counter()
-        #     if not node in seen:
+        #     if node not in seen:
         #         cnt[labels[node]] += 1
         #         seen.add(node)
         #         for child in g.get(node, []):
@@ -112,13 +114,14 @@ class Solution:
         # for a, b in edges:
         #     g[a] += b,
         #     g[b] += a,
-        
         # dfs(0)
         # return ans
 
-        def dfs(node, parent):
+
+        # Since it is a tree, we can avoid duplicate visiting by checking if its neighbor is its parent.
+        def dfs(node: int, parent: int):
             cnt = Counter(labels[node])
-            for child in g[node]:
+            for child in g.get(node, []):
                 if child != parent:
                     cnt += dfs(child, node)
             ans[node] = cnt[labels[node]]
@@ -131,6 +134,7 @@ class Solution:
 
         dfs(0, -1)
         return ans
+
         
 # @lc code=end
 
