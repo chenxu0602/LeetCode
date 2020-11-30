@@ -74,6 +74,14 @@
 # @lc code=start
 class Solution:
     def maxCoins(self, piles: List[int]) -> int:
+        # The final assignment will be like:
+        # S S S S S S M L M L M L M L M L
+
+        # The first third part is given to Bob,
+        # start from A[n/3], we pick one element from every two.
+
+
+        return sum(sorted(piles)[len(piles) // 3::2])
         
 # @lc code=end
 
