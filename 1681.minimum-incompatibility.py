@@ -72,6 +72,7 @@ import itertools
 
 class Solution:
     def minimumIncompatibility(self, nums: List[int], k: int) -> int:
+        # 'l' means last added
         # O(n x 2^n)
         n = len(nums)
         if k == n: return 0
