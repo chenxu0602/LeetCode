@@ -9,6 +9,9 @@ from collections import Counter
 
 class Solution:
     def maximumGain(self, s: str, x: int, y: int) -> int:
+        # If 'ab' (x) gains more, we will use 'ab' whenever we see it, and when we see 'ba', keep it in Counter for now, because we want to see if we can find 'bab' later.
+        # Time  complexity: O(N)
+        # Space complexity: O(1)
         a, b = 'a', 'b'
         if x < y:
             x, y = y, x
