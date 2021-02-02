@@ -56,6 +56,7 @@ class Solution:
         # Iterative
         # Time  complexity: O(n)
         # Space complexity: O(1)
+        """
         prev, curr = None, head
         while curr:
             next = curr.next
@@ -63,6 +64,14 @@ class Solution:
             prev = curr
             curr = next
         return prev
+        """
+
+        prev, curr = None, head
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next
+        return prev
+
+        
         
 # @lc code=end
 

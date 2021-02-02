@@ -47,7 +47,8 @@
 #
 class Solution:
     def findNthDigit(self, n: int) -> int:
-        # The first elements of these groups are 1, 10, 100, 1000...has the form 10**(digits-1) for digits in range(1, 11) (11 is big enough to cover all n in the given range). But how do we determine the group from n? Notice the groups has 9, 90, 900, 9000...elements and the total number of digits in the groups are 1＊9, 2＊90, 3＊900, 4＊9000.....Let's formalize the observation. For the digits-th group,
+        # The first elements of these groups are 1, 10, 100, 1000...has the form 10**(digits-1) for digits in range(1, 11) (11 is big enough to cover all n in the given range). 
+        # But how do we determine the group from n? Notice the groups has 9, 90, 900, 9000...elements and the total number of digits in the groups are 1＊9, 2＊90, 3＊900, 4＊9000.....Let's formalize the observation. For the digits-th group,
         # first = the first element 9 * first = the size of the group 9 * first * digits = the number of digits in the group
         n -= 1
         for digits in range(1, 11):
