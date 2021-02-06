@@ -46,9 +46,10 @@
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         for i in range(len(nums)):
-            while 0 <= nums[i] - 1 < len(nums) and nums[nums[i] - 1] != nums[i]:
-                tmp = nums[i] - 1
+            tmp = nums[i] - 1
+            while 0 <= tmp < len(nums) and nums[tmp] != nums[i]:
                 nums[i], nums[tmp] = nums[tmp], nums[i]
+                tmp = nums[i] - 1
 
         for i in range(len(nums)):
             if nums[i] != i + 1:

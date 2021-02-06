@@ -59,6 +59,8 @@ class Solution:
             if target == 0 and path not in res:
                 return res.append(path)
             for i in range(start, len(candidates)):
+                if i > start and candidates[i] == candidates[i - 1]:
+                    continue
                 if target < candidates[i]:
                     return
                 dfs(candidates, target-candidates[i], i+1, path+[candidates[i]])
