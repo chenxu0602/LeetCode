@@ -107,6 +107,14 @@ class Solution:
         # return dp[L][N] % (10**9 + 7)
 
 
+        # For dp[i][j] = dp[i-1][j-1] * (N-j+1) + dp[i-1][j] * max(j-K, 0);, 
+        # the dp is defined as dp[i][j] := number of playlists of length i, using j distinct songs, 
+        # where there are N distinct songs in the universe
+        # For dp[i][j] = dp[i-1][j-1] * j + dp[i-1][j] * max(j-K, 0);, 
+        # the dp is defined as dp[i][j] := number of playlists of length i, using j distinct songs, 
+        # where there are only j distinct songs in the universe
+
+
         dp = [[0] * (L + 1) for _ in range(N + 1)]
         for i in range(K + 1, N + 1):
             for j in range(i, L + 1):

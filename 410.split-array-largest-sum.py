@@ -51,7 +51,7 @@ class Solution:
         # Dynamic Programming 
         # Let's define f[i][j] to be the minimum largest subarray sum for splitting nums[0...i] into j parts.
         # Consider the jth subarray. We can split the array from a smaller index k to i to form it.
-        # Thus f[i][j]] can be derived from max(f[k][j-1], nums[k+1] + ... + nums[i]).
+        # Thus f[i][j] can be derived from max(f[k][j-1], nums[k+1] + ... + nums[i]).
         # For all valid index k, f[i][j] should choose the minimum value of the above formula.
         # Time  complexity: O(n^2 x m)
         # Space complexity: O(n x m)
