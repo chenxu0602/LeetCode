@@ -80,9 +80,9 @@ class Solution:
     def alienOrder(self, words: List[str]) -> str:
 
         # Breadth-First Search
-        # Let NN be the total number of strings in the input list.
-        # Let CC be the total length of all the words in the input list, added together.
-        # Let UU be the total number of unique letters in the alien alphabet.
+        # Let N be the total number of strings in the input list.
+        # Let C be the total length of all the words in the input list, added together.
+        # Let U be the total number of unique letters in the alien alphabet.
         # Time  complexity: O(C)
         # Space complexity: O(1) or O(U + min(U^2 + N))
         # adj_list = defaultdict(set)
