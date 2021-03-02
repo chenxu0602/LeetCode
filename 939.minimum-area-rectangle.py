@@ -77,7 +77,8 @@ class Solution:
 
 
         # Count by Diagonal
-        # For each pair of points in the array, consider them to be the long diagonal of a potential rectangle. We can check if all 4 points are there using a Set.
+        # For each pair of points in the array, consider them to be the long diagonal of a potential rectangle. 
+        # We can check if all 4 points are there using a Set.
         # Time  complexity: O(N^2)
         # Space complexity: O(N)
         # S = set(map(tuple, points))
