@@ -37,27 +37,43 @@
 # @lc code=start
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        nums.sort()
+        # res = []
+        # nums.sort()
 
-        for i in range(len(nums) - 2):
-            if i > 0 and nums[i] == nums[i-1]:
-                continue
+        # for i in range(len(nums) - 2):
+        #     if i > 0 and nums[i] == nums[i-1]:
+        #         continue
 
-            l, r = i + 1, len(nums) - 1
-            while l < r:
-                s = nums[i] + nums[l] + nums[r]
-                if s < 0:
-                    l += 1
-                elif s > 0:
-                    r -= 1
-                else:
-                    res.append((nums[i], nums[l], nums[r]))
-                    while l < r and nums[l] == nums[l+1]:
-                        l += 1
-                    while l < r and nums[r] == nums[r-1]:
-                        r -= 1
-                    l += 1; r -= 1
+        #     l, r = i + 1, len(nums) - 1
+        #     while l < r:
+        #         s = nums[i] + nums[l] + nums[r]
+        #         if s < 0:
+        #             l += 1
+        #         elif s > 0:
+        #             r -= 1
+        #         else:
+        #             res.append((nums[i], nums[l], nums[r]))
+        #             while l < r and nums[l] == nums[l+1]:
+        #                 l += 1
+        #             while l < r and nums[r] == nums[r-1]:
+        #                 r -= 1
+        #             l += 1; r -= 1
+
+        # return res
+
+        # O(n^2) / O(n)
+
+        res, dups = set(), set()
+        seen = {}
+
+        for i, val1 in enumerate(nums):
+            if val1 not in dups:
+                dups.add(val1)
+                for j, val2 in enumerate(nums[i + 1:]):
+                    complement = -val1 - val2
+                    if complement in seen and seen[complement] == i:
+                        res.add(tuple(sorted((val1, val2, complement))))
+                    seen[val2] = i
 
         return res
         

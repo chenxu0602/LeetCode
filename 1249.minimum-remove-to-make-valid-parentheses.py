@@ -72,21 +72,36 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
 
-        stack, cur = [], ""
-        for c in s:
-            if c == '(':
-                stack += cur,
-                cur = ""
+        # stack, cur = [], ""
+        # for c in s:
+        #     if c == '(':
+        #         stack += cur,
+        #         cur = ""
+        #     elif c == ')':
+        #         if stack:
+        #             cur = stack.pop() + '(' + cur + ')'
+        #     else:
+        #         cur += c
+
+        # while stack:
+        #     cur = stack.pop() + cur
+
+        # return cur
+
+
+        open, s = 0, list(s)
+
+        for i, c in enumerate(s):
+            if c == '(': open += 1
             elif c == ')':
-                if stack:
-                    cur = stack.pop() + '(' + cur + ')'
-            else:
-                cur += c
+                if not open: s[i] = ""
+                else: open -= 1
 
-        while stack:
-            cur = stack.pop() + cur
+        for i in range(len(s) - 1, -1, -1):
+            if not open: break
+            if s[i] == '(': s[i] = ""; open -= 1
 
-        return cur
+        return "".join(s)
 
 
 
