@@ -42,14 +42,23 @@ class Solution:
         #     maxSum = max(maxSum, curSum)
         # return maxSum
 
-        curSum = 0
-        maxSum = float("-inf")
+        # curSum = 0
+        # maxSum = float("-inf")
 
-        for i in nums:
-            curSum += i
-            maxSum = max(maxSum, curSum)
-            curSum = max(0, curSum)
-        return maxSum
+        # for i in nums:
+        #     curSum += i
+        #     maxSum = max(maxSum, curSum)
+        #     curSum = max(0, curSum)
+        # return maxSum
+
+
+        current_subarray = max_subarray = nums[0]
+
+        for num in nums[1:]:
+            current_subarray = max(num, current_subarray + num)
+            max_subarray = max(max_subarray, current_subarray)
+
+        return max_subarray
         
 # @lc code=end
 
