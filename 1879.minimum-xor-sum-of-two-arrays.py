@@ -63,6 +63,7 @@ from functools import lru_cache
 
 class Solution:
     def minimumXORSum(self, nums1: List[int], nums2: List[int]) -> int:
+        # O(n x 2^n)
 
         # @lru_cache(None)
         # def dp(mask: int) -> int:
