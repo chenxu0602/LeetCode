@@ -51,7 +51,7 @@ from collections import defaultdict
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], S: int, T: int) -> int:
         # Breadth First Search 
-        # Time  complexity: Let NN denote the number of buses, and b_i​	be the number of stops on the ith bus.
+        # Time  complexity: Let NN denote the number of buses, and b_i the number of stops on the ith bus.
         # Creating the graph is O(N x Sum(b_i)) and search is O(N^2)
         # Space complexity: O(N^2 + sum(b_i))
         if S == T: return 0
