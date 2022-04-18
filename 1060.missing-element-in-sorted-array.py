@@ -82,7 +82,7 @@ class Solution:
 
 
         # Binary Search
-        # Time  complexity: O(NlogN)
+        # Time  complexity: O(logN)
         # Space complexity: O(1)
         # Return how many numbers are missing until nums[idx]
         missing = lambda idx: nums[idx] - nums[0] - idx

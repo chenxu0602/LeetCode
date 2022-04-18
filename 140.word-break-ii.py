@@ -93,7 +93,7 @@ class Solution:
         # for i in range(1, len(s)+1):
         #     lst = []
         #     for j in range(i):
-        #         if len(dp[j]) > 0 and s[j:i] in wordDict:
+        #         if s[j:i] in wordDict:
         #             for l in dp[j]:
         #                 new_elem = l + ' ' + s[j:i]
         #                 lst.append(new_elem.strip())

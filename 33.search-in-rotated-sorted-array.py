@@ -58,7 +58,7 @@ class Solution:
                 if nums[mid] < target <= nums[end]:
                     start = mid + 1
                 else:
-                    end = end - 1
+                    end = mid - 1
 
         return -1
         

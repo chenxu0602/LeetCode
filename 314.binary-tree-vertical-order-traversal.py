@@ -120,7 +120,7 @@ class Solution:
 
         # Time  complexity: O(N)
         # Space compleixty: O(N)
-        if root is None: return []
+        # if root is None: return []
         # cols = defaultdict(list)
         # min_col = max_col = 0
         # queue = deque([(root, 0)])
