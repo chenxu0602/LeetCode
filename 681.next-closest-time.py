@@ -49,9 +49,9 @@ class Solution:
     def nextClosestTime(self, time: str) -> str:
         self.start = Time(time)
         digits = set(time).difference(':')
-        return min(self.getAllTimes(digits), key=self.getDiffFromeStart).time
+        return min(self.getAllTimes(digits), key=self.getDiffFromStart).time
 
-    def getDiffFromeStart(self, time):
+    def getDiffFromStart(self, time):
         diff = time.minutesFromMidNight - self.start.minutesFromMidNight
         if diff <= 0:
             diff += 60 * 24

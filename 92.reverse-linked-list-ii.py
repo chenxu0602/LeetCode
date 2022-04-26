@@ -73,10 +73,7 @@ class Solution:
         tail, con = cur, pre
 
         while n:
-            next = cur.next
-            cur.next = pre
-            pre = cur
-            cur = next
+            cur.next, pre, cur = pre, cur, cur.next
             n -= 1
 
         if con:

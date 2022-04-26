@@ -64,8 +64,8 @@ class Solution:
         # return dfs(0, 0)
 
 
-        # Time  complexity: O(n)
-        # Space complexity: O(n)
+        # Time  complexity: O(txn)
+        # Space complexity: O(txn)
         if len(nums) == 0: return 0
 
         prev = defaultdict(int)

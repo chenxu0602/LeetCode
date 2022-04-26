@@ -49,6 +49,8 @@
 class Solution:
     def sortedSquares(self, A: List[int]) -> List[int]:
         # O(N)
+
+        """
         N = len(A)
 
         if A[0]*A[-1] >= 0:
@@ -81,5 +83,22 @@ class Solution:
             j += 1
 
         return ans
+        """
+
+        n = len(A)
+        result = [0] * n
+        left, right = 0, n - 1
+
+        for i in range(n - 1, -1, -1):
+            if abs(A[left]) < abs(A[right]):
+                square = A[right]
+                right -= 1
+            else:
+                square = A[left]
+                left += 1
+
+            result[i] = square * square
+
+        return result
         
 

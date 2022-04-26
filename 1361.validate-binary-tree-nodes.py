@@ -72,41 +72,37 @@
 #
 
 # @lc code=start
-class DSU:
-    def __init__(self, N):
-        self.par = list(range(N))
-        self.rnk = [0] * N
-
-    def find(self, x):
-        if self.par[x] != x:
-            self.par[x] = self.find(self.par[x])
-        return self.par[x]
-
-    def union(self, x, y):
-        xr, yr = map(self.find, (x, y))
-        if xr == yr: return False
-        if self.rnk[xr] < self.rnk[yr]:
-            xr, yr = yr, xr
-        if self.rnk[xr] == self.rnk[yr]:
-            self.rnk[xr] += 1
-        self.par[yr] = xr
-        return True
+from collections import deque
 
 class Solution:
     def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
-        # O(n)
-        dsu = DSU(n)
+
+        childrenNodes = set(leftChild + rightChild)
+        root = 0
         for i in range(n):
-            left, right = leftChild[i], rightChild[i]
-            if left >= 0:
-                if not dsu.union(i, left):
-                    return False
-            if right >= 0:
-                if not dsu.union(i, right):
-                    return False
-                
-        roots = [dsu.find(i) for i in range(n)]
-        return len(set(roots)) == 1
+            if not i in childrenNodes:
+                root = i
+                break
+
+        queue = deque([root,])
+        visited = set()
+        while queue:
+            node = queue.popleft()
+
+            if node in visited:
+                return False
+
+            visited.add(node)
+
+            if leftChild[node] != -1:
+                queue.append(leftChild[node])
+
+            if rightChild[node] != -1:
+                queue.append(rightChild[node])
+
+        return len(visited) == n
+
+
         
 # @lc code=end
 

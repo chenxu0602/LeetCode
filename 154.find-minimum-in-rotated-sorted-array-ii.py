@@ -53,10 +53,8 @@ class Solution:
 
             if nums[mid] > nums[high]:
                 low = mid + 1
-            elif nums[mid] < nums[high]:
+            else nums[mid] < nums[high]:
                 high = mid
-            else:
-                high -= 1
 
         return nums[low]
 
