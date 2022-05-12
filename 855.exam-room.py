@@ -91,10 +91,10 @@ class ExamRoom:
                 if d > dist:
                     dist, student = d, prev + d
 
-            # Considering the right-most seat.
-            d = self.N - 1 - self.students[-1]
-            if d > dist:
-                student = self.N - 1
+        # Considering the right-most seat.
+        d = self.N - 1 - self.students[-1]
+        if d > dist:
+            student = self.N - 1
 
 
         # Add the student to our sorted list of positions.

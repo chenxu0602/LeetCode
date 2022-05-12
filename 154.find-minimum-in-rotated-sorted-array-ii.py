@@ -55,6 +55,8 @@ class Solution:
                 low = mid + 1
             else nums[mid] < nums[high]:
                 high = mid
+            else:
+                high -= 1
 
         return nums[low]
 

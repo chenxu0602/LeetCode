@@ -87,11 +87,11 @@ class Solution:
             if not node:
                 return True, -1
 
-            leftIsBalanced, leftHeight = helper(root.left)
+            leftIsBalanced, leftHeight = helper(node.left)
             if not leftIsBalanced:
                 return False, 0
 
-            rightIsBalanced, rightHeight = helper(root.right)
+            rightIsBalanced, rightHeight = helper(node.right)
             if not rightHeight:
                 return False, 0
 

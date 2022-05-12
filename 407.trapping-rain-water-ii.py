@@ -74,7 +74,7 @@ class Solution:
         visited = {(r, c) for _, r, c in heap}
 
         while heap:
-            h, r, c = heappop(heap)
+            h, r, c = heapq.heappop(heap)
             for dr, dc in (1, 0), (-1, 0), (0, 1), (0, -1):
                 r1, c1 = r + dr, c + dc
                 if (r1, c1) not in visited and 0 <= r1 < m and 0 <= c1 < n:

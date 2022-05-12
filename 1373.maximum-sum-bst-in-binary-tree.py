@@ -90,7 +90,7 @@
 #         self.right = right
 class Solution:
     def maxSumBST(self, root: TreeNode) -> int:
-        # 1. the status of this subtree, 1 means it's empty, 2 means it's a BST, 0 means     it's not a BST
+        # 1. the status of this subtree, 1 means it's empty, 2 means it's a BST, 0 means it's not a BST
         # 2. size of this subtree (we only care about size of BST though)
         # 3. the minimal value in this subtree
         # 4. the maximal value in this subtree

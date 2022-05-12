@@ -74,7 +74,7 @@ class Solution:
         # Time  complexity: O(n^2)
         # Space complexity: O(n)
         def dfs(M, visited, i):
-            for j in range(len(M)):
+            for j in range(len(M[i])):
                 if M[i][j] == 1 and visited[j] == 0:
                     visited[j] = 1
                     dfs(M, visited, j)
@@ -111,7 +111,7 @@ class Solution:
         # return sum(parent[i] == i for i in range(len(M)))
 
         # Breadth First Search
-        # Time  complexity: O(n^3)
+        # Time  complexity: O(n^2)
         # Space complexity: O(n)
         # visited = [0] * len(M)
         # count = 0

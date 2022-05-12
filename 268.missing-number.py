@@ -38,7 +38,7 @@
 # @lc code=start
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        # Because we know that nums contains nn numbers and that it is missing exactly one number on the range [0..n-1][0..n−1], we know that nn definitely replaces the missing number in nums. Therefore, if we initialize an integer to nn and XOR it with every index and value, we will be left with the missing number. 
+        # Because we know that nums contains n numbers and that it is missing exactly one number on the range [0..n-1][0..n−1], we know that n definitely replaces the missing number in nums. Therefore, if we initialize an integer to n and XOR it with every index and value, we will be left with the missing number. 
         missing = len(nums)
         for i, num in enumerate(nums):
             missing ^= i ^ num

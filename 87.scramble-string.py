@@ -80,7 +80,10 @@
 #
 
 # @lc code=start
+from functools import lru_cache
+
 class Solution:
+    @lru_cache(None)
     def isScramble(self, s1: str, s2: str) -> bool:
         if not len(s1) == len(s2): return False
 
