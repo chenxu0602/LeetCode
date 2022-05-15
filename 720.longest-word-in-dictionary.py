@@ -73,7 +73,7 @@ class Solution:
         for i, word in enumerate(words):
             reduce(dict.__getitem__, word, trie)[END] = i
 
-        stack = trie.values()
+        stack = list(trie.values())
         ans = ""
         while stack:
             cur = stack.pop()
