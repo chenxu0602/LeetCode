@@ -55,15 +55,13 @@ class Solution:
 
         # def backtrack(currNode, path):
         #     if currNode == target:
-        #         results.append(list(path))
+        #         results.append(path)
         #         return
 
         #     for nextNode in graph[currNode]:
-        #         path.append(nextNode)
-        #         backtrack(nextNode, path)
-        #         path.pop()
+        #         backtrack(nextNode, path + [nextNode])
 
-        # path = deque([0])
+        # path = [0]
         # backtrack(0, path)
 
         # return results
