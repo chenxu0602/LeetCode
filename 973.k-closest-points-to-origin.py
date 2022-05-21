@@ -70,7 +70,6 @@ class Solution:
         # points.sort(key=lambda P: P[0]**2 + P[1]**2)
         # return points[:K]
 
-
         # Heap
         # Time  complexity: O(NlogN)
         # Space complexity: O(K)
@@ -82,7 +81,6 @@ class Solution:
         #     else:
         #         heapq.heappush(heap, (dist, x, y))
         # return [(x, y) for dist, x, y in heap]
-
 
         # QuickSelect
         # Time  complexity: O(N) in average case and O(N^2) in the worst case.
@@ -108,6 +106,9 @@ class Solution:
 
         quickSelect(0, len(points) - 1, K)
         return points[:K]
+
+
+
 
 
 
