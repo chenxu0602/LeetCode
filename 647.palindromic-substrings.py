@@ -52,13 +52,34 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
 
-        L, r = len(s), 0
-        for i in range(L):
-            for a, b in (i, i), (i, i + 1):
-                while a >= 0 and b < L and s[a] == s[b]:
-                    a -= 1; b += 1
-                r += (b - a) // 2
-        return r
+        # L, r = len(s), 0
+        # for i in range(L):
+        #     for a, b in (i, i), (i, i + 1):
+        #         while a >= 0 and b < L and s[a] == s[b]:
+        #             a -= 1; b += 1
+        #         r += (b - a) // 2
+        # return r
+
+        n, ans = len(s), 0
+        if n <= 0: return 0
+
+        dp = [[0] * n for _ in range(n)]
+
+        for i in range(n):
+            dp[i][i] = 1
+            ans += 1
+
+        for i in range(n - 1):
+            dp[i][i + 1] = int(s[i] == s[i + 1])
+            ans += dp[i][i + 1]
+
+        for l in range(3, n + 1):
+            for i in range(n - l + 1):
+                j = i + l - 1
+                dp[i][j] = int(dp[i + 1][j - 1] and (s[i] == s[j]))
+                ans += dp[i][j]
+
+        return ans
 
         
 # @lc code=end
