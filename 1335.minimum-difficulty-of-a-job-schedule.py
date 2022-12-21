@@ -83,7 +83,7 @@ from functools import lru_cache
 
 class Solution:
     def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:
-        # dfs help find the minimumu difficulty if start work at ith join with d days left.
+        # dfs help find the minimum difficulty if start work at ith join with d days left.
         # Time  complexity: O(nnd)
         # Space complexity: O(nd)
         @lru_cache(None)
