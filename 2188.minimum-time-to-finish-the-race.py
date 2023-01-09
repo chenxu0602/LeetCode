@@ -17,7 +17,7 @@ class Solution:
         for i in range(n):
             without_change[i][1] = tires[i][0]
             for j in range(2, 20):
-                without_change[i][j] = without_change[i][j - 1] * tires[i][1];
+                without_change[i][j] = without_change[i][j - 1] * tires[i][1]
 
             for j in range(2, 20):
                 without_change[i][j] += without_change[i][j - 1]

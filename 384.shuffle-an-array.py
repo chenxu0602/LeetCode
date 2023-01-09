@@ -34,6 +34,8 @@
 # 
 # 
 #
+
+# Fisher-Yates Algorithm
 from random import randrange
 
 # @lc code=start

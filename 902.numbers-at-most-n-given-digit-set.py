@@ -87,7 +87,7 @@ class Solution:
                 elif d == S[i]:
                     dp[i] += dp[i + 1]
 
-        return dp[0] + sum(len(digits) ** i for i in range(1, K))
+        return dp[0] + sum(len(digits) ** i for i in range(1, K)) # The 2nd part is for number that has a length smaller than K
 
 
         # Mathematical

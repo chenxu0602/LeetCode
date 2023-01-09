@@ -67,7 +67,7 @@ class Solution:
         # Using Greedy Approach based on starting points 
         # Time  complexity: O(nlogn)
         # Space complexity: O(1)
-        intervals.sort()
+        # intervals.sort()
         # res = lo = 0
         # for hi in range(1, len(intervals)):
         #     if intervals[lo][1] > intervals[hi][0]:

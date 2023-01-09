@@ -58,7 +58,7 @@ class Solution:
     def minimumTimeRequired(self, jobs: List[int], k: int) -> int:
         # DFS
         # we assign the most time consuming work first.
-        # Assign a work to totally free work only once.
+        # Assign a work to totally free worker only once.
         # Update the res and don't go forward if work load already >= result
         # n = len(jobs)
         # jobs.sort(reverse=True)
