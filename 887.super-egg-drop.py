@@ -133,7 +133,7 @@ class Solution:
         #         # Increase our optimal x while we can make our answer better.
         #         # Notice max(dp[x-1], dp2[n-x]) > max(dp[x], dp2[n-x-1])
         #         # is simply max(T1(x-1), T2(x-1)) > max(T1(x), T2(x)).
-        #         while x < n and max(dp[x - 1], dp2[n - x]) > max(dp[x] ,dp2[n - x - 1]):
+        #         while x < n and max(dp[x - 1], dp2[n - x]) > max(dp[x], dp2[n - x - 1]):
         #             x += 1
 
         #         # The final answer happens at this x.
