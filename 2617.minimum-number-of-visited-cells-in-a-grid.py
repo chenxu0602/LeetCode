@@ -11,6 +11,9 @@ import heapq
 class Solution:
     def minimumVisitedCells(self, grid: List[List[int]]) -> int:
 
+        # For every row and column store a minHeap with values being a tuple of (score, maxReachablRow/Col) . And always pick the smallest score from both minHeaps.
+        # Then for every cell we'll just pick the smallest score from row or column that can be obtained based on previous cells in row/col.
+
         # Time  complexity: O(mn(mlogm + nlogn))
         # Space complexity: O(mn)
 
