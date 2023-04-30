@@ -8,7 +8,6 @@
 class Solution:
     def smallestBeautifulString(self, s: str, k: int) -> str:
 
-        """
         A = [ord(c) - ord('a') for c in s]
         n = len(A)
         i = n - 1
@@ -25,8 +24,8 @@ class Solution:
             A[j] = min({0, 1, 2} - set(A[max(0, j - 2):j]))
 
         return "".join(chr(ord('a') + a) for a in A)
-        """
 
+        """
         # To make lexicographically smallest greater string, we need to check from right to left (similar to next greater integer). While traversing from right to left, we update last alphabet from right. While incrementing the last letter each time, we make sure that formed string contains first kkk letters and does not contain any substring as a palindrome.
         s = list(s)
         i = len(s) - 1
@@ -42,6 +41,7 @@ class Solution:
                 i += 1
 
         return "" if i < 0 else "".join(s)
+        """
 
 
         
