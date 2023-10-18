@@ -116,7 +116,6 @@ class LFUCache:
         freq = node.freq
         self._freq[freq].append(node)
         
-
     def get(self, key: int) -> int:
         if key not in self._node:
             return -1

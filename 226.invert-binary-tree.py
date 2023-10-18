@@ -57,27 +57,10 @@ class Solution:
 
         # O(n)
 
-        # if not root: 
-        #     return root
-        # root.left, root.right = map(self.invertTree, (root.right, root.left))
-        # return root
-
-        if not root:
+        if not root: 
             return root
-
-        queue = deque([root,])
-        while queue:
-            current = queue.popleft()
-            current.left, current.right = current.right, current.left
-
-            if current.left:
-                queue.append(current.left)
-
-            if current.right:
-                queue.append(current.right)
-
+        root.left, root.right = map(self.invertTree, (root.right, root.left))
         return root
-
 
         
 # @lc code=end

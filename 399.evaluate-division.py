@@ -76,6 +76,7 @@ class Solution:
                 for y, k in g[x]:
                     if y not in seen:
                         q.append((y, v * k))
+                        seen.add(y)
 
             return -1.0
 
