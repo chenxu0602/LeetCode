@@ -5,7 +5,6 @@
 #
 
 # @lc code=start
-import quopri
 
 
 class Solution:
