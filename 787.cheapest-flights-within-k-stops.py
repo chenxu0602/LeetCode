@@ -90,12 +90,9 @@ class Solution:
             for nei in range(n):
                 if adj_matrix[node][nei] > 0:
                     dU, dV, wUV = cost, distances[nei], adj_matrix[node][nei]
-                    if dU + wUV < dV:
+                    if dU + wUV < dV or stops + 1 < current_stops[nei]:
                         distances[nei] = dU + wUV
-                        current_stops[nei] = stops
-                        heapq.heappush(minHeap, (dU + wUV, stops + 1, nei))
-                    elif stops < current_stops[nei]:
-                        current_stops[nei] = stops
+                        current_stops[nei] = stops + 1
                         heapq.heappush(minHeap, (dU + wUV, stops + 1, nei))
 
         return -1 if distances[dst] == float("inf") else distances[dst]
