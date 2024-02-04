@@ -93,7 +93,7 @@ import heapq
 class Solution:
     def getOrder(self, tasks: List[List[int]]) -> List[int]:
         res = []
-        tasks = sorted([(t[0], t[1], i) for i, t in enumerate((tasks))])
+        tasks = sorted([(t[0], t[1], i) for i, t in enumerate(tasks)])
         i, h = 0, []
 
         time = tasks[0][0]

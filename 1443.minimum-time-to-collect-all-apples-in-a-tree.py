@@ -78,21 +78,20 @@ from collections import defaultdict
 
 class Solution:
     def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
-        graph = defaultdict(set)    
-        for f, t in edges:
-            graph[f].add(t)
 
-        def dfs(node, cost, hasApple):
-            children_cost = 0    
-            for c in graph[node]:
-                children_cost += dfs(c, 2, hasApple)
+        def dfs(node, prev):
+            for nei in graph[node]:
+                if nei != prev and dfs(nei, node):
+                    hasApple[node] = True
+            return hasApple[node]
 
-            if not children_cost and not hasApple[node]:
-                return 0    
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u] += v,
+            graph[v] += u,
 
-            return children_cost + cost
-
-        return dfs(0, 0, hasApple)
+        dfs(0, -1)
+        return (sum(hasApple) - hasApple[0]) * 2
         
 # @lc code=end
 
