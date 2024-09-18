@@ -17,6 +17,7 @@ class Solution:
         differences = sorted(max(k - x, y) for x, y in pairs)  # max possible difference obtainable by changing 1 number
         ctr = Counter(map(lambda x: x[1] - x[0], pairs))
 
+        # The left side (with small difference) need to change 2 numbers
         return min(bisect_left(differences, key) + n - ctr[key] for key in ctr)
 
         
