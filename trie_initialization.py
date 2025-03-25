@@ -30,3 +30,11 @@ def replace(word):
         return sum(len(word) + 1 
                    for i, word in enumerate(words)
                    if len(nodes[i]) == 0)
+
+
+trie = {}
+for word in words:
+    node = trie
+    for c in word:
+        node = node.setdefault(c, {})
+    node['#'] = word
